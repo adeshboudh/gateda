@@ -30,7 +30,7 @@ aux_links:
     - "https://github.com/adeshboudh/gateda"
 aux_links_new_tab: true
 
-color_scheme: light
+color_scheme: dark
 
 # Files/dirs Jekyll should ignore
 exclude:
