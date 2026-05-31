@@ -209,7 +209,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 ## Answer Key & Full Solutions
 
-**Q1 — (A) ₹6,100.** Mean $X = (5\times20 + 6\times40 + 7\times30 + 8\times10)/100 = 630/100 = 6.3$. Earnings $= 1000(6.3 - 0.2) = 1000(6.1) = ₹6{,}100$.
+**Q1 — (A) ₹6,100.** Mean $X = (5\times20 + 6\times40 + 7\times30 + 8\times10)/100 = 630/100 = 6.3$. Earnings $= 1000(6.3 - 0.2) = 1000(6.1) = 6100$, i.e. ₹6,100.
 
 **Q2 — 8.** Mean $= 25/5 = 5$; squared deviations 16, 4, 0, 4, 16 → sum 40; population variance $= 40/5 = 8$.
 
