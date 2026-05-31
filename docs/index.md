@@ -6,6 +6,5 @@ has_children: true
 
 # Strategy & Roadmap
 
-{% assign pages = site.pages | where: "parent", "Strategy & Roadmap" | sort: "nav_order" %}
-{% for p in pages %}- [{{ p.title }}]({{ p.url | relative_url }})
-{% endfor %}
+- [Prep Strategy](GATE_DA_2027_prep_strategy)
+- [Topic Analysis](GATE_DA_topic_analysis)

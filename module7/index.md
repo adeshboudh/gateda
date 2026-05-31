@@ -6,6 +6,6 @@ has_children: true
 
 # Module 7: Calculus & Optimization
 
-{% assign pages = site.pages | where: "parent", "Module 7: Calculus & Optimization" | sort: "nav_order" %}
-{% for p in pages %}- [{{ p.title }}]({{ p.url | relative_url }})
-{% endfor %}
+- [7.1 Limits, Continuity & Series](gate-da-co-module-7-1-limits-continuity-series)
+- [7.2 Differentiability & Taylor Series](gate-da-co-module-7-2-differentiability-taylor-series)
+- [7.3 Maxima, Minima & Optimization](gate-da-co-module-7-3-maxima-minima-optimization)

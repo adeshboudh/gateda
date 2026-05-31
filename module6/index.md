@@ -6,6 +6,8 @@ has_children: true
 
 # Module 6: Artificial Intelligence
 
-{% assign pages = site.pages | where: "parent", "Module 6: Artificial Intelligence" | sort: "nav_order" %}
-{% for p in pages %}- [{{ p.title }}]({{ p.url | relative_url }})
-{% endfor %}
+- [6.1 Uninformed & Informed Search](gate-da-ai-module-6-1-uninformed-informed-search)
+- [6.2 Adversarial Search](gate-da-ai-module-6-2-adversarial-search-minimax-alpha-beta-pruning)
+- [6.3 Propositional Logic](gate-da-ai-module-6-3-propositional-logic)
+- [6.4 First-Order Predicate Logic](gate-da-ai-module-6-4-first-order-predicate-logic)
+- [6.5 Reasoning Under Uncertainty](gate-da-ai-module-6-5-reasoning-under-uncertainty-bayesian-networks)
