@@ -16,7 +16,7 @@ nav_order: 4
 - **2025 Q52** (MSQ) — the isometry $\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert$ forces $A$ orthogonal.
 - **2026 Q52** (MSQ) — the centering matrix $I-\tfrac1n\mathbf 1\mathbf 1^\top$.
 
-> **Why it matters:** these reduce to a tiny set of facts — **idempotent $\Rightarrow$ eigenvalues $0/1$, trace $=$ rank**; **orthogonal $\Rightarrow \lvert\lambda\rvert=1$ (possibly complex)**; **symmetric $+$ idempotent $=$ orthogonal projection**. Recognize the form and every option resolves instantly.
+> **Why it matters:** these reduce to a tiny set of facts — **idempotent $\Rightarrow$ eigenvalues $0/1$, trace $=$ rank**; **orthogonal $\Rightarrow \lvert \lambda\rvert=1$ (possibly complex)**; **symmetric $+$ idempotent $=$ orthogonal projection**. Recognize the form and every option resolves instantly.
 
 ## Part 1 — Theory & Math
 
@@ -27,7 +27,7 @@ nav_order: 4
 ### B. Orthogonal matrices ($Q^\top Q=QQ^\top=I$)
 - Columns are **orthonormal**; $Q^{-1}=Q^\top$.
 - **Preserve length & angle:** $\lVert Q\mathbf x\rVert=\lVert\mathbf x\rVert$ and $(Q\mathbf x)^\top(Q\mathbf y)=\mathbf x^\top\mathbf y$.
-- $\det Q=\pm1$; every eigenvalue has $\lvert\lambda\rvert=1$ — but may be **complex** (rotations give $e^{\pm i\theta}$).
+- $\det Q=\pm1$; every eigenvalue has $\lvert \lambda\rvert=1$ — but may be **complex** (rotations give $e^{\pm i\theta}$).
 - **Isometry characterization:** $\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert\ \forall\mathbf x \iff A^\top A=I \iff A$ orthogonal.
 - Examples: rotations, reflections, permutation matrices.
 
@@ -51,7 +51,7 @@ nav_order: 4
 | Type | Defining property | Eigenvalues |
 | --- | --- | --- |
 | diagonal / triangular | — | diagonal entries |
-| orthogonal | $Q^\top Q=I$ | $\lvert\lambda\rvert=1$ |
+| orthogonal | $Q^\top Q=I$ | $\lvert \lambda\rvert=1$ |
 | idempotent (projection) | $P^2=P$ | $0,1$ |
 | involutory (reflection) | $A^2=I$ | $\pm1$ |
 | nilpotent | $A^k=0$ | all $0$ |
@@ -63,7 +63,7 @@ nav_order: 4
 For a **symmetric PSD** matrix (e.g. a projection), **singular values $=$ eigenvalues**. So a projection's singular values are $0$ or $1$ (used again in 5.6 SVD).
 
 ### H. Traps GATE exploits
-1. **Orthogonal $\ne$ real $\pm1$ eigenvalues** — rotations have complex $e^{\pm i\theta}$ (only $\lvert\lambda\rvert=1$ is guaranteed).
+1. **Orthogonal $\ne$ real $\pm1$ eigenvalues** — rotations have complex $e^{\pm i\theta}$ (only $\lvert \lambda\rvert=1$ is guaranteed).
 2. Projection onto a $k$-dim $U$ has null space of dim $n-k$ — don't swap them.
 3. $P^2=P\Rightarrow P^3=P$ (and $P^k=P$).
 4. **Trace of a projection $=$ its rank**, not $n$.
@@ -74,7 +74,7 @@ For a **symmetric PSD** matrix (e.g. a projection), **singular values $=$ eigenv
 
 ### Identify the type from the defining relation
 - $A^\top=A$ $\to$ **symmetric** (real eigenvalues, orthogonally diagonalizable).
-- $A^\top A=I$ $\to$ **orthogonal** ($\lvert\lambda\rvert=1$, preserves norm).
+- $A^\top A=I$ $\to$ **orthogonal** ($\lvert \lambda\rvert=1$, preserves norm).
 - $A^2=A$ $\to$ **idempotent/projection** (eigenvalues $0,1$; $\operatorname{tr}=\operatorname{rank}$).
 - $A^2=I$ $\to$ **involutory** (eigenvalues $\pm1$).
 
@@ -84,7 +84,7 @@ For a **symmetric PSD** matrix (e.g. a projection), **singular values $=$ eigenv
 - Verify $P^2=P$ and (orthogonal projection) $P^\top=P$.
 
 ### Isometry ($\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert$)
-- Square both sides $\Rightarrow \mathbf x^\top A^\top A\mathbf x=\mathbf x^\top\mathbf x\ \forall\mathbf x \Rightarrow A^\top A=I$ (orthogonal). So $A$ is full rank with $\lvert\lambda\rvert=1$, but eigenvalues may be **complex** and $A$ need **not** be $I$.
+- Square both sides $\Rightarrow \mathbf x^\top A^\top A\mathbf x=\mathbf x^\top\mathbf x\ \forall\mathbf x \Rightarrow A^\top A=I$ (orthogonal). So $A$ is full rank with $\lvert \lambda\rvert=1$, but eigenvalues may be **complex** and $A$ need **not** be $I$.
 
 ### $\sum \mathbf x_i\mathbf x_i^\top$ with orthonormal $\mathbf x_i$ (e.g. 2025 Q50)
 - $=$ orthogonal **projection** onto $\operatorname{span}\{\mathbf x_i\}$; rank $=$ #terms; eigenvalues $0/1$; symmetric PSD so singular values $=$ eigenvalues $\in\{0,1\}$; $\det=0$ and **not invertible** unless #terms $=n$.
@@ -144,7 +144,7 @@ For a **symmetric PSD** matrix (e.g. a projection), **singular values $=$ eigenv
 **Solve.** $\lVert A\mathbf x\rVert^2=\mathbf x^\top A^\top A\mathbf x=\mathbf x^\top\mathbf x$ for all $\mathbf x \Rightarrow A^\top A=I$, i.e. $A$ is **orthogonal**.
 - (A) **True.**
 - (B) **False** — any rotation, reflection, or permutation matrix also works.
-- (C) **False** — eigenvalues satisfy $\lvert\lambda\rvert=1$ but can be **complex** (a rotation has $e^{\pm i\theta}$), not just $\pm1$.
+- (C) **False** — eigenvalues satisfy $\lvert \lambda\rvert=1$ but can be **complex** (a rotation has $e^{\pm i\theta}$), not just $\pm1$.
 - (D) orthogonal $\Rightarrow$ invertible $\Rightarrow$ **full rank. True.**
 
 **Answer: (A) and (D).** *Trap:* (C) is the classic “orthogonal must be $\pm1$” mistake.
@@ -169,7 +169,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q6. ★★ (MSQ)** Let $P$ be a symmetric idempotent matrix. Which are TRUE?
 (A) $P$ is an orthogonal projection (B) eigenvalues of $P$ are $0$ or $1$ (C) $I-P$ is idempotent (D) $P$ is invertible
 
-**Q7. ★★ (MSQ)** Which matrices have **all** eigenvalues with $\lvert\lambda\rvert=1$?
+**Q7. ★★ (MSQ)** Which matrices have **all** eigenvalues with $\lvert \lambda\rvert=1$?
 (A) orthogonal (B) rotation (C) projection (D) reflection
 
 **Q8. ★★ (MCQ)** If $A^2=I$ (involutory), its eigenvalues are
@@ -194,7 +194,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q6 — (A), (B), (C).** Symmetric $+$ idempotent $=$ orthogonal projection (A), eigenvalues $0/1$ (B); $(I-P)^2=I-2P+P^2=I-P$ (C). (D) false unless $P=I$.
 
-**Q7 — (A), (B), (D).** Orthogonal matrices (incl. rotations and reflections) have $\lvert\lambda\rvert=1$. A **projection** has eigenvalue $0$ (with $\lvert\lambda\rvert=0$), so (C) is excluded.
+**Q7 — (A), (B), (D).** Orthogonal matrices (incl. rotations and reflections) have $\lvert \lambda\rvert=1$. A **projection** has eigenvalue $0$ (with $\lvert \lambda\rvert=0$), so (C) is excluded.
 
 **Q8 — (B) $\pm1$.** $A^2=I\Rightarrow\lambda^2=1\Rightarrow\lambda=\pm1$.
 
@@ -207,4 +207,4 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 ### How to read your score
 - **8–10:** special matrices are solid — on to **5.5 Quadratic Forms & Positive-Definiteness**.
 - **6–7:** re-drill **projection trace/rank/null-space** (Q3, Q4, Q9) and the **orthogonal-eigenvalue** fact (Q5, Q7).
-- **≤5:** re-read Part 1 B–E; lock in *idempotent $\Rightarrow 0/1$, trace $=$ rank*, *orthogonal $\Rightarrow\lvert\lambda\rvert=1$ (maybe complex)*, and *symmetric $+$ idempotent $=$ orthogonal projection*.
+- **≤5:** re-read Part 1 B–E; lock in *idempotent $\Rightarrow 0/1$, trace $=$ rank*, *orthogonal $\Rightarrow\lvert \lambda\rvert=1$ (maybe complex)*, and *symmetric $+$ idempotent $=$ orthogonal projection*.

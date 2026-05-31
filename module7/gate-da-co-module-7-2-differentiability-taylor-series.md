@@ -23,7 +23,7 @@ nav_order: 2
 
 ### A. Derivative & differentiability
 $$f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}\quad(\text{if it exists}).$$
-**Differentiable at $a$ $\Rightarrow$ continuous at $a$** — but **not conversely** ($|x|$ is continuous at $0$, not differentiable).
+**Differentiable at $a$ $\Rightarrow$ continuous at $a$** — but **not conversely** ($\lvert x\rvert$ is continuous at $0$, not differentiable).
 
 ### B. Differentiation rules
 - **Power:** $\dfrac{d}{dx}x^n=n x^{n-1}$. **Product:** $(fg)'=f'g+fg'$. **Quotient:** $\left(\dfrac fg\right)'=\dfrac{f'g-fg'}{g^2}$ ($g\ne0$). **Chain:** $(f\circ g)'(x)=f'(g(x))\,g'(x)$.
@@ -46,7 +46,7 @@ $$\sinh x=x+\frac{x^3}{3!}+\cdots\ (\text{odd only}),\quad \cosh x=1+\frac{x^2}{
 
 ### F. Piecewise differentiability & Lipschitz conditions
 - **Piecewise** at a boundary: differentiable there iff (i) **continuous** (pieces agree) **and** (ii) **equal one-sided derivatives**. *(2024 Q37.)*
-- **Lipschitz of order $>1$:** if $|f(x)-f(y)|\le K|x-y|^\alpha$ with $\alpha>1$, then $|f'(x)|\le\lim_{y\to x}K|x-y|^{\alpha-1}=0$, so $f'\equiv0$ and $f$ is **constant**. *(2025 Q59 has $\alpha=2$.)*
+- **Lipschitz of order $>1$:** if $\lvert f(x)-f(y)\rvert\le K\lvert x-y\rvert^\alpha$ with $\alpha>1$, then $\lvert f'(x)\rvert\le\lim_{y\to x}K\lvert x-y\rvert^{\alpha-1}=0$, so $f'\equiv0$ and $f$ is **constant**. *(2025 Q59 has $\alpha=2$.)*
 
 ### G. Traps GATE exploits
 1. **Differentiable $\Rightarrow$ continuous**, never the reverse.
@@ -54,7 +54,7 @@ $$\sinh x=x+\frac{x^3}{3!}+\cdots\ (\text{odd only}),\quad \cosh x=1+\frac{x^2}{
 3. **Piecewise** differentiability needs continuity **and** matching one-sided derivatives.
 4. Even derivatives of an **odd** function vanish at $0$ (and vice versa).
 5. Taylor coefficient of $x^n$ is $f^{(n)}(0)/n!$.
-6. $|f(x)-f(y)|\le(x-y)^2$ forces $f$ **constant**.
+6. $\lvert f(x)-f(y)\rvert\le(x-y)^2$ forces $f$ **constant**.
 
 ## Part 2 — How to Solve (Method)
 
@@ -73,7 +73,7 @@ Recognize the function's Maclaurin series; $f^{(n)}(0)=n!\cdot[\text{coeff of }x
 Sum / product / quotient (denominator $\ne0$) of functions differentiable at $c$ are differentiable at $c$; a **composition** also needs differentiability at the **image** point.
 
 ### Lipschitz $\Rightarrow$ constant (2025 Q59)
-$|f(x)-f(y)|\le(x-y)^2\Rightarrow\left|\frac{f(x)-f(y)}{x-y}\right|\le|x-y|\to0\Rightarrow f'\equiv0\Rightarrow f$ constant.
+$\lvert f(x)-f(y)\rvert\le(x-y)^2\Rightarrow\left\lvert \frac{f(x)-f(y)}{x-y}\right\rvert\le\lvert x-y\rvert\to0\Rightarrow f'\equiv0\Rightarrow f$ constant.
 
 ### Mistakes that cost marks
 - Assuming continuous $\Rightarrow$ differentiable.
@@ -117,11 +117,11 @@ From the two derivative equations: add $\Rightarrow 2b=0\Rightarrow b=0$; then $
 ---
 
 ### Example 4 — A Lipschitz bound forces a constant *(2025 Q59 · NAT)*
-**Q.** $f:\mathbb{R}\to\mathbb{R}$ satisfies $|f(x)-f(y)|\le(x-y)^2$ for all $x,y$. Find $f(1)-f(0)$.
+**Q.** $f:\mathbb{R}\to\mathbb{R}$ satisfies $\lvert f(x)-f(y)\rvert\le(x-y)^2$ for all $x,y$. Find $f(1)-f(0)$.
 
-**Solve.** For $x\ne y$, divide by $|x-y|$:
-$$\left|\frac{f(x)-f(y)}{x-y}\right|\le|x-y|.$$
-Let $y\to x$: the right side $\to0$, so $|f'(x)|\le0$, i.e. $f'(x)=0$ for every $x$. Hence $f$ is **constant**, and $f(1)-f(0)=0$.
+**Solve.** For $x\ne y$, divide by $\lvert x-y\rvert$:
+$$\left\lvert \frac{f(x)-f(y)}{x-y}\right\rvert\le\lvert x-y\rvert.$$
+Let $y\to x$: the right side $\to0$, so $\lvert f'(x)\rvert\le0$, i.e. $f'(x)=0$ for every $x$. Hence $f$ is **constant**, and $f(1)-f(0)=0$.
 
 **Answer: $0$.** *Method:* a power-$>1$ Lipschitz bound kills the derivative everywhere.
 
@@ -145,12 +145,12 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q6. ★★ (NAT)** For $f(x)=\cos x$, $f^{(4)}(0)=$ __________ .
 
-**Q7. ★★ (MCQ)** $f(x)=|x-2|$ fails to be differentiable at
+**Q7. ★★ (MCQ)** $f(x)=\lvert x-2\rvert$ fails to be differentiable at
 (A) $x=0$ (B) $x=2$ (C) every point (D) no point
 
 **Q8. ★★ (NAT)** For $f(x)=\begin{cases}x^2, & x\le1\\ 2x+b, & x>1\end{cases}$ to be differentiable at $x=1$, $b=$ __________ .
 
-**Q9. ★★★ (MCQ)** If $|f(x)-f(y)|\le 5\,|x-y|^2$ for all $x,y$, then $f$ is
+**Q9. ★★★ (MCQ)** If $\lvert f(x)-f(y)\rvert\le 5\,\lvert x-y\rvert^2$ for all $x,y$, then $f$ is
 (A) linear (B) constant (C) quadratic (D) discontinuous
 
 **Q10. ★★ (NAT)** $\dfrac{d}{dx}\big(x^2\ln x\big)$ evaluated at $x=1$ is __________ .
@@ -169,7 +169,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q6 — 1.** Cycle $\cos\to-\sin\to-\cos\to\sin\to\cos$; $f^{(4)}=\cos$, $\cos 0=1$.
 
-**Q7 — (B) $x=2$.** $|x-2|$ has a corner at $x=2$ (slopes $-1$ and $+1$).
+**Q7 — (B) $x=2$.** $\lvert x-2\rvert$ has a corner at $x=2$ (slopes $-1$ and $+1$).
 
 **Q8 — $-1$.** Continuity: $1=2+b\Rightarrow b=-1$; derivative check: left $2x=2$, right $2$ — they match, so $b=-1$ works.
 

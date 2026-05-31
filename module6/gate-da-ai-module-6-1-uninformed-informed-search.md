@@ -65,7 +65,7 @@ Given admissible $h_1,h_2$ (each $\le h^*$):
 ### F. Traps GATE exploits
 1. A\* needs **admissible** (tree) / **consistent** (graph) $h$ for optimality.
 2. **Greedy $\ne$ A\***: greedy ignores $g$, so it is not optimal.
-3. **$h_1+h_2$ is not admissible**; $\max,\min,\lvert\text{diff}\rvert,$ average are.
+3. **$h_1+h_2$ is not admissible**; $\max,\min,\lvert \text{diff}\rvert,$ average are.
 4. **BFS is optimal only for equal step costs** — use UCS for varying costs.
 5. **DFS is not optimal** and can fail to terminate in infinite spaces.
 6. A\* orders by $f=g+h$ — not by $h$ alone (greedy) or $g$ alone (UCS).

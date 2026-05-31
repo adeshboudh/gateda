@@ -57,7 +57,7 @@ If $\lambda$ is an eigenvalue of $A$ (eigenvector $\mathbf v$):
 | rank-1 update $cI+\mathbf u\mathbf v^\top$ | $c$ (multiplicity $n-1$) and $c+\mathbf v^\top\mathbf u$ (once) |
 | rotation $R(\theta)=\begin{bmatrix}\cos\theta & -\sin\theta\\ \sin\theta & \cos\theta\end{bmatrix}$ | $e^{\pm i\theta}=\cos\theta\pm i\sin\theta$ |
 | idempotent $A^2=A$ (projection) | $0$ or $1$ |
-| orthogonal | $\lvert\lambda\rvert=1$ |
+| orthogonal | $\lvert \lambda\rvert=1$ |
 | satisfies $p(A)=0$ | among the roots of $p$ |
 
 - **Rotation powers:** $R(\theta)^k=R(k\theta)$ — use **periodicity**, never multiply out.

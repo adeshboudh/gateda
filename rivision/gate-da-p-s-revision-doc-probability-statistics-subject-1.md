@@ -29,7 +29,7 @@ nav_order: 1
 - Permutations $^nP_r=\dfrac{n!}{(n-r)!}$; combinations $\binom{n}{r}=\dfrac{n!}{r!(n-r)!}$.
 - **Stars and bars:** non-negative integer solutions of $x_1+\cdots+x_k=n$ is $\binom{n+k-1}{k-1}$.
 - Axioms: $0\le P(A)\le1$, $P(S)=1$; **addition** $P(A\cup B)=P(A)+P(B)-P(A\cap B)$; complement $P(A^c)=1-P(A)$.
-- Equally-likely outcomes: $P(A)=\dfrac{|A|}{|S|}$.
+- Equally-likely outcomes: $P(A)=\dfrac{\lvert A\rvert}{\lvert S\rvert}$.
 
 **GATE angle:** count favourable vs total (often with combinations), divisibility/arrangement counts, “at least one” via the complement.
 

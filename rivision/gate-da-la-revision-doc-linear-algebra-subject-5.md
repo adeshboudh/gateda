@@ -38,7 +38,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 
 **Must know**
 - **Rank-nullity:** $\operatorname{rank}(A)+\operatorname{nullity}(A)=n$ (number of **columns**).
-- **$A\mathbf x=\mathbf b$:** consistent iff $\operatorname{rank}(A)=\operatorname{rank}([A\,|\,\mathbf b])$; unique iff that rank $=n$; else infinitely many.
+- **$A\mathbf x=\mathbf b$:** consistent iff $\operatorname{rank}(A)=\operatorname{rank}([A\,\mid \,\mathbf b])$; unique iff that rank $=n$; else infinitely many.
 - **Homogeneous** $A\mathbf x=\mathbf 0$: nontrivial solution iff $\operatorname{rank}<n$ (square: $\det=0$).
 - Shape facts: wide ($m<n$) never unique; square invertible $\Rightarrow$ all RHS unique.
 
@@ -62,7 +62,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 
 **Must know**
 - **Symmetric:** real eigenvalues, orthogonal eigenvectors (spectral theorem $A=Q\Lambda Q^\top$).
-- **Orthogonal** $Q^\top Q=I$: $\lvert\lambda\rvert=1$ (possibly complex), $\det=\pm1$, preserves norm (isometry $\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert\iff A$ orthogonal).
+- **Orthogonal** $Q^\top Q=I$: $\lvert \lambda\rvert=1$ (possibly complex), $\det=\pm1$, preserves norm (isometry $\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert\iff A$ orthogonal).
 - **Idempotent / projection** $P^2=P$: eigenvalues $0,1$; **trace $=$ rank**; symmetric+idempotent $=$ orthogonal projection; onto $k$-dim $U$, null space dim $n-k$.
 - **Centering matrix** $I-\tfrac1n\mathbf 1\mathbf 1^\top$: projection, eigenvalues $1$ ($n-1$ times) and $0$.
 
@@ -86,7 +86,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 
 **Must know**
 - **SVD** $A=U\Sigma V^\top$ ($U,V$ orthogonal, $\Sigma\ge0$); **singular values $=\sqrt{\lambda(A^\top A)}\ge0$**; **# nonzero singular values $=$ rank**.
-- **Symmetric PSD $\Rightarrow$ singular values $=$ eigenvalues**; symmetric $\Rightarrow\sigma=\lvert\lambda\rvert$.
+- **Symmetric PSD $\Rightarrow$ singular values $=$ eigenvalues**; symmetric $\Rightarrow\sigma=\lvert \lambda\rvert$.
 - **Rank-1** $\mathbf u\mathbf v^\top$: one nonzero singular value $\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; $\mathbf u\mathbf u^\top\to\lVert\mathbf u\rVert^2$.
 - **LU:** $A=LU$ from Gaussian elimination; $\det=\prod U_{ii}$; solve via forward + back substitution. *(No PYQ 2024–26 — efficient coverage.)*
 
@@ -100,7 +100,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 1. **Affine $\ne$ subspace**; independent $\ne$ orthonormal.
 2. **Rank-nullity counts columns**; check the **augmented** rank for consistency.
 3. **Real matrices can have complex eigenvalues** (rotations); $\det=\prod\lambda$, $\operatorname{tr}=\sum\lambda$.
-4. **Orthogonal $\Rightarrow\lvert\lambda\rvert=1$** (not necessarily $\pm1$); projection trace $=$ rank.
+4. **Orthogonal $\Rightarrow\lvert \lambda\rvert=1$** (not necessarily $\pm1$); projection trace $=$ rank.
 5. **Definiteness $=$ eigenvalue signs**; Rayleigh max $=\lambda_{\max}$.
 6. **$\sigma\ge0$, #nonzero $\sigma=$ rank**; symmetric PSD $\Rightarrow\sigma=\lambda$.
 

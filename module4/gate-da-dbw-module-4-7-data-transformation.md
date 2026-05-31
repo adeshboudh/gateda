@@ -24,7 +24,7 @@ nav_order: 7
 $$x' = \frac{x - \min}{\max - \min}\,(new_{\max} - new_{\min}) + new_{\min}.$$
 To the unit interval $[0,1]$: $\;x' = \dfrac{x - \min}{\max - \min}$.
 - **Z-score (standardization):** $\;x' = \dfrac{x - \mu}{\sigma}$ — centers to mean $0$, scales to SD $1$ (uses **mean and SD**, robust to range, sensitive to outliers via $\sigma$). *(This is 2024 Q27.)*
-- **Decimal scaling:** $x' = x / 10^{\,j}$ for the smallest $j$ making $\max |x'| < 1$.
+- **Decimal scaling:** $x' = x / 10^{\,j}$ for the smallest $j$ making $\max \lvert x'\rvert < 1$.
 
 ### B. Discretization / binning (continuous $\to$ discrete)
 - **Equal-width binning:** split the range into $k$ intervals of width $\dfrac{\max - \min}{k}$.

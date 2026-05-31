@@ -39,11 +39,11 @@ $f$ is **continuous at $a$** iff $\lim_{x\to a} f(x)=f(a)$ (the limit exists **a
 - Discontinuity types: **removable**, **jump**, **infinite**.
 
 ### D. Differentiability vs continuity
-**Differentiable $\Rightarrow$ continuous**, but **not conversely** ($|x|$ is continuous at $0$ but not differentiable). *(More in Module 7.2.)*
+**Differentiable $\Rightarrow$ continuous**, but **not conversely** ($\lvert x\rvert$ is continuous at $0$ but not differentiable). *(More in Module 7.2.)*
 
 ### E. Infinite geometric series
-$$\sum_{n=0}^{\infty} r^{\,n}=\frac{1}{1-r}\quad(|r|<1),\qquad \sum_{n=1}^{\infty} r^{\,n}=\frac{r}{1-r}.$$
-A **double sum of separable terms factors**: $\sum_i\sum_j a_i b_j=\big(\sum_i a_i\big)\big(\sum_j b_j\big)$. Geometric series converge iff $|r|<1$.
+$$\sum_{n=0}^{\infty} r^{\,n}=\frac{1}{1-r}\quad(\lvert r\rvert<1),\qquad \sum_{n=1}^{\infty} r^{\,n}=\frac{r}{1-r}.$$
+A **double sum of separable terms factors**: $\sum_i\sum_j a_i b_j=\big(\sum_i a_i\big)\big(\sum_j b_j\big)$. Geometric series converge iff $\lvert r\rvert<1$.
 
 ### F. Traps GATE exploits
 1. **Indeterminate forms** need work (L'Hôpital / Taylor), not substitution.
@@ -135,7 +135,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q4. ★★ (NAT)** $\displaystyle\lim_{x\to\infty}\big(\sqrt{x^2+3x}-x\big)=$ __________ .
 
-**Q5. ★★ (MCQ)** At $x=0$, the function $f(x)=|x|$ is
+**Q5. ★★ (MCQ)** At $x=0$, the function $f(x)=\lvert x\rvert$ is
 (A) discontinuous (B) continuous and differentiable (C) continuous but not differentiable (D) neither
 
 **Q6. ★★ (NAT)** $\displaystyle\sum_{n=0}^{\infty}\Big(\frac14\Big)^n=$ __________ .
@@ -159,7 +159,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q4 — 1.5.** Rationalize: $\dfrac{3x}{\sqrt{x^2+3x}+x}\to\dfrac{3}{1+1}=\dfrac32$.
 
-**Q5 — (C) continuous but not differentiable.** $|x|$ is continuous at $0$ but has a corner (left slope $-1$, right slope $+1$).
+**Q5 — (C) continuous but not differentiable.** $\lvert x\rvert$ is continuous at $0$ but has a corner (left slope $-1$, right slope $+1$).
 
 **Q6 — 4/3 ($\approx1.33$).** $\dfrac{1}{1-1/4}=\dfrac{1}{3/4}=\dfrac43$.
 

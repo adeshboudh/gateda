@@ -69,7 +69,7 @@ Condensed revision of **Subject 6** — must-knows, GATE angle, traps. Full deta
 ## 6.5 Reasoning Under Uncertainty (Bayes Nets)
 
 **Must know**
-- **Factorized joint** $P(X_1,\dots,X_n)=\prod_i P(X_i\mid\text{Parents}(X_i))$ (parents only).
+- **Factorized joint** $P(X_1,\dots,X_n)=\prod_i P(X_i\mid \text{Parents}(X_i))$ (parents only).
 - **d-separation:** chain $X\to Y\to Z$ and fork $X\leftarrow Y\to Z$ are **blocked** (independent) when $Y$ is observed; **collider** $X\to Y\leftarrow Z$ is the opposite — **opens** (dependent) when $Y$ or a descendant is observed.
 - **Inference:** variable elimination / enumeration $=$ **exact**; rejection / likelihood-weighting / Gibbs / MCMC $=$ **approximate**.
 

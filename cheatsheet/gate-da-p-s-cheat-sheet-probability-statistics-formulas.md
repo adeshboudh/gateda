@@ -12,7 +12,7 @@ $$^nP_r=\frac{n!}{(n-r)!},\qquad \binom{n}{r}=\frac{n!}{r!\,(n-r)!},\qquad \bino
 - **Stars & bars:** $x_1+\cdots+x_k=n$ (non-neg integers) $\Rightarrow\binom{n+k-1}{k-1}$ solutions.
 - $0\le P(A)\le1,\quad P(S)=1,\quad P(\varnothing)=0,\quad P(A^c)=1-P(A).$
 - $P(A\cup B)=P(A)+P(B)-P(A\cap B).$
-- Equally likely: $P(A)=\dfrac{|A|}{|S|}$.
+- Equally likely: $P(A)=\dfrac{\lvert A\rvert}{\lvert S\rvert}$.
 - “At least one” $=1-P(\text{none})$.
 
 ## Conditional Probability & Bayes

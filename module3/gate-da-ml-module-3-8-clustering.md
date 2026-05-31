@@ -42,7 +42,7 @@ HAC does **not** require $k$ in advance — you cut the dendrogram at a chosen h
 
 ### D. Distance metrics
 - **Euclidean:** $\sqrt{\sum_i (a_i - b_i)^2}$.
-- **Manhattan (L1):** $\sum_i |a_i - b_i|$ (used in 2026 Q36).
+- **Manhattan (L1):** $\sum_i \lvert a_i - b_i\rvert$ (used in 2026 Q36).
 
 ### E. Common traps GATE exploits
 1. **Single linkage $=$ min, complete linkage $=$ max** — the most-tested fact.
@@ -114,7 +114,7 @@ $d_{12}{=}1, d_{13}{=}4, d_{14}{=}3, d_{15}{=}6, d_{23}{=}3, d_{24}{=}5, d_{25}{
 **Q.** Points $P_1{=}(2,3,-1)$, $P_2{=}(3,1,1)$, $P_3{=}(5,-2,3)$, $P_4{=}(3,3,3)$. Using HAC with **Manhattan** distance, which pair merges first?
 (A) $P_1,P_2$ (B) $P_2,P_3$ (C) $P_3,P_4$ (D) $P_2,P_4$
 
-**Solve.** Manhattan $=$ sum of $|{\Delta}|$ per coordinate:
+**Solve.** Manhattan $=$ sum of $\lvert {\Delta}\rvert$ per coordinate:
 - $d(P_1,P_2)=1+2+2=5$; $d(P_1,P_3)=3+5+4=12$; $d(P_1,P_4)=1+0+4=5$
 - $d(P_2,P_3)=2+3+2=7$; $\mathbf{d(P_2,P_4)=0+2+2=4}$; $d(P_3,P_4)=2+5+0=7$
 
@@ -178,7 +178,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q4 — (B) an actual data point (medoid).** Unlike k-means (a computed mean), k-medoid picks a real point.
 
-**Q5 — 5.** $|1-4| + |2-0| + |3-3| = 3 + 2 + 0 = 5$.
+**Q5 — 5.** $\lvert 1-4\rvert + \lvert 2-0\rvert + \lvert 3-3\rvert = 3 + 2 + 0 = 5$.
 
 **Q6 — (A) A, B.** The smallest distance is $d(A,B) = 2$, so A and B merge first.
 

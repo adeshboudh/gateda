@@ -48,7 +48,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 
 **Must know**
 - **kNN:** lazy, distance-based; choose **odd $k$** to avoid ties; larger $k$ smooths.
-- **Naive Bayes:** assumes **conditional independence** of features given the class; $P(c\mid\mathbf x)\propto P(c)\prod_i P(x_i\mid c)$.
+- **Naive Bayes:** assumes **conditional independence** of features given the class; $P(c\mid \mathbf x)\propto P(c)\prod_i P(x_i\mid c)$.
 - **LDA:** generative, assumes shared covariance $\Rightarrow$ **linear** boundary. Nearest-centroid is also linear ($\lVert\cdot\rVert^2$ terms cancel).
 
 **GATE angle:** classify a query by kNN; naive-Bayes misclassification; identify linear vs nonlinear classifiers.

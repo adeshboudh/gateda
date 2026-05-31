@@ -33,13 +33,13 @@ $$\operatorname{rank}(A) + \operatorname{nullity}(A) = n \quad(\textbf{number of
 **Corollary:** a square $n\times n$ matrix is invertible $\iff \operatorname{nullity}=0 \iff \operatorname{rank}=n$.
 
 ### D. Solving $A\mathbf x=\mathbf b$ — the augmented-rank criterion
-Form the augmented matrix $[A\,|\,\mathbf b]$ and compare ranks. With $r=\operatorname{rank}(A)$ and $n$ unknowns:
+Form the augmented matrix $[A\,\mid \,\mathbf b]$ and compare ranks. With $r=\operatorname{rank}(A)$ and $n$ unknowns:
 
 | Condition | Number of solutions |
 | --- | --- |
-| $\operatorname{rank}(A) < \operatorname{rank}([A\,|\,\mathbf b])$ | **none** (inconsistent) |
-| $\operatorname{rank}(A) = \operatorname{rank}([A\,|\,\mathbf b]) = n$ | **exactly one** |
-| $\operatorname{rank}(A) = \operatorname{rank}([A\,|\,\mathbf b]) < n$ | **infinitely many** ($n-r$ free vars) |
+| $\operatorname{rank}(A) < \operatorname{rank}([A\,\mid \,\mathbf b])$ | **none** (inconsistent) |
+| $\operatorname{rank}(A) = \operatorname{rank}([A\,\mid \,\mathbf b]) = n$ | **exactly one** |
+| $\operatorname{rank}(A) = \operatorname{rank}([A\,\mid \,\mathbf b]) < n$ | **infinitely many** ($n-r$ free vars) |
 
 ### E. Homogeneous systems $A\mathbf x=\mathbf 0$
 - **Always consistent** ($\mathbf x=\mathbf 0$ works).
@@ -62,7 +62,7 @@ Back-substitution alone costs $\sum_{i=1}^{n}(n-i)=\dfrac{n(n-1)}{2}=O(n^2)$. *(
 - **Tall $m\times n$ with $m>n$** (more equations than unknowns): can have full column rank $n$ $\to$ **unique** when consistent, **none** when inconsistent.
 
 ### H. Traps GATE exploits
-1. **Consistency needs $\operatorname{rank}(A)=\operatorname{rank}([A|\mathbf b])$** — checking $\operatorname{rank}(A)$ alone is not enough.
+1. **Consistency needs $\operatorname{rank}(A)=\operatorname{rank}([A\mid \mathbf b])$** — checking $\operatorname{rank}(A)$ alone is not enough.
 2. A **wide** system ($m<n$) can never have a unique solution.
 3. $\det A = 0 \Rightarrow$ **no** solution *or* **infinitely many** (never unique) — which one depends on $\mathbf b$.
 4. Rank–nullity counts **columns** (unknowns), not rows.
@@ -70,7 +70,7 @@ Back-substitution alone costs $\sum_{i=1}^{n}(n-i)=\dfrac{n(n-1)}{2}=O(n^2)$. *(
 ## Part 2 — How to Solve (Method)
 
 ### Classify a system $A\mathbf x = \mathbf b$
-1. Row-reduce the **augmented** matrix $[A\,|\,\mathbf b]$.
+1. Row-reduce the **augmented** matrix $[A\,\mid \,\mathbf b]$.
 2. If a row reads $[\,0\ 0 \cdots 0 \mid c\,]$ with $c\ne0$ $\to$ **inconsistent, no solution**.
 3. Otherwise let $r=\operatorname{rank}(A)$ and $n=$ #unknowns: $r=n\to$ **unique**; $r<n\to$ **infinitely many** with $n-r$ free variables.
 
@@ -153,7 +153,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q2. ★ (NAT)** If $A\in\mathbb{R}^{5\times5}$ has rank $3$, its nullity is __________ .
 
-**Q3. ★★ (MCQ)** A system $A\mathbf x=\mathbf b$ with $A\in\mathbb{R}^{3\times3}$, $\operatorname{rank}(A)=2$, $\operatorname{rank}([A|\mathbf b])=3$ has
+**Q3. ★★ (MCQ)** A system $A\mathbf x=\mathbf b$ with $A\in\mathbb{R}^{3\times3}$, $\operatorname{rank}(A)=2$, $\operatorname{rank}([A\mid \mathbf b])=3$ has
 (A) a unique solution (B) infinitely many (C) no solution (D) exactly three
 
 **Q4. ★★ (MCQ)** A homogeneous system $A\mathbf x=\mathbf 0$ with $A\in\mathbb{R}^{3\times4}$ has
@@ -184,11 +184,11 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q2 — 2.** Rank–nullity: nullity $=n-\operatorname{rank}=5-3=2$ (columns $=5$).
 
-**Q3 — (C) no solution.** $\operatorname{rank}(A)<\operatorname{rank}([A|\mathbf b])$ $\Rightarrow$ inconsistent.
+**Q3 — (C) no solution.** $\operatorname{rank}(A)<\operatorname{rank}([A\mid \mathbf b])$ $\Rightarrow$ inconsistent.
 
 **Q4 — (B) infinitely many.** $4$ unknowns $>3$ equations $\Rightarrow \operatorname{rank}\le3<4 \Rightarrow$ nullity $\ge1 \Rightarrow$ nontrivial solutions, infinitely many.
 
-**Q5 — 0.** $2x+2y=5$ contradicts $2(x+y)=4$; $\operatorname{rank}(A)=1<\operatorname{rank}([A|\mathbf b])=2$ $\Rightarrow$ inconsistent.
+**Q5 — 0.** $2x+2y=5$ contradicts $2(x+y)=4$; $\operatorname{rank}(A)=1<\operatorname{rank}([A\mid \mathbf b])=2$ $\Rightarrow$ inconsistent.
 
 **Q6 — (A), (B), (C), (D) — all four.** They are the standard equivalent conditions for invertibility (the Invertible Matrix Theorem).
 

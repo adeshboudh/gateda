@@ -95,7 +95,7 @@ $$\mathrm{Var}(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2, \qquad \mathrm{SD} = \sq
 4. **CDF is right-continuous**, with jumps at discrete atoms (not left-continuous).
 5. **Forgetting the normalizing constant** before computing E or Var.
 6. $E[g(X)] \ne g(E[X])$ (Jensen).
-7. **Event transforms:** for $P(X^2 \le a)$, first convert to an interval in $X$ ($|X| \le \sqrt{a}$), then use the CDF.
+7. **Event transforms:** for $P(X^2 \le a)$, first convert to an interval in $X$ ($\lvert X\rvert \le \sqrt{a}$), then use the CDF.
 8. Variance additivity needs **independence**; linearity of expectation does not.
 
 ## Part 2 — How to Solve (Method)
@@ -110,7 +110,7 @@ $$\mathrm{Var}(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2, \qquad \mathrm{SD} = \sq
 ### Playbook for CDF questions
 - **PDF → CDF:** integrate up to $x$. **CDF → PDF:** differentiate.
 - **Probability of an interval:** $F(b) - F(a)$.
-- **Event transform first:** rewrite $\{X^2 \le a\}$, $\{|X| > c\}$, etc. as an interval in $X$, then apply $F$.
+- **Event transform first:** rewrite $\{X^2 \le a\}$, $\{\lvert X\rvert > c\}$, etc. as an interval in $X$, then apply $F$.
 - **Median / quantile:** solve $F(m) = 0.5$ (or the required $p$).
 
 ### Playbook for expectation-by-conditioning
@@ -165,7 +165,7 @@ E1–E2 build the core machinery (original); E3–E4 are real GATE DA questions.
 (A) 0.625 (B) 0.25 (C) 0.5 (D) 0.5625
 
 **Solve.**
-- **Event transform:** $X^2 \le 0.25 \iff |X| \le 0.5 \iff -0.5 \le X \le 0.5$.
+- **Event transform:** $X^2 \le 0.25 \iff \lvert X\rvert \le 0.5 \iff -0.5 \le X \le 0.5$.
 - $P = F(0.5) - F(-0.5)$.
 - $F(0.5) = (1/4)(1.5)^2 = 0.5625$; $F(-0.5) = (1/4)(0.5)^2 = 0.0625$.
 - $P = 0.5625 - 0.0625 = 0.5$.

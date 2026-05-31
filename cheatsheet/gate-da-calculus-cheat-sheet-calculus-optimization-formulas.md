@@ -13,7 +13,7 @@ $$\lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12,
 - **L'Hôpital** ($\tfrac00$ or $\tfrac\infty\infty$): $\lim\dfrac fg=\lim\dfrac{f'}{g'}$.
 - **At $\infty$ with roots:** rationalize (conjugate) or divide by the dominant power.
 - **Continuity** at $a$: $\lim_{x\to a}f(x)=f(a)$ (left $=$ right $=$ value).
-- **Geometric series:** $\sum_{n=0}^\infty r^n=\dfrac{1}{1-r}$, $\sum_{n=1}^\infty r^n=\dfrac{r}{1-r}$ ($|r|<1$).
+- **Geometric series:** $\sum_{n=0}^\infty r^n=\dfrac{1}{1-r}$, $\sum_{n=1}^\infty r^n=\dfrac{r}{1-r}$ ($\lvert r\rvert<1$).
 
 ## Derivatives & Taylor Series
 

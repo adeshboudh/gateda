@@ -17,12 +17,12 @@ nav_order: 5
 
 (Cross-ref: **2026 Q23** lists MCMC as approximate sampling — in ML Module 3.3.)
 
-> **Why it matters:** three ideas — the **factorized joint** $\prod_i P(X_i\mid\text{Parents}(X_i))$, the **d-separation** rules (chain/fork **block**, collider **opens** when observed), and the **exact vs approximate** split — cover every uncertainty question GATE DA has asked.
+> **Why it matters:** three ideas — the **factorized joint** $\prod_i P(X_i\mid \text{Parents}(X_i))$, the **d-separation** rules (chain/fork **block**, collider **opens** when observed), and the **exact vs approximate** split — cover every uncertainty question GATE DA has asked.
 
 ## Part 1 — Theory & Math
 
 ### A. Bayesian networks
-A **Bayesian network** is a **DAG**: nodes are random variables, edges encode direct dependence, and each node carries a **conditional probability table (CPT)** $P(\text{node}\mid\text{parents})$. The full joint **factorizes**:
+A **Bayesian network** is a **DAG**: nodes are random variables, edges encode direct dependence, and each node carries a **conditional probability table (CPT)** $P(\text{node}\mid \text{parents})$. The full joint **factorizes**:
 $$P(X_1,\dots,X_n)=\prod_{i=1}^{n} P\big(X_i \mid \text{Parents}(X_i)\big).$$
 This compact product (only **parents**, not all ancestors) is the whole point — it encodes the conditional independencies.
 
@@ -43,7 +43,7 @@ The **collider** is the counterintuitive one: $X$ and $Z$ are independent **unti
 ### D. Inference
 - **Exact inference**
   - **Enumeration / marginalization:** sum the joint over the hidden variables.
-  - **Variable elimination (VE):** exact and more efficient — eliminates variables one at a time via factors; computes marginals and conditionals $P(\text{query}\mid\text{evidence})$.
+  - **Variable elimination (VE):** exact and more efficient — eliminates variables one at a time via factors; computes marginals and conditionals $P(\text{query}\mid \text{evidence})$.
 - **Approximate inference (sampling)** — for large/intractable networks:
   - **Rejection sampling**, **likelihood weighting**, **Gibbs sampling / MCMC**.
 - **Classification to memorize:** **VE & enumeration are EXACT; all sampling methods (rejection, likelihood weighting, Gibbs, MCMC) are APPROXIMATE.** *(2025 Q26.)*
@@ -63,7 +63,7 @@ Marginal via total probability: $P(Y)=\sum_x P(Y\mid X{=}x)\,P(X{=}x)$. (Bayes i
 ## Part 2 — How to Solve (Method)
 
 ### Compute a joint probability
-$P(\text{values})=\prod_i P(\text{node}{=}\text{value}\mid\text{parents}{=}\text{values})$ — read each factor off its CPT and multiply. *(2024 Q64.)*
+$P(\text{values})=\prod_i P(\text{node}{=}\text{value}\mid \text{parents}{=}\text{values})$ — read each factor off its CPT and multiply. *(2024 Q64.)*
 
 ### Decide conditional independence (d-separation)
 For the two variables in question, classify the connection at each intermediate node on every path:
@@ -113,7 +113,7 @@ $$=0.5\times0.5\times1\times0.5=0.125.$$
 **Solve.**
 - (A) **False** — variable elimination is **exact**.
 - (B) **False** — Gibbs sampling is **approximate** (an MCMC method).
-- (C) **True** — VE computes marginals and conditionals $P(\text{query}\mid\text{evidence})$.
+- (C) **True** — VE computes marginals and conditionals $P(\text{query}\mid \text{evidence})$.
 - (D) **True** — rejection sampling is an approximate (sampling) method.
 
 **Answer: (C) and (D).**
@@ -133,7 +133,7 @@ $$P(Y{=}1)=P(Y{=}1\mid X{=}1)P(X{=}1)+P(Y{=}1\mid X{=}0)P(X{=}0)=0.9(0.3)+0.2(0.
 Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no negative marking; single-correct MCQ — penalty for a wrong answer. (★ easy · ★★ medium · ★★★ hard.)
 
 **Q1. ★ (MCQ)** A Bayesian network represents the joint distribution as the product of
-(A) all marginals (B) $P(\text{node}\mid\text{all others})$ (C) $P(\text{node}\mid\text{parents})$ (D) $P(\text{node}\mid\text{children})$
+(A) all marginals (B) $P(\text{node}\mid \text{all others})$ (C) $P(\text{node}\mid \text{parents})$ (D) $P(\text{node}\mid \text{children})$
 
 **Q2. ★ (MCQ)** In a chain $X\to Y\to Z$, $X$ and $Z$ are
 (A) always independent (B) independent given $Y$ (C) dependent given $Y$ (D) never related
@@ -162,7 +162,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 ## Answer Key & Full Solutions
 
-**Q1 — (C) $P(\text{node}\mid\text{parents})$.** The defining factorization of a Bayes net.
+**Q1 — (C) $P(\text{node}\mid \text{parents})$.** The defining factorization of a Bayes net.
 
 **Q2 — (B) independent given $Y$.** A chain is blocked by the observed middle node.
 

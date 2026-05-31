@@ -44,7 +44,7 @@ nav_order: 6
 
 ## Bayesian Networks & Inference
 
-- **Factorized joint:** $P(X_1,\dots,X_n)=\prod_i P(X_i\mid\text{Parents}(X_i))$.
+- **Factorized joint:** $P(X_1,\dots,X_n)=\prod_i P(X_i\mid \text{Parents}(X_i))$.
 - **d-separation** (observing the middle node):
   - chain $X\to Y\to Z$: **blocked** (independent).
   - fork $X\leftarrow Y\to Z$: **blocked** (independent).

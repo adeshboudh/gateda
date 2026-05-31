@@ -11,7 +11,7 @@ nav_order: 3
 - OLS minimizes $\sum (y_i-\hat y_i)^2$; normal equations $\hat{\mathbf w}=(X^\top X)^{-1}X^\top\mathbf y$.
 - LR through origin: $w=\dfrac{\sum x_iy_i}{\sum x_i^2}$.
 - **Ridge:** $\min_{\mathbf w}\ \lVert\mathbf y-X\mathbf w\rVert^2+\lambda\lVert\mathbf w\rVert^2$ $\Rightarrow \hat{\mathbf w}=(X^\top X+\lambda I)^{-1}X^\top\mathbf y$. Larger $\lambda$: $\uparrow$ bias, $\downarrow$ variance.
-- Errors: $\text{MSE}=\tfrac1n\sum(y-\hat y)^2$, $\text{MAE}=\tfrac1n\sum|y-\hat y|$.
+- Errors: $\text{MSE}=\tfrac1n\sum(y-\hat y)^2$, $\text{MAE}=\tfrac1n\sum\lvert y-\hat y\rvert$.
 
 ## Classification Metrics
 

@@ -26,7 +26,7 @@ with $U\in\mathbb{R}^{m\times m}$ orthogonal (left singular vectors), $V\in\math
 ### B. Singular values $\leftrightarrow$ eigenvalues (the bridge)
 - $\sigma_i=\sqrt{\lambda_i(A^\top A)}$ — square roots of the eigenvalues of $A^\top A$ (equivalently $AA^\top$); these are always $\ge0$ since $A^\top A$ is **symmetric PSD**.
 - **Number of nonzero singular values $=\operatorname{rank}(A)$.**
-- **Symmetric** $A$: $\sigma_i=\lvert\lambda_i\rvert$.
+- **Symmetric** $A$: $\sigma_i=\lvert \lambda_i\rvert$.
 - **Symmetric PSD** $A$ (projection, covariance, Gram): $\sigma_i=\lambda_i$ (since $\lambda_i\ge0$). *(Why 2025 Q50's projection has singular values $=$ eigenvalues $=0/1$.)*
 
 ### C. Rank-1 matrices
@@ -36,7 +36,7 @@ with $U\in\mathbb{R}^{m\times m}$ orthogonal (left singular vectors), $V\in\math
 ### D. Key SVD facts
 - $\sigma_i\ge0$ **always** (unlike eigenvalues, which may be negative or complex).
 - $\sigma_1=\lVert A\rVert_2$ (spectral / operator-2 norm); $\lVert A\rVert_F=\sqrt{\sum_i\sigma_i^2}$ (Frobenius norm).
-- Square $A$: $\lvert\det A\rvert=\prod_i\sigma_i$.
+- Square $A$: $\lvert \det A\rvert=\prod_i\sigma_i$.
 - SVD exists for **any** matrix (rectangular, rank-deficient) — more general than eigendecomposition.
 - **Eckart–Young:** keeping the top $k$ singular values gives the best rank-$k$ approximation — the basis of PCA and compression.
 
@@ -58,7 +58,7 @@ with $U\in\mathbb{R}^{m\times m}$ orthogonal (left singular vectors), $V\in\math
 
 ### G. Traps GATE exploits
 1. Singular values are $\ge0$ **always** — don't report a negative one.
-2. For symmetric $A$, $\sigma_i=\lvert\lambda_i\rvert$ — equal to $\lambda_i$ only when PSD.
+2. For symmetric $A$, $\sigma_i=\lvert \lambda_i\rvert$ — equal to $\lambda_i$ only when PSD.
 3. **#nonzero singular values $=\operatorname{rank}$**, not the matrix size.
 4. Rank-1 $\mathbf u\mathbf v^\top$ has **one** nonzero singular value $\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; the rest are $0$.
 5. LU comes straight from Gaussian elimination; $\det=\prod U_{ii}$.
@@ -67,14 +67,14 @@ with $U\in\mathbb{R}^{m\times m}$ orthogonal (left singular vectors), $V\in\math
 
 ### Find singular values
 - General: eigenvalues of $A^\top A$, then take **square roots**.
-- **Symmetric** $A$: $\sigma_i=\lvert\lambda_i\rvert$; **PSD**: $\sigma_i=\lambda_i$.
+- **Symmetric** $A$: $\sigma_i=\lvert \lambda_i\rvert$; **PSD**: $\sigma_i=\lambda_i$.
 - **Rank-1** $\mathbf u\mathbf v^\top$: one nonzero $\sigma=\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; symmetric $\mathbf u\mathbf u^\top$: $\sigma=\lVert\mathbf u\rVert^2$.
 - **Sum of singular values:** for PSD use $\sum\lambda_i=\operatorname{tr}$; for rank-1, it's the single value.
 
 ### Recognize structure
 - projection $\to$ singular values $0/1$, count $=$ rank.
 - orthogonal $\to$ all singular values $=1$.
-- diagonal $\to$ singular values $=\lvert\text{diagonal}\rvert$.
+- diagonal $\to$ singular values $=\lvert \text{diagonal}\rvert$.
 
 ### LU tasks
 - Run Gaussian elimination $\to$ multipliers form $L$, reduced matrix is $U$; $\det=\prod U_{ii}$; solve via forward-then-back substitution.
@@ -112,7 +112,7 @@ $$\sum_{i=1}^5\sigma_i=55.$$
 ### Example 3 — Singular values from eigenvalues *(original · Easy–Med)*
 **Q.** Find the singular values of $A=\begin{bmatrix}2&0\\ 0&-3\end{bmatrix}$.
 
-**Solve.** $A$ is symmetric with eigenvalues $2$ and $-3$. Singular values are the **absolute values**: $\sigma=\lvert2\rvert=2$ and $\lvert-3\rvert=3$, i.e. $\{3,2\}$.
+**Solve.** $A$ is symmetric with eigenvalues $2$ and $-3$. Singular values are the **absolute values**: $\sigma=\lvert 2\rvert=2$ and $\lvert-3\rvert=3$, i.e. $\{3,2\}$.
 
 **Answer: $3$ and $2$.** *Key point:* $\sigma\ge0$ even though an eigenvalue is negative. (Check: $A^\top A=\operatorname{diag}(4,9)$, $\sigma=\sqrt{4},\sqrt{9}=2,3$.)
 
@@ -170,7 +170,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q5 — (A) equal the eigenvalues.** PSD $\Rightarrow\lambda_i\ge0\Rightarrow\sigma_i=\lambda_i$.
 
-**Q6 — 12.** Diagonal (symmetric): $\sigma=\lvert5\rvert,\lvert-12\rvert=5,12$; largest $=12$.
+**Q6 — 12.** Diagonal (symmetric): $\sigma=\lvert 5\rvert,\lvert-12\rvert=5,12$; largest $=12$.
 
 **Q7 — (A), (B), (C).** All standard SVD properties; (D) is false — SVD applies to any matrix.
 

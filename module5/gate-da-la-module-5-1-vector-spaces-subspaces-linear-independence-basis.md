@@ -60,7 +60,7 @@ $$\mathbf v_i^\top \mathbf v_j = \delta_{ij} = \begin{cases} 1 & i = j \\ 0 & i 
 
 ### F. Traps GATE exploits
 1. **Affine sets** (constraint $=$ nonzero constant) are **never** subspaces — fail the zero test.
-2. **Nonlinear / restricted coefficients** ($\alpha^2,\ |\alpha|,\ \alpha\ge0$, products $x_1x_2$, squares $x_1^2$) break closure.
+2. **Nonlinear / restricted coefficients** ($\alpha^2,\ \lvert \alpha\rvert,\ \alpha\ge0$, products $x_1x_2$, squares $x_1^2$) break closure.
 3. **Independence $\ne$ orthogonality.**
 4. **Orthonormal $\implies$ independent**, but not conversely.
 5. **Bases are not unique; dimension is.**

@@ -33,7 +33,7 @@ nav_order: 8
 
 ### C. Effect of transformations
 - Add a constant $c$ to every point: **mean $+c$**, **variance unchanged**.
-- Multiply every point by $k$: **mean $\times k$**, **variance $\times k^2$**, **SD $\times|k|$**.
+- Multiply every point by $k$: **mean $\times k$**, **variance $\times k^2$**, **SD $\times\lvert k\rvert$**.
 
 ---
 
@@ -55,7 +55,7 @@ The $\pm$ part is the **margin of error**. Key $z$ critical values:
 1. **Hypotheses:** null $H_0$ (no effect / status quo) vs alternative $H_1$.
 2. **Significance level $\alpha$** (often 0.05) $= P(\text{Type I error})$.
 3. **Test statistic** ($z$, $t$, or $\chi^2$) from the data.
-4. **Decision:** reject $H_0$ if the statistic falls in the rejection region, i.e. **p-value $< \alpha$** (or $|\text{stat}| > $ critical value).
+4. **Decision:** reject $H_0$ if the statistic falls in the rejection region, i.e. **p-value $< \alpha$** (or $\lvert \text{stat}\rvert > $ critical value).
 5. **One-tailed** ($H_1$: $>$ or $<$) vs **two-tailed** ($H_1$: $\ne$).
 
 ### F. Which test to use
@@ -76,7 +76,7 @@ The $\pm$ part is the **margin of error**. Key $z$ critical values:
 ### H. Common traps GATE exploits
 1. **Population variance $\div n$ vs sample variance $\div(n-1)$** — know which is asked.
 2. **Mean vs median robustness:** outliers pull the mean, not the median.
-3. **Transformations:** adding a constant leaves variance unchanged; scaling multiplies variance by $k^2$ (SD by $|k|$).
+3. **Transformations:** adding a constant leaves variance unchanged; scaling multiplies variance by $k^2$ (SD by $\lvert k\rvert$).
 4. **z vs t:** $\sigma$ known → $z$; $\sigma$ estimated by $s$ (small $n$) → $t$.
 5. **Type I vs Type II** error definitions are frequently swapped.
 6. **CI width** grows with confidence and shrinks with $\sqrt{n}$.
@@ -105,7 +105,7 @@ The $\pm$ part is the **margin of error**. Key $z$ critical values:
 
 ### Exam tactics & sanity checks
 - For descriptive stats, **read $\div n$ vs $\div(n-1)$ carefully** — the most common slip.
-- A z-score near 0 means "typical"; $|z| > 2$ means "unusual".
+- A z-score near 0 means "typical"; $\lvert z\rvert > 2$ means "unusual".
 - A CI must **contain $\bar{x}$** at its centre; the margin must be positive.
 - p-value $< \alpha \Rightarrow$ reject $H_0$; otherwise fail to reject (never "accept").
 
@@ -169,7 +169,7 @@ E1–E3 are descriptive statistics (E2–E3 are real GATE DA questions); E4–E5
 
 **Solve.**
 - Test statistic: $z = \dfrac{\bar{x} - \mu_0}{\sigma/\sqrt{n}} = \dfrac{103 - 100}{2} = 1.5$.
-- Two-tailed critical values at $\alpha = 0.05$: $\pm1.96$. Since $|1.5| < 1.96$, **fail to reject $H_0$**.
+- Two-tailed critical values at $\alpha = 0.05$: $\pm1.96$. Since $\lvert 1.5\rvert < 1.96$, **fail to reject $H_0$**.
 - (p-value $= 2(1 - \Phi(1.5)) = 2(1 - 0.9332) = 0.1336 > 0.05$ — same conclusion.)
 
 **Conclusion:** insufficient evidence that $\mu \ne 100$. *Method:* statistic → compare to critical value (or p to $\alpha$) → decide.
@@ -199,7 +199,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q8. ★★ (MSQ)** Which statements are TRUE?
 (A) Adding a constant $c$ to every data point increases the mean by $c$ but leaves the variance unchanged.
 (B) The median is more robust to outliers than the mean.
-(C) Multiplying every data point by $k$ multiplies the standard deviation by $|k|$.
+(C) Multiplying every data point by $k$ multiplies the standard deviation by $\lvert k\rvert$.
 (D) The sample variance divides the sum of squared deviations by $n$.
 
 **Q9. ★★★ (NAT)** For a dataset of $n = 100$, it is given that $\dfrac{1}{2000}\cdot\sum_i\sum_j (x_i - x_j)^2 = 99$. Then $\dfrac{1}{99}\cdot\sum_i (x_i - \bar{x})^2 =$ __________ . *(2026 Q62)*

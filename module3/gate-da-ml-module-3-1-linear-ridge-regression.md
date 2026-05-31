@@ -36,7 +36,7 @@ With a design matrix $X$ (rows = samples, columns = features) and targets $y$, t
 $$\hat{\beta} = (X^\top X)^{-1} X^\top y \qquad (\text{requires } X^\top X \text{ invertible}).$$
 
 ### C. Loss functions
-- **MSE** $= \dfrac{1}{n}\sum_i (y_i - \hat{y}_i)^2$ · **SSE** $= \sum_i (y_i - \hat{y}_i)^2$ · **MAE** $= \dfrac{1}{n}\sum_i |y_i - \hat{y}_i|$.
+- **MSE** $= \dfrac{1}{n}\sum_i (y_i - \hat{y}_i)^2$ · **SSE** $= \sum_i (y_i - \hat{y}_i)^2$ · **MAE** $= \dfrac{1}{n}\sum_i \lvert y_i - \hat{y}_i\rvert$.
 
 ### D. Gradient descent
 Update the weights against the gradient of the loss with learning rate $\eta$:
@@ -126,7 +126,7 @@ E1, E3, E4 are real GATE DA questions; E2 is a clean original (gradient descent)
 **Solve.**
 - Prediction: $\hat{y} = w^\top x = (-3)(1) + (4)(2) = 5$.
 - True value: $y = x_1 + x_2 = 1 + 2 = 3$.
-- MAE term (single instance): $|y - \hat{y}| = |3 - 5| = 2$.
+- MAE term (single instance): $\lvert y - \hat{y}\rvert = \lvert 3 - 5\rvert = 2$.
 - Penalty: $0.20\,\lVert w \rVert_2^2 = 0.20\,(9 + 16) = 0.20 \times 25 = 5$.
 - Total: $2 + 5 = 7.00$.
 

@@ -34,7 +34,7 @@ $$H(S) = -\sum_{c} p_c \log_2 p_c.$$
 ### C. Information gain (ID3's split criterion)
 The reduction in entropy from splitting node $S$ on attribute $A$ (with values $v$):
 
-$$\text{IG}(S, A) = H(S) - \sum_{v} \frac{|S_v|}{|S|}\, H(S_v).$$
+$$\text{IG}(S, A) = H(S) - \sum_{v} \frac{\lvert S_v\rvert}{\lvert S\rvert}\, H(S_v).$$
 
 The subtracted term is the **weighted average** child entropy. **ID3 picks the attribute with the highest IG.** Always $\text{IG} \ge 0$.
 
@@ -54,7 +54,7 @@ A fully grown tree can fit the training data perfectly — **high variance / ove
 2. **IG $=$ parent entropy $-$ weighted child entropy** — don't forget the parent term or the size weights.
 3. **Gini max for two classes is $0.5$**, while entropy max is $1$ — don't conflate their scales.
 4. **ID3 maximizes IG; CART minimizes Gini** — both pick the most "purifying" split.
-5. **Children are weighted by their sample fraction** $|S_v|/|S|$.
+5. **Children are weighted by their sample fraction** $\lvert S_v\rvert/\lvert S\rvert$.
 6. Deep unpruned trees **overfit** (high variance).
 
 ## Part 2 — How to Solve (Method)
@@ -62,7 +62,7 @@ A fully grown tree can fit the training data perfectly — **high variance / ove
 ### Information-gain questions
 1. **Parent entropy:** from the overall class counts, $H(S) = -\sum p_c \log_2 p_c$.
 2. **Partition** the data by the attribute's values; for each child compute its class proportions and entropy.
-3. **Weighted child entropy:** $\sum_v \dfrac{|S_v|}{|S|} H(S_v)$.
+3. **Weighted child entropy:** $\sum_v \dfrac{\lvert S_v\rvert}{\lvert S\rvert} H(S_v)$.
 4. **IG** $= H(S) - $ (weighted child entropy). Round only at the end.
 
 ### Choosing the best attribute

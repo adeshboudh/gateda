@@ -25,7 +25,7 @@ Condensed revision of **Subject 7** — must-knows, GATE angle, traps. Full deta
 - **Standard limits:** $\dfrac{\sin x}{x}\to1$, $\dfrac{1-\cos x}{x^2}\to\tfrac12$, $\dfrac{e^x-1}{x}\to1$, $\dfrac{\ln(1+x)}{x}\to1$.
 - **At infinity** with roots: **rationalize** (conjugate) or divide by the dominant power.
 - **Continuity** at $a$: left limit $=$ right limit $=f(a)$; piecewise pieces must agree.
-- **Geometric series:** $\sum_{n=0}^\infty r^n=\dfrac{1}{1-r}$, $\sum_{n=1}^\infty r^n=\dfrac{r}{1-r}$ ($|r|<1$); separable double sums factor.
+- **Geometric series:** $\sum_{n=0}^\infty r^n=\dfrac{1}{1-r}$, $\sum_{n=1}^\infty r^n=\dfrac{r}{1-r}$ ($\lvert r\rvert<1$); separable double sums factor.
 
 **GATE angle:** $0/0$ limits via Taylor; $\sqrt{\,}-\sqrt{\,}$ at $\infty$; piecewise continuity; geometric-series sums.
 
@@ -38,7 +38,7 @@ Condensed revision of **Subject 7** — must-knows, GATE angle, traps. Full deta
 - **Sigmoid:** $\sigma'=\sigma(1-\sigma)$ (also the logistic-regression gradient).
 - **Taylor:** $f(x)=\sum \dfrac{f^{(n)}(a)}{n!}(x-a)^n$; coefficient of $x^n$ is $\dfrac{f^{(n)}(0)}{n!}$, so $f^{(n)}(0)=n!\cdot[\text{coeff}]$. $\sinh$ has only odd powers $\Rightarrow$ even derivatives vanish at $0$.
 - **Piecewise differentiable** at a boundary: continuity **and** equal one-sided derivatives.
-- **Lipschitz** $|f(x)-f(y)|\le(x-y)^2\Rightarrow f'\equiv0\Rightarrow f$ constant.
+- **Lipschitz** $\lvert f(x)-f(y)\rvert\le(x-y)^2\Rightarrow f'\equiv0\Rightarrow f$ constant.
 
 **GATE angle:** sigmoid derivative; make a piecewise function $C^1$; higher derivative via Taylor; Lipschitz $\Rightarrow$ constant.
 

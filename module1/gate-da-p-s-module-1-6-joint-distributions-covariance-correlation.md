@@ -103,7 +103,7 @@ $$\rho = \mathrm{Corr}(X,Y) = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y}, \qqua
 ---
 
 ### Exam tactics & sanity checks
-- **$|\rho| \le 1$ always** — if you get $|\rho| > 1$, you've slipped.
+- **$\lvert \rho\rvert \le 1$ always** — if you get $\lvert \rho\rvert > 1$, you've slipped.
 - A positive/negative $\mathrm{Cov}$ sign should match the intuition of the relationship.
 - Use the **tower property** shortcut when a conditional distribution is handed to you (saves a double integral — exactly 2026 Q63).
 - Don't infer independence from $\mathrm{Cov} = 0$; only infer $\mathrm{Cov} = 0$ from independence.

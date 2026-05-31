@@ -19,9 +19,9 @@ nav_order: 5
 $$\operatorname{rank}(A)+\operatorname{nullity}(A)=n\ (\text{columns}),\qquad \operatorname{rank}(A)\le\min(m,n).$$
 | Condition | Solutions of $A\mathbf x=\mathbf b$ |
 | --- | --- |
-| $\operatorname{rank}(A)<\operatorname{rank}([A|\mathbf b])$ | none |
-| $\operatorname{rank}(A)=\operatorname{rank}([A|\mathbf b])=n$ | unique |
-| $\operatorname{rank}(A)=\operatorname{rank}([A|\mathbf b])<n$ | infinitely many |
+| $\operatorname{rank}(A)<\operatorname{rank}([A\mid \mathbf b])$ | none |
+| $\operatorname{rank}(A)=\operatorname{rank}([A\mid \mathbf b])=n$ | unique |
+| $\operatorname{rank}(A)=\operatorname{rank}([A\mid \mathbf b])<n$ | infinitely many |
 
 - Homogeneous nontrivial solution iff $\operatorname{rank}<n$ (square: $\det=0$).
 - Gaussian elimination: dense $O(n^3)$; back-substitution alone $O(n^2)$.
@@ -38,7 +38,7 @@ $$\operatorname{rank}(A)+\operatorname{nullity}(A)=n\ (\text{columns}),\qquad \o
 | Type | Property | Eigenvalues |
 | --- | --- | --- |
 | Symmetric | $A=A^\top$ | real, orthogonal eigvecs |
-| Orthogonal | $Q^\top Q=I$ | $\lvert\lambda\rvert=1$, $\det=\pm1$ |
+| Orthogonal | $Q^\top Q=I$ | $\lvert \lambda\rvert=1$, $\det=\pm1$ |
 | Idempotent (projection) | $P^2=P$ | $0,1$; trace $=$ rank |
 | Involutory | $A^2=I$ | $\pm1$ |
 | Nilpotent | $A^k=0$ | all $0$ |
@@ -56,7 +56,7 @@ $$\operatorname{rank}(A)+\operatorname{nullity}(A)=n\ (\text{columns}),\qquad \o
 ## SVD & LU
 
 - **SVD:** $A=U\Sigma V^\top$, $U,V$ orthogonal, $\sigma_i\ge0$. $\sigma_i=\sqrt{\lambda_i(A^\top A)}$; **# nonzero $\sigma=$ rank**; $\sigma_1=\lVert A\rVert_2$.
-- Symmetric PSD $\Rightarrow\sigma=\lambda$; symmetric $\Rightarrow\sigma=\lvert\lambda\rvert$.
+- Symmetric PSD $\Rightarrow\sigma=\lambda$; symmetric $\Rightarrow\sigma=\lvert \lambda\rvert$.
 - **Rank-1** $\mathbf u\mathbf v^\top$: single $\sigma=\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; $\mathbf u\mathbf u^\top\Rightarrow\sigma=\lVert\mathbf u\rVert^2$.
 - **LU:** $A=LU$ (Gaussian elimination); $\det A=\prod U_{ii}$; solve $L\mathbf y=\mathbf b$ then $U\mathbf x=\mathbf y$.
 

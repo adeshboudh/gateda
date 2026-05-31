@@ -79,7 +79,7 @@ $\alpha=$ highest value found so far on the path (for MAX); $\beta=$ lowest so f
 ## Part 3 — Worked Examples
 
 ### Example 1 — Minimax best strategy *(2026 Q30 · NAT)*
-**Q.** MAX plays at the root (strategies 1, 2, 3) to three MIN nodes; each MIN node has three leaves. Leaf utilities (left to right): $8,6,-1\,\mid\,1,5,7\,\mid\,-4,-3,-12$. Find MAX's best strategy.
+**Q.** MAX plays at the root (strategies 1, 2, 3) to three MIN nodes; each MIN node has three leaves. Leaf utilities (left to right): $8,6,-1\,\mid \,1,5,7\,\mid \,-4,-3,-12$. Find MAX's best strategy.
 
 **Solve.** Each MIN node takes the minimum of its three leaves:
 
