@@ -6,20 +6,30 @@ Complete, exam-focused notes for **GATE Data Science & Artificial Intelligence (
 
 ## Contents
 
-| Subject | Topics |
-|---|---|
+| Subject                                         | Topics                                                                    |
+| ----------------------------------------------- | ------------------------------------------------------------------------- |
 | [Module 1 — Probability & Statistics](module1/) | Counting, Bayes, random variables, distributions, CLT, hypothesis testing |
-| [Module 2 — Programming & DSA](module2/) | Python, complexity, data structures, searching, sorting, graphs |
-| [Module 3 — Machine Learning](module3/) | Regression, classification, SVM, trees, neural nets, clustering, PCA |
-| [Module 4 — Databases & Warehousing](module4/) | ER models, relational algebra, SQL, normalization, indexing, OLAP |
-| [Module 5 — Linear Algebra](module5/) | Vector spaces, rank-nullity, eigenvalues, quadratic forms, SVD |
-| [Module 6 — Artificial Intelligence](module6/) | Search, adversarial search, logic, Bayesian networks |
-| [Module 7 — Calculus & Optimization](module7/) | Limits, differentiability, Taylor series, optimization |
-| [Cheat Sheets](cheatsheet/) | Formula sheets per subject |
-| [Revision Docs](rivision/) | Last-mile revision per subject |
-| [Strategy & Roadmap](docs/) | Prep plan and topic analysis |
+| [Module 2 — Programming & DSA](module2/)        | Python, complexity, data structures, searching, sorting, graphs           |
+| [Module 3 — Machine Learning](module3/)         | Regression, classification, SVM, trees, neural nets, clustering, PCA      |
+| [Module 4 — Databases & Warehousing](module4/)  | ER models, relational algebra, SQL, normalization, indexing, OLAP         |
+| [Module 5 — Linear Algebra](module5/)           | Vector spaces, rank-nullity, eigenvalues, quadratic forms, SVD            |
+| [Module 6 — Artificial Intelligence](module6/)  | Search, adversarial search, logic, Bayesian networks                      |
+| [Module 7 — Calculus & Optimization](module7/)  | Limits, differentiability, Taylor series, optimization                    |
+| [Cheat Sheets](cheatsheet/)                     | Formula sheets per subject                                                |
+| [Revision Docs](rivision/)                      | Last-mile revision per subject                                            |
+| [Strategy & Roadmap](docs/)                     | Prep plan and topic analysis                                              |
 
 Each note follows a fixed template: Exam Relevance → Theory & Math → How to Solve → Worked Examples → Practice Questions → Answer Key & Solutions.
+
+## Found an error or want to improve a note?
+
+Spotted a wrong answer, a broken formula, a typo, or have a better explanation? Any of these works:
+
+- **Open an issue** — [raise one here](https://github.com/adeshboudh/gateda/issues/new). Include the module (e.g. *1.4 Step 1*) and what's wrong.
+- **Send a pull request** — fix it directly and PR against `main`. Small, focused fixes are very welcome.
+- **Email** — [manikantagunnam.nicedigitals@gmail.com](mailto:manikantagunnam.nicedigitals@gmail.com).
+
+When reporting a rendering bug, please name the **file/section** and paste the offending line — that makes it a one-line fix.
 
 ## How the site works
 
