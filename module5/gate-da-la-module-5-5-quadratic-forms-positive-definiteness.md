@@ -41,7 +41,7 @@ For a symmetric $A$ with eigenvalues $\lambda_i$:
 ### C. Tests for positive definiteness
 
 - **All eigenvalues $>0$** (the definition).
-- **Sylvester's criterion:** all **leading principal minors** $>0$. For $\begin{bmatrix}a&b\\ b&c\end{bmatrix}$: $a>0$ **and** $ac-b^2>0$.
+- **Sylvester's criterion:** all **leading principal minors** $>0$. For $\begin{bmatrix}a&b\\\\ b&c\end{bmatrix}$: $a>0$ **and** $ac-b^2>0$.
 - $A=B^\top B$ with $B$ full column rank $\Rightarrow$ PD.
 - PD $\Rightarrow$ invertible, $\det>0$, all diagonal entries $>0$ (but $\det>0$ **alone** is _not_ sufficient — two negative eigenvalues also give $\det>0$).
 
@@ -83,7 +83,7 @@ $q=\sum_i a_{ii}x_i^2+\sum_{i<j}(2a_{ij})x_ix_j$. So **diagonal $=$ square coeff
 ### Classify definiteness
 
 - Find eigenvalues (or use **leading principal minors** for small matrices). All $>0\to$ PD; all $\ge0\to$ PSD; mixed signs $\to$ indefinite.
-- $2\times2$ shortcut $\begin{bmatrix}a&b\\ b&c\end{bmatrix}$: PD $\iff a>0$ and $ac-b^2>0$; indefinite $\iff ac-b^2<0$.
+- $2\times2$ shortcut $\begin{bmatrix}a&b\\\\ b&c\end{bmatrix}$: PD $\iff a>0$ and $ac-b^2>0$; indefinite $\iff ac-b^2<0$.
 
 ### Gram-matrix questions ($G=X^\top X$)
 
@@ -134,7 +134,7 @@ and it equals $0$ only if $X\mathbf z=\mathbf 0$, i.e. $\mathbf z=\mathbf 0$ (co
 
 **Q.** Is $q(x,y)=2x^2+2y^2+2xy$ positive definite?
 
-**Solve.** Matrix $A=\begin{bmatrix}2 & 1\\ 1 & 2\end{bmatrix}$ (off-diagonal $=\tfrac12\cdot2=1$).
+**Solve.** Matrix $A=\begin{bmatrix}2 & 1\\\\ 1 & 2\end{bmatrix}$ (off-diagonal $=\tfrac12\cdot2=1$).
 
 - **Minors:** $a=2>0$ and $\det=2\cdot2-1^2=3>0$ $\Rightarrow$ PD.
 - **Eigen-check:** $\operatorname{tr}=4,\det=3\Rightarrow\lambda^2-4\lambda+3=0\Rightarrow\lambda=1,3$ — both $>0$.
@@ -145,7 +145,7 @@ and it equals $0$ only if $X\mathbf z=\mathbf 0$, i.e. $\mathbf z=\mathbf 0$ (co
 
 ### Example 4 — Range of a quadratic form _(original · Med)_
 
-**Q.** For $A=\begin{bmatrix}3 & 1\\ 1 & 3\end{bmatrix}$, find the maximum and minimum of $\mathbf x^\top A\mathbf x$ subject to $\mathbf x^\top\mathbf x=1$.
+**Q.** For $A=\begin{bmatrix}3 & 1\\\\ 1 & 3\end{bmatrix}$, find the maximum and minimum of $\mathbf x^\top A\mathbf x$ subject to $\mathbf x^\top\mathbf x=1$.
 
 **Solve.** Eigenvalues: $\operatorname{tr}=6,\det=8\Rightarrow\lambda^2-6\lambda+8=0\Rightarrow\lambda=2,4$. On the unit sphere, $\min=\lambda_{\min}=2$ and $\max=\lambda_{\max}=4$.
 
@@ -161,11 +161,11 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q2. ★ (MCQ)** A symmetric matrix is positive definite iff
 (A) $\det>0$ (B) $\operatorname{tr}>0$ (C) all eigenvalues $>0$ (D) all entries $>0$
 
-**Q3. ★★ (NAT)** For $A=\begin{bmatrix}4&0\\ 0&9\end{bmatrix}$, the maximum of $\mathbf x^\top A\mathbf x$ over $\mathbf x^\top\mathbf x=1$ is \***\*\_\_\*\*** .
+**Q3. ★★ (NAT)** For $A=\begin{bmatrix}4&0\\\\ 0&9\end{bmatrix}$, the maximum of $\mathbf x^\top A\mathbf x$ over $\mathbf x^\top\mathbf x=1$ is \***\*\_\_\*\*** .
 
 **Q4. ★★ (NAT)** For the same $A$, the minimum of $\mathbf x^\top A\mathbf x$ over the unit sphere is \***\*\_\_\*\*** .
 
-**Q5. ★★ (MCQ)** The matrix $\begin{bmatrix}2&1\\ 1&2\end{bmatrix}$ is
+**Q5. ★★ (MCQ)** The matrix $\begin{bmatrix}2&1\\\\ 1&2\end{bmatrix}$ is
 (A) positive definite (B) negative definite (C) indefinite (D) singular
 
 **Q6. ★★ (MSQ)** Let $G=X^\top X$ be a Gram matrix. Which are TRUE?
@@ -174,12 +174,12 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q7. ★★ (MCQ)** The quadratic form $q(x,y)=x^2-y^2$ is
 (A) PD (B) PSD (C) indefinite (D) ND
 
-**Q8. ★★★ (NAT)** For $A=\begin{bmatrix}2&1\\ 1&2\end{bmatrix}$, the minimum of $\mathbf x^\top A\mathbf x$ subject to $\mathbf x^\top\mathbf x=1$ is \***\*\_\_\*\*** .
+**Q8. ★★★ (NAT)** For $A=\begin{bmatrix}2&1\\\\ 1&2\end{bmatrix}$, the minimum of $\mathbf x^\top A\mathbf x$ subject to $\mathbf x^\top\mathbf x=1$ is \***\*\_\_\*\*** .
 
 **Q9. ★★ (MSQ)** A symmetric matrix has eigenvalues $0,2,5$. Which are TRUE?
 (A) it is PSD (B) it is PD (C) it is singular (D) $\max_{\lVert\mathbf x\rVert=1}\mathbf x^\top A\mathbf x=5$
 
-**Q10. ★★★ (MCQ)** For which $k$ is $A=\begin{bmatrix}1&k\\ k&4\end{bmatrix}$ positive definite?
+**Q10. ★★★ (MCQ)** For which $k$ is $A=\begin{bmatrix}1&k\\\\ k&4\end{bmatrix}$ positive definite?
 (A) $k^2<4$ (B) $k^2>4$ (C) any $k$ (D) $k=2$
 
 ## Answer Key & Full Solutions
@@ -198,7 +198,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q7 — (C) indefinite.** Eigenvalues $1$ and $-1$ (mixed signs).
 
-**Q8 — 1.** Eigenvalues of $\begin{bmatrix}2&1\\ 1&2\end{bmatrix}$ are $1,3$; min on the unit sphere $=\lambda_{\min}=1$.
+**Q8 — 1.** Eigenvalues of $\begin{bmatrix}2&1\\\\ 1&2\end{bmatrix}$ are $1,3$; min on the unit sphere $=\lambda_{\min}=1$.
 
 **Q9 — (A), (C), (D).** Eigenvalues $0,2,5\ge0\Rightarrow$ PSD (A) but not PD (the $0$ rules out B); a $0$ eigenvalue $\Rightarrow\det=0\Rightarrow$ singular (C); $\lambda_{\max}=5$ (D).
 

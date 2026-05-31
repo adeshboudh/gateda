@@ -45,7 +45,7 @@ Layer by layer: $\;a^{(l)} = \phi\!\big(W^{(l)} a^{(l-1)} + b^{(l)}\big)$, start
 
 For a fully-connected layer mapping $n_{\text{in}}$ neurons to $n_{\text{out}}$ neurons:
 
-$$\#\text{weights} = n_{\text{in}} \times n_{\text{out}}, \qquad \#\text{biases} = n_{\text{out}} \;(\text{if biases are used}).$$
+$$N_{\text{weights}} = n_{\text{in}} \times n_{\text{out}}, \qquad N_{\text{biases}} = n_{\text{out}} \;(\text{if biases are used}).$$
 
 Total parameters $=$ sum over all layers. _(2026 Q56: sizes $30 \to 4 \to 3 \to 1$, no bias $\Rightarrow 30\cdot4 + 4\cdot3 + 3\cdot1 = 135$.)_
 

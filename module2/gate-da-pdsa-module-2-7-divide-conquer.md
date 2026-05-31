@@ -161,14 +161,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 (A) merge sort (B) binary search (C) quicksort (D) selection sort
 
 **Q5. ★★ (MCQ)** By the Master theorem, $T(n) = 2T(n/2) + O(1)$ solves to
-(A) $\\Theta(\\log n)$ (B) $\\Theta(n)$ (C) $\\Theta(n \\log n)$ (D) $\\Theta(n^2)$
+(A) $\\\\Theta(\\\\log n)$ (B) $\\\\Theta(n)$ (C) $\\\\Theta(n \\\\log n)$ (D) $\\\\Theta(n^2)$
 
 **Q6. ★★ (MCQ)** By the Master theorem, $T(n) = 8T(n/2) + O(n^2)$ solves to
-(A) $\\Theta(n^2)$ (B) $\\Theta(n^2 \\log n)$ (C) $\\Theta(n^3)$ (D) $\\Theta(n \\log n)$
+(A) $\\\\Theta(n^2)$ (B) $\\\\Theta(n^2 \\\\log n)$ (C) $\\\\Theta(n^3)$ (D) $\\\\Theta(n \\\\log n)$
 
 **Q7. ★★ (NAT)** Merging two sorted lists of 4 elements each requires at most ****\_\_**** comparisons.
 
-**Q8. ★★ (MCQ)** Why is merge sort guaranteed $\\Theta(n \\log n)$ while quicksort is not?
+**Q8. ★★ (MCQ)** Why is merge sort guaranteed $\\\\Theta(n \\\\log n)$ while quicksort is not?
 (A) merge sort uses less memory (B) merge sort always splits into equal halves, independent of data (C) quicksort is not recursive (D) merge sort avoids comparisons
 
 **Q9. ★★ (NAT)** The number of levels of recursion in merge sort on an array of 8 elements is ****\_\_**** .

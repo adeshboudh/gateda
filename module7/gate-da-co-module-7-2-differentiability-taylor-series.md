@@ -109,7 +109,7 @@ $$f'=0.4\,(1-0.4)=0.4\times0.6=0.24.$$
 
 ### Example 2 — Piecewise continuous _and_ differentiable _(2024 Q37 · MCQ)_
 
-**Q.** $f(x)=\begin{cases}-x, & x<-2\\ ax^2+bx+c, & -2\le x\le2\\ x, & x>2\end{cases}$. Which $a,b,c$ make $f$ continuous and differentiable? (A) $a=\tfrac14,b=0,c=1$ (B) $a=\tfrac12,b=0,c=0$ (C) $a=0,b=0,c=0$ (D) $a=1,b=1,c=-4$.
+**Q.** $f(x)=\begin{cases}-x, & x<-2\\\\ ax^2+bx+c, & -2\le x\le2\\\\ x, & x>2\end{cases}$. Which $a,b,c$ make $f$ continuous and differentiable? (A) $a=\tfrac14,b=0,c=1$ (B) $a=\tfrac12,b=0,c=0$ (C) $a=0,b=0,c=0$ (D) $a=1,b=1,c=-4$.
 
 **Solve.** Match value **and** derivative at both boundaries (middle derivative $=2ax+b$):
 
@@ -168,7 +168,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q7. ★★ (MCQ)** $f(x)=\lvert x-2\rvert$ fails to be differentiable at
 (A) $x=0$ (B) $x=2$ (C) every point (D) no point
 
-**Q8. ★★ (NAT)** For $f(x)=\begin{cases}x^2, & x\le1\\ 2x+b, & x>1\end{cases}$ to be differentiable at $x=1$, $b=$ \***\*\_\_\*\*** .
+**Q8. ★★ (NAT)** For $f(x)=\begin{cases}x^2, & x\le1\\\\ 2x+b, & x>1\end{cases}$ to be differentiable at $x=1$, $b=$ \***\*\_\_\*\*** .
 
 **Q9. ★★★ (MCQ)** If $\lvert f(x)-f(y)\rvert\le 5\,\lvert x-y\rvert^2$ for all $x,y$, then $f$ is
 (A) linear (B) constant (C) quadratic (D) discontinuous

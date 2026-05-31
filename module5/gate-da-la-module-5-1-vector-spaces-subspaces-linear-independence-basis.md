@@ -213,7 +213,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q7 — 3.** One independent homogeneous equation in $\mathbb{R}^4$ cuts the dimension by $1$: $\dim = 4-1 = 3$.
 
-**Q8 — (C) $3$.** A symmetric $2\times2$ matrix $\begin{bmatrix} a & b \\ b & d \end{bmatrix}$ has $3$ free entries $a,b,d$; a basis is $\begin{bmatrix}1&0\\0&0\end{bmatrix},\begin{bmatrix}0&1\\1&0\end{bmatrix},\begin{bmatrix}0&0\\0&1\end{bmatrix}$.
+**Q8 — (C) $3$.** A symmetric $2\times2$ matrix $\begin{bmatrix} a & b \\\\ b & d \end{bmatrix}$ has $3$ free entries $a,b,d$; a basis is $\begin{bmatrix}1&0\\\\0&0\end{bmatrix},\begin{bmatrix}0&1\\\\1&0\end{bmatrix},\begin{bmatrix}0&0\\\\0&1\end{bmatrix}$.
 
 **Q9 — (A), (B), (C).** (A) the two generators are independent $\to \dim W=2$. (B) $(1,1,0)+(0,1,1)=(1,2,1)$ ✅. (C) $(1,1,0)-(0,1,1)=(1,0,-1)$ ✅. (D) solve $a(1,1,0)+b(0,1,1)=(0,0,1)$: $a=0$, then $a+b=0\Rightarrow b=0$, but $b=1$ — contradiction, so $(0,0,1)\notin W$. ❌
 

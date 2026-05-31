@@ -131,7 +131,7 @@ Product $=2\times\tfrac12=1$.
 
 ### Example 4 — Continuity of a piecewise function _(original · Easy–Med)_
 
-**Q.** Is $f(x)=\begin{cases}x^2+1, & x\le1\\ 3x-1, & x>1\end{cases}$ continuous at $x=1$?
+**Q.** Is $f(x)=\begin{cases}x^2+1, & x\le1\\\\ 3x-1, & x>1\end{cases}$ continuous at $x=1$?
 
 **Solve.** Compare the three quantities at $x=1$:
 
@@ -159,7 +159,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q6. ★★ (NAT)** $\displaystyle\sum_{n=0}^{\infty}\Big(\frac14\Big)^n=$ \***\*\_\_\*\*** .
 
-**Q7. ★★ (MCQ)** For $f(x)=\begin{cases}ax+1, & x\le2\\ x^2-1, & x>2\end{cases}$ to be continuous at $x=2$, $a=$
+**Q7. ★★ (MCQ)** For $f(x)=\begin{cases}ax+1, & x\le2\\\\ x^2-1, & x>2\end{cases}$ to be continuous at $x=2$, $a=$
 (A) $0$ (B) $1$ (C) $2$ (D) $3$
 
 **Q8. ★★ (NAT)** $\displaystyle\lim_{x\to0}\frac{e^{2x}-1}{x}=$ \***\*\_\_\*\*** .

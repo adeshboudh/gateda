@@ -125,7 +125,7 @@ $$\sum_{i=1}^5\sigma_i=55.$$
 
 ### Example 3 — Singular values from eigenvalues _(original · Easy–Med)_
 
-**Q.** Find the singular values of $A=\begin{bmatrix}2&0\\ 0&-3\end{bmatrix}$.
+**Q.** Find the singular values of $A=\begin{bmatrix}2&0\\\\ 0&-3\end{bmatrix}$.
 
 **Solve.** $A$ is symmetric with eigenvalues $2$ and $-3$. Singular values are the **absolute values**: $\sigma=\lvert 2\rvert=2$ and $\lvert-3\rvert=3$, i.e. $\{3,2\}$.
 
@@ -135,7 +135,7 @@ $$\sum_{i=1}^5\sigma_i=55.$$
 
 ### Example 4 — LU decomposition & determinant _(original · Med)_
 
-**Q.** Find the LU factorization of $A=\begin{bmatrix}2&1\\ 4&5\end{bmatrix}$ and use it for $\det A$.
+**Q.** Find the LU factorization of $A=\begin{bmatrix}2&1\\\\ 4&5\end{bmatrix}$ and use it for $\det A$.
 
 **Solve.** Eliminate: $R_2-2R_1$ (multiplier $m_{21}=2$) gives $(0,\,3)$. So
 $$L=\begin{bmatrix}1&0\\ 2&1\end{bmatrix},\qquad U=\begin{bmatrix}2&1\\ 0&3\end{bmatrix}.$$
@@ -161,7 +161,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q5. ★★ (MCQ)** For a symmetric PSD matrix, the singular values
 (A) equal the eigenvalues (B) equal the eigenvalues' magnitudes but differ in sign (C) are all $1$ (D) are the squared eigenvalues
 
-**Q6. ★★ (NAT)** For $A=\begin{bmatrix}5&0\\ 0&-12\end{bmatrix}$, the largest singular value is \***\*\_\_\*\*** .
+**Q6. ★★ (NAT)** For $A=\begin{bmatrix}5&0\\\\ 0&-12\end{bmatrix}$, the largest singular value is \***\*\_\_\*\*** .
 
 **Q7. ★★ (MSQ)** Which are TRUE about the SVD $A=U\Sigma V^\top$?
 (A) $U$ and $V$ are orthogonal (B) $\Sigma$ has nonnegative diagonal entries (C) the largest singular value equals $\lVert A\rVert_2$ (D) SVD only applies to square matrices
@@ -169,7 +169,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q8. ★★ (MCQ)** Every orthogonal matrix has all singular values equal to
 (A) $0$ (B) $1$ (C) $\pm1$ (D) its eigenvalues
 
-**Q9. ★★★ (NAT)** Using LU (no pivoting), the determinant of $A=\begin{bmatrix}1&2\\ 3&4\end{bmatrix}$ is \***\*\_\_\*\*** .
+**Q9. ★★★ (NAT)** Using LU (no pivoting), the determinant of $A=\begin{bmatrix}1&2\\\\ 3&4\end{bmatrix}$ is \***\*\_\_\*\*** .
 
 **Q10. ★★★ (MSQ)** Let $A=\mathbf u\mathbf v^\top$ be rank-$1$ ($\mathbf u,\mathbf v\ne\mathbf 0$). Which are TRUE?
 (A) $A$ has exactly one nonzero singular value (B) that singular value is $\lVert\mathbf u\rVert\,\lVert\mathbf v\rVert$ (C) $\operatorname{rank}(A)=1$ (D) $A$ is always symmetric
@@ -192,7 +192,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q8 — (B) $1$.** $Q^\top Q=I\Rightarrow$ eigenvalues of $Q^\top Q$ are all $1\Rightarrow\sigma_i=\sqrt1=1$.
 
-**Q9 — $-2$.** $R_2-3R_1\Rightarrow U=\begin{bmatrix}1&2\\ 0&-2\end{bmatrix}$, $\det=\prod U_{ii}=1\cdot(-2)=-2$ (matches $1\cdot4-2\cdot3$).
+**Q9 — $-2$.** $R_2-3R_1\Rightarrow U=\begin{bmatrix}1&2\\\\ 0&-2\end{bmatrix}$, $\det=\prod U_{ii}=1\cdot(-2)=-2$ (matches $1\cdot4-2\cdot3$).
 
 **Q10 — (A), (B), (C).** A rank-1 $\mathbf u\mathbf v^\top$ has a single nonzero singular value $\lVert\mathbf u\rVert\lVert\mathbf v\rVert$ and rank $1$. (D) is false — it is symmetric only if $\mathbf u\parallel\mathbf v$.
 

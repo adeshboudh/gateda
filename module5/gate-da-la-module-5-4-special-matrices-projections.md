@@ -37,7 +37,7 @@ nav_order: 4
 ### C. Idempotent matrices ($P^2=P$) — projections
 
 - **Eigenvalues are $0$ or $1$**; hence $P^k=P$ for all $k\ge1$.
-- $\operatorname{rank}(P)=\operatorname{tr}(P)=\#\{\text{eigenvalues}=1\}$.
+- $\operatorname{rank}(P)=\operatorname{tr}(P)=N_{\lambda=1}$ (number of unit eigenvalues).
 - $I-P$ is also idempotent (the **complementary** projection).
 
 ### D. Projection matrices (onto a subspace $U$)
@@ -89,7 +89,7 @@ For a **symmetric PSD** matrix (e.g. a projection), **singular values $=$ eigenv
 
 ### Projection questions
 
-- $\operatorname{range}$ dim $=\operatorname{rank}=\operatorname{tr}=\#(1\text{-eigenvalues})$; null-space dim $=n-\operatorname{rank}$.
+- $\operatorname{range}$ dim $=\operatorname{rank}=\operatorname{tr}=N_{\lambda=1}$; null-space dim $=n-\operatorname{rank}$.
 - Onto a $k$-dim $U$: null space $=U^\perp$, dim $n-k$.
 - Verify $P^2=P$ and (orthogonal projection) $P^\top=P$.
 

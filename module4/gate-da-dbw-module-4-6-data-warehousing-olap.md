@@ -48,7 +48,7 @@ A **data warehouse** is **subject-oriented, integrated, time-variant, and non-vo
 
 A **data cube** over $d$ dimensions is the lattice of all **cuboids** (aggregations at chosen levels). If dimension $i$ has a **concept hierarchy with $L_i$ explicit levels**, it offers $L_i + 1$ aggregation choices (the $L_i$ levels plus the implicit **"all"** apex). Choosing a level **independently** per dimension:
 
-$$\#\text{cuboids} = \prod_{i=1}^{d} (L_i + 1).$$
+$$N_{\text{cuboids}} = \prod_{i=1}^{d} (L_i + 1).$$
 
 - With **no hierarchy** ($L_i = 1$ each), this is $\prod (1+1) = 2^d$.
 - The **apex cuboid** (all "all") is the grand total; the **base cuboid** is the finest-level combination.
@@ -79,7 +79,7 @@ Levels of aggregation within a dimension, e.g. Time: **Day $\to$ Month $\to$ Yea
 ### Counting cuboids
 
 1. For each dimension, count its **explicit hierarchy levels** $L_i$, then add 1 for the **"all"** level $\Rightarrow L_i + 1$ choices.
-2. **Multiply** across dimensions: $\#\text{cuboids} = \prod_i (L_i + 1)$.
+2. **Multiply** across dimensions: $N_{\text{cuboids}} = \prod_i (L_i + 1)$.
 3. Special case: no hierarchy $\Rightarrow 2^d$.
 
 ### Identifying the OLAP operation
@@ -110,7 +110,7 @@ E1–E2 are real GATE DA questions; E3–E4 are standard originals.
 (A) $4^3$ (B) $2^3$ (C) $2!$ (D) $4!$
 
 **Solve.** Each dimension has $3$ explicit levels $+1$ for the "all" aggregate $= 4$ choices. Choosing a level independently per dimension:
-$$\#\text{cuboids} = 4 \times 4 \times 4 = 4^3 = 64.$$
+$$N_{\text{cuboids}} = 4 \times 4 \times 4 = 4^3 = 64.$$
 
 - (B) $2^3$ assumes 1 level each; (D) $4!$ confuses the product rule with a factorial.
 

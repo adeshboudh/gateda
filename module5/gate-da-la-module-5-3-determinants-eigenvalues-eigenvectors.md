@@ -59,7 +59,7 @@ If $\lambda$ is an eigenvalue of $A$ (eigenvector $\mathbf v$):
 | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | triangular / diagonal                                                                               | the diagonal entries                                            |
 | rank-1 update $cI+\mathbf u\mathbf v^\top$                                                          | $c$ (multiplicity $n-1$) and $c+\mathbf v^\top\mathbf u$ (once) |
-| rotation $R(\theta)=\begin{bmatrix}\cos\theta & -\sin\theta\\ \sin\theta & \cos\theta\end{bmatrix}$ | $e^{\pm i\theta}=\cos\theta\pm i\sin\theta$                     |
+| rotation $R(\theta)=\begin{bmatrix}\cos\theta & -\sin\theta\\\\ \sin\theta & \cos\theta\end{bmatrix}$ | $e^{\pm i\theta}=\cos\theta\pm i\sin\theta$                     |
 | idempotent $A^2=A$ (projection)                                                                     | $0$ or $1$                                                      |
 | orthogonal                                                                                          | $\lvert \lambda\rvert=1$                                        |
 | satisfies $p(A)=0$                                                                                  | among the roots of $p$                                          |
@@ -118,7 +118,7 @@ If $\lambda$ is an eigenvalue of $A$ (eigenvector $\mathbf v$):
 
 ### Example 1 — Real or complex eigenvalues? _(2024 Q13 · MCQ)_
 
-**Q.** For $M=\begin{bmatrix}2 & -1\\ 3 & 1\end{bmatrix}$, which is TRUE? (A) eigenvalues non-negative real (B) complex conjugate pair (C) one positive real, one zero (D) one non-negative real, one negative real.
+**Q.** For $M=\begin{bmatrix}2 & -1\\\\ 3 & 1\end{bmatrix}$, which is TRUE? (A) eigenvalues non-negative real (B) complex conjugate pair (C) one positive real, one zero (D) one non-negative real, one negative real.
 
 **Solve.** $\operatorname{tr}M=2+1=3$, $\det M=(2)(1)-(-1)(3)=2+3=5$. Characteristic equation $\lambda^2-3\lambda+5=0$, discriminant $=9-20=-11<0$ $\Rightarrow$ a **complex conjugate pair** $\dfrac{3\pm i\sqrt{11}}{2}$.
 
@@ -128,7 +128,7 @@ If $\lambda$ is an eigenvalue of $A$ (eigenvector $\mathbf v$):
 
 ### Example 2 — Determinant via singularity _(2024 Q35 · NAT)_
 
-**Q.** For $M=\begin{bmatrix}1&2&3\\ 3&1&3\\ 4&3&6\end{bmatrix}$, find $\det(M^2+12M)$.
+**Q.** For $M=\begin{bmatrix}1&2&3\\\\ 3&1&3\\\\ 4&3&6\end{bmatrix}$, find $\det(M^2+12M)$.
 
 **Solve.** Spot the dependency: row$_1+$row$_2=(4,3,6)=$ row$_3$, so the rows are linearly dependent $\Rightarrow \det(M)=0$. Factor:
 $$\det(M^2+12M)=\det\!\big(M(M+12I)\big)=\det(M)\,\det(M+12I)=0\cdot\det(M+12I)=0.$$
@@ -154,7 +154,7 @@ $$\det(M^2+12M)=\det\!\big(M(M+12I)\big)=\det(M)\,\det(M+12I)=0\cdot\det(M+12I)=
 
 ### Example 4 — Rotation block via the trace identity _(2026 Q46 · MCQ)_
 
-**Q.** The eigenvalues $\gamma_1,\gamma_2,\gamma_3$ of $\begin{bmatrix}1&0&0\\ 0&\cos t&\sin t\\ 0&-\sin t&\cos t\end{bmatrix}$, $t\in[-\pi,\pi]$, satisfy $\gamma_1+\gamma_2+\gamma_3=1+\sqrt2$. Find all such $t$. (A) $\{\pi/3,-\pi/4\}$ (B) $\{\pi/4,-\pi/3\}$ (C) $\{\pi/4,-\pi/4\}$ (D) $\{\pi/3,-\pi/3\}$.
+**Q.** The eigenvalues $\gamma_1,\gamma_2,\gamma_3$ of $\begin{bmatrix}1&0&0\\\\ 0&\cos t&\sin t\\\\ 0&-\sin t&\cos t\end{bmatrix}$, $t\in[-\pi,\pi]$, satisfy $\gamma_1+\gamma_2+\gamma_3=1+\sqrt2$. Find all such $t$. (A) $\{\pi/3,-\pi/4\}$ (B) $\{\pi/4,-\pi/3\}$ (C) $\{\pi/4,-\pi/4\}$ (D) $\{\pi/3,-\pi/3\}$.
 
 **Solve.** The matrix is block-diagonal: a $1\times1$ block $[1]$ and a $2\times2$ rotation-type block with eigenvalues $\cos t\pm i\sin t$. The sum of eigenvalues equals the **trace**:
 $$\gamma_1+\gamma_2+\gamma_3=1+2\cos t.$$
@@ -187,7 +187,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q8. ★★ (MSQ)** For a real square matrix $A$, which are TRUE?
 (A) all eigenvalues are real (B) complex eigenvalues occur in conjugate pairs (C) $\operatorname{tr}(A)=\sum_i\lambda_i$ (D) $\det(A)=\prod_i\lambda_i$
 
-**Q9. ★★ (MCQ)** The matrix $\begin{bmatrix}0&-1\\ 1&0\end{bmatrix}$ has eigenvalues
+**Q9. ★★ (MCQ)** The matrix $\begin{bmatrix}0&-1\\\\ 1&0\end{bmatrix}$ has eigenvalues
 (A) $\pm1$ (B) $\pm i$ (C) $0,1$ (D) $1,1$
 
 **Q10. ★★★ (NAT)** $A$ is $3\times3$ with eigenvalues $1,-1,2$. Then $\det(A^2+A)=$ \***\*\_\_\*\*** .

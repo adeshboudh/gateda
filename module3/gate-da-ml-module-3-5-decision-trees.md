@@ -82,7 +82,7 @@ $\text{Gini} = 1 - \sum p_c^2$ per node; compare weighted child Gini to the pare
 
 ### Sanity checks
 
-- $0 \le H \le \log_2(\#\text{classes})$; $0 \le \text{Gini} \le 1 - 1/(\#\text{classes})$.
+- $0 \le H \le \log_2(N_{\text{classes}})$; $0 \le \text{Gini} \le 1 - 1/(N_{\text{classes}})$.
 - $\text{IG} \ge 0$; $\text{IG} = H(\text{parent})$ exactly when the split yields all-pure children.
 - A useless split (children with the same proportions as the parent) gives $\text{IG} = 0$.
 
