@@ -26,7 +26,7 @@ nav_order: 1
 - $P(n, r)$ = number of **permutations** (ordered) of $r$ objects from $n$.
 - $C(n, r) = {}^{n}C_r$ = number of **combinations** (unordered) of $r$ objects from $n$.
 - $S$ = sample space; $A, B$ = events; $A^c$ = complement of $A$; $\emptyset$ = impossible event.
-- $|X|$ = number of elements (size) of set $X$.
+- $\lvert X\rvert$ = number of elements (size) of set $X$.
 
 ---
 
@@ -102,7 +102,7 @@ Use whenever cases **overlap** (to avoid double counting).
 - **Kolmogorov axioms:** (1) $0 \le P(A) \le 1$; (2) $P(S) = 1$; (3) for mutually exclusive events, $P(A \cup B) = P(A) + P(B)$.
 - **Classical (equally likely) probability** — where counting meets probability:
 
-$$P(A) = \frac{|A|}{|S|} = \frac{\text{favourable outcomes}}{\text{total outcomes}}$$
+$$P(A) = \frac{\lvert A\rvert}{\lvert S\rvert} = \frac{\text{favourable outcomes}}{\text{total outcomes}}$$
 
 - **Complement rule:** $P(A^c) = 1 - P(A)$. _(The workhorse for "at least one".)_
 - **Addition rule:** $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
@@ -153,9 +153,9 @@ Ask: _is this counting, probability, or both?_ Under equally likely outcomes, **
 
 ### The probability procedure
 
-1. **Write $S$ precisely** and compute $|S|$ by counting.
-2. **Describe event $A$** in words, then compute $|A|$ by counting.
-3. $P(A) = |A|/|S|$ (only if outcomes are equally likely).
+1. **Write $S$ precisely** and compute $\lvert S\rvert$ by counting.
+2. **Describe event $A$** in words, then compute $\lvert A\rvert$ by counting.
+3. $P(A) = \lvert A\rvert/\lvert S\rvert$ (only if outcomes are equally likely).
 4. Reach for **complement** on "at least one"; **addition rule** on "A or B" (check overlap); **product rule** for independent stages.
 5. **Sanity-check:** is $0 \le P \le 1$? Does $P(A) + P(A^c) = 1$? Try a tiny case ($n = 2$ or $3$) to validate the structure.
 
@@ -187,7 +187,7 @@ Each example is a _real_ GATE DA / GA question, fully solved, tied back to the m
 
 **Solve.**
 
-- Sample space: each child is B or G, so $|S| = 2^3 = 8$ equally likely outcomes.
+- Sample space: each child is B or G, so $\lvert S\rvert = 2^3 = 8$ equally likely outcomes.
 - Favourable = exactly 2 girls among 3 positions = choose which 2 are girls = $C(3,2) = 3$ (GGB, GBG, BGG).
 - $P = 3/8$.
 
@@ -235,7 +235,7 @@ Each example is a _real_ GATE DA / GA question, fully solved, tied back to the m
 
 **Solve.**
 
-- **Total outcomes** $|S|$ = non-negative solutions of a 4-variable sum to 20 = $C(20 + 4 - 1,\ 4 - 1) = C(23, 3)$.
+- **Total outcomes** $\lvert S\rvert$ = non-negative solutions of a 4-variable sum to 20 = $C(20 + 4 - 1,\ 4 - 1) = C(23, 3)$.
 - **Favourable** = all $n_i \ge 1$. Substitute $m_i = n_i - 1 \ge 0 \implies m_1+m_2+m_3+m_4 = 16 \implies C(16 + 3, 3) = C(19, 3)$.
 - $P = C(19,3) / C(23,3)$.
 
@@ -287,7 +287,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ have **no 
 
 **Q2 — (A) 0.** With only 3 coins, "≥2 heads" needs ≥2 of them heads and "≥2 tails" needs ≥2 tails — that's ≥4 coins. Impossible together $\implies T \cap S = \emptyset \implies P = 0$.
 
-**Q3 — (A) 80.** Inclusion–exclusion: $|T \cup C| = 60 + 50 - 30 = 80$. _(Trap (B) 110 forgets to subtract the overlap.)_
+**Q3 — (A) 80.** Inclusion–exclusion: $\lvert T \cup C\rvert = 60 + 50 - 30 = 80$. _(Trap (B) 110 forgets to subtract the overlap.)_
 
 **Q4 — 60.** BANANA = 6 letters with A×3, N×2, B×1 $\implies \dfrac{6!}{3!\cdot 2!\cdot 1!} = \dfrac{720}{12} = 60$.
 
