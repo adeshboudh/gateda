@@ -21,6 +21,8 @@ nav_order: 2
 
 > **Why it matters:** complexity is the language GATE uses to compare algorithms. Master the growth-rate ordering, the Master theorem, and the handful of standard recurrences, and a whole class of questions becomes mechanical.
 
+> **Connects to:** **2.5 Searching** — binary search recurrence $F(n)=F(\lfloor n/2\rfloor)+1$ solved here · **2.6 Sorting** — merge/quick sort complexities derived from the Master theorem · **2.7 Divide & Conquer** — every D&C algorithm's cost is a recurrence cracked by the Master theorem.
+
 ## Part 1 — Theory & Math
 
 ### A. Asymptotic notation

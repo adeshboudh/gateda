@@ -20,6 +20,8 @@ nav_order: 5
 
 > **Why it matters:** three ideas — the **factorized joint** $\prod_i P(X_i\mid \text{Parents}(X_i))$, the **d-separation** rules (chain/fork **block**, collider **opens** when observed), and the **exact vs approximate** split — cover every uncertainty question GATE DA has asked.
 
+> **Connects to:** **1.2 Conditional Probability & Bayes** — Bayes' theorem is the computational engine behind every CPT update and posterior query · **3.3 kNN/Naive Bayes** — Naive Bayes is a one-layer Bayesian network with all features conditionally independent given the class.
+
 ## Part 1 — Theory & Math
 
 ### A. Bayesian networks

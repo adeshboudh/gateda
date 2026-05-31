@@ -19,6 +19,8 @@ _(2026 had no SVM question — emphasis shifts year to year.)_
 
 > **Why it matters:** SVM questions reward two facts — the **margin is $2/\lVert w\rVert$**, and **support vectors are the points sitting exactly on the margin**. Plus the classic intuition that **XOR is not linearly separable** (the motivation for kernels).
 
+> **Connects to:** **7.3 Optimization** — maximizing the margin is minimizing $\tfrac12\lVert w\rVert^2$ subject to constraints; a constrained convex QP · **3.7 Bias-Variance** — the soft-margin $C$ parameter controls the bias–variance trade-off (large $C$ = low bias, high variance) · **5.3 Eigenvalues** — the RBF kernel's feature space is infinite-dimensional; PSD kernel matrices share eigenvalue properties.
+
 ## Part 1 — Theory & Math
 
 ### A. The maximum-margin idea

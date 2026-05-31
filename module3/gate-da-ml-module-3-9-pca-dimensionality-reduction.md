@@ -21,6 +21,8 @@ _(Projection-matrix / Rayleigh-quotient questions 2025 Q50 and 2026 Q65 are cove
 
 > **Why it matters:** the central fact wins most marks — **the $i$-th eigenvalue of the covariance matrix is the variance captured by the $i$-th principal component**, and the **first PC maximizes variance**. PCs are orthogonal; PCA ignores labels.
 
+> **Connects to:** **1.6 Covariance** — PCA's input is the covariance matrix $C = \tfrac1n X_c^\top X_c$ · **5.3 Eigenvalues** — eigenvectors of $C$ are the PCs; eigenvalues are the per-component variances · **5.4 Projections** — projecting onto the top $k$ PCs is an orthogonal projection · **5.6 SVD** — right singular vectors of the data matrix are the PCs; $\sigma_i^2/n \propto \lambda_i$.
+
 ## Part 1 — Theory & Math
 
 ### A. What PCA does

@@ -19,6 +19,8 @@ _(2026 Q29, a single SGD step, has ambiguous wording and is treated in Module 3.
 
 > **Why it matters:** two skills carry the marks — **parameter counting** (multiply adjacent layer sizes, add biases if present) and the **ReLU-identity collapse** (positive pre-activations $\Rightarrow$ ReLU does nothing $\Rightarrow$ the network is linear). Both are mechanical once you see them.
 
+> **Connects to:** **7.2 Differentiability** — backpropagation is the chain rule applied layer by layer; the sigmoid derivative $\sigma'=\sigma(1-\sigma)$ is derived there · **7.3 Optimization** — gradient descent updates the weights; convexity (or lack of it) determines landscape difficulty · **3.7 Bias-Variance** — deep networks are high-variance learners; dropout and regularization address this.
+
 ## Part 1 — Theory & Math
 
 ### A. Neuron, perceptron, MLP

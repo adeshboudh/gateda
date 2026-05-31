@@ -18,7 +18,9 @@ nav_order: 3
 - **2025 Q51** (MSQ) — properties of a **convex** function ($f''>0$).
 - **2026 Q27** (MSQ) — a cubic's extrema and roots on an interval.
 
-> **Why it matters:** three rules do it all — **$f'=0$ for critical points**, the **second-derivative test** to classify them, and **“check the endpoints too”** for global extrema on an interval. Convexity ($f''>0$) ties straight into ML.
+> **Why it matters:** three rules do it all — **$f'=0$ for critical points**, the **second-derivative test** to classify them, and **”check the endpoints too”** for global extrema on an interval. Convexity ($f''>0$) ties straight into ML.
+
+> **Connects to:** **3.1 Ridge Regression** — gradient descent ($w \leftarrow w - \eta\nabla L$) minimizes the loss; the squared-error landscape is convex · **3.4 SVM** — maximizing the margin = minimizing $\tfrac12\lVert w\rVert^2$ (a convex QP) · **3.6 Neural Networks** — backprop applies the chain rule at every layer to compute gradients for GD.
 
 ## Part 1 — Theory & Math
 

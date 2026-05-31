@@ -21,6 +21,8 @@ nav_order: 3
 
 > **Why it matters:** two identities — **trace $=\sum\lambda_i$** and **det $=\prod\lambda_i$** — plus a small **toolkit of eigenvalue transformations** crack most questions in seconds. Recognize the _structure_ (rotation, rank-1 update, polynomial relation) and you rarely need to expand a determinant.
 
+> **Connects to:** **3.9 PCA** — variance along the $i$-th principal component = eigenvalue $\lambda_i$; direction of max variance = eigenvector of $\lambda_{\max}$ · **5.5 Quadratic Forms** — positive definiteness ↔ all eigenvalues $>0$ · **5.6 SVD** — singular values = $\sqrt{\text{eigenvalues of }A^\top A}$.
+
 ## Part 1 — Theory & Math
 
 ### A. Determinant — properties to know cold

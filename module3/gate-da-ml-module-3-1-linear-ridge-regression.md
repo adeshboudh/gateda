@@ -20,6 +20,8 @@ _(2026 Q29 poses a single SGD step, but its wording — "the objective being min
 
 > **Why it matters:** regression questions are short, formula-driven, and reliable. Lock in three things — the **least-squares slope formula**, the **gradient-descent update**, and the **ridge (L2) objective** with its bias–variance effect.
 
+> **Connects to:** **1.6 Covariance** — the slope $\beta_1 = \text{Cov}(x,y)/\text{Var}(x)$ is a covariance ratio · **3.7 Bias-Variance** — ridge's $\lambda$ is the primary bias–variance knob (larger $\lambda$ = more bias, less variance) · **7.3 Optimization** — gradient descent is the general training algorithm applied here.
+
 ## Part 1 — Theory & Math
 
 ### A. Simple linear regression

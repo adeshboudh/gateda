@@ -19,6 +19,8 @@ nav_order: 1
 
 > **Why it matters:** the marks come from two mechanical skills — **tracing A\*** with $f=g+h$, and **reasoning about heuristic admissibility**. Lock in the property tables and these are reliable points.
 
+> **Connects to:** **2.8 Graphs** — uninformed BFS/DFS on a state-space graph is graph traversal; 2024 Q44 (BFS/DFS states expanded) is shared between both modules · **6.2 Adversarial Search** — extends these ideas to two-player game trees.
+
 ## Part 1 — Theory & Math
 
 ### A. Search problem framing

@@ -20,6 +20,8 @@ nav_order: 2
 
 > **Why it matters:** master the **derivative rules**, the **piecewise match** (continuity _and_ equal one-sided derivatives), and the **Taylor-coefficient** link $f^{(n)}(0)=n!\cdot[\text{coeff of }x^n]$, and this whole module is reliable marks.
 
+> **Connects to:** **3.2 Logistic Regression** — the sigmoid derivative $\sigma'=\sigma(1-\sigma)$ is proved here (2024 Q33) · **3.6 Neural Networks** — backpropagation applies the chain rule layer-by-layer · **7.1 Limits** — Taylor series are the limit-computation engine (L'Hôpital alternative).
+
 ## Part 1 — Theory & Math
 
 ### A. Derivative & differentiability

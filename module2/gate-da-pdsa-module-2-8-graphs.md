@@ -22,6 +22,8 @@ nav_order: 8
 
 > **Why it matters:** these are trace-and-reason questions. Master the BFS-queue / DFS-stack mechanics, the topological-sort constraint check, and the $G \leftrightarrow G^R$ reachability rule, and this whole cluster is reliable marks.
 
+> **Connects to:** **2.3 Linear Structures** — BFS uses a queue (FIFO) and DFS uses a stack/recursion; those mechanics are defined there · **6.1 Uninformed Search** — BFS/DFS on a state-space graph is the AI search module's foundation · **2.2 Complexity** — BFS/DFS run in $O(V+E)$; analysed with the tools from that module.
+
 ## Part 1 — Theory & Structures
 
 ### A. Terminology

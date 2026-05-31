@@ -19,6 +19,8 @@ nav_order: 4
 
 > **Why it matters:** these reduce to a tiny set of facts — **idempotent $\Rightarrow$ eigenvalues $0/1$, trace $=$ rank**; **orthogonal $\Rightarrow \lvert \lambda\rvert=1$ (possibly complex)**; **symmetric $+$ idempotent $=$ orthogonal projection**. Recognize the form and every option resolves instantly.
 
+> **Connects to:** **3.9 PCA** — projecting data onto the top $k$ eigenvectors is an orthogonal projection · **5.6 SVD** — singular values of a projection matrix are $0$ or $1$, matching its eigenvalues · **5.3 Eigenvalues** — idempotent/orthogonal eigenvalue properties proved there.
+
 ## Part 1 — Theory & Math
 
 ### A. Symmetric matrices ($A=A^\top$)

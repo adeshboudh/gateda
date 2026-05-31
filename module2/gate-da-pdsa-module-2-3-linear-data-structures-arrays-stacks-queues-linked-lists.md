@@ -19,6 +19,8 @@ nav_order: 3
 
 > **Why it matters:** these questions are pure _bookkeeping_ — trace the structure carefully and the marks are yours. The recurring trap is mixing up **LIFO (stack)** with **FIFO (queue)**, and forgetting that a linked list has **no $O(1)$ random access**.
 
+> **Connects to:** **2.8 Graphs** — a **queue** is the engine of BFS (level-by-level) and a **stack / call stack** drives DFS (deep traversal); knowing these structures cold makes graph questions mechanical · **2.2 Complexity** — the call stack models recursion depth.
+
 ## Part 1 — Theory & Structures
 
 ### A. Array
