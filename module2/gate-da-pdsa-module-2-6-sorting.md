@@ -180,6 +180,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10. ★★ (NAT)** Selection sort on 5 elements performs exactly ****\_\_**** swaps.
 
+**Q11. ★★★ (NAT)** The number of inversions in `[5, 3, 1, 4, 2]` is ****\_\_**** . (This also equals the number of bubble-sort swaps on that array.)
+
+**Q12. ★★★ (MSQ)** Apply bubble sort and insertion sort to `[4, 1, 3, 2]`. Which are TRUE?
+(A) Bubble sort performs 4 swaps.
+(B) The array has 4 inversions.
+(C) Insertion sort makes 6 comparisons in total.
+(D) Selection sort on this array always makes exactly 3 swaps regardless of input.
+
 ## Answer Key & Full Solutions
 
 **Q1 — (C) merge.** Merge sort is $\Theta(n \log n)$ in all cases. (Quick is $\Theta(n^2)$ worst; bubble/insertion $\Theta(n^2)$.)
@@ -202,10 +210,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — 4.** Selection sort makes exactly $n-1 = 4$ swaps (one per pass), regardless of the data.
 
+**Q11 — 7.** Count pairs $(i,j)$ with $i<j$ and $A[i]>A[j]$: from 5: $(5,3),(5,1),(5,4),(5,2)=4$; from 3: $(3,1),(3,2)=2$; from 1: none; from 4: $(4,2)=1$. Total $=7$. Bubble sort performs 7 swaps.
+
+**Q12 — (A), (B), (C), (D).** Inversions of `[4,1,3,2]`: $(4,1),(4,3),(4,2),(3,2)=4$ $\Rightarrow$ (B) TRUE. Bubble swaps $=$ inversions $= 4$ $\Rightarrow$ (A) TRUE. Insertion comparisons: insert 1 (1 comp), insert 3 (2 comps), insert 2 (3 comps), total $= 6$ $\Rightarrow$ (C) TRUE. Selection sort always makes $n-1=3$ swaps $\Rightarrow$ (D) TRUE. All four statements are correct.
+
 ---
 
 ### How to read your score
 
-- **8–10:** sorting is solid — on to Module 2.7 (Divide & Conquer).
-- **6–7:** memorize the complexity/stability table and the inversions $=$ swaps fact (Q4, Q5, Q10).
-- **≤5:** re-read Part 1 B–D and re-trace Examples 1–3 by hand.
+- **10–12:** sorting is solid — on to Module 2.7 (Divide & Conquer).
+- **7–9:** memorize the complexity/stability table and the inversions $=$ swaps fact (Q4, Q11, Q12).
+- **≤6:** re-read Part 1 B–D and re-trace Examples 1–3 by hand.

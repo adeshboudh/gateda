@@ -180,6 +180,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** Removing a training point that is **not** a support vector
 (A) flips all labels (B) does not change the learned hyperplane (C) always widens the margin (D) makes the data non-separable
 
+**Q11. ★★★ (NAT)** Class $+1$: $\{(1,0),\,(0,1)\}$; Class $-1$: $\{(-1,0),\,(0,-1)\}$. By the symmetry of the problem the hard-margin SVM uses decision boundary $x_1 + x_2 = 0$. The margin is ****\_\_**** (2 dp).
+
+**Q12. ★★★ (MSQ)** A hard-margin SVM has $w=(2,0)$, $b=-3$. Which are TRUE?
+(A) The margin equals $2$.
+(B) The decision boundary is $x_1 = 3/2$.
+(C) The margin boundaries are $x_1 = 1$ ($-1$ class) and $x_1 = 2$ ($+1$ class).
+(D) The point $(2, 5)$ with true label $+1$ is correctly classified and is a support vector.
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) maximum-margin separating hyperplane.** That is the defining objective of an SVM.
@@ -202,10 +210,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (B) does not change the learned hyperplane.** Only support vectors determine the solution.
 
+**Q11 — 1.41.** With $w=(1,1)$, margin $= 2/\lVert w\rVert = 2/\sqrt{1^2+1^2} = 2/\sqrt{2} = \sqrt{2}\approx 1.41$. Verify: all four points satisfy $y_i(x_{1i}+x_{2i})=1$ — all are support vectors.
+
+**Q12 — (B), (C), (D).** (A) is **false**: margin $= 2/\lVert w\rVert = 2/\lVert(2,0)\rVert = 2/2 = 1$ (not 2). (B): $2x_1 - 3 = 0 \Rightarrow x_1=3/2$. ✓ (C): $+1$ boundary $2x_1-3=1 \Rightarrow x_1=2$; $-1$ boundary $2x_1-3=-1 \Rightarrow x_1=1$. ✓ (D): $w^\top(2,5)+b = 4-3=1$; score $=+1>0$ (correct class) and equality holds, so it is a support vector. ✓
+
 ---
 
 ### How to read your score
 
-- **8–10:** SVMs are solid — on to Module 3.5 (Decision Trees).
-- **6–7:** re-drill the margin formula (Q2, Q8) and the support-vector definition (Q3, Q10).
-- **≤5:** re-read Part 1 B–C and re-work Example 2 (the full hard-margin solve).
+- **10–12:** SVMs are solid — on to Module 3.5 (Decision Trees).
+- **7–9:** re-drill the margin formula (Q2, Q8, Q11) and the support-vector definition (Q3, Q10).
+- **≤6:** re-read Part 1 B–C and re-work Example 2 (the full hard-margin solve).
