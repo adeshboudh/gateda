@@ -179,6 +179,12 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** The negation of $(p\wedge q)$ is
 (A) $\neg p\wedge\neg q$ (B) $\neg p\vee\neg q$ (C) $p\vee q$ (D) $\neg p\to q$
 
+**Q11. ★★★ (MSQ)** Which of the following are logically equivalent to $p\to(q\to r)$?
+(A) $(p\wedge q)\to r$ (B) $q\to(p\to r)$ (C) $\neg r\to(\neg p\vee\neg q)$ (D) $p\to(\neg q\vee r)$
+
+**Q12. ★★★ (MCQ)** "Alice will pass the exam ($P$) if she both studies hard ($S$) and gets enough sleep ($L$)." The correct propositional formula is
+(A) $P\to(S\wedge L)$ (B) $(S\wedge L)\to P$ (C) $(S\vee L)\to P$ (D) $P\to(S\vee L)$
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) $\neg p\vee q$.** The defining equivalence of implication.
@@ -201,10 +207,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (B) $\neg p\vee\neg q$.** De Morgan's law.
 
+**Q11 — (A), (B), (C), (D).** All four are equivalent. Reduce each to $\neg p\vee\neg q\vee r$: (A) $(p\wedge q)\to r = \neg p\vee\neg q\vee r$ ✓. (B) $q\to(p\to r) = \neg q\vee\neg p\vee r$ ✓. (C) $\neg r\to(\neg p\vee\neg q) = r\vee\neg p\vee\neg q$ ✓. (D) $p\to(\neg q\vee r) = \neg p\vee\neg q\vee r$ ✓.
+
+**Q12 — (B) $(S\wedge L)\to P$.** "Will pass **if** she (studies AND sleeps)" $= (S\wedge L)\to P$. The "if" makes $S\wedge L$ the antecedent. (A) gets the direction wrong; (C) uses $\vee$ (only one condition needed); (D) also reverses the direction.
+
 ---
 
 ### How to read your score
 
-- **8–10:** propositional logic is solid — on to **6.4 First-Order / Predicate Logic**.
-- **6–7:** re-drill the **falsify-it tautology check** (Q9) and **equivalences** (Q1, Q3, Q5).
-- **≤5:** re-read Part 1 B–E; lock in $p\to q\equiv\neg p\vee q$, the contrapositive, and the meaning of entailment.
+- **10–12:** propositional logic is solid — on to **6.4 First-Order / Predicate Logic**.
+- **7–9:** re-drill the **falsify-it tautology check** (Q9) and **equivalences** (Q1, Q3, Q5, Q11).
+- **≤6:** re-read Part 1 B–E; lock in $p\to q\equiv\neg p\vee q$, the contrapositive, and the meaning of entailment.

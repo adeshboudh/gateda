@@ -179,6 +179,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★★ (MCQ)** A binary node with **two** binary parents has how many independent parameters in its CPT?
 (A) 2 (B) 4 (C) 8 (D) 1
 
+**Q11. ★★★ (NAT)** Network: $A\to B$, $B\to D$. $P(A{=}1)=0.6$, $P(B{=}1\mid A{=}1)=0.4$, $P(B{=}1\mid A{=}0)=0.3$, $P(D{=}1\mid B{=}1)=0.8$, $P(D{=}1\mid B{=}0)=0.2$. Find $P(B{=}1,\,D{=}1)$ = \***\*\_\_\*\*** .
+
+**Q12. ★★★ (MCQ)** In the network $A\to C\leftarrow B$ (collider at $C$), $C\to D$. Which statement is **FALSE**?
+(A) $A$ and $B$ are marginally independent.
+(B) Conditioning on $C$ makes $A$ and $B$ dependent.
+(C) Conditioning on $D$ does **not** make $A$ and $B$ dependent.
+(D) Conditioning on $D$ makes $A$ and $B$ dependent, because $D$ is a descendant of the collider $C$.
+
 ## Answer Key & Full Solutions
 
 **Q1 — (C) $P(\text{node}\mid \text{parents})$.** The defining factorization of a Bayes net.
@@ -201,10 +209,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (B) 4.** Two binary parents give $2^2=4$ parent combinations; a binary node needs $1$ free parameter per combination $\Rightarrow 4$.
 
+**Q11 — 0.288.** First marginalize over $A$ to find $P(B{=}1)$: $0.4(0.6)+0.3(0.4)=0.24+0.12=0.36$. Since $D$ depends only on $B$: $P(B{=}1,D{=}1)=P(D{=}1\mid B{=}1)\cdot P(B{=}1)=0.8\times0.36=0.288$.
+
+**Q12 — (C).** (C) is **false**. $D$ is a **descendant** of the collider $C$; conditioning on any descendant of a collider also opens the collider path, making $A$ and $B$ dependent. (A), (B), and (D) are all true.
+
 ---
 
 ### How to read your score
 
-- **8–10:** uncertainty is solid — **that completes all of Subject 6 (Artificial Intelligence)!**
-- **6–7:** re-drill **d-separation** (Q2, Q3, Q8, Q9) and **exact vs approximate** (Q4, Q5).
-- **≤5:** re-read Part 1 A–D; lock in the factorized joint, _collider opens when observed_, and _VE exact / sampling approximate_.
+- **10–12:** uncertainty is solid — **that completes all of Subject 6 (Artificial Intelligence)!**
+- **7–9:** re-drill **d-separation** (Q2, Q3, Q8, Q9, Q12) and **exact vs approximate** (Q4, Q5).
+- **≤6:** re-read Part 1 A–D; lock in the factorized joint, _collider opens when observed (or a descendant is observed)_, and _VE exact / sampling approximate_.

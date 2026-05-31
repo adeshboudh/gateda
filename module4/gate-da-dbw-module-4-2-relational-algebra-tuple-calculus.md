@@ -179,6 +179,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** If relations $R$ and $S$ share no common attribute, then $R \bowtie S$ equals
 (A) $R \cap S$ (B) $R \setminus S$ (C) $R \times S$ (D) the empty relation
 
+**Q11. ★★★ (NAT)** $R(A,B)=\{(1,a),(1,b),(2,a),(2,b),(3,a)\}$ and $S(B)=\{(a),(b)\}$. The number of tuples in $R\div S$ is ****\_\_**** .
+
+**Q12. ★★★ (MCQ)** A query asks: "find the names of all students who are enrolled in **every** offered course." Which relational-algebra expression answers this correctly?
+(A) $\pi_{name,course}(\text{Enrolled}) \setminus \pi_{name}(\text{Student})$
+(B) $\pi_{name,course}(\text{Enrolled}) \div \pi_{course}(\text{Course})$
+(C) $\pi_{name}(\text{Student}) \cap \pi_{name}(\text{Enrolled})$
+(D) $\sigma_{\text{count}=\text{max}}(\text{Enrolled})$
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) rows, columns.** $\sigma$ selects rows; $\pi$ projects columns.
@@ -201,10 +209,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (C) $R \times S$.** With no shared attribute, the natural join becomes the Cartesian product.
 
+**Q11 — 2.** Division keeps $A$-values paired with **every** $B$ in $S=\{a,b\}$. $A=1$: paired with $a$ and $b$ ✓. $A=2$: paired with $a$ and $b$ ✓. $A=3$: only $a$, not $b$ ✗. Result: $\{(1),(2)\}$ — $2$ tuples.
+
+**Q12 — (B).** "Enrolled in every offered course" is a **for-all** query — exactly what division expresses. $\pi_{name,course}(\text{Enrolled}) \div \pi_{course}(\text{Course})$ returns the names paired with the full course set. (A) uses set-difference in the wrong direction; (C) returns all enrolled students (not all-course ones); (D) is not valid relational algebra.
+
 ---
 
 ### How to read your score
 
-- **8–10:** relational algebra/calculus is solid — on to Module 4.3 (SQL).
-- **6–7:** re-drill natural join (Q2, Q4, Q10), division (Q5, plus Example 3), and inside-out evaluation (Q6).
-- **≤5:** re-read Part 1 A–B and re-work Examples 1–3; this is high-yield in DBW.
+- **10–12:** relational algebra/calculus is solid — on to Module 4.3 (SQL).
+- **7–9:** re-drill natural join (Q2, Q4, Q10), division (Q5, Q11, Q12), and inside-out evaluation (Q6).
+- **≤6:** re-read Part 1 A–B and re-work Examples 1–3; this is high-yield in DBW.

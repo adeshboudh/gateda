@@ -175,6 +175,10 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10. ★★ (NAT)** $\dfrac{d}{dx}\big(x^2\ln x\big)$ evaluated at $x=1$ is \***\*\_\_\*\*** .
 
+**Q11. ★★★ (NAT)** Let $f(x)=\cos(x^2)$. Using its Maclaurin series, find $f^{(6)}(0)$.
+
+**Q12. ★★★ (NAT)** A function $f$ is defined as $\sin x$ for $x<0$ and $ax+b$ for $x\ge0$. Given that $f$ is differentiable at $x=0$, find $a$ (the slope of the linear piece).
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) $3e^{3x}$.** Chain rule: $\tfrac{d}{dx}e^{3x}=e^{3x}\cdot3$.
@@ -197,10 +201,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — 1.** $\tfrac{d}{dx}(x^2\ln x)=2x\ln x+x$; at $x=1$: $2(1)(0)+1=1$.
 
+**Q11 — 0.** Substitute $u=x^2$ into $\cos u = 1 - u^2/2! + u^4/4! - \cdots$: $\cos(x^2) = 1 - x^4/2 + x^8/24 - \cdots$ There is **no $x^6$ term**, so the coefficient of $x^6$ is $0$ and $f^{(6)}(0) = 6!\times 0 = 0$.
+
+**Q12 — 1.** Continuity at $0$: $\sin 0 = 0 = b$, so $b=0$. Derivative match: left derivative $= \cos 0 = 1$; right derivative $= a$. Therefore $a = 1$.
+
 ---
 
 ### How to read your score
 
-- **8–10:** differentiation & Taylor are solid — on to the finale **7.3 Maxima, Minima & Optimization**.
-- **6–7:** re-drill the **piecewise match** (Q8) and **Taylor coefficients** (Q5, Q6).
-- **≤5:** re-read Part 1 B–F; lock in the derivative rules, $\sigma'=\sigma(1-\sigma)$, and $f^{(n)}(0)=n!\cdot[\text{coeff of }x^n]$.
+- **10–12:** differentiation & Taylor are solid — on to the finale **7.3 Maxima, Minima & Optimization**.
+- **7–9:** re-drill the **piecewise match** (Q8, Q12) and **Taylor coefficients** (Q5, Q6, Q11).
+- **≤6:** re-read Part 1 B–F; lock in the derivative rules, $\sigma'=\sigma(1-\sigma)$, and $f^{(n)}(0)=n!\cdot[\text{coeff of }x^n]$.
