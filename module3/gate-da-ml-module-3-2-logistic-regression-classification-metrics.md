@@ -180,6 +180,10 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** The decision boundary of logistic regression (in the input feature space) is
 (A) linear (B) quadratic (C) circular (D) always nonlinear
 
+**Q11. ★★★ (NAT)** A binary classifier predicts positive for 80 out of 200 samples. Of those 80 predictions, 60 are truly positive. Of the 120 predicted negative, 30 are actually positive. Find the $F_1$ score of this classifier (2 dp).
+
+**Q12. ★★★ (NAT)** Binary cross-entropy for a single instance: true label $y = 1$, predicted probability $\hat{y} = e^{-2}$. The loss is $L = -\ln\hat{y}$ = ****\_\_**** .
+
 ## Answer Key & Full Solutions
 
 **Q1 — (C) $(0,1)$.** The sigmoid maps any real score to a probability strictly between 0 and 1.
@@ -202,10 +206,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (A) linear.** $\sigma(w^\top x + b) = 0.5 \iff w^\top x + b = 0$, a linear boundary.
 
+**Q11 — 0.71.** Build the confusion matrix: TP$=60$ (correctly predicted positive), FP$=20$ (predicted positive but wrong), FN$=30$ (missed positives), TN$=90$. Precision $= 60/80 = 0.75$; Recall $= 60/90 \approx 0.667$; $F_1 = 2(0.75)(0.667)/(0.75+0.667) = 1.00/1.417 \approx 0.706$.
+
+**Q12 — 2.** $L = -\ln(e^{-2}) = -(-2) = 2$. _(When the model assigns probability $e^{-2}\approx 0.135$ to the true class, the loss is $2$ nats.)_
+
 ---
 
 ### How to read your score
 
-- **8–10:** logistic regression and metrics are solid — on to Module 3.3 (kNN, Naive Bayes & LDA).
-- **6–7:** re-drill precision-vs-recall (Q3, Q4) and the sigmoid derivative (Q7).
-- **≤5:** re-read Part 1 A–C; memorize the confusion-matrix formulas and $\sigma' = \sigma(1-\sigma)$.
+- **10–12:** logistic regression and metrics are solid — on to Module 3.3 (kNN, Naive Bayes & LDA).
+- **7–9:** re-drill precision-vs-recall (Q3, Q4), the sigmoid derivative (Q7), and constructing the confusion matrix from narrative (Q11).
+- **≤6:** re-read Part 1 A–C; memorize the confusion-matrix formulas and $\sigma' = \sigma(1-\sigma)$.

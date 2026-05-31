@@ -144,6 +144,30 @@ _Tree-2:_ C (MAX) first evaluates D $=\min(5,y)$, giving $\alpha=\min(5,y)$ goin
 
 **Answer: the leaf $9$ is pruned; root value $=3$** (the same as full minimax). _Method:_ a MIN node that already drops to $\le\alpha$ cannot help MAX, so its rest is cut.
 
+---
+
+### Example 5 — Full alpha-beta trace: two prunings in one tree _(original · Hard)_
+
+**Q.** Root MAX $\to$ two MIN children A and B. A has leaves $\{3, 12, 8\}$. B has two MAX grandchildren: C (leaves $2, 4, 6$) and D (leaves $14, 5, 2$). Trace alpha-beta (left-to-right), state every pruning, and give the root value.
+
+**Solve.** Start with $\alpha=-\infty$, $\beta=+\infty$.
+
+**Subtree A (MIN, $\alpha{=}{-}\infty$, $\beta{=}{+}\infty$):** sees $3\to\beta{=}3$; $12\to\beta{=}3$; $8\to\beta{=}3$. No prune. A returns $3$.
+$\Rightarrow$ **Root $\alpha=3$.**
+
+**Subtree B (MIN, $\alpha{=}3$, $\beta{=}{+}\infty$):**
+
+- **Subtree C (MAX, $\alpha{=}3$, $\beta{=}{+}\infty$):** $2\to\alpha{=}3$; $4\to\alpha{=}4$; $6\to\alpha{=}6$. No prune. C returns $6$.
+- $\beta=\min(+\infty,6)=6$. Check: $\beta(6)\le\alpha(3)$? **No.** Continue.
+- **Subtree D (MAX, $\alpha{=}3$, $\beta{=}6$):** $14\to\alpha{=}14$. Check: $\alpha(14)\ge\beta(6)$? **YES** $\to$ **prune** leaves $5$ and $2$ under D. D returns $\ge14$.
+- B returns $\min(6,14)=6$.
+
+**Root $=\max(3,6)=6$.** Two pruned leaves: $\{5,\,2\}$ under D.
+
+_Verification (full minimax):_ A$=3$; C$=6$, D$=14$, B$=\min(6,14)=6$; root$=\max(3,6)=6$. ✓
+
+**Answer: root value $=6$; leaves pruned: $5$ and $2$ under D.** _Method:_ D's first leaf ($14$) immediately exceeds B's $\beta$ bound ($6$), so no further exploration of D can help MIN.
+
 ## Part 4 — Practice Questions
 
 Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no negative marking; single-correct MCQ — penalty for a wrong answer. (★ easy · ★★ medium · ★★★ hard.)
