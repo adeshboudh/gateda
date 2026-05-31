@@ -135,6 +135,41 @@ Sum $= 55$.
 
 **Answer: $55$.** _Method:_ rank-1 $uu^\top$ has a single nonzero singular value $\lVert u\rVert^2$. _(SVD detail: Linear Algebra subject.)_
 
+---
+
+### Example 5 — Full PCA procedure on 2D data _(original · Hard)_
+
+**Q.** Four data points: $(1,1),\;(2,3),\;(3,2),\;(4,4)$.
+(a) Compute the $2\times 2$ covariance matrix (using $1/n$). (b) Find the eigenvalues and the first principal component direction. (c) What fraction of total variance does PC1 capture?
+
+**Solve.**
+
+**Step 1 — Center.** $\bar{x}_1 = (1+2+3+4)/4 = 2.5$, $\bar{x}_2 = (1+3+2+4)/4 = 2.5$. Centered points:
+
+$$(-1.5,\;-1.5),\quad (-0.5,\;0.5),\quad (0.5,\;-0.5),\quad (1.5,\;1.5).$$
+
+**Step 2 — Covariance matrix** ($C = \tfrac{1}{n}X_c^\top X_c$):
+
+$$C_{11} = C_{22} = \frac{(-1.5)^2+(-0.5)^2+0.5^2+1.5^2}{4} = \frac{5}{4} = 1.25$$
+
+$$C_{12} = C_{21} = \frac{(-1.5)(-1.5)+(-0.5)(0.5)+(0.5)(-0.5)+(1.5)(1.5)}{4} = \frac{4.0}{4} = 1.0$$
+
+$$C = \begin{bmatrix}1.25 & 1.0\\ 1.0 & 1.25\end{bmatrix}.$$
+
+**Step 3 — Eigenvalues.** $\det(C - \lambda I) = 0$:
+
+$$(1.25-\lambda)^2 - 1 = 0 \;\Rightarrow\; \lambda = 1.25 \pm 1 \;\Rightarrow\; \lambda_1 = 2.25,\quad \lambda_2 = 0.25.$$
+
+**Step 4 — First PC direction.** For $\lambda_1 = 2.25$: $(C - 2.25 I)v = \mathbf{0}$, i.e.\
+
+$$\begin{bmatrix}-1&1\\1&-1\end{bmatrix}v = \mathbf{0},$$
+
+so $v_1 = \tfrac{1}{\sqrt{2}}[1,\;1]^\top$ (the main-diagonal direction).
+
+**Step 5 — Variance fraction.** $\dfrac{\lambda_1}{\lambda_1+\lambda_2} = \dfrac{2.25}{2.50} = 0.90$.
+
+**Answer:** $\lambda_1 = 2.25$, $\lambda_2 = 0.25$; PC1 $= [1,1]^\top/\sqrt{2}$; PC1 captures $\mathbf{90\%}$ of total variance. _Method:_ center → covariance → eigendecompose; top eigenvector = first PC; eigenvalue fraction = proportion of variance explained. _(Connects to: covariance — Module 1.6; eigenvalues — Module 5.3.)_
+
 ## Part 4 — Practice Questions
 
 Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no negative marking; single-correct MCQ — penalty for a wrong answer. (★ easy · ★★ medium · ★★★ hard.)
@@ -168,6 +203,10 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** For a covariance matrix $C$, $\max_{\lVert u\rVert = 1} u^\top C u$ equals
 (A) the smallest eigenvalue (B) the largest eigenvalue (C) the trace (D) the determinant
 
+**Q11. ★★★ (NAT)** A dataset's covariance matrix has eigenvalues $\{8, 2, 1\}$. The **minimum** number of principal components needed to explain at least $90\%$ of the total variance is ****\_\_**** .
+
+**Q12. ★★★ (NAT)** The $2\times 2$ covariance matrix of a dataset is $C = \begin{bmatrix}5 & 4\\\\ 4 & 5\end{bmatrix}$. The variance captured by the first principal component is ****\_\_**** .
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) unsupervised dimensionality reduction.** PCA finds high-variance directions without using labels.
@@ -190,10 +229,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (B) the largest eigenvalue.** By the Rayleigh quotient, the maximum of $u^\top C u$ over unit vectors is $\lambda_{\max}$ (the max-variance direction).
 
+**Q11 — 2.** Total variance $= 8+2+1 = 11$. PC1 alone: $8/11 \approx 72.7\%$ (< 90%). PC1+PC2: $(8+2)/11 = 10/11 \approx 90.9\%$ ($\ge 90\%$). Two PCs suffice.
+
+**Q12 — 9.** Eigenvalues of $C$: $(5-\lambda)^2 - 16 = 0 \Rightarrow \lambda = 5 \pm 4$; so $\lambda_1 = 9$, $\lambda_2 = 1$. Variance along PC1 $= \lambda_1 = 9$.
+
 ---
 
 ### How to read your score
 
-- **8–10:** PCA is solid — **that completes all of Subject 3 (Machine Learning)!**
-- **6–7:** re-drill "variance along a PC $=$ its eigenvalue" (Q4, Q5, Q7) and PCA-vs-LDA (Q6).
-- **≤5:** re-read Part 1 B–C; the key facts are max-variance $=$ $\lambda_{\max}$, PCs orthogonal, and PCA is unsupervised.
+- **10–12:** PCA is solid — **that completes all of Subject 3 (Machine Learning)!**
+- **7–9:** re-drill "variance along a PC $=$ its eigenvalue" (Q4, Q5, Q7) and the proportion-explained calculation (Q11).
+- **≤6:** re-read Part 1 B–C; work through Example 5 step by step; the key facts are max-variance $=$ $\lambda_{\max}$, PCs orthogonal, and PCA is unsupervised.

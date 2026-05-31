@@ -55,7 +55,16 @@ Estimate generalization and **select models/hyperparameters** using only the **t
 - **Leave-one-out CV (LOOCV):** the extreme $k = n$ case — each **single training sample** is the validation set once. **$n$ splits** (where $n$ = number of _training_ samples). Nearly unbiased, but expensive.
 - **Train / validation / test:** tune on validation (or via CV), report final performance on the untouched test set.
 
-### D. Common traps GATE exploits
+### D. Learning curves
+
+A **learning curve** plots training and validation error against training-set size $m$:
+
+- **High-bias model:** both train and validation error converge to a **high plateau** — adding more data barely helps; the model needs more capacity.
+- **High-variance model:** train error is low; validation error is much higher — a **large gap** that closes as $m$ grows; adding data (or regularization) helps.
+
+These curves let you diagnose whether more data or a more complex model is the right remedy.
+
+### E. Common traps GATE exploits
 
 1. **Complexity $\uparrow$ $\Rightarrow$ bias $\downarrow$, variance $\uparrow$** (not both the same way).
 2. **LOOCV uses $n$ splits**, where $n$ is the **training** count — subtract any held-out test samples first (2026 Q12).
@@ -63,6 +72,7 @@ Estimate generalization and **select models/hyperparameters** using only the **t
 4. **CV runs on training data**, never on the held-out test set.
 5. **Overfitting $=$ high variance; underfitting $=$ high bias.**
 6. **Irreducible noise** sets a floor on achievable error.
+7. **Learning curve diagnosis:** large train-val gap that shrinks with more data $\Rightarrow$ high variance (add data / regularize); both errors plateau high $\Rightarrow$ high bias (add capacity). _(Connects to: ridge regularization — Module 3.1; kNN — Module 3.3; decision trees — Module 3.5.)_
 
 ## Part 2 — How to Solve (Method)
 
@@ -173,6 +183,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q10. ★★ (MCQ)** A fully grown, unpruned decision tree typically exhibits
 (A) high bias, low variance (B) low bias, high variance (C) zero variance (D) high bias, high variance
 
+**Q11. ★★★ (MCQ)** A model shows 4% training error and 38% validation error with 500 samples. When the training set grows to 2000 samples, training error rises to 9% and validation error falls to 14%. This pattern indicates
+(A) high bias throughout — adding data cannot help
+(B) high variance — adding data is closing the gap
+(C) irreducible noise dominates
+(D) underfitting that requires a simpler model
+
+**Q12. ★★★ (NAT)** A dataset has 300 samples; 60 are held out for testing. The remaining samples are used for 10-fold CV. How many training samples does **each fold's model** train on? ****\_\_**** .
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) low training error and high test error.** The model memorizes the training data but fails to generalize.
@@ -195,10 +213,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — (B) low bias, high variance.** Unpruned trees fit the training set closely and generalize poorly.
 
+**Q11 — (B) high variance — adding data is closing the gap.** The large train-val gap (34 pp) that closes dramatically with more data (only 5 pp gap at 2000 samples) is the signature of a high-variance model. High bias would show both errors staying high and roughly equal.
+
+**Q12 — 216.** Training pool $= 300 - 60 = 240$ samples. In 10-fold CV each fold validates on $240/10 = 24$ samples and trains on $240 - 24 = 216$.
+
 ---
 
 ### How to read your score
 
-- **8–10:** model selection is solid — on to Module 3.8 (Clustering).
-- **6–7:** re-drill the complexity–bias–variance direction (Q3, Q6, Q7) and the CV split counts (Q4, Q5).
-- **≤5:** re-read Part 1 B–C; the key facts are the U-shaped error curve and "LOOCV $= n$ training splits."
+- **10–12:** model selection is solid — on to Module 3.8 (Clustering).
+- **7–9:** re-drill the complexity–bias–variance direction (Q3, Q6, Q7) and the CV split counts (Q4, Q5, Q12).
+- **≤6:** re-read Part 1 B–D; the key facts are the U-shaped error curve, learning-curve diagnosis, and "LOOCV $= n$ training splits."
