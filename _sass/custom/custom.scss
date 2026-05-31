@@ -6,12 +6,17 @@
 $brand:       #7c9eff;   // soft indigo, readable on dark
 $brand-hover: #9bb4ff;
 
-// ---- Headings: tighter, modern weight ----
+// ---- Headings: Lexend, tighter modern weight ----
+$heading-font-family: "Lexend", "Inter", system-ui, sans-serif;
+
 .main-content h1,
 .main-content h2,
 .main-content h3,
 .main-content h4,
+.main-content h5,
+.main-content h6,
 .site-title {
+  font-family: $heading-font-family;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
