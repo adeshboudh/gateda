@@ -1,0 +1,21 @@
+[stderr] INFO:     Started server process [8154]
+[stderr] INFO:     Waiting for application startup.
+[stderr] INFO:     Application startup complete.
+[stderr] INFO:     Uvicorn running on http://127.0.0.1:8765 (Press CTRL+C to quit)
+INFO:     127.0.0.1:35568 - "GET /health HTTP/1.1" 200 OK
+[stderr] INFO:     ('127.0.0.1', 35580) - "WebSocket /ws" [accepted]
+[stderr] 2026-05-31 10:26:11 INFO     [codeboarding_pro.ws.server:226] WebSocket connected: session 41941175-d675-4789-ab50-47c2562eb23d
+[stderr] INFO:     connection open
+[stderr] 2026-05-31 10:26:11 INFO     [tool_registry.manifest:309] has_required_tools: csharp unavailable (dotnet missing); skipping check
+[stderr] 2026-05-31 10:26:12 INFO     [codeboarding_pro.lsp.bootstrap:56] LSP startup attempt 1/3
+[stderr] 2026-05-31 10:26:12 INFO     [codeboarding_pro.session:185] Session 41941175-d675-4789-ab50-47c2562eb23d initialized: repo=/mnt/vol1/PycharmProjects/gate, project=gate, output=/mnt/vol1/PycharmProjects/gate/.codeboarding
+[stderr] 2026-05-31 10:26:13 WARNING  [static_analyzer:60] Unsupported programming language: JSON. Skipping.
+[stderr] 2026-05-31 10:26:13 INFO     [static_analyzer:207] No supported languages detected in /mnt/vol1/PycharmProjects/gate; no LSP clients to start.
+[stderr] 2026-05-31 10:26:13 INFO     [codeboarding_pro.file_monitor:106] FileMonitor started for /mnt/vol1/PycharmProjects/gate
+[stderr] 2026-05-31 10:26:13 INFO     [codeboarding_pro.session:203] Session 41941175-d675-4789-ab50-47c2562eb23d: FileMonitor activated
+[stderr] 2026-05-31 10:26:13 WARNING  [codeboarding_pro.head_watcher:65] HeadWatcher: could not resolve git-dir for /mnt/vol1/PycharmProjects/gate: Command '['git', 'rev-parse', '--git-dir']' returned non-zero exit status 128. — disabled
+[stderr] 2026-05-31 10:26:13 INFO     [codeboarding_pro.session:248] Session 41941175-d675-4789-ab50-47c2562eb23d: LSP wiring complete
+[stderr] 2026-05-31 10:26:13 INFO     [codeboarding_pro.lsp.bootstrap:67] LSP clients started successfully (attempt 1)
+[stderr] 2026-05-31 14:12:53 INFO     [watchfiles.main:308] 1 change detected
+[stderr] 2026-05-31 14:12:53 WARNING  [codeboarding_pro.analysis_controller:490] Skipping incremental update: full analysis artifacts not ready yet
+[stderr] 2026-05-31 14:12:53 INFO     [codeboarding_pro.analysis_controller:298] No cached analysis results; skipping health report
