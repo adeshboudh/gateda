@@ -173,6 +173,11 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q9. ★★ (NAT)** The number of levels of recursion in merge sort on an array of 8 elements is ****\_\_**** .
 
+**Q10. ★★★ (NAT)** By the Master theorem, $T(n) = 4T(n/2) + O(n)$ solves to $\Theta(n^d)$. Find $d$.
+
+**Q11. ★★★ (MCQ)** Strassen's matrix multiplication has recurrence $T(n) = 7T(n/2) + O(n^2)$. Its worst-case complexity is closest to
+(A) $O(n^2)$ (B) $O(n^{2.5})$ (C) $O(n^{2.81})$ (D) $O(n^3)$
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) divide, conquer, combine.** Split into subproblems, solve recursively, merge results.
@@ -193,10 +198,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q9 — 3.** $\log_2 8 = 3$ levels of halving ($8 \to 4 \to 2 \to 1$).
 
+**Q10 — 2.** $a=4, b=2 \Rightarrow \log_b a = \log_2 4 = 2$; combine cost is $O(n^1)$, so $d_{combine} = 1 < 2 = \log_b a$. Master theorem case 1: $T(n) = \Theta(n^{\log_2 4}) = \Theta(n^2)$. So $d = 2$.
+
+**Q11 — (C) $O(n^{2.81})$.** $a=7, b=2 \Rightarrow \log_2 7 \approx 2.807$; $d_{combine} = 2 < 2.807$, so $T(n) = \Theta(n^{\log_2 7}) \approx \Theta(n^{2.807})$ — better than the naive $\Theta(n^3)$, but worse than $\Theta(n^{2.5})$.
+
 ---
 
 ### How to read your score
 
-- **7–9:** the paradigm is solid — on to Module 2.8 (Graphs), the last PDSA module.
-- **5–6:** re-drill the quicksort cases (Q3, plus Example 4) and the Master-theorem applications (Q5, Q6).
-- **≤4:** re-read Part 1 A–D; D&C is just “split $\to$ recurse $\to$ combine” analyzed with the Master theorem from Module 2.2.
+- **9–11:** the paradigm is solid — on to Module 2.8 (Graphs), the last PDSA module.
+- **6–8:** re-drill the quicksort cases (Q3, plus Example 4) and the Master-theorem applications (Q5, Q6, Q10).
+- **≤5:** re-read Part 1 A–D; D&C is just “split $\to$ recurse $\to$ combine” analyzed with the Master theorem from Module 2.2.

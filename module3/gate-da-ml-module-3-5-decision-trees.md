@@ -176,6 +176,10 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10. ★★ (NAT)** A parent node with entropy 1 is split so that both children are pure. The information gain of this split is \***\*\_\_\*\*** .
 
+**Q11. ★★★ (NAT)** A parent node has 8 samples: 5 positive, 3 negative. Attribute $A$ splits into $\{3\text{ pos}, 1\text{ neg}\}$ and $\{2\text{ pos}, 2\text{ neg}\}$. Attribute $B$ splits into $\{4\text{ pos}, 0\text{ neg}\}$ and $\{1\text{ pos}, 3\text{ neg}\}$. By how much does $\text{IG}(B) - \text{IG}(A)$ equal? (3 dp)
+
+**Q12. ★★★ (NAT)** A root node has 6 samples: 4 of class $P$, 2 of class $N$. Splitting on attribute $X$ gives a left child $\{3P,\,0N\}$ and a right child $\{1P,\,2N\}$. The information gain is \***\*\_\_\*\*** (3 dp, $\log_2 3 \approx 1.585$).
+
 ## Answer Key & Full Solutions
 
 **Q1 — (C) 0.** A pure node has $p = 1$ for one class, and $-1\log_2 1 = 0$.
@@ -198,10 +202,17 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — 1.** Pure children have entropy 0, so $\text{IG} = 1 - 0 = 1$ (the maximum possible, equal to the parent entropy).
 
+**Q11 — 0.500.** Parent $H = -\tfrac58\log_2\tfrac58 - \tfrac38\log_2\tfrac38 \approx 0.954$.
+- IG($A$): weighted child $H = \tfrac48(0.811) + \tfrac48(1) = 0.906 \Rightarrow \text{IG}(A) = 0.048$.
+- IG($B$): child1 pure ($H=0$); child2 $H(1/4,3/4) = 0.811$; weighted $= \tfrac48(0) + \tfrac48(0.811) = 0.406 \Rightarrow \text{IG}(B) = 0.548$.
+- $\text{IG}(B) - \text{IG}(A) = 0.548 - 0.048 = \mathbf{0.500}$.
+
+**Q12 — 0.459.** Parent $H(-\tfrac23\log_2\tfrac23 - \tfrac13\log_2\tfrac13) \approx 0.918$ (balanced 2:1 node). Left child pure ($H=0$); right child $\{1P,2N\}$, $H = 0.918$; weighted $= \tfrac36(0) + \tfrac36(0.918) = 0.459$. $\text{IG} = 0.918 - 0.459 = 0.459$.
+
 ---
 
 ### How to read your score
 
-- **8–10:** decision trees are solid — on to Module 3.6 (Neural Networks).
-- **6–7:** re-drill entropy (Q3), Gini (Q4, Q7), and the IG formula (Q10).
-- **≤5:** re-read Part 1 B–D and re-work Example 2 step by step (keep $\log_2$ to 3+ decimals).
+- **10–12:** decision trees are solid — on to Module 3.6 (Neural Networks).
+- **7–9:** re-drill entropy (Q3), Gini (Q4, Q7), and full IG comparisons (Q11, Q12).
+- **≤6:** re-read Part 1 B–D and re-work Example 2 step by step (keep $\log_2$ to 3+ decimals).

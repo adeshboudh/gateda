@@ -175,6 +175,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q8. ★★ (MCQ)** With at most 4 comparisons, binary search can locate a target in a sorted array of at most how many elements?
 (A) 8 (B) 15 (C) 16 (D) 31
 
+**Q9. ★★★ (NAT)** The maximum number of comparisons made by binary search (absent target) on a sorted array of $127$ elements is ****\_\_**** .
+
+**Q10. ★★★ (MSQ)** Which statements about binary search on an $n$-element sorted array are TRUE?
+(A) For $n = 2^k$, the worst case requires $k+1$ comparisons.
+(B) For $n = 2^k - 1$, the worst case requires $k$ comparisons.
+(C) The best-case number of comparisons is $1$.
+(D) Binary search always uses exactly $\lfloor \log_2 n \rfloor + 1$ comparisons.
+
 ## Answer Key & Full Solutions
 
 **Q1 — (C) $O(n)$.** In the worst case the target is last or absent, so all $n$ elements are examined.
@@ -193,10 +201,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q8 — (B) 15.** With at most $k$ comparisons binary search covers up to $2^{k} - 1$ elements; for $k = 4$, that is $2^4 - 1 = 15$ (consistent with $\lfloor \log_2 15 \rfloor + 1 = 4$).
 
+**Q9 — 7.** $2^6 = 64 \le 127 < 128 = 2^7$, so $\lfloor \log_2 127 \rfloor = 6$ and the maximum is $6 + 1 = 7$. (Note: $n = 128$ would give $8$, and $n = 127 = 2^7 - 1$ gives $7$ — one less.)
+
+**Q10 — (A), (B), (C).** (D) is **false** — binary search uses **at most** $\lfloor \log_2 n \rfloor + 1$; the best case is $1$ (target equals the first midpoint). Verify (A): $\lfloor \log_2 2^k \rfloor + 1 = k + 1$; (B): $\lfloor \log_2(2^k-1) \rfloor + 1 = (k-1)+1 = k$.
+
 ---
 
 ### How to read your score
 
-- **7–8:** searching is solid — on to Module 2.6 (Sorting).
-- **5–6:** memorize $\lfloor \log_2 n \rfloor + 1$ (Q3, Q8) and the two prerequisites (Q2, Q4, Q7).
-- **≤4:** re-read Part 1 B–C and re-trace Example 1 and Example 2.
+- **8–10:** searching is solid — on to Module 2.6 (Sorting).
+- **6–7:** memorize $\lfloor \log_2 n \rfloor + 1$ (Q3, Q9) and the two prerequisites (Q2, Q4, Q7).
+- **≤5:** re-read Part 1 B–C and re-trace Example 1 and Example 2.
