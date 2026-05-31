@@ -14,16 +14,16 @@ Assumed timeline: GATE 2027 ≈ first week of **February 2027**. This plan assum
 
 Allocation directly tracks 3-year weightage, with a small upweight for rising trends (PS, DBW) and a small downweight for declining ones (CO).
 
-| Topic | 3-yr weight | Recommended hour-share | Why |
-|---|---|---|---|
-| Probability & Statistics | 21.6% | **22%** | Highest weight, still rising; broad subtopics |
-| Programming, DS & Algo | 18.8% | **18%** | Reliable 14–20 marks; many small subtopics |
-| Machine Learning | 16.9% | **17%** | Stable 14–15 marks; predictable |
-| Database & Warehousing | 14.1% | **15%** | Sharp upward trend (18 marks in 2026) |
-| Linear Algebra | 11.8% | **11%** | Stable; cross-uses in PS/ML |
-| AI (search/logic/Bayes) | 9.4% | **9%** | Narrow, scoreable syllabus |
-| Calculus & Optimization | 7.5% | **6%** | Declining stand-alone weight; still used in ML |
-| Aptitude (GA) | (15/100 of paper) | **2%** | High-ROI; cover via weekly drills, not blocks |
+| Topic                    | 3-yr weight       | Recommended hour-share | Why                                            |
+| ------------------------ | ----------------- | ---------------------- | ---------------------------------------------- |
+| Probability & Statistics | 21.6%             | **22%**                | Highest weight, still rising; broad subtopics  |
+| Programming, DS & Algo   | 18.8%             | **18%**                | Reliable 14–20 marks; many small subtopics     |
+| Machine Learning         | 16.9%             | **17%**                | Stable 14–15 marks; predictable                |
+| Database & Warehousing   | 14.1%             | **15%**                | Sharp upward trend (18 marks in 2026)          |
+| Linear Algebra           | 11.8%             | **11%**                | Stable; cross-uses in PS/ML                    |
+| AI (search/logic/Bayes)  | 9.4%              | **9%**                 | Narrow, scoreable syllabus                     |
+| Calculus & Optimization  | 7.5%              | **6%**                 | Declining stand-alone weight; still used in ML |
+| Aptitude (GA)            | (15/100 of paper) | **2%**                 | High-ROI; cover via weekly drills, not blocks  |
 
 Translate to hours if you can put in ~25 hr/week × 32 weeks = **800 hr** total: PS ≈ 176 hr, PDSA ≈ 144 hr, ML ≈ 136 hr, DBW ≈ 120 hr, LA ≈ 88 hr, AI ≈ 72 hr, CO ≈ 48 hr, GA ≈ 16 hr.
 
@@ -35,18 +35,18 @@ Goal: cover every syllabus subtopic at concept depth. No speed yet.
 
 Suggested week-block sequence (1 block ≈ 1.5 weeks):
 
-| Block | Topic | Core deliverable |
-|---|---|---|
-| 1 | Linear Algebra | Eigenvalues, rank/nullity, SVD, projection/orthogonal matrices |
-| 2 | Calculus & Opt | Limits, continuity, differentiability, Taylor, maxima/minima |
-| 3 | Probability — Part 1 | Counting, sample space, conditional + Bayes, expectation, variance |
-| 4 | Probability — Part 2 | Distributions (Bernoulli, binomial, Poisson, normal, exponential), CLT, hypothesis tests, joint pdf |
-| 5 | Programming + DS | Python semantics, stacks/queues/trees/hash, traversals |
-| 6 | Algorithms | Sorting, searching, divide-and-conquer, graph traversals, shortest path |
-| 7 | DBMS + Warehousing | Relational algebra/calculus, SQL, normalization, indexing, B+ tree, OLAP, data cubes |
-| 8 | ML — supervised | Linear/ridge/logistic regression, kNN, SVM, naive Bayes, LDA, decision trees, MLP/NN |
-| 9 | ML — unsupervised | k-means/k-medoid, hierarchical clustering, PCA, dimensionality reduction |
-| 10 | AI | Search (BFS/DFS/A*/alpha-beta), propositional + predicate logic, Bayesian nets (variable elimination, sampling) |
+| Block | Topic                | Core deliverable                                                                                                 |
+| ----- | -------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 1     | Linear Algebra       | Eigenvalues, rank/nullity, SVD, projection/orthogonal matrices                                                   |
+| 2     | Calculus & Opt       | Limits, continuity, differentiability, Taylor, maxima/minima                                                     |
+| 3     | Probability — Part 1 | Counting, sample space, conditional + Bayes, expectation, variance                                               |
+| 4     | Probability — Part 2 | Distributions (Bernoulli, binomial, Poisson, normal, exponential), CLT, hypothesis tests, joint pdf              |
+| 5     | Programming + DS     | Python semantics, stacks/queues/trees/hash, traversals                                                           |
+| 6     | Algorithms           | Sorting, searching, divide-and-conquer, graph traversals, shortest path                                          |
+| 7     | DBMS + Warehousing   | Relational algebra/calculus, SQL, normalization, indexing, B+ tree, OLAP, data cubes                             |
+| 8     | ML — supervised      | Linear/ridge/logistic regression, kNN, SVM, naive Bayes, LDA, decision trees, MLP/NN                             |
+| 9     | ML — unsupervised    | k-means/k-medoid, hierarchical clustering, PCA, dimensionality reduction                                         |
+| 10    | AI                   | Search (BFS/DFS/A\*/alpha-beta), propositional + predicate logic, Bayesian nets (variable elimination, sampling) |
 
 Per block: read theory → solve 20–30 textbook problems → write 1-page summary sheet. Keep summary sheets for revision.
 
@@ -56,11 +56,11 @@ Goal: bridge theory to GATE-style multi-step reasoning.
 
 - **Topic-wise PYQs**: solve all DA questions from 2024, 2025, 2026 (already in `docs/`) plus relevant CS-tagged PYQs for PDSA/DBW/AI overlap (GATE CS 2015–2024). Aim for ≥200 PYQ problems per major topic.
 - **Standard problem books**:
-  - PS: Sheldon Ross, *A First Course in Probability*
-  - LA: Gilbert Strang, *Introduction to Linear Algebra*
+  - PS: Sheldon Ross, _A First Course in Probability_
+  - LA: Gilbert Strang, _Introduction to Linear Algebra_
   - PDSA: Cormen (CLRS), problem chapters; GATE-CS data structures section
-  - DBW: Korth, *Database System Concepts*
-  - ML: Bishop, *Pattern Recognition and ML* (selected chapters); Hastie ESL (read sections, skip proofs)
+  - DBW: Korth, _Database System Concepts_
+  - ML: Bishop, _Pattern Recognition and ML_ (selected chapters); Hastie ESL (read sections, skip proofs)
   - AI: Russell & Norvig (search, logic, Bayes net chapters)
 - **Weekly cadence**: 2 topics in deep practice, 1 topic in light revision, 1 GA drill (60 min), 1 timed sectional test (90 min).
 
@@ -76,6 +76,7 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 ## 3. Subtopic checklists (must-master, derived from PYQ patterns)
 
 ### Probability & Statistics (highest priority)
+
 - Bayes theorem with diagnostic test framing (2026 Q57 pattern)
 - Conditional expectation E[X|Y], law of total expectation (2025 Q11)
 - Exponential RV: memoryless property, P(X>a|X>b) (2026 Q34)
@@ -87,6 +88,7 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - Sampling distributions of $\sum X_i^2$, $\bar{X}$ (2026 Q53)
 
 ### Programming, DS & Algorithms
+
 - Python gotchas: mutable default args, closures, list vs set ops (2026 Q16, Q50; 2025 Q23, Q47)
 - Sort comparisons/swaps (bubble, insertion, quicksort) — exact-count problems (2024 Q30, Q45; 2026 Q49)
 - Binary search recurrences and comparison counts (2024 Q40; 2026 Q31)
@@ -95,6 +97,7 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - Hashing: open addressing, linear probing, load factor (2024 Q21; 2025 Q18)
 
 ### Machine Learning
+
 - SVM: support vectors, hard margin geometry, margin = 2/||w|| (2024 Q17; 2025 Q53)
 - Clustering: k-means assignments, single-vs-complete linkage dendrograms, Manhattan vs Euclidean (2024 Q19, Q42; 2025 Q30; 2026 Q36)
 - PCA: orthogonality of components, variance along eigenvectors (2024 Q18; 2025 Q60; 2026 Q11)
@@ -105,6 +108,7 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - LOOCV / k-fold splits (2026 Q12)
 
 ### Database & Warehousing (rising — invest extra)
+
 - SQL: nested subqueries, self-joins, GROUP BY (2024 Q31; 2025 Q33; 2026 Q51, Q60)
 - Relational algebra: division, set difference, natural join (2024 Q26; 2025 Q17, Q62; 2026 Q42, Q59)
 - Functional dependencies, candidate-key derivation, BCNF check (2024 Q46; 2025 Q57; 2026 Q17)
@@ -114,6 +118,7 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - Indexing: B+ tree vs hash index choice for predicate types (2024 Q55)
 
 ### Linear Algebra
+
 - Eigenvalues of structured matrices: rotation, $I + xx^T$, projection (2025 Q28; 2026 Q21, Q46, Q52, Q65)
 - Projection / idempotent / orthogonal matrices: $M^2 = M$, null space dim (2024 Q49; 2025 Q52; 2026 Q52)
 - SVD of rank-1 outer product $uu^T$ (2024 Q61)
@@ -121,7 +126,8 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - Quadratic forms maximization (2026 Q65)
 
 ### AI (search, logic, Bayes nets)
-- A* admissibility / consistency, combining heuristics (2024 Q23; 2025 Q44)
+
+- A\* admissibility / consistency, combining heuristics (2024 Q23; 2025 Q44)
 - Alpha-beta pruning conditions, MIN/MAX value bounds (2024 Q25; 2025 Q43; 2026 Q30)
 - BFS vs DFS state expansion counts (2024 Q44)
 - Propositional logic: tautology checks, equivalences (2024 Q29; 2025 Q15; 2026 Q38)
@@ -129,12 +135,14 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 - Bayesian network: conditional independence, joint probability from CPTs, variable elimination, sampling (2024 Q24, Q64; 2025 Q26)
 
 ### Calculus & Optimization (low weight in 2026, still examinable)
+
 - Continuity + differentiability of piecewise functions (2024 Q37)
 - Local max/min using first/second derivative (2024 Q50; 2025 Q49, Q51; 2026 Q27)
 - Limits: L'Hôpital, series expansions (2024 Q60; 2025 Q32)
 - Geometric / Poisson series sums (2026 Q35, Q45)
 
 ### General Aptitude
+
 - Quant: averages, ratios, percentages, geometry, mensuration, simple combinatorics (≈ 60% of GA)
 - Verbal: analogies, sentence completion, reading inference
 - Logical/visual: dice unfolding, figure construction, deduction puzzles
@@ -142,14 +150,14 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 
 ## 4. Practice volume targets
 
-| Activity | Target by exam day |
-|---|---|
-| Concept summary sheets | 1 per subtopic (~60 total) |
-| Solved problems (book) | ≥ 1500 |
-| PYQ problems solved | ≥ 500 (all 3 DA years 2× + select CS/EC overlap) |
-| Full-length mocks | ≥ 12 |
-| Sectional/topic tests | ≥ 30 |
-| Error-log entries reviewed | every Sunday + last 10 days |
+| Activity                   | Target by exam day                               |
+| -------------------------- | ------------------------------------------------ |
+| Concept summary sheets     | 1 per subtopic (~60 total)                       |
+| Solved problems (book)     | ≥ 1500                                           |
+| PYQ problems solved        | ≥ 500 (all 3 DA years 2× + select CS/EC overlap) |
+| Full-length mocks          | ≥ 12                                             |
+| Sectional/topic tests      | ≥ 30                                             |
+| Error-log entries reviewed | every Sunday + last 10 days                      |
 
 ## 5. Common pitfalls to avoid
 
@@ -170,17 +178,17 @@ Goal: convert knowledge into a 3-hour, 100-mark exam performance.
 
 ## 7. Monthly milestones (snapshot)
 
-| Month | Milestone |
-|---|---|
-| Jun 2026 | Finish LA + CO + half of Probability |
-| Jul 2026 | Finish Probability + Statistics; start PDSA |
-| Aug 2026 | Finish PDSA + DBW; start ML |
-| Sep 2026 | Finish ML + AI; first 3 sectional tests |
+| Month    | Milestone                                              |
+| -------- | ------------------------------------------------------ |
+| Jun 2026 | Finish LA + CO + half of Probability                   |
+| Jul 2026 | Finish Probability + Statistics; start PDSA            |
+| Aug 2026 | Finish PDSA + DBW; start ML                            |
+| Sep 2026 | Finish ML + AI; first 3 sectional tests                |
 | Oct 2026 | All PYQs (2024–2026) done once; 4 sectional tests/week |
-| Nov 2026 | First 4 full-length mocks; second pass through PYQs |
-| Dec 2026 | 6+ full-length mocks; finalize error log |
-| Jan 2027 | 4 more mocks; revision from summary sheets only |
-| Feb 2027 | Exam |
+| Nov 2026 | First 4 full-length mocks; second pass through PYQs    |
+| Dec 2026 | 6+ full-length mocks; finalize error log               |
+| Jan 2027 | 4 more mocks; revision from summary sheets only        |
+| Feb 2027 | Exam                                                   |
 
 ## 8. Single rule of thumb
 

@@ -8,9 +8,10 @@ nav_order: 5
 
 ## Exam Relevance
 
-**Where this sits:** Programming, Data Structures & Algorithms $\rightarrow$ *Searching*. Small topic, but **binary-search comparison counts are a recurring pattern**.
+**Where this sits:** Programming, Data Structures & Algorithms $\rightarrow$ _Searching_. Small topic, but **binary-search comparison counts are a recurring pattern**.
 
 **Weightage:** PDSA is the **#2 subject** ($18.8\%$). Searching appears as crisp, high-confidence questions:
+
 - **2026 Q31** — **maximum comparisons** in binary search on 1000 elements (target absent) $= 10$
 - **2025 Q27** — the **prerequisites**: binary search is $O(\log n)$ only on a **sorted array** with $O(1)$ access
 - **2024 Q40** — the binary-search **recurrence** $F(n) = F(\lfloor n/2 \rfloor) + 1$ (derived in Module 2.2)
@@ -20,12 +21,16 @@ nav_order: 5
 ## Part 1 — Theory & Math
 
 ### A. Linear (sequential) search
+
 Scan elements one by one until the target is found or the list ends.
+
 - Works on **any** structure (array or linked list) and on **unsorted** data — **no prerequisites**.
 - Best case $O(1)$ (first element), worst and average case $O(n)$.
 
 ### B. Binary search
+
 Repeatedly compare the target with the **middle** element of a **sorted** array and discard half.
+
 ```
 lo = 0, hi = n-1
 while lo <= hi:
@@ -35,13 +40,16 @@ while lo <= hi:
     else:            hi = mid - 1        # search left half
 return NOT_FOUND
 ```
+
 - **Time $O(\log n)$.** Worst-case comparisons (3-way compare per step) $= \lfloor \log_2 n \rfloor + 1$.
 - **Recurrence:** one comparison at the midpoint, then recurse on a half of size $\lfloor n/2 \rfloor$:
 
 $$F(n) = F\!\left(\lfloor n/2 \rfloor\right) + 1, \qquad F(0) = 0 \;\Rightarrow\; F(n) = \lfloor \log_2 n \rfloor + 1.$$
 
 ### C. The two prerequisites (why 2025 Q27 matters)
+
 Binary search achieves $O(\log n)$ **only** when **both** hold:
+
 1. **Sorted** data — otherwise the halving decision is invalid.
 2. **$O(1)$ random access** — needed to jump to the midpoint.
 
@@ -49,15 +57,16 @@ An **array** satisfies (2) by index arithmetic. A **linked list does not**: find
 
 ### D. Which search to use
 
-| Situation | Best choice |
-|---|---|
-| unsorted data, or a single search | **linear** $O(n)$ |
-| sorted array, many searches | **binary** $O(\log n)$ per query |
-| linked list | **linear** (binary search has no $O(1)$ midpoint) |
+| Situation                         | Best choice                                       |
+| --------------------------------- | ------------------------------------------------- |
+| unsorted data, or a single search | **linear** $O(n)$                                 |
+| sorted array, many searches       | **binary** $O(\log n)$ per query                  |
+| linked list                       | **linear** (binary search has no $O(1)$ midpoint) |
 
 Sorting first ($O(n \log n)$) to enable binary search pays off only when the cost is amortized over **many** queries.
 
 ### E. Common traps GATE exploits
+
 1. **Binary search needs a sorted array** with $O(1)$ access — not a linked list, not unsorted data.
 2. **Worst-case comparisons $= \lfloor \log_2 n \rfloor + 1$** (for an absent target, the search descends the full height).
 3. **Linear search has no prerequisites**; binary search has two.
@@ -67,17 +76,21 @@ Sorting first ($O(n \log n)$) to enable binary search pays off only when the cos
 ## Part 2 — How to Solve (Method)
 
 ### Comparison-count questions
+
 - **Worst case (absent target):** $\lfloor \log_2 n \rfloor + 1$. Find the largest power of 2 not exceeding $n$: if $2^k \le n < 2^{k+1}$ then the answer is $k + 1$.
 - Equivalently, **count the halvings**: $n \to \lfloor n/2 \rfloor \to \dots \to 0$, and the number of steps is the comparison count (this is solving $F(n) = F(\lfloor n/2 \rfloor) + 1$).
 - **Inverse question** ("how large an array can $k$ comparisons search?"): up to $2^{k} - 1$ elements.
 
 ### Tracing binary search
+
 Maintain `lo`, `hi`, and `mid = (lo+hi)//2`. Each step: compare, then move `lo = mid+1` (go right) or `hi = mid-1` (go left). Count one comparison per `mid` examined.
 
 ### Choosing a strategy
+
 Check the prerequisites first: is the data **sorted**? Does the structure give **$O(1)$** access? If either fails, binary search is not the $O(\log n)$ tool — use linear search (or sort first if there will be many queries).
 
 ### Sanity checks
+
 - A binary search on $n$ elements never makes more than $\lfloor \log_2 n \rfloor + 1$ comparisons.
 - If someone claims $O(\log n)$ search on a **linked list**, it is wrong — midpoint access is $O(n)$ there.
 
@@ -87,45 +100,51 @@ E2–E3 are real GATE DA questions; E1 and E4 are standard originals.
 
 ---
 
-### Example 1 — Tracing binary search *(original · Easy–Med)*
+### Example 1 — Tracing binary search _(original · Easy–Med)_
+
 **Q.** Search for `23` in the sorted array `A = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]` (indices 0–9). How many comparisons, and at what index?
 
 **Solve.**
+
 ```
 lo=0, hi=9, mid=4 -> A[4]=16; 23 > 16 -> lo=5      (compare 1)
 lo=5, hi=9, mid=7 -> A[7]=56; 23 < 56 -> hi=6      (compare 2)
 lo=5, hi=6, mid=5 -> A[5]=23; found!               (compare 3)
 ```
-**Answer:** found at **index 5** in **3 comparisons**. *Method:* track `lo`, `hi`, `mid`; halve each step.
+
+**Answer:** found at **index 5** in **3 comparisons**. _Method:_ track `lo`, `hi`, `mid`; halve each step.
 
 ---
 
-### Example 2 — Maximum comparisons, target absent *(2026 Q31 · NAT · Med)*
+### Example 2 — Maximum comparisons, target absent _(2026 Q31 · NAT · Med)_
+
 **Q.** `A` is a sorted array of 1000 distinct integers. With a 3-way comparison at each recursive step, what is the **maximum** number of comparisons if `y` is **not** in `A`?
 
 **Solve.** Worst case $= \lfloor \log_2 n \rfloor + 1$. Since $2^9 = 512 \le 1000 < 1024 = 2^{10}$, we have $\lfloor \log_2 1000 \rfloor = 9$, so the maximum is $9 + 1 = 10$.
 (Equivalently, count halvings: $1000 \to 500 \to 250 \to 125 \to 62 \to 31 \to 15 \to 7 \to 3 \to 1 \to 0$ = 10 steps.)
 
-**Answer: 10.** *Method:* the absent target forces the search to the full depth $\lfloor \log_2 n \rfloor + 1$.
+**Answer: 10.** _Method:_ the absent target forces the search to the full depth $\lfloor \log_2 n \rfloor + 1$.
 
 ---
 
-### Example 3 — The prerequisites *(2025 Q27 · MCQ · Med)*
+### Example 3 — The prerequisites _(2025 Q27 · MCQ · Med)_
+
 **Q.** For which input does binary search take $O(\log n)$ in the worst case?
 (A) an array of $n$ integers in any order (B) a linked list of $n$ integers in any order (C) an array of $n$ integers in increasing order (D) a linked list of $n$ integers in increasing order
 
 **Solve.** Binary search needs **sorted** data **and** $O(1)$ random access. (A) unsorted $\rightarrow$ fails. (B) unsorted **and** a linked list $\rightarrow$ fails twice. (D) sorted but a **linked list** $\rightarrow$ midpoint access is $O(n)$, so the search is $O(n)$, not $O(\log n)$. Only **(C)** — a sorted array — satisfies both.
 
-**Answer: (C).** *Method:* check both prerequisites; a sorted linked list still fails the access requirement.
+**Answer: (C).** _Method:_ check both prerequisites; a sorted linked list still fails the access requirement.
 
 ---
 
-### Example 4 — From the recurrence *(original · Med)*
+### Example 4 — From the recurrence _(original · Med)_
+
 **Q.** Using $F(n) = F(\lfloor n/2 \rfloor) + 1$ (with $F(0)=0$), find the maximum comparisons for $n = 15$.
 
 **Solve.** Unroll: $F(1)=1, F(3)=2, F(7)=3, F(15)=4$. Equivalently $\lfloor \log_2 15 \rfloor + 1 = 3 + 1 = 4$.
 
-**Answer: 4.** *Method:* the same recurrence behind 2024 Q40 — each step is one comparison plus a half-size subproblem.
+**Answer: 4.** _Method:_ the same recurrence behind 2024 Q40 — each step is one comparison plus a half-size subproblem.
 
 ## Part 4 — Practice Questions
 
@@ -137,12 +156,12 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q2. ★ (MCQ)** Binary search requires the input array to be
 (A) sorted (B) unsorted (C) a linked list (D) of even length
 
-**Q3. ★★ (NAT)** The maximum number of comparisons made by binary search on a sorted array of 255 elements when the target is absent is __________ .
+**Q3. ★★ (NAT)** The maximum number of comparisons made by binary search on a sorted array of 255 elements when the target is absent is ****\_\_**** .
 
 **Q4. ★★ (MCQ)** Performing binary search on a **sorted singly linked list** of $n$ nodes takes
 (A) $O(\log n)$ (B) $O(n)$ (C) $O(1)$ (D) $O(n \log n)$
 
-**Q5. ★★ (NAT)** Searching for `16` in `A = [2, 5, 8, 12, 16, 23, 38]` with binary search takes __________ comparisons.
+**Q5. ★★ (NAT)** Searching for `16` in `A = [2, 5, 8, 12, 16, 23, 38]` with binary search takes ****\_\_**** comparisons.
 
 **Q6. ★★ (MCQ)** To search **once** in an unsorted array of $n$ elements, the better approach is
 (A) sort then binary search, $O(n \log n)$ (B) linear search, $O(n)$ (C) build a BST then search (D) hash then search
@@ -177,6 +196,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 ---
 
 ### How to read your score
+
 - **7–8:** searching is solid — on to Module 2.6 (Sorting).
 - **5–6:** memorize $\lfloor \log_2 n \rfloor + 1$ (Q3, Q8) and the two prerequisites (Q2, Q4, Q7).
 - **≤4:** re-read Part 1 B–C and re-trace Example 1 and Example 2.

@@ -30,7 +30,7 @@ nav_order: 4
 ## FDs & Normal Forms
 
 - **Attribute closure $X^+$:** repeatedly add RHS of FDs whose LHS $\subseteq X$. $X$ is a key iff $X^+=$ all attributes. An attribute on **no RHS** is in **every** candidate key.
-- **1NF:** atomic values. **2NF:** no partial dependency on part of a candidate key. 
+- **1NF:** atomic values. **2NF:** no partial dependency on part of a candidate key.
 - **3NF:** for each FD $X\to Y$, $X$ is a superkey **or** $Y$ is prime.
 - **BCNF:** for each FD $X\to Y$, $X$ is a **superkey**.
 - **Lossless** decomposition: common attribute is a key of one piece. **3NF** is always dependency-preserving + lossless; **BCNF** may not preserve dependencies.
@@ -49,4 +49,4 @@ nav_order: 4
 - **OLAP:** roll-up (coarser), drill-down (finer), slice (fix one dim), dice (range on several), pivot.
 - **Transformations:** min-max $\dfrac{x-\min}{\max-\min}$; z-score $\dfrac{x-\mu}{\sigma}$; equal-width bin width $\dfrac{\max-\min}{k}$; sampling / PCA (reduction); lossless vs lossy compression.
 
-*(Concept recap: DBW Revision Doc. Full worked PYQs: Modules 4.1–4.7.)*
+_(Concept recap: DBW Revision Doc. Full worked PYQs: Modules 4.1–4.7.)_

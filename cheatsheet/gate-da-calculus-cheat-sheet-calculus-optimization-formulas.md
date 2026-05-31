@@ -10,6 +10,7 @@ nav_order: 7
 
 **Standard limits**
 $$\lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12,\quad \lim_{x\to0}\frac{e^x-1}{x}=1,\quad \lim_{x\to0}\frac{\ln(1+x)}{x}=1,\quad \lim_{x\to\infty}\Big(1+\tfrac1x\Big)^x=e.$$
+
 - **L'Hôpital** ($\tfrac00$ or $\tfrac\infty\infty$): $\lim\dfrac fg=\lim\dfrac{f'}{g'}$.
 - **At $\infty$ with roots:** rationalize (conjugate) or divide by the dominant power.
 - **Continuity** at $a$: $\lim_{x\to a}f(x)=f(a)$ (left $=$ right $=$ value).
@@ -22,15 +23,16 @@ $$\lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12,
 **Maclaurin series**
 $$e^x=\sum\frac{x^n}{n!},\ \sin x=x-\frac{x^3}{3!}+\cdots,\ \cos x=1-\frac{x^2}{2!}+\cdots,$$
 $$\sinh x=x+\frac{x^3}{3!}+\cdots,\ \cosh x=1+\frac{x^2}{2!}+\cdots,\ \ln(1+x)=x-\frac{x^2}{2}+\cdots,\ \frac{1}{1-x}=\sum x^n.$$
+
 - Coefficient link: $f^{(n)}(0)=n!\cdot[\text{coeff of }x^n]$.
 - Differentiable $\Rightarrow$ continuous (not conversely). Piecewise $C^1$: value **and** slope match.
 
 ## Optimization & Convexity
 
 - **Critical points:** $f'(x)=0$. **Second-derivative test:** $f''>0$ local min, $f''<0$ local max, $f''=0$ inconclusive.
-- $f'(x^*)=0$ is **necessary, not sufficient** (e.g. $x^3$ inflection at $0$).
+- $f'(x^\ast)=0$ is **necessary, not sufficient** (e.g. $x^3$ inflection at $0$).
 - **Global extrema on $[a,b]$:** check all interior critical points **and** the endpoints $a,b$.
 - **Convex** $\iff f''(x)\ge0$ (strictly $>0$): $f'$ increasing $\Rightarrow$ at most one critical point; any local min is global — but a minimum **need not exist** ($e^x$). **Concave** $\iff f''\le0$.
 - Quadratic vertex: $f(x)=ax^2+bx+c$ extremized at $x=-\dfrac{b}{2a}$.
 
-*(Concept recap: Calculus Revision Doc. Full worked PYQs: Modules 7.1–7.3.)*
+_(Concept recap: Calculus Revision Doc. Full worked PYQs: Modules 7.1–7.3.)_

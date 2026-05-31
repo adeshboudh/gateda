@@ -18,31 +18,31 @@ nav_order: 2
 
 ## Complexity & Recurrences
 
-- **Master theorem:** $T(n)=a\,T(n/b)+f(n)$, critical exponent $c^*=\log_b a$.
-  - $f(n)=O(n^{c}),\,c<c^*\Rightarrow T=\Theta(n^{c^*})$.
-  - $f(n)=\Theta(n^{c^*})\Rightarrow T=\Theta(n^{c^*}\log n)$.
-  - $f(n)=\Omega(n^{c}),\,c>c^*\Rightarrow T=\Theta(f(n))$.
+- **Master theorem:** $T(n)=a\,T(n/b)+f(n)$, critical exponent $c^\ast=\log_b a$.
+  - $f(n)=O(n^{c}),\,c<c^\ast\Rightarrow T=\Theta(n^{c^\ast})$.
+  - $f(n)=\Theta(n^{c^\ast})\Rightarrow T=\Theta(n^{c^\ast}\log n)$.
+  - $f(n)=\Omega(n^{c}),\,c>c^\ast\Rightarrow T=\Theta(f(n))$.
 - Common recurrences:
 
-| Recurrence | Solution |
-| --- | --- |
-| $T(n)=T(n/2)+O(1)$ | $\Theta(\log n)$ |
-| $T(n)=2T(n/2)+O(n)$ | $\Theta(n\log n)$ |
-| $T(n)=T(n-1)+O(1)$ | $\Theta(n)$ |
-| $T(n)=T(n-1)+O(n)$ | $\Theta(n^2)$ |
+| Recurrence          | Solution               |
+| ------------------- | ---------------------- |
+| $T(n)=T(n/2)+O(1)$  | $\Theta(\log n)$       |
+| $T(n)=2T(n/2)+O(n)$ | $\Theta(n\log n)$      |
+| $T(n)=T(n-1)+O(1)$  | $\Theta(n)$            |
+| $T(n)=T(n-1)+O(n)$  | $\Theta(n^2)$          |
 | $T(n)=3T(n/2)+O(n)$ | $\Theta(n^{\log_2 3})$ |
 
 ## Data Structure Operations
 
-| Structure | Access | Search | Insert | Delete |
-| --- | --- | --- | --- | --- |
-| Array | $O(1)$ | $O(n)$ | $O(n)$ | $O(n)$ |
-| Stack / Queue | — | — | $O(1)$ | $O(1)$ |
-| Linked list | $O(n)$ | $O(n)$ | $O(1)$* | $O(1)$* |
-| BST (balanced) | $O(\log n)$ | $O(\log n)$ | $O(\log n)$ | $O(\log n)$ |
-| Hash table (avg) | — | $O(1)$ | $O(1)$ | $O(1)$ |
+| Structure        | Access      | Search      | Insert      | Delete      |
+| ---------------- | ----------- | ----------- | ----------- | ----------- |
+| Array            | $O(1)$      | $O(n)$      | $O(n)$      | $O(n)$      |
+| Stack / Queue    | —           | —           | $O(1)$      | $O(1)$      |
+| Linked list      | $O(n)$      | $O(n)$      | $O(1)$\*    | $O(1)$\*    |
+| BST (balanced)   | $O(\log n)$ | $O(\log n)$ | $O(\log n)$ | $O(\log n)$ |
+| Hash table (avg) | —           | $O(1)$      | $O(1)$      | $O(1)$      |
 
-*at a known node. Stack $=$ LIFO; Queue $=$ FIFO; Deque $=$ both ends.
+\*at a known node. Stack $=$ LIFO; Queue $=$ FIFO; Deque $=$ both ends.
 
 ## Trees & Hashing
 
@@ -53,14 +53,14 @@ nav_order: 2
 
 ## Sorting & Searching
 
-| Algorithm | Best | Average | Worst | Space | Stable |
-| --- | --- | --- | --- | --- | --- |
-| Bubble | $O(n)$ | $O(n^2)$ | $O(n^2)$ | $O(1)$ | yes |
-| Insertion | $O(n)$ | $O(n^2)$ | $O(n^2)$ | $O(1)$ | yes |
-| Selection | $O(n^2)$ | $O(n^2)$ | $O(n^2)$ | $O(1)$ | no |
-| Merge | $O(n\log n)$ | $O(n\log n)$ | $O(n\log n)$ | $O(n)$ | yes |
-| Quick | $O(n\log n)$ | $O(n\log n)$ | $O(n^2)$ | $O(\log n)$ | no |
-| Heap | $O(n\log n)$ | $O(n\log n)$ | $O(n\log n)$ | $O(1)$ | no |
+| Algorithm | Best         | Average      | Worst        | Space       | Stable |
+| --------- | ------------ | ------------ | ------------ | ----------- | ------ |
+| Bubble    | $O(n)$       | $O(n^2)$     | $O(n^2)$     | $O(1)$      | yes    |
+| Insertion | $O(n)$       | $O(n^2)$     | $O(n^2)$     | $O(1)$      | yes    |
+| Selection | $O(n^2)$     | $O(n^2)$     | $O(n^2)$     | $O(1)$      | no     |
+| Merge     | $O(n\log n)$ | $O(n\log n)$ | $O(n\log n)$ | $O(n)$      | yes    |
+| Quick     | $O(n\log n)$ | $O(n\log n)$ | $O(n^2)$     | $O(\log n)$ | no     |
+| Heap      | $O(n\log n)$ | $O(n\log n)$ | $O(n\log n)$ | $O(1)$      | no     |
 
 - **Insertion-sort swaps $=$ inversions.** Quicksort worst $=$ sorted input + bad pivot.
 - **Linear search** $O(n)$; **binary search** $O(\log n)$ on a **sorted array** (random access).
@@ -74,4 +74,4 @@ nav_order: 2
 - **Reachability:** $u$ from $v$ in $G$ $\iff$ $v$ from $u$ in $G^R$.
 - Complete undirected graph $K_n$: $\binom{n}{2}$ edges.
 
-*(Concept recap: PDSA Revision Doc. Full worked PYQs: Modules 2.1–2.8.)*
+_(Concept recap: PDSA Revision Doc. Full worked PYQs: Modules 2.1–2.8.)_

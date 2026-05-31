@@ -8,9 +8,10 @@ nav_order: 5
 
 ## Exam Relevance
 
-**Where this sits:** Artificial Intelligence $\rightarrow$ *Reasoning Under Uncertainty (Bayesian networks)* — the probabilistic-AI pillar. Module **5 of 5** in Subject 6 — **this completes Artificial Intelligence.**
+**Where this sits:** Artificial Intelligence $\rightarrow$ _Reasoning Under Uncertainty (Bayesian networks)_ — the probabilistic-AI pillar. Module **5 of 5** in Subject 6 — **this completes Artificial Intelligence.**
 
 **Weightage:** ~3 of the 17 AI PYQs, and it ties back to Probability (Bayes, Module 1.2). Directly tested PYQs:
+
 - **2024 Q64** (NAT) — compute a joint probability from a Bayes net + CPTs.
 - **2024 Q24** (MCQ) — conditional independence / the **collider** trap.
 - **2025 Q26** (MSQ) — exact vs approximate inference algorithms.
@@ -22,37 +23,43 @@ nav_order: 5
 ## Part 1 — Theory & Math
 
 ### A. Bayesian networks
+
 A **Bayesian network** is a **DAG**: nodes are random variables, edges encode direct dependence, and each node carries a **conditional probability table (CPT)** $P(\text{node}\mid \text{parents})$. The full joint **factorizes**:
 $$P(X_1,\dots,X_n)=\prod_{i=1}^{n} P\big(X_i \mid \text{Parents}(X_i)\big).$$
 This compact product (only **parents**, not all ancestors) is the whole point — it encodes the conditional independencies.
 
 ### B. Computing a joint probability
-Plug the specific values into the product of the relevant CPT entries. *(2024 Q64.)*
+
+Plug the specific values into the product of the relevant CPT entries. _(2024 Q64.)_
 
 ### C. Conditional independence & d-separation
+
 Along any path, the **middle** node's connection type decides the flow:
 
-| Structure | Marginally | Given the middle node |
-| --- | --- | --- |
-| **chain** $X\to Y\to Z$ | dependent | **independent** (blocked) |
-| **fork / common cause** $X\leftarrow Y\to Z$ | dependent | **independent** (blocked) |
-| **collider / common effect** $X\to Y\leftarrow Z$ | **independent** | **DEPENDENT** (opened) |
+| Structure                                         | Marginally      | Given the middle node     |
+| ------------------------------------------------- | --------------- | ------------------------- |
+| **chain** $X\to Y\to Z$                           | dependent       | **independent** (blocked) |
+| **fork / common cause** $X\leftarrow Y\to Z$      | dependent       | **independent** (blocked) |
+| **collider / common effect** $X\to Y\leftarrow Z$ | **independent** | **DEPENDENT** (opened)    |
 
-The **collider** is the counterintuitive one: $X$ and $Z$ are independent **until** you observe $Y$ (or any descendant of $Y$), which makes them **dependent**. *(2024 Q24: $U\to W\leftarrow V$ — conditioning on $W$ makes $U,V$ dependent.)*
+The **collider** is the counterintuitive one: $X$ and $Z$ are independent **until** you observe $Y$ (or any descendant of $Y$), which makes them **dependent**. _(2024 Q24: $U\to W\leftarrow V$ — conditioning on $W$ makes $U,V$ dependent.)_
 
 ### D. Inference
+
 - **Exact inference**
   - **Enumeration / marginalization:** sum the joint over the hidden variables.
   - **Variable elimination (VE):** exact and more efficient — eliminates variables one at a time via factors; computes marginals and conditionals $P(\text{query}\mid \text{evidence})$.
 - **Approximate inference (sampling)** — for large/intractable networks:
   - **Rejection sampling**, **likelihood weighting**, **Gibbs sampling / MCMC**.
-- **Classification to memorize:** **VE & enumeration are EXACT; all sampling methods (rejection, likelihood weighting, Gibbs, MCMC) are APPROXIMATE.** *(2025 Q26.)*
+- **Classification to memorize:** **VE & enumeration are EXACT; all sampling methods (rejection, likelihood weighting, Gibbs, MCMC) are APPROXIMATE.** _(2025 Q26.)_
 
 ### E. Bayes' theorem (the engine)
+
 $$P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}.$$
 Marginal via total probability: $P(Y)=\sum_x P(Y\mid X{=}x)\,P(X{=}x)$. (Bayes is covered in depth in Module 1.2.)
 
 ### F. Traps GATE exploits
+
 1. **Collider conditioning reverses independence:** $X\to Y\leftarrow Z$ are independent **unless** $Y$ (or a descendant) is observed.
 2. **Variable elimination is EXACT**, not approximate.
 3. **Sampling (Gibbs, rejection, likelihood weighting, MCMC) is APPROXIMATE**, not exact.
@@ -63,54 +70,65 @@ Marginal via total probability: $P(Y)=\sum_x P(Y\mid X{=}x)\,P(X{=}x)$. (Bayes i
 ## Part 2 — How to Solve (Method)
 
 ### Compute a joint probability
-$P(\text{values})=\prod_i P(\text{node}{=}\text{value}\mid \text{parents}{=}\text{values})$ — read each factor off its CPT and multiply. *(2024 Q64.)*
+
+$P(\text{values})=\prod_i P(\text{node}{=}\text{value}\mid \text{parents}{=}\text{values})$ — read each factor off its CPT and multiply. _(2024 Q64.)_
 
 ### Decide conditional independence (d-separation)
+
 For the two variables in question, classify the connection at each intermediate node on every path:
+
 - **chain / fork** through an **observed** node $\to$ blocked (independent).
-- **collider** $\to$ blocked **unless** the collider (or a descendant) is observed $\to$ then **opened** (dependent). *(2024 Q24.)*
+- **collider** $\to$ blocked **unless** the collider (or a descendant) is observed $\to$ then **opened** (dependent). _(2024 Q24.)_
 
 ### Classify an inference algorithm
-**Exact:** variable elimination, enumeration. **Approximate:** rejection sampling, likelihood weighting, Gibbs/MCMC. *(2025 Q26.)*
+
+**Exact:** variable elimination, enumeration. **Approximate:** rejection sampling, likelihood weighting, Gibbs/MCMC. _(2025 Q26.)_
 
 ### Marginalize
+
 $P(Y)=\sum_x P(Y\mid X{=}x)\,P(X{=}x)$ — sum the joint over the hidden variable(s).
 
 ### Mistakes that cost marks
+
 - Treating a **collider** like a chain (getting the independence backwards).
 - Calling VE approximate or a sampler exact.
 - Conditioning on **non-parents** in the factorization.
 
 ## Part 3 — Worked Examples
 
-### Example 1 — Joint probability from a Bayes net *(2024 Q64 · NAT)*
+### Example 1 — Joint probability from a Bayes net _(2024 Q64 · NAT)_
+
 **Q.** Network: $U\to V$, $U\to W$, $V\to Z$, $W\to Z$ (four Bernoulli variables). Relevant CPT entries: $P(U{=}1)=0.5$; $P(V{=}1\mid U{=}1)=0.5$; $P(W{=}1\mid U{=}1)=1$; $P(Z{=}1\mid V{=}1,W{=}1)=0.5$. Find $P(U{=}1,V{=}1,W{=}1,Z{=}1)$.
 
 **Solve.** Factorize along the DAG (each node given its parents):
 $$P(U{=}1,V{=}1,W{=}1,Z{=}1)=P(U{=}1)\,P(V{=}1\mid U{=}1)\,P(W{=}1\mid U{=}1)\,P(Z{=}1\mid V{=}1,W{=}1).$$
 $$=0.5\times0.5\times1\times0.5=0.125.$$
 
-**Answer: $0.125$.** *Method:* multiply one CPT entry per node, conditioned on its parents.
+**Answer: $0.125$.** _Method:_ multiply one CPT entry per node, conditioned on its parents.
 
 ---
 
-### Example 2 — The collider trap *(2024 Q24 · MCQ)*
+### Example 2 — The collider trap _(2024 Q24 · MCQ)_
+
 **Q.** $P(U,V,W,X,Y)=P(U)P(V)P(W\mid U,V)P(X\mid W)P(Y\mid W)$ (so $U\to W$, $V\to W$, $W\to X$, $W\to Y$). Which statement is **FALSE**? (A) $Y\perp V\mid W$ (B) $X\perp U\mid W$ (C) $U\perp V\mid W$ (D) $X\perp Y\mid W$.
 
 **Solve.**
+
 - (A) $V\to W\to Y$ is a **chain** through observed $W$ $\Rightarrow$ blocked $\Rightarrow$ independent. **True.**
 - (B) $U\to W\to X$ chain through observed $W$ $\Rightarrow$ independent. **True.**
 - (C) $U\to W\leftarrow V$ is a **collider** at $W$. Conditioning on $W$ **opens** the path $\Rightarrow$ $U,V$ are **dependent** given $W$. So “$U\perp V\mid W$” is **FALSE**.
 - (D) $X\leftarrow W\to Y$ fork through observed $W$ $\Rightarrow$ independent. **True.**
 
-**Answer: (C)** — the false statement. *Key:* observing a collider induces dependence between its parents.
+**Answer: (C)** — the false statement. _Key:_ observing a collider induces dependence between its parents.
 
 ---
 
-### Example 3 — Exact vs approximate inference *(2025 Q26 · MSQ)*
+### Example 3 — Exact vs approximate inference _(2025 Q26 · MSQ)_
+
 **Q.** Which statements about Bayesian-network inference are correct? (A) Variable elimination is an approximate inference algorithm (B) Gibbs sampling is an exact inference algorithm (C) Variable elimination is used to determine conditional probabilities (D) Rejection sampling is an approximate inference algorithm.
 
 **Solve.**
+
 - (A) **False** — variable elimination is **exact**.
 - (B) **False** — Gibbs sampling is **approximate** (an MCMC method).
 - (C) **True** — VE computes marginals and conditionals $P(\text{query}\mid \text{evidence})$.
@@ -120,13 +138,14 @@ $$=0.5\times0.5\times1\times0.5=0.125.$$
 
 ---
 
-### Example 4 — Marginal via total probability *(original · Med)*
+### Example 4 — Marginal via total probability _(original · Med)_
+
 **Q.** Network $X\to Y$ with $P(X{=}1)=0.3$, $P(Y{=}1\mid X{=}1)=0.9$, $P(Y{=}1\mid X{=}0)=0.2$. Find $P(Y{=}1)$.
 
 **Solve.** Sum over $X$:
 $$P(Y{=}1)=P(Y{=}1\mid X{=}1)P(X{=}1)+P(Y{=}1\mid X{=}0)P(X{=}0)=0.9(0.3)+0.2(0.7)=0.27+0.14=0.41.$$
 
-**Answer: $0.41$.** *Method:* marginalize the hidden cause $X$ by total probability.
+**Answer: $0.41$.** _Method:_ marginalize the hidden cause $X$ by total probability.
 
 ## Part 4 — Practice Questions
 
@@ -147,9 +166,9 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q5. ★★ (MSQ)** Which are **approximate** inference methods?
 (A) variable elimination (B) rejection sampling (C) Gibbs sampling (D) likelihood weighting
 
-**Q6. ★★ (NAT)** Network $X\to Y$ with $P(X{=}1)=0.4$, $P(Y{=}1\mid X{=}1)=0.5$, $P(Y{=}1\mid X{=}0)=0.1$. Then $P(Y{=}1)=$ __________ .
+**Q6. ★★ (NAT)** Network $X\to Y$ with $P(X{=}1)=0.4$, $P(Y{=}1\mid X{=}1)=0.5$, $P(Y{=}1\mid X{=}0)=0.1$. Then $P(Y{=}1)=$ \***\*\_\_\*\*** .
 
-**Q7. ★★ (NAT)** Bayes net $A\to B$, $A\to C$ with $P(A{=}1)=0.5$, $P(B{=}1\mid A{=}1)=0.8$, $P(C{=}1\mid A{=}1)=0.6$. Then $P(A{=}1,B{=}1,C{=}1)=$ __________ .
+**Q7. ★★ (NAT)** Bayes net $A\to B$, $A\to C$ with $P(A{=}1)=0.5$, $P(B{=}1\mid A{=}1)=0.8$, $P(C{=}1\mid A{=}1)=0.6$. Then $P(A{=}1,B{=}1,C{=}1)=$ \***\*\_\_\*\*** .
 
 **Q8. ★★ (MCQ)** In a fork $X\leftarrow Y\to Z$, conditioning on $Y$ makes $X$ and $Z$
 (A) dependent (B) independent (C) identical (D) undefined
@@ -178,13 +197,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q8 — (B) independent.** A fork (common cause) is blocked by the observed middle node.
 
-**Q9 — (A), (B), (C).** A collider's parents are marginally independent but become dependent once the collider **or any descendant** is observed. (D) is false (they aren't *always* dependent).
+**Q9 — (A), (B), (C).** A collider's parents are marginally independent but become dependent once the collider **or any descendant** is observed. (D) is false (they aren't _always_ dependent).
 
 **Q10 — (B) 4.** Two binary parents give $2^2=4$ parent combinations; a binary node needs $1$ free parameter per combination $\Rightarrow 4$.
 
 ---
 
 ### How to read your score
+
 - **8–10:** uncertainty is solid — **that completes all of Subject 6 (Artificial Intelligence)!**
 - **6–7:** re-drill **d-separation** (Q2, Q3, Q8, Q9) and **exact vs approximate** (Q4, Q5).
-- **≤5:** re-read Part 1 A–D; lock in the factorized joint, *collider opens when observed*, and *VE exact / sampling approximate*.
+- **≤5:** re-read Part 1 A–D; lock in the factorized joint, _collider opens when observed_, and _VE exact / sampling approximate_.

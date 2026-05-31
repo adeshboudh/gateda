@@ -12,19 +12,20 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 
 **Weightage:** DBW is the **fastest-rising** subject (**~14.1%**, $7\to11\to18$ marks — **~21% in 2026**). Prioritize **SQL**, **FDs/normalization**, **B+ tree indexing**, **relational algebra**, and **OLAP cuboids**.
 
-| Module | Topic |
-| --- | --- |
-| 4.1 | ER & relational models |
-| 4.2 | Relational algebra & tuple calculus |
-| 4.3 | SQL |
-| 4.4 | Functional dependencies & normalization |
-| 4.5 | File organization & indexing |
-| 4.6 | Data warehousing & OLAP |
-| 4.7 | Data transformation |
+| Module | Topic                                   |
+| ------ | --------------------------------------- |
+| 4.1    | ER & relational models                  |
+| 4.2    | Relational algebra & tuple calculus     |
+| 4.3    | SQL                                     |
+| 4.4    | Functional dependencies & normalization |
+| 4.5    | File organization & indexing            |
+| 4.6    | Data warehousing & OLAP                 |
+| 4.7    | Data transformation                     |
 
 ## 4.1 ER & Relational Models
 
 **Must know**
+
 - **ER-to-relational:** 1 table per **strong entity**; **+1 per multivalued attribute**; **+1 per M:N** relationship; a **1:N** relationship uses a **foreign key** (no extra table).
 - **Keys:** super key $\supseteq$ candidate key $\supseteq$ primary key; **foreign key** references another relation's key.
 - **Integrity:** entity integrity (PK not null), **referential integrity** (FK matches an existing PK or is null).
@@ -36,6 +37,7 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.2 Relational Algebra & Tuple Calculus
 
 **Must know**
+
 - $\sigma$ (select rows), $\pi$ (project columns, **deduplicates**), $\times$, $\cup,\cap,-$, $\bowtie$ (natural join on common attributes — **none $\Rightarrow$ Cartesian product**).
 - **Division** $R\div S$ $=$ “for all” (tuples in $R$ matching **every** tuple of $S$).
 - **Tuple relational calculus (TRC):** $\{t\mid \text{condition}\}$ with $\exists,\forall$.
@@ -47,6 +49,7 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.3 SQL
 
 **Must know**
+
 - `SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY`; aggregates `COUNT/SUM/AVG/MIN/MAX`.
 - **Subqueries:** scalar (runs once), **correlated** (re-runs per outer row).
 - **Strict `>` vs `>=`** changes results at the boundary.
@@ -59,6 +62,7 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.4 Functional Dependencies & Normalization
 
 **Must know**
+
 - **Attribute closure $X^+$** is the master tool: find candidate keys (a key's closure $=$ all attributes); an attribute on **no RHS** is in **every** key.
 - **Normal forms:** 1NF (atomic); 2NF (no partial dependency on part of a key); **3NF** (for each FD, LHS is a superkey **or** RHS is prime); **BCNF** (every FD's LHS is a superkey).
 - **Decomposition:** lossless-join (common attribute is a key of one piece); dependency-preserving (3NF achievable; BCNF may not preserve).
@@ -70,6 +74,7 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.5 File Organization & Indexing
 
 **Must know**
+
 - **B+ tree:** all data in **leaves** (linked for range scans); internal nodes only route. Node capacity from $n\cdot p+(n-1)\cdot k\le B$ (block size).
 - **Index choice:** **hash** for **equality**, **B+ tree** for **range** (hash can't do ranges).
 - Dense vs sparse index; clustered vs unclustered.
@@ -82,6 +87,7 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.6 Data Warehousing & OLAP
 
 **Must know**
+
 - **Star schema** (denormalized dimensions) vs **snowflake** (normalized).
 - **Number of cuboids** $=\prod_i (L_i+1)$ where $L_i$ is the number of hierarchy levels of dimension $i$ (each $+1$ for “all”); with **no hierarchy** it's $2^d$ for $d$ dimensions.
 - **OLAP ops:** **roll-up** (coarser), **drill-down** (finer), **slice** (fix one dimension), **dice** (range on several), **pivot**.
@@ -93,17 +99,19 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 ## 4.7 Data Transformation
 
 **Must know**
+
 - **Min-max** to $[0,1]$: $x'=\dfrac{x-\min}{\max-\min}$. **Z-score:** $x'=\dfrac{x-\mu}{\sigma}$.
 - **Discretization:** equal-**width** bins (width $=\dfrac{\max-\min}{k}$) vs equal-**frequency** (equal counts).
 - **Sampling** (numerosity reduction), **dimensionality reduction** (PCA), **aggregation**, **compression** (lossless vs lossy).
 
 **GATE angle:** apply min-max/z-score; equal-width bin width; identify the technique (sampling/discretization/reduction).
 
-**Traps:** min-max uses min/max, z-score uses mean/SD; lossy compression isn't reversible. *(z-score 2024 Q27 also in Module 1.8.)*
+**Traps:** min-max uses min/max, z-score uses mean/SD; lossy compression isn't reversible. _(z-score 2024 Q27 also in Module 1.8.)_
 
 ## Traps & Exam Strategy
 
 **Highest-cost traps**
+
 1. **ER-to-relational:** +1 table per multivalued attr and per M:N; 1:N uses an FK.
 2. **$\pi$ deduplicates**; natural join on no common attribute $=$ Cartesian product; **division $=$ for-all**.
 3. **SQL:** evaluate subqueries first; `>` excludes the boundary; **CUBE$(k)=2^k$**, **ROLLUP$(k)=k+1$**.
@@ -112,8 +120,9 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 6. **Cuboids $=\prod(L_i+1)$**; roll-up vs drill-down direction.
 
 **Strategy**
+
 - DBW is **rising fast** — invest heavily, especially **SQL** and **normalization** (the highest-yield).
 - Practice **attribute closure** until candidate-key finding is automatic.
 - Drill **B+ tree** node-capacity and **OLAP cuboid** counting formulas.
 
-*(Full worked PYQs: Modules 4.1–4.7. Formula lookup: DBW Cheat Sheet.)*
+_(Full worked PYQs: Modules 4.1–4.7. Formula lookup: DBW Cheat Sheet.)_

@@ -35,13 +35,13 @@ $$\operatorname{rank}(A)+\operatorname{nullity}(A)=n\ (\text{columns}),\qquad \o
 
 ## Special Matrices
 
-| Type | Property | Eigenvalues |
-| --- | --- | --- |
-| Symmetric | $A=A^\top$ | real, orthogonal eigvecs |
-| Orthogonal | $Q^\top Q=I$ | $\lvert \lambda\rvert=1$, $\det=\pm1$ |
-| Idempotent (projection) | $P^2=P$ | $0,1$; trace $=$ rank |
-| Involutory | $A^2=I$ | $\pm1$ |
-| Nilpotent | $A^k=0$ | all $0$ |
+| Type                    | Property     | Eigenvalues                           |
+| ----------------------- | ------------ | ------------------------------------- |
+| Symmetric               | $A=A^\top$   | real, orthogonal eigvecs              |
+| Orthogonal              | $Q^\top Q=I$ | $\lvert \lambda\rvert=1$, $\det=\pm1$ |
+| Idempotent (projection) | $P^2=P$      | $0,1$; trace $=$ rank                 |
+| Involutory              | $A^2=I$      | $\pm1$                                |
+| Nilpotent               | $A^k=0$      | all $0$                               |
 
 - Orthogonal projection $=$ symmetric + idempotent; onto $k$-dim $U$: null space dim $n-k$.
 - Centering $I-\tfrac1n\mathbf 1\mathbf 1^\top$: eigenvalues $1$ ($n{-}1$ times), $0$; trace $=$ rank $=n-1$.
@@ -60,4 +60,4 @@ $$\operatorname{rank}(A)+\operatorname{nullity}(A)=n\ (\text{columns}),\qquad \o
 - **Rank-1** $\mathbf u\mathbf v^\top$: single $\sigma=\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; $\mathbf u\mathbf u^\top\Rightarrow\sigma=\lVert\mathbf u\rVert^2$.
 - **LU:** $A=LU$ (Gaussian elimination); $\det A=\prod U_{ii}$; solve $L\mathbf y=\mathbf b$ then $U\mathbf x=\mathbf y$.
 
-*(Concept recap: LA Revision Doc. Full worked PYQs: Modules 5.1–5.6.)*
+_(Concept recap: LA Revision Doc. Full worked PYQs: Modules 5.1–5.6.)_

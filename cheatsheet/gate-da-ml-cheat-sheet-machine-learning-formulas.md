@@ -17,8 +17,8 @@ nav_order: 3
 
 - **Sigmoid** $\sigma(z)=\dfrac{1}{1+e^{-z}}$, $\sigma'=\sigma(1-\sigma)$.
 - Confusion matrix ($TP,FP,FN,TN$):
-$$\text{accuracy}=\frac{TP+TN}{TP+TN+FP+FN},\quad \text{precision}=\frac{TP}{TP+FP},\quad \text{recall}=\frac{TP}{TP+FN}.$$
-$$F_1=\frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}.$$
+  $$\text{accuracy}=\frac{TP+TN}{TP+TN+FP+FN},\quad \text{precision}=\frac{TP}{TP+FP},\quad \text{recall}=\frac{TP}{TP+FN}.$$
+  $$F_1=\frac{2\cdot\text{precision}\cdot\text{recall}}{\text{precision}+\text{recall}}.$$
 
 ## Classifiers (kNN / NB / LDA / SVM)
 
@@ -43,6 +43,7 @@ Pick the split with the highest information gain (lowest weighted child impurity
 ## Bias-Variance & Cross-Validation
 
 $$\mathbb E[\text{test error}]=\text{bias}^2+\text{variance}+\sigma^2_{\text{noise}}.$$
+
 - Complexity $\uparrow$: bias $\downarrow$, variance $\uparrow$ (underfit $=$ high bias; overfit $=$ high variance).
 - **LOOCV:** $n$ folds $=n$ models. **k-fold:** $k$ models. CV uses the **training** set only.
 
@@ -52,4 +53,4 @@ $$\mathbb E[\text{test error}]=\text{bias}^2+\text{variance}+\sigma^2_{\text{noi
 - **Linkage:** single $=\min$ distance, complete $=\max$, average $=$ mean.
 - **PCA:** eigen-decompose covariance $\Sigma$; **variance along PC$_i=\lambda_i$**; first PC $=\arg\max_{\lVert u\rVert=1}u^\top\Sigma u=\lambda_{\max}$; PCs orthogonal; keep top-$k$ for dimensionality reduction.
 
-*(Concept recap: ML Revision Doc. Full worked PYQs: Modules 3.1–3.9.)*
+_(Concept recap: ML Revision Doc. Full worked PYQs: Modules 3.1–3.9.)_

@@ -6,17 +6,18 @@ nav_order: 6
 
 # GATE DA · AI Cheat Sheet — Artificial Intelligence Reference
 
-## Search (uninformed + A*)
+## Search (uninformed + A\*)
 
-| Strategy | Frontier | Complete | Optimal | Space |
-| --- | --- | --- | --- | --- |
-| BFS | queue | yes | yes* | $O(b^d)$ |
-| DFS | stack | graph: yes | no | $O(bm)$ |
-| UCS | PQ on $g$ | yes | yes | high |
-| IDS | iter. DFS | yes | yes* | $O(bd)$ |
+| Strategy | Frontier  | Complete   | Optimal | Space    |
+| -------- | --------- | ---------- | ------- | -------- |
+| BFS      | queue     | yes        | yes\*   | $O(b^d)$ |
+| DFS      | stack     | graph: yes | no      | $O(bm)$  |
+| UCS      | PQ on $g$ | yes        | yes     | high     |
+| IDS      | iter. DFS | yes        | yes\*   | $O(bd)$  |
 
-*equal step costs. **A\*:** expand min $f=g+h$; optimal if $h$ **admissible** (tree) / **consistent** (graph). Greedy uses $h$ only.
-- **Admissible** $h\le h^*$. $\max(h_1,h_2),\min,\lvert h_1-h_2\rvert,\tfrac12(h_1+h_2)$ admissible; **$h_1+h_2$ not**.
+\*equal step costs. **A\*:** expand min $f=g+h$; optimal if $h$ **admissible** (tree) / **consistent** (graph). Greedy uses $h$ only.
+
+- **Admissible** $h\le h^\ast$. $\max(h_1,h_2),\min,\lvert h_1-h_2\rvert,\tfrac12(h_1+h_2)$ admissible; **$h_1+h_2$ not**.
 
 ## Adversarial Search
 
@@ -52,4 +53,4 @@ nav_order: 6
 - **Inference:** variable elimination, enumeration $=$ **exact**; rejection / likelihood-weighting / Gibbs / MCMC $=$ **approximate**.
 - Bayes: $P(A\mid B)=\dfrac{P(B\mid A)P(A)}{P(B)}$; marginal $P(Y)=\sum_x P(Y\mid x)P(x)$.
 
-*(Concept recap: AI Revision Doc. Full worked PYQs: Modules 6.1–6.5.)*
+_(Concept recap: AI Revision Doc. Full worked PYQs: Modules 6.1–6.5.)_

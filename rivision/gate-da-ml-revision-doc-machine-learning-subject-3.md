@@ -12,21 +12,22 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 
 **Weightage:** ML is the **#3 subject** (**~16.9%**, rock-steady $14\text{–}15$ marks/year) with **predictable subtopics** — SVM, clustering/linkage, PCA, regression, naive Bayes, kNN, decision-tree info gain, classifier metrics.
 
-| Module | Topic |
-| --- | --- |
-| 3.1 | Linear & ridge regression |
-| 3.2 | Logistic regression & metrics |
-| 3.3 | kNN, naive Bayes, LDA |
-| 3.4 | SVM |
-| 3.5 | Decision trees |
-| 3.6 | Neural networks |
-| 3.7 | Bias-variance & cross-validation |
-| 3.8 | Clustering |
-| 3.9 | PCA |
+| Module | Topic                            |
+| ------ | -------------------------------- |
+| 3.1    | Linear & ridge regression        |
+| 3.2    | Logistic regression & metrics    |
+| 3.3    | kNN, naive Bayes, LDA            |
+| 3.4    | SVM                              |
+| 3.5    | Decision trees                   |
+| 3.6    | Neural networks                  |
+| 3.7    | Bias-variance & cross-validation |
+| 3.8    | Clustering                       |
+| 3.9    | PCA                              |
 
 ## 3.1 Linear & Ridge Regression
 
 **Must know**
+
 - Simple LR through origin: $w=\dfrac{\sum x_i y_i}{\sum x_i^2}$; general OLS minimizes $\sum (y_i-\hat y_i)^2$; normal equations $\hat{\mathbf w}=(X^\top X)^{-1}X^\top \mathbf y$.
 - **Ridge:** minimize $\lVert \mathbf y-X\mathbf w\rVert^2+\lambda\lVert\mathbf w\rVert^2$ (L2). **Raises bias, lowers variance**; shrinks weights; helps when $X^\top X$ is ill-conditioned.
 
@@ -37,6 +38,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.2 Logistic Regression & Metrics
 
 **Must know**
+
 - **Sigmoid** $\sigma(z)=\dfrac{1}{1+e^{-z}}$, derivative $\sigma'=\sigma(1-\sigma)$; decision boundary is **linear** in features.
 - **Confusion matrix** $\to$ accuracy $=\dfrac{TP+TN}{\text{all}}$, **precision** $=\dfrac{TP}{TP+FP}$, **recall** $=\dfrac{TP}{TP+FN}$, $F_1=\dfrac{2PR}{P+R}$.
 
@@ -47,6 +49,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.3 kNN, Naive Bayes & LDA
 
 **Must know**
+
 - **kNN:** lazy, distance-based; choose **odd $k$** to avoid ties; larger $k$ smooths.
 - **Naive Bayes:** assumes **conditional independence** of features given the class; $P(c\mid \mathbf x)\propto P(c)\prod_i P(x_i\mid c)$.
 - **LDA:** generative, assumes shared covariance $\Rightarrow$ **linear** boundary. Nearest-centroid is also linear ($\lVert\cdot\rVert^2$ terms cancel).
@@ -58,6 +61,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.4 SVM
 
 **Must know**
+
 - **Maximize the margin** $=\dfrac{2}{\lVert\mathbf w\rVert}$, i.e. **minimize $\tfrac12\lVert\mathbf w\rVert^2$** subject to $y_i(\mathbf w^\top\mathbf x_i+b)\ge1$.
 - **Support vectors** are the points on the margin; only they determine $\mathbf w$.
 - **Hard** (separable) vs **soft** margin (slack $\xi$); **kernels** for non-linear (XOR is not linearly separable).
@@ -69,6 +73,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.5 Decision Trees
 
 **Must know**
+
 - **Entropy** $H=-\sum_i p_i\log_2 p_i$ (binary max $=1$ at $p=0.5$).
 - **Information gain** $=H(\text{parent})-\sum_k \dfrac{n_k}{n}H(\text{child}_k)$ — pick the highest-gain split.
 - **Gini** $=1-\sum_i p_i^2$ (binary max $=0.5$).
@@ -80,6 +85,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.6 Neural Networks
 
 **Must know**
+
 - Neuron: $a=\phi(\mathbf w^\top\mathbf x+b)$; activations: **ReLU** $\max(0,x)$, sigmoid, tanh.
 - **MLP parameter count** $=\sum_{\text{layers}}(\text{in}\times\text{out})\,[+\text{out biases}]$.
 - **ReLU on positive inputs $=$ identity**, so a multi-layer net with all-positive activations collapses to a linear map.
@@ -92,6 +98,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.7 Bias-Variance & Cross-Validation
 
 **Must know**
+
 - **Test error $=$ bias$^2$ + variance + irreducible noise.** Model complexity $\uparrow$ $\Rightarrow$ bias $\downarrow$, variance $\uparrow$.
 - **LOOCV:** $n$ folds (one sample held out each time) $=n$ models. **k-fold:** $k$ models.
 - Cross-validation is done on the **training** data (never the test set).
@@ -103,6 +110,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.8 Clustering
 
 **Must know**
+
 - **k-means:** minimize within-cluster sum of squares; assign to nearest centroid, recompute means; needs $k$; sensitive to init. **k-medoid** uses actual points (robust to outliers).
 - **Hierarchical (agglomerative):** **single linkage** $=$ **min** inter-cluster distance (chaining), **complete** $=$ **max**, **average** $=$ mean.
 
@@ -113,6 +121,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## 3.9 PCA
 
 **Must know**
+
 - PCA finds **orthogonal** directions of **maximum variance** $=$ eigenvectors of the covariance matrix; **variance along a PC $=$ its eigenvalue**.
 - First PC maximizes $\mathbf u^\top\Sigma\mathbf u$ over unit $\mathbf u$ $\Rightarrow \lambda_{\max}$ (Rayleigh quotient — ties to Linear Algebra 5.5).
 - PCs are **orthogonal** (angle $90^\circ$); used for **dimensionality reduction**.
@@ -124,6 +133,7 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 ## Traps & Exam Strategy
 
 **Highest-cost traps**
+
 1. **Precision vs recall** denominators ($FP$ vs $FN$).
 2. **SVM margin $=2/\lVert\mathbf w\rVert$**; minimize $\lVert\mathbf w\rVert^2$.
 3. **Entropy uses $\log_2$**; weight children by size for info gain.
@@ -132,7 +142,8 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 6. **Ridge** raises bias, lowers variance; **LOOCV** $=n$ folds.
 
 **Strategy**
+
 - ML is **stable and predictable** — the same subtopics recur; drill SVM, clustering, PCA, info gain, and metrics.
 - Many questions are **small computations** (one info-gain, one margin, one confusion-matrix metric) — fast marks.
 
-*(Full worked PYQs: Modules 3.1–3.9. Formula lookup: ML Cheat Sheet.)*
+_(Full worked PYQs: Modules 3.1–3.9. Formula lookup: ML Cheat Sheet.)_

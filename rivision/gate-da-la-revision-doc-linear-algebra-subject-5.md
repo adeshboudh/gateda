@@ -12,18 +12,19 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 
 **Weightage:** LA is **~11.8%** ($10/12/8$ marks), stable and **high-ROI** because it pairs with PS and ML (covariance, PCA, least squares). **Eigenvalues are the dominant theme** (~7 of the LA PYQs).
 
-| Module | Topic |
-| --- | --- |
-| 5.1 | Vector spaces, subspaces, independence, basis |
-| 5.2 | Rank-nullity & linear systems |
-| 5.3 | Determinants & eigenvalues/eigenvectors |
-| 5.4 | Special matrices & projections |
-| 5.5 | Quadratic forms & positive-definiteness |
-| 5.6 | SVD & LU decomposition |
+| Module | Topic                                         |
+| ------ | --------------------------------------------- |
+| 5.1    | Vector spaces, subspaces, independence, basis |
+| 5.2    | Rank-nullity & linear systems                 |
+| 5.3    | Determinants & eigenvalues/eigenvectors       |
+| 5.4    | Special matrices & projections                |
+| 5.5    | Quadratic forms & positive-definiteness       |
+| 5.6    | SVD & LU decomposition                        |
 
 ## 5.1 Vector Spaces, Subspaces, Independence & Basis
 
 **Must know**
+
 - **Subspace test:** contains $\mathbf 0$ and is closed under $a\mathbf u+b\mathbf v$. Affine sets (constant $\ne0$) are **not** subspaces.
 - A **span** is always a subspace; restricted coefficients ($\alpha^2$, $\ge0$) break closure.
 - **Independence:** $\sum c_i\mathbf v_i=\mathbf 0\Rightarrow$ all $c_i=0$; test via rank/determinant.
@@ -37,6 +38,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## 5.2 Rank-Nullity & Linear Systems
 
 **Must know**
+
 - **Rank-nullity:** $\operatorname{rank}(A)+\operatorname{nullity}(A)=n$ (number of **columns**).
 - **$A\mathbf x=\mathbf b$:** consistent iff $\operatorname{rank}(A)=\operatorname{rank}([A\,\mid \,\mathbf b])$; unique iff that rank $=n$; else infinitely many.
 - **Homogeneous** $A\mathbf x=\mathbf 0$: nontrivial solution iff $\operatorname{rank}<n$ (square: $\det=0$).
@@ -49,6 +51,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## 5.3 Determinants & Eigenvalues/Eigenvectors
 
 **Must know**
+
 - $\det(AB)=\det A\det B$; $\det=\prod\lambda_i$; $\operatorname{tr}=\sum\lambda_i$. Singular $\iff\det=0\iff 0$ is an eigenvalue.
 - **Char. equation** $\det(A-\lambda I)=0$; $2\times2$: $\lambda^2-(\operatorname{tr})\lambda+\det=0$ (discriminant $<0\Rightarrow$ complex pair).
 - **Toolkit:** eigenvalues of $A^k\to\lambda^k$, $A^{-1}\to1/\lambda$, $A+cI\to\lambda+c$, $p(A)\to p(\lambda)$.
@@ -61,6 +64,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## 5.4 Special Matrices & Projections
 
 **Must know**
+
 - **Symmetric:** real eigenvalues, orthogonal eigenvectors (spectral theorem $A=Q\Lambda Q^\top$).
 - **Orthogonal** $Q^\top Q=I$: $\lvert \lambda\rvert=1$ (possibly complex), $\det=\pm1$, preserves norm (isometry $\lVert A\mathbf x\rVert=\lVert\mathbf x\rVert\iff A$ orthogonal).
 - **Idempotent / projection** $P^2=P$: eigenvalues $0,1$; **trace $=$ rank**; symmetric+idempotent $=$ orthogonal projection; onto $k$-dim $U$, null space dim $n-k$.
@@ -73,6 +77,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## 5.5 Quadratic Forms & Positive-Definiteness
 
 **Must know**
+
 - $q(\mathbf x)=\mathbf x^\top A\mathbf x$ (use symmetric $A$; off-diagonal $=\tfrac12\times$ cross coefficient).
 - **Definiteness $=$ eigenvalue signs:** all $>0$ PD, all $\ge0$ PSD, mixed indefinite. Sylvester: leading minors $>0\Rightarrow$ PD.
 - **Gram matrix $X^\top X$** is PSD; **PD iff columns independent** (invertible, $\det>0$).
@@ -85,10 +90,11 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## 5.6 SVD & LU Decomposition
 
 **Must know**
+
 - **SVD** $A=U\Sigma V^\top$ ($U,V$ orthogonal, $\Sigma\ge0$); **singular values $=\sqrt{\lambda(A^\top A)}\ge0$**; **# nonzero singular values $=$ rank**.
 - **Symmetric PSD $\Rightarrow$ singular values $=$ eigenvalues**; symmetric $\Rightarrow\sigma=\lvert \lambda\rvert$.
 - **Rank-1** $\mathbf u\mathbf v^\top$: one nonzero singular value $\lVert\mathbf u\rVert\lVert\mathbf v\rVert$; $\mathbf u\mathbf u^\top\to\lVert\mathbf u\rVert^2$.
-- **LU:** $A=LU$ from Gaussian elimination; $\det=\prod U_{ii}$; solve via forward + back substitution. *(No PYQ 2024–26 — efficient coverage.)*
+- **LU:** $A=LU$ from Gaussian elimination; $\det=\prod U_{ii}$; solve via forward + back substitution. _(No PYQ 2024–26 — efficient coverage.)_
 
 **GATE angle:** singular values of a rank-1 / projection matrix; $\sigma$ from eigenvalues; LU determinant.
 
@@ -97,6 +103,7 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 ## Traps & Exam Strategy
 
 **Highest-cost traps**
+
 1. **Affine $\ne$ subspace**; independent $\ne$ orthonormal.
 2. **Rank-nullity counts columns**; check the **augmented** rank for consistency.
 3. **Real matrices can have complex eigenvalues** (rotations); $\det=\prod\lambda$, $\operatorname{tr}=\sum\lambda$.
@@ -105,7 +112,8 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 6. **$\sigma\ge0$, #nonzero $\sigma=$ rank**; symmetric PSD $\Rightarrow\sigma=\lambda$.
 
 **Strategy**
+
 - **Eigenvalues dominate** — master the toolkit + structured-matrix table; they crack most LA questions in seconds.
 - High ROI: the same machinery powers **PCA**, **covariance**, and **least squares** in ML/PS.
 
-*(Full worked PYQs: Modules 5.1–5.6. Formula lookup: LA Cheat Sheet.)*
+_(Full worked PYQs: Modules 5.1–5.6. Formula lookup: LA Cheat Sheet.)_

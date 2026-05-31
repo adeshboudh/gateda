@@ -8,19 +8,21 @@ nav_order: 2
 
 ## Exam Relevance
 
-**Where this sits:** Machine Learning $\rightarrow$ *Logistic Regression & Classification Metrics* — the first **classifier** and how its quality is measured.
+**Where this sits:** Machine Learning $\rightarrow$ _Logistic Regression & Classification Metrics_ — the first **classifier** and how its quality is measured.
 
 **Weightage:** ML is the **#3 subject** ($16.9\%$). This cluster is tested directly:
+
 - **2024 Q33** — the **sigmoid** and its derivative $f'(x) = f(x)(1-f(x))$
 - **2026 Q47** — a **confusion matrix**: accuracy, precision, recall comparison
 
-*(2025 had no logistic/metric question; "classifier evaluation" is nonetheless a flagged recurring pattern across years.)*
+_(2025 had no logistic/metric question; "classifier evaluation" is nonetheless a flagged recurring pattern across years.)_
 
 > **Why it matters:** classification-metric questions are pure bookkeeping from a confusion matrix — reliable marks — and the **sigmoid derivative** $\sigma(1-\sigma)$ is a one-line favourite. Don't confuse **precision** (of predicted positives) with **recall** (of actual positives).
 
 ## Part 1 — Theory & Math
 
 ### A. Logistic regression
+
 For **binary classification**, model the probability of the positive class with the **sigmoid** of a linear score:
 
 $$P(y=1 \mid x) = \sigma(w^\top x + b), \qquad \sigma(z) = \frac{1}{1 + e^{-z}} \in (0, 1).$$
@@ -32,26 +34,29 @@ $$P(y=1 \mid x) = \sigma(w^\top x + b), \qquad \sigma(z) = \frac{1}{1 + e^{-z}} 
 
 ### B. The confusion matrix (positive class = the class of interest)
 
-| | Predicted Positive | Predicted Negative |
-|---|---|---|
-| **Actual Positive** | TP | FN |
-| **Actual Negative** | FP | TN |
+|                     | Predicted Positive | Predicted Negative |
+| ------------------- | ------------------ | ------------------ |
+| **Actual Positive** | TP                 | FN                 |
+| **Actual Negative** | FP                 | TN                 |
 
 ### C. Metrics
+
 $$\text{Accuracy} = \frac{TP + TN}{TP+TN+FP+FN}, \qquad \text{Precision} = \frac{TP}{TP + FP},$$
 $$\text{Recall (sensitivity)} = \frac{TP}{TP + FN}, \qquad \text{Specificity} = \frac{TN}{TN + FP},$$
 $$F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} \quad (\text{harmonic mean}).$$
 
-- **Precision** = "of those I *predicted* positive, how many truly are?" **Recall** = "of the *actual* positives, how many did I catch?"
+- **Precision** = "of those I _predicted_ positive, how many truly are?" **Recall** = "of the _actual_ positives, how many did I catch?"
 - **Error rate** $= 1 - \text{Accuracy}$.
 
 ### D. Choosing a metric
+
 - **Accuracy is misleading on imbalanced classes** (predicting the majority can look "accurate").
 - Use **precision** when false positives are costly; **recall** when false negatives are costly; **F1** to balance both.
 
 ### E. Common traps GATE exploits
+
 1. **Precision vs recall:** precision divides by **predicted** positives ($TP+FP$); recall by **actual** positives ($TP+FN$).
-2. **Logistic regression is a *linear* classifier** (linear boundary), even though it outputs a probability.
+2. **Logistic regression is a _linear_ classifier** (linear boundary), even though it outputs a probability.
 3. **Sigmoid derivative** is $\sigma(1-\sigma)$ — not $\sigma^2$ or $e^{-z}$.
 4. **Accuracy on imbalanced data** can be high yet useless.
 5. **F1 is the harmonic** (not arithmetic) mean of precision and recall.
@@ -60,15 +65,18 @@ $$F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \
 ## Part 2 — How to Solve (Method)
 
 ### Metric questions (from counts)
+
 1. **Build the confusion matrix**: from the wording, fill TP, FP, FN, TN for the chosen positive class.
 2. Apply the formula: accuracy uses the whole table; precision/recall focus on one class.
 3. For **per-class** comparisons, recompute TP/FP/FN with that class as positive.
 
 ### Logistic regression
+
 - **Predict:** compute $z = w^\top x + b$, then $\sigma(z)$; classify as 1 if $\sigma(z) \ge 0.5$ (equivalently $z \ge 0$).
 - **Sigmoid derivative:** if you know $\sigma = p$, then $\sigma' = p(1-p)$ — no need to recompute $z$.
 
 ### Sanity checks
+
 - Every metric lies in $[0, 1]$.
 - Accuracy $=$ (sum of the diagonal) / (grand total).
 - $\text{Recall} + \text{miss rate} = 1$; $\text{Precision}$ and $\text{Recall}$ generally **trade off**.
@@ -80,56 +88,64 @@ E1 and E3 are real GATE DA questions; E2 and E4 are standard originals.
 
 ---
 
-### Example 1 — Sigmoid derivative *(2024 Q33 · NAT · Easy–Med)*
+### Example 1 — Sigmoid derivative _(2024 Q33 · NAT · Easy–Med)_
+
 **Q.** For $f(x) = \dfrac{1}{1 + e^{-x}}$, find $f'(x)$ at the point where $f(x) = 0.4$ (2 dp).
 
 **Solve.** The sigmoid satisfies $f'(x) = f(x)\,(1 - f(x))$. With $f(x) = 0.4$:
 $$f'(x) = 0.4 \times (1 - 0.4) = 0.4 \times 0.6 = 0.24.$$
 
-**Answer: $0.24$.** *Method:* memorize $\sigma' = \sigma(1-\sigma)$ — no need to find $x$.
+**Answer: $0.24$.** _Method:_ memorize $\sigma' = \sigma(1-\sigma)$ — no need to find $x$.
 
 ---
 
-### Example 2 — Logistic regression prediction *(original · Med)*
+### Example 2 — Logistic regression prediction _(original · Med)_
+
 **Q.** A logistic model has $w = [1, -1]^\top$, $b = 0$. For input $x = [2, 1]^\top$, give $P(y=1\mid x)$ and the predicted class (threshold $0.5$).
 
 **Solve.**
+
 - Score: $z = w^\top x + b = (1)(2) + (-1)(1) = 1$.
 - Probability: $\sigma(1) = \dfrac{1}{1 + e^{-1}} = \dfrac{1}{1 + 0.368} \approx 0.73$.
 - Since $0.73 \ge 0.5$ (equivalently $z \ge 0$), predict **class 1**.
 
-*Method:* compute $z$, pass through the sigmoid, threshold at $0.5$.
+_Method:_ compute $z$, pass through the sigmoid, threshold at $0.5$.
 
 ---
 
-### Example 3 — Confusion-matrix metrics *(2026 Q47 · MSQ · Med–Hard)*
+### Example 3 — Confusion-matrix metrics _(2026 Q47 · MSQ · Med–Hard)_
+
 **Q.** 20 stories by X and 10 by Y are classified. Of X's, 6 are labelled Y; of Y's, 2 are labelled X. With X and Y as the two classes, which are true?
 (A) Accuracy $= 11/15$ (B) Precision of X > Precision of Y (C) Recall of X > Recall of Y (D) Accuracy $= 14/15$
 
 **Solve.** Confusion matrix (rows = actual):
+
 ```
               Pred X   Pred Y   total
 Actual X        14       6       20
 Actual Y         2       8       10
 ```
+
 - **Accuracy** $= (14+8)/30 = 22/30 = 11/15$ $\Rightarrow$ (A) TRUE, (D) false.
 - **Precision** (X positive) $= 14/(14+2) = 0.875$; (Y positive) $= 8/(8+6) \approx 0.571$ $\Rightarrow$ $X > Y$, (B) TRUE.
 - **Recall** (X) $= 14/20 = 0.70$; (Y) $= 8/10 = 0.80$ $\Rightarrow$ $X < Y$, (C) FALSE.
 
-**Answer: (A) and (B).** *Method:* build the matrix once, then read off each metric with the right positive class.
+**Answer: (A) and (B).** _Method:_ build the matrix once, then read off each metric with the right positive class.
 
 ---
 
-### Example 4 — Precision, recall, F1 *(original · Med)*
+### Example 4 — Precision, recall, F1 _(original · Med)_
+
 **Q.** A binary classifier gives $TP = 40$, $FP = 10$, $FN = 20$, $TN = 30$. Find accuracy, precision, recall, and $F_1$.
 
 **Solve.**
+
 - Accuracy $= (40+30)/100 = 0.70$.
 - Precision $= 40/(40+10) = 0.80$.
 - Recall $= 40/(40+20) = 40/60 \approx 0.667$.
 - $F_1 = \dfrac{2(0.80)(0.667)}{0.80 + 0.667} = \dfrac{1.067}{1.467} \approx 0.727$.
 
-*Method:* precision over predicted-positives, recall over actual-positives, $F_1$ their harmonic mean.
+_Method:_ precision over predicted-positives, recall over actual-positives, $F_1$ their harmonic mean.
 
 ## Part 4 — Practice Questions
 
@@ -141,9 +157,9 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q2. ★ (MCQ)** $\sigma(0)$ for the sigmoid $\sigma(z) = 1/(1+e^{-z})$ equals
 (A) 0 (B) 0.5 (C) 1 (D) undefined
 
-**Q3. ★★ (NAT)** A classifier has $TP = 30$, $FP = 10$. Its precision is __________ .
+**Q3. ★★ (NAT)** A classifier has $TP = 30$, $FP = 10$. Its precision is \***\*\_\_\*\*** .
 
-**Q4. ★★ (NAT)** A classifier has $TP = 30$, $FN = 20$. Its recall is __________ .
+**Q4. ★★ (NAT)** A classifier has $TP = 30$, $FN = 20$. Its recall is \***\*\_\_\*\*** .
 
 **Q5. ★★ (MCQ)** The $F_1$ score is the
 (A) arithmetic mean (B) geometric mean (C) harmonic mean (D) maximum — of precision and recall
@@ -151,7 +167,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 **Q6. ★★ (MCQ)** On a highly **imbalanced** dataset, which metric is most misleading on its own?
 (A) precision (B) recall (C) accuracy (D) F1
 
-**Q7. ★★ (NAT)** For the sigmoid, if $\sigma(z) = 0.7$ then $\sigma'(z) =$ __________ (2 dp).
+**Q7. ★★ (NAT)** For the sigmoid, if $\sigma(z) = 0.7$ then $\sigma'(z) =$ \***\*\_\_\*\*** (2 dp).
 
 **Q8. ★★ (MSQ)** Which statements about logistic regression are TRUE?
 (A) It outputs a probability via the sigmoid.
@@ -159,7 +175,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 (C) It is typically trained by minimizing squared error.
 (D) The sigmoid satisfies $\sigma'(z) = \sigma(z)(1 - \sigma(z))$.
 
-**Q9. ★★ (NAT)** A classifier has $TP = 50$, $TN = 30$, $FP = 10$, $FN = 10$. Its accuracy is __________ (2 dp).
+**Q9. ★★ (NAT)** A classifier has $TP = 50$, $TN = 30$, $FP = 10$, $FN = 10$. Its accuracy is \***\*\_\_\*\*** (2 dp).
 
 **Q10. ★★ (MCQ)** The decision boundary of logistic regression (in the input feature space) is
 (A) linear (B) quadratic (C) circular (D) always nonlinear
@@ -189,6 +205,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 ---
 
 ### How to read your score
+
 - **8–10:** logistic regression and metrics are solid — on to Module 3.3 (kNN, Naive Bayes & LDA).
 - **6–7:** re-drill precision-vs-recall (Q3, Q4) and the sigmoid derivative (Q7).
 - **≤5:** re-read Part 1 A–C; memorize the confusion-matrix formulas and $\sigma' = \sigma(1-\sigma)$.
