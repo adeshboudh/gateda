@@ -40,7 +40,7 @@ Probability of a sub-interval = **its length / total length**: $P(c \le X \le d)
 ---
 
 ### B. Exponential(λ) — waiting time, memoryless
-$$f(x) = \lambda e^{-\lambda x} \text{ for } x \ge 0; \qquad F(x) = 1 - e^{-\lambda x}; \qquad \textbf{tail } P(X > x) = e^{-\lambda x}$$
+$$f(x) = \lambda e^{-\lambda x} \text{ for } x \ge 0; \qquad F(x) = 1 - e^{-\lambda x}; \qquad \text{tail: } P(X > x) = e^{-\lambda x}$$
 $$E[X] = \frac{1}{\lambda}, \qquad \mathrm{Var}(X) = \frac{1}{\lambda^2}$$
 - **Memorylessness:** $P(X > s + t \mid X > s) = P(X > t)$ — the past is forgotten (2026 Q34).
 - **Parameterization warning:** the *rate* is $\lambda$ and the *mean* is $1/\lambda$. Some GATE problems state the **mean** directly (e.g. 2026 Q34 says "mean $\lambda$") — read which one is given.
@@ -50,7 +50,8 @@ $$E[X] = \frac{1}{\lambda}, \qquad \mathrm{Var}(X) = \frac{1}{\lambda^2}$$
 
 ### C. Normal(μ, σ²) — the bell curve
 $$f(x) = \frac{1}{\sigma\sqrt{2\pi}}\, e^{-(x-\mu)^2 / (2\sigma^2)}, \quad \text{for all real } x$$
-$$E[X] = \mu, \qquad \mathrm{Var}(X) = \sigma^2 \quad (\text{the \textbf{second parameter is the variance}, not the SD})$$
+$$E[X] = \mu, \qquad \mathrm{Var}(X) = \sigma^2$$
+- The **second parameter is the variance**, not the SD.
 - Symmetric about $\mu$; **mean = median = mode = $\mu$**.
 - **Linear transform:** $aX + b \sim \text{Normal}(a\mu + b,\ a^2\sigma^2)$.
 - **Sum of independent normals:** $N(\mu_1,\sigma_1^2) + N(\mu_2,\sigma_2^2) = N(\mu_1+\mu_2,\ \sigma_1^2+\sigma_2^2)$.
@@ -58,7 +59,7 @@ $$E[X] = \mu, \qquad \mathrm{Var}(X) = \sigma^2 \quad (\text{the \textbf{second 
 ---
 
 ### D. Standard Normal Z = (X − μ)/σ ~ N(0, 1)
-$$\text{CDF } \Phi(z) = P(Z \le z); \qquad \textbf{symmetry } \Phi(-z) = 1 - \Phi(z); \qquad \Phi(0) = 0.5$$
+$$\text{CDF } \Phi(z) = P(Z \le z); \qquad \text{symmetry: } \Phi(-z) = 1 - \Phi(z); \qquad \Phi(0) = 0.5$$
 $$P(a \le X \le b) = \Phi\!\left(\frac{b-\mu}{\sigma}\right) - \Phi\!\left(\frac{a-\mu}{\sigma}\right)$$
 **Standardize first, then read $\Phi$.** Key values to memorize:
 

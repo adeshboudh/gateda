@@ -43,7 +43,8 @@ $$E[X] = np, \qquad \mathrm{Var}(X) = np(1-p)$$
 
 ### C. Poisson(λ) — count of rare events in a fixed interval
 $$P(X = k) = \frac{e^{-\lambda}\,\lambda^k}{k!}, \quad k = 0,1,2,\dots$$
-$$E[X] = \lambda, \qquad \mathrm{Var}(X) = \lambda \quad (\text{mean = variance is the Poisson \textbf{signature}})$$
+$$E[X] = \lambda, \qquad \mathrm{Var}(X) = \lambda$$
+- **Mean = variance** is the Poisson **signature**.
 - **Additivity:** independent $\text{Poisson}(\lambda_1) + \text{Poisson}(\lambda_2) = \text{Poisson}(\lambda_1+\lambda_2)$.
 - Models calls/arrivals/defects/typos per unit time or space.
 

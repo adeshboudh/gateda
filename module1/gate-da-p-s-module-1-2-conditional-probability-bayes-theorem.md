@@ -226,8 +226,8 @@ _Method:_ definition of conditional probability; independence holds iff $P(A\cap
 
 **Solve (natural frequencies on 1000 people).**
 
-- Have $D$: 300 → positive: $0.80\times300 = \textbf{240}$.
-- No $D$: 700 → positive: $0.10\times700 = \textbf{70}$.
+- Have $D$: 300 → positive: $0.80\times300 = \mathbf{240}$.
+- No $D$: 700 → positive: $0.10\times700 = \mathbf{70}$.
 - $P(D \mid +) = \dfrac{240}{240 + 70} = \dfrac{240}{310} \approx 0.7742$.
 
 **Answer: 0.77.** _Insight:_ despite an 80%-sensitive test, the posterior is only 77% — the 30% base rate and the 10% false-positive rate hold it down. **Base rates matter.**

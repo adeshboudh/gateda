@@ -29,7 +29,7 @@ $$\operatorname{rank}(A) \le \min(m,n).$$
 The **null space** $N(A)=\{\mathbf x\in\mathbb{R}^n : A\mathbf x=\mathbf 0\}$ is a subspace of $\mathbb{R}^n$. Its dimension is the **nullity** $=$ number of free variables.
 
 ### C. Rank–Nullity theorem (the central identity)
-$$\operatorname{rank}(A) + \operatorname{nullity}(A) = n \quad(\textbf{number of columns}).$$
+$$\operatorname{rank}(A) + \operatorname{nullity}(A) = n \quad(\text{number of columns}).$$
 **Corollary:** a square $n\times n$ matrix is invertible $\iff \operatorname{nullity}=0 \iff \operatorname{rank}=n$.
 
 ### D. Solving $A\mathbf x=\mathbf b$ — the augmented-rank criterion

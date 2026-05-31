@@ -27,7 +27,7 @@ A **statistic** (e.g. the sample mean $\bar{X}$) computed from a random sample i
 
 ### B. The sample mean and standard error
 For i.i.d. $X_1,\dots,X_n$ with mean $\mu$ and variance $\sigma^2$:
-$$E[\bar{X}] = \mu, \qquad \mathrm{Var}(\bar{X}) = \frac{\sigma^2}{n}, \qquad \mathrm{SD}(\bar{X}) = \frac{\sigma}{\sqrt{n}} \equiv \textbf{standard error (SE)}$$
+$$E[\bar{X}] = \mu, \qquad \mathrm{Var}(\bar{X}) = \frac{\sigma^2}{n}, \qquad \mathrm{SD}(\bar{X}) = \frac{\sigma}{\sqrt{n}} \equiv \text{standard error (SE)}$$
 The spread of the sample mean **shrinks like $1/\sqrt{n}$** — larger samples give a tighter estimate (the Law of Large Numbers: $\bar{X} \to \mu$).
 
 ### C. The Central Limit Theorem (CLT)

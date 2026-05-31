@@ -119,12 +119,12 @@ E1–E3 are descriptive statistics (E2–E3 are real GATE DA questions); E4–E5
 **Q.** Dataset: 3, 5, 5, 7, 10. Find the mean, median, mode, population variance, and sample variance.
 
 **Solve.**
-- **Mean** $= (3+5+5+7+10)/5 = 30/5 = \textbf{6}$.
-- **Median** (sorted 3,5,5,7,10) $= \textbf{5}$ (middle value).
-- **Mode** $= \textbf{5}$ (most frequent).
+- **Mean** $= (3+5+5+7+10)/5 = 30/5 = \mathbf{6}$.
+- **Median** (sorted 3,5,5,7,10) $= \mathbf{5}$ (middle value).
+- **Mode** $= \mathbf{5}$ (most frequent).
 - Squared deviations from 6: 9, 1, 1, 1, 16 → sum $= 28$.
-- **Population variance** $= 28/5 = \textbf{5.6}$ (SD $= \sqrt{5.6} \approx 2.37$).
-- **Sample variance** $= 28/(5-1) = \textbf{7}$ (SD $\approx 2.65$).
+- **Population variance** $= 28/5 = \mathbf{5.6}$ (SD $= \sqrt{5.6} \approx 2.37$).
+- **Sample variance** $= 28/(5-1) = \mathbf{7}$ (SD $\approx 2.65$).
 
 *Method:* the divisor is the only subtlety — $\div n$ for population, $\div(n-1)$ for sample.
 
@@ -135,7 +135,7 @@ E1–E3 are descriptive statistics (E2–E3 are real GATE DA questions); E4–E5
 
 **Solve.**
 - Old sum $= 50 \times 40 = 2000$; new sum $= 2000 + 142 = 2142$; new count $= 51$.
-- New average $= 2142 / 51 = \textbf{42}$.
+- New average $= 2142 / 51 = \mathbf{42}$.
 
 **Answer: 42.** *Method:* rebuild the total, divide by the new count.
 
@@ -158,7 +158,7 @@ E1–E3 are descriptive statistics (E2–E3 are real GATE DA questions); E4–E5
 **Solve ($\sigma$ known → z-interval).**
 - Standard error $= \sigma/\sqrt{n} = 16/8 = 2$.
 - Margin $= z_{0.025} \times \text{SE} = 1.96 \times 2 = 3.92$.
-- CI $= 100 \pm 3.92 = \textbf{(96.08, 103.92)}$.
+- CI $= 100 \pm 3.92 = \mathbf{(96.08, 103.92)}$.
 
 *Method:* CI $= \bar{x} \pm (\text{critical } z)\times(\sigma/\sqrt{n})$. Larger $n$ would shrink this interval.
 
