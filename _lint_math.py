@@ -57,6 +57,11 @@ for f in FILES:
             # inline row-break must be \\\\ ; a lone 2-backslash run breaks
             if is_inline and re.search(r'(?<!\\)\\\\(?!\\)', seg):
                 add(f, i, 'inline \\\\ (use \\\\\\\\ or move to $$...$$)', seg)
+            # over-escaped command: 2+ backslashes before a known command word
+            if re.search(r'\\{2,}(Theta|Omega|Delta|Gamma|Lambda|Sigma|Phi|Psi|'
+                         r'log|ln|frac|dfrac|sqrt|sum|int|cdot|times|alpha|beta|'
+                         r'gamma|lambda|sigma|mu|rho|infty|le|ge|approx|Rightarrow)\b', seg):
+                add(f, i, 'over-escaped command (use single backslash)', seg)
 
         # \textbf / \textit / \emph anywhere (render literally in math)
         for m in re.finditer(r'\\(textbf|textit|emph)\b', l):
