@@ -81,6 +81,7 @@ $$E[X] = \lambda, \qquad \mathrm{Var}(X) = \lambda$$
 ## Part 2 — How to Solve (Method)
 
 ### Step 1 — Identify the distribution from the wording
+
 | Clue in the problem | Distribution |
 |---|---|
 | one trial, success/failure | **Bernoulli(p)** |

@@ -134,6 +134,7 @@ WHERE (SELECT COUNT(*) FROM Account B WHERE A.Balance < B.Balance)
 ```
 
 **Solve.** For each row, compare #strictly-higher vs #strictly-lower balances:
+
 | AccNo | Bal | #higher | #lower | $\ge$? |
 |---|---|---|---|---|
 | A1 | 5000 | 3 | 0 | yes |

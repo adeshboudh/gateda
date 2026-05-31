@@ -48,6 +48,7 @@ Binary search achieves $O(\log n)$ **only** when **both** hold:
 An **array** satisfies (2) by index arithmetic. A **linked list does not**: finding the middle node costs $O(n)$, so binary search on a linked list degrades to $O(n)$ (no better than linear). An **unsorted** array fails (1).
 
 ### D. Which search to use
+
 | Situation | Best choice |
 |---|---|
 | unsorted data, or a single search | **linear** $O(n)$ |

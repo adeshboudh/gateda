@@ -91,6 +91,7 @@ All three are real GATE DA questions; E4 is a contrast original.
 **Q.** Entities $E_1(A_{11}, A_{12}, A_{13})$ and $E_2(A_{21}, A_{22}, A_{23})$ with $A_{22}$ **multivalued**; PKs $A_{11}$, $A_{21}$. $R_{12}$ is an $M{:}N$ relationship between $E_1, E_2$ with **total** participation on both sides. Minimum number of 3NF relations?
 
 **Solve.** Apply the mapping rules:
+
 | Relation | Attributes | PK |
 |---|---|---|
 | $E_1$ | $A_{11}, A_{12}, A_{13}$ | $A_{11}$ |

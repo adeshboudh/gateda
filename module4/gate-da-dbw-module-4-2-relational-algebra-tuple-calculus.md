@@ -22,6 +22,7 @@ nav_order: 2
 ## Part 1 — Theory & Operators
 
 ### A. Relational algebra (procedural)
+
 | Operator | Symbol | Meaning |
 |---|---|---|
 | Selection | $\sigma_{\text{cond}}(R)$ | **rows** satisfying the condition |

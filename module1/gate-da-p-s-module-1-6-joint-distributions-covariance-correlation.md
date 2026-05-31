@@ -92,6 +92,7 @@ $$\rho = \mathrm{Corr}(X,Y) = \frac{\mathrm{Cov}(X,Y)}{\sigma_X \sigma_Y}, \qqua
 - Then covariance and correlation as above.
 
 ### Identify the question type fast
+
 | Asked for | Do this |
 |---|---|
 | "are X, Y independent?" | factorization + rectangular-support test |

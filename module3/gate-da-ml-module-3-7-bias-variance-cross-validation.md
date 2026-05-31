@@ -36,6 +36,7 @@ $$\mathbb{E}[\text{test error}] = \underbrace{\text{Bias}^2}_{\text{wrong assump
 - **The trade-off:** as model **complexity increases**, **bias decreases** but **variance increases**. Total error is U-shaped in complexity.
 
 **Complexity knobs (which way they move bias/variance):**
+
 | Knob | More complex direction | Effect |
 |---|---|---|
 | Ridge penalty $\lambda$ | **smaller** $\lambda$ | $\lambda\uparrow \Rightarrow$ bias$\uparrow$, variance$\downarrow$ |

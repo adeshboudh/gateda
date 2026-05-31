@@ -95,6 +95,7 @@ $$P(a \le X \le b) = \Phi\!\left(\frac{b-\mu}{\sigma}\right) - \Phi\!\left(\frac
 ## Part 2 — How to Solve (Method)
 
 ### Step 1 — Identify the distribution
+
 | Context clue | Distribution |
 |---|---|
 | equally likely over an interval; "chosen at random from $[a,b]$" | **Uniform(a,b)** |

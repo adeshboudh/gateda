@@ -86,6 +86,7 @@ Nodes, each holding **data** and a **pointer** to the next node.
 3. For **NAT** answers, write the structure contents after each step in a small table; do not track it mentally.
 
 ### Choosing the right structure
+
 | Need | Use |
 |---|---|
 | most-recent-first / undo / DFS / call stack | **stack** |

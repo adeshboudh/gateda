@@ -85,6 +85,7 @@ E1–E3 are real GATE DA questions; E4 is a standard original (k-means).
 $d_{12}{=}1, d_{13}{=}4, d_{14}{=}3, d_{15}{=}6, d_{23}{=}3, d_{24}{=}5, d_{25}{=}3, d_{34}{=}2, d_{35}{=}5, d_{45}{=}1$. Which dendrogram is produced?
 
 **Solve (single linkage = min).**
+
 | Step | Merge | Height |
 |---|---|---|
 | 1 | $x_1, x_2$ (d=1) | 1 |
