@@ -27,7 +27,7 @@ Spotted a wrong answer, a broken formula, a typo, or have a better explanation? 
 
 - **Open an issue** — [raise one here](https://github.com/adeshboudh/gateda/issues/new). Include the module (e.g. *1.4 Step 1*) and what's wrong.
 - **Send a pull request** — fix it directly and PR against `main`. Small, focused fixes are very welcome.
-- **Email** — [manikantagunnam.nicedigitals@gmail.com](mailto:manikantagunnam.nicedigitals@gmail.com).
+- **Email** — [adeshboudh16@gmail.com](mailto:adeshboudh16@gmail.com).
 
 When reporting a rendering bug, please name the **file/section** and paste the offending line — that makes it a one-line fix.
 
