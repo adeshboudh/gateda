@@ -1,39 +1,56 @@
-<!-- Light/dark toggle button injected into the aux-nav (top right) -->
+<!-- Right-side "On this page" heading navigation, built from the page's h2/h3 -->
 <script>
 (function () {
-  function savedTheme() { return localStorage.getItem('jtd-theme') || 'dark'; }
+  function build() {
+    var content = document.querySelector('#main-content');
+    var main = document.querySelector('.main');
+    if (!content || !main) return;
 
-  function syncIcon(btn, theme) {
-    btn.classList.toggle('is-dark', theme === 'dark');
-    btn.setAttribute('aria-label',
-      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-    btn.setAttribute('title',
-      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-  }
+    var heads = content.querySelectorAll('h2[id], h3[id]');
+    if (heads.length < 2) return;   // skip thin pages
 
-  function init() {
-    var list = document.querySelector('.aux-nav .aux-nav-list');
-    if (!list || typeof jtd === 'undefined') return;
+    var nav = document.createElement('nav');
+    nav.id = 'toc-nav';
+    nav.setAttribute('aria-label', 'On this page');
 
-    var li = document.createElement('li');
-    li.className = 'aux-nav-list-item';
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'theme-toggle';
-    li.appendChild(btn);
-    list.insertBefore(li, list.firstChild);
+    var title = document.createElement('div');
+    title.className = 'toc-title';
+    title.textContent = 'On this page';
+    nav.appendChild(title);
 
-    syncIcon(btn, savedTheme());
+    var ul = document.createElement('ul');
+    ul.className = 'toc-list';
 
-    btn.addEventListener('click', function () {
-      var next = (jtd.getTheme() === 'dark') ? 'light' : 'dark';
-      jtd.setTheme(next);
-      localStorage.setItem('jtd-theme', next);
-      syncIcon(btn, next);
+    var byId = {};
+    heads.forEach(function (el) {
+      var li = document.createElement('li');
+      li.className = 'toc-item toc-' + el.tagName.toLowerCase();
+      var a = document.createElement('a');
+      a.href = '#' + el.id;
+      a.textContent = el.textContent.replace(/¶/g, '').trim();
+      li.appendChild(a);
+      ul.appendChild(li);
+      byId[el.id] = a;
     });
+
+    nav.appendChild(ul);
+    main.appendChild(nav);
+
+    // Scrollspy: highlight the section currently in view
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            Object.keys(byId).forEach(function (k) { byId[k].classList.remove('active'); });
+            if (byId[e.target.id]) byId[e.target.id].classList.add('active');
+          }
+        });
+      }, { rootMargin: '0px 0px -75% 0px', threshold: 0 });
+      heads.forEach(function (el) { obs.observe(el); });
+    }
   }
 
-  if (document.readyState !== 'loading') init();
-  else document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState !== 'loading') build();
+  else document.addEventListener('DOMContentLoaded', build);
 })();
 </script>
