@@ -46,14 +46,14 @@ Most counting problems are just a disciplined mix of these two.
 
 ### B. Permutations and combinations
 
-| Situation                             | Formula                  | Note                  |
-| ------------------------------------- | ------------------------ | --------------------- |
-| Arrange all $n$ distinct objects      | $n!$                     | order matters         |
-| Arrange $r$ of $n$ distinct (no repeat) | $P(n,r) = \dfrac{n!}{(n-r)!}$ | order matters    |
-| Arrange $r$ of $n$ **with repetition** | $n^r$                   | each slot independent |
-| Choose $r$ of $n$ distinct (no repeat) | $C(n,r) = \dfrac{n!}{r!\,(n-r)!}$ | order doesn't matter |
-| Arrange $n$ items with identical groups | $\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$ | divide out repeats |
-| Arrange $n$ distinct in a **circle**  | $(n-1)!$                 | rotations identical   |
+| Situation                               | Formula                             | Note                  |
+| --------------------------------------- | ----------------------------------- | --------------------- |
+| Arrange all $n$ distinct objects        | $n!$                                | order matters         |
+| Arrange $r$ of $n$ distinct (no repeat) | $P(n,r) = \dfrac{n!}{(n-r)!}$       | order matters         |
+| Arrange $r$ of $n$ **with repetition**  | $n^r$                               | each slot independent |
+| Choose $r$ of $n$ distinct (no repeat)  | $C(n,r) = \dfrac{n!}{r!\,(n-r)!}$   | order doesn't matter  |
+| Arrange $n$ items with identical groups | $\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$ | divide out repeats    |
+| Arrange $n$ distinct in a **circle**    | $(n-1)!$                            | rotations identical   |
 
 **Key combination identities** (memorise):
 
@@ -88,8 +88,9 @@ For a domain of size $m$ and codomain of size $n$:
 
 ### E. Inclusion–Exclusion (the counting form of the addition rule)
 
-$$|A \cup B| = |A| + |B| - |A \cap B|$$
-$$|A \cup B \cup C| = |A|+|B|+|C| - |A\cap B| - |A\cap C| - |B\cap C| + |A\cap B\cap C|$$
+$$\lvert A \cup B\rvert = \lvert A\rvert + \lvert B\rvert - \lvert A \cap B\rvert$$
+
+$$\lvert A \cup B \cup C\rvert = \lvert A\rvert + \lvert B\rvert + \lvert C\rvert - \lvert A\cap B\rvert - \lvert A\cap C\rvert - \lvert B\cap C\rvert + \lvert A\cap B\cap C\rvert$$
 
 Use whenever cases **overlap** (to avoid double counting).
 
@@ -131,14 +132,14 @@ Ask: _is this counting, probability, or both?_ Under equally likely outcomes, **
 
 ### The counting decision table (use this every time)
 
-| The question asks for…                                   | Order matter? | Repetition? | Use                          |
-| -------------------------------------------------------- | ------------- | ----------- | ---------------------------- |
-| Arrangements / sequences / "words" / rankings            | **Yes**       | No          | $P(n,r)$ (all $n \to n!$)    |
-| Sequences where slots can repeat (e.g. digits/passwords) | **Yes**       | Yes         | $n^r$                        |
-| Selections / committees / subsets / "choose"             | No            | No          | $C(n,r)$                     |
+| The question asks for…                                   | Order matter? | Repetition? | Use                           |
+| -------------------------------------------------------- | ------------- | ----------- | ----------------------------- |
+| Arrangements / sequences / "words" / rankings            | **Yes**       | No          | $P(n,r)$ (all $n \to n!$)     |
+| Sequences where slots can repeat (e.g. digits/passwords) | **Yes**       | Yes         | $n^r$                         |
+| Selections / committees / subsets / "choose"             | No            | No          | $C(n,r)$                      |
 | Identical-item distributions / $x_i$ summing to $n$      | No            | Yes         | stars & bars $C(n+k-1,\ k-1)$ |
 | Arrangements with repeated identical letters             | **Yes**       | —           | $\dfrac{n!}{n_1!\cdots n_k!}$ |
-| Around a circular table                                  | cyclic        | No          | $(n-1)!$                     |
+| Around a circular table                                  | cyclic        | No          | $(n-1)!$                      |
 
 **Extra triggers:**
 
@@ -253,7 +254,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ have **no 
 **Q3. ★★ (MCQ)** In a class of 100 students, 60 like tea, 50 like coffee, and 30 like both. How many like at least one of the two?
 (A) 80 (B) 110 (C) 90 (D) 140
 
-**Q4. ★★ (NAT)** How many distinct arrangements are there of the letters of the word **BANANA**? ****\_\_****
+**Q4. ★★ (NAT)** How many distinct arrangements are there of the letters of the word **BANANA**? \***\*\_\_\*\***
 
 **Q5. ★★ (MCQ)** In how many ways can 6 distinct people be seated around a circular table (rotations considered identical)?
 (A) 720 (B) 120 (C) 5040 (D) 6
@@ -261,12 +262,12 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ have **no 
 **Q6. ★★ (MCQ)** How many arrangements of the letters of **EXAM** have the two vowels (E, A) adjacent?
 (A) 48 (B) 24 (C) 12 (D) 6
 
-**Q7. ★★ (NAT)** How many non-negative integer solutions does $x_1 + x_2 + x_3 = 10$ have? ****\_\_****
+**Q7. ★★ (NAT)** How many non-negative integer solutions does $x_1 + x_2 + x_3 = 10$ have? \***\*\_\_\*\***
 
 **Q8. ★★ (MCQ)** A box has 4 red and 6 blue balls. Two balls are drawn at random without replacement. What is the probability that both are red?
 (A) 2/15 (B) 1/5 (C) 4/25 (D) 3/20
 
-**Q9. ★★★ (NAT)** The number of bijections $f$ from $S = \{1, 2, 3, 4\}$ to itself such that $f(f(n)) = n$ for all $n \in S$ is ****\_\_****. _(2026 DA Q33)_
+**Q9. ★★★ (NAT)** The number of bijections $f$ from $S = \{1, 2, 3, 4\}$ to itself such that $f(f(n)) = n$ for all $n \in S$ is \***\*\_\_\*\***. _(2026 DA Q33)_
 
 **Q10. ★★★ (MCQ)** Let $M$ be a randomly chosen **non-empty** subset of $S = \{1, 2, \dots, 2026\}$. The probability that the product of all elements of $M$ is even is: _(2026 DA Q19)_
 (A) $\dfrac{2^{1013}(2^{1013} - 1)}{2^{2026}}$

@@ -3,7 +3,7 @@ title: Home
 nav_order: 1
 ---
 
-# GATE DA 2027 — Study Notes
+# GATE DA — Study Notes
 
 Complete notes for **GATE Data Science & Artificial Intelligence (DA)**, with full LaTeX math.
 

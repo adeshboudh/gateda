@@ -1,9 +1,8 @@
-title: GATE DA 2027 Notes
+title: GATE DA Notes
 description: >-
   Probability & Statistics, Programming & DSA, Machine Learning, Databases,
   Linear Algebra, Artificial Intelligence, Calculus & Optimization.
 remote_theme: just-the-docs/just-the-docs@v0.10.1
-
 plugins:
   - jekyll-remote-theme
 
