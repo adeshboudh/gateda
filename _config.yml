@@ -37,6 +37,7 @@ color_scheme: dark
 exclude:
   - docs/GATE_DA_2027_roadmap.md
   - _build_site.py
+  - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
   - vendor

@@ -29,6 +29,8 @@ Spotted a wrong answer, a broken formula, a typo, or have a better explanation? 
 - **Send a pull request** — fix it directly and PR against `main`. Small, focused fixes are very welcome.
 - **Email** — [adeshboudh16@gmail.com](mailto:adeshboudh16@gmail.com).
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to edit notes, add new ones, and write math that renders correctly.
+
 When reporting a rendering bug, please name the **file/section** and paste the offending line — that makes it a one-line fix.
 
 ## How the site works
