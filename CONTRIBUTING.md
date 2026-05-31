@@ -73,6 +73,7 @@ Other rules:
   # open http://localhost:4000/gateda/
   ```
 - **Quick math check:** GitHub's file view renders `$...$` natively — open the `.md` on github.com to spot-check a formula.
+- **Lint for render traps:** run `python3 _lint_math.py` — it scans every note for the issues in the table above (plus Obsidian wikilinks) and prints `file:line`. The build runs this automatically and **fails if any trap is found**, so bad math never deploys.
 
 ## Reporting an error
 
