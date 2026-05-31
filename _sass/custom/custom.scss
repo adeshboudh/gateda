@@ -76,6 +76,12 @@ $moon-icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBo
   display: flex;
   align-items: center;
 }
+// Center each item so the <a> (GitHub) and <button> (toggle) share one baseline
+.aux-nav .aux-nav-list-item {
+  display: flex;
+  align-items: center;
+  height: auto;
+}
 
 .theme-toggle {
   background: none;
