@@ -10,6 +10,8 @@ plugins:
 kramdown:
   math_engine: null
   syntax_highlighter: rouge
+  # Keep quotes straight so primes ' inside math survive for MathJax (f', f'').
+  smart_quotes: ["apos", "apos", "quot", "quot"]
 
 search_enabled: true
 heading_anchors: true
