@@ -20,6 +20,16 @@ Condensed revision of **Subject 6** — must-knows, GATE angle, traps. Full deta
 | 6.4    | First-order / predicate logic                  |
 | 6.5    | Reasoning under uncertainty (Bayes nets)       |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in AI across GATE DA 2024–2026:
+
+1. **Minimax root value** — propagate leaf utilities bottom-up (MAX node $=$ max of children, MIN node $=$ min); find root value and best strategy (2026 Q30).
+2. **Alpha-beta pruning range** — for what value of $x$ is a leaf pruned? Trace the $\alpha$/$\beta$ bounds left-to-right; prune when $\alpha\ge\beta$ (2025 Q43, 2024 Q25).
+3. **Tautology / equivalence check** — try to falsify: set antecedent T, consequent F; or convert to $\neg p\vee q$ form (2024 Q29, 2025 Q15, 2026 Q38).
+4. **Bayesian network joint probability** — multiply one CPT entry per node conditioned on its parents: $P=\prod_i P(\text{node}=v_i\mid \text{parents}=v_{\text{pa}})$ (2024 Q64).
+5. **d-separation / conditional independence** — chain and fork are **blocked** by an observed middle node; **collider** is **opened** when the collider or any descendant is observed (2024 Q24).
+
 ## 6.1 Uninformed & Informed Search
 
 **Must know**

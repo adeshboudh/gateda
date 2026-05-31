@@ -25,7 +25,20 @@ $$e^x=\sum\frac{x^n}{n!},\ \sin x=x-\frac{x^3}{3!}+\cdots,\ \cos x=1-\frac{x^2}{
 $$\sinh x=x+\frac{x^3}{3!}+\cdots,\ \cosh x=1+\frac{x^2}{2!}+\cdots,\ \ln(1+x)=x-\frac{x^2}{2}+\cdots,\ \frac{1}{1-x}=\sum x^n.$$
 
 - Coefficient link: $f^{(n)}(0)=n!\cdot[\text{coeff of }x^n]$.
-- Differentiable $\Rightarrow$ continuous (not conversely). Piecewise $C^1$: value **and** slope match.
+- Differentiable $\Rightarrow$ continuous (not conversely). Piecewise $C^1$: value **and** slope match at every boundary.
+- **Lipschitz order $>1$:** $\lvert f(x)-f(y)\rvert\le K\lvert x-y\rvert^\alpha,\ \alpha>1 \Rightarrow f'\equiv0 \Rightarrow f$ **constant**.
+
+**Higher-derivative cycles** (evaluate at $0$ using the series, or cycle the derivatives):
+
+| Function | Period | Even-order at $0$ | Odd-order at $0$ |
+| -------- | ------ | ------------------ | ------------------ |
+| $\sin x$ | 4 | $0$ | $\pm1$ (alternating) |
+| $\cos x$ | 4 | $\pm1$ (alternating) | $0$ |
+| $\sinh x$ | 2 | $0$ (odd function) | $1$ (cosh at $0$) |
+| $\cosh x$ | 2 | $1$ (even function) | $0$ |
+| $e^x$ | — | $1$ | $1$ |
+
+Shortcut: $\sinh$ has **only odd** powers in its Maclaurin series $\Rightarrow$ all even-order derivatives vanish at $0$.
 
 ## Optimization & Convexity
 

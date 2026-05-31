@@ -21,6 +21,16 @@ Condensed revision of **Subject 5** — must-knows, GATE angle, traps. Full deta
 | 5.5    | Quadratic forms & positive-definiteness       |
 | 5.6    | SVD & LU decomposition                        |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in LA across GATE DA 2024–2026:
+
+1. **Eigenvalue via trace / det identities** — given the characteristic polynomial or a structural fact (rotation, rank-1 update, $p(A)=0$), find $\lambda_i$ using $\text{tr}=\sum\lambda_i$, $\det=\prod\lambda_i$, toolkit transformations (2024 Q13, Q35; 2025 Q28, Q37; 2026 Q21, Q46).
+2. **Projection / idempotent matrix properties** — $P^2=P$: eigenvalues $0/1$, trace $=$ rank, null-space dimension $=n-\text{rank}$; orthogonal projection is also symmetric (2024 Q49; 2025 Q50, Q52; 2026 Q52).
+3. **Rank-nullity and linear system count** — how many solutions does $Ax=b$ have? Requires comparing $\operatorname{rank}(A)$ vs $\operatorname{rank}([A\mid b])$ vs $n$ (2025 Q22, 2026 Q33).
+4. **SVD singular values of a special matrix** — rank-1 $uu^\top$: $\sigma=\lVert u\rVert^2$; symmetric: $\sigma=\lvert\lambda\rvert$; PSD: $\sigma=\lambda$; projection: $\sigma\in\{0,1\}$ (2024 Q61; 2025 Q50).
+5. **Quadratic form definiteness** — check PD/PSD via eigenvalue signs or Sylvester's criterion; evaluate $x^\top Ax$ at a specific vector; identify the matrix from the form's coefficients.
+
 ## 5.1 Vector Spaces, Subspaces, Independence & Basis
 
 **Must know**

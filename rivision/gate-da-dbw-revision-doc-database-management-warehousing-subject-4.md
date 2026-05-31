@@ -22,6 +22,16 @@ Condensed revision of **Subject 4** — must-knows, GATE angle, traps. Full deta
 | 4.6    | Data warehousing & OLAP                 |
 | 4.7    | Data transformation                     |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in DBW across GATE DA 2024–2026:
+
+1. **Relational algebra evaluation** — evaluate a $\sigma/\pi/\bowtie$ expression (or a division) on small instances, inside-out; count the result tuples (2025 Q17, 2025 Q62, 2026 Q42, 2026 Q59).
+2. **Attribute closure / candidate key** — compute $X^+$ by chasing FDs; test whether a given set is a key; find minimal keys (DBW's single most-tested concept).
+3. **CUBE / ROLLUP cuboid count** — $2^d$ for plain CUBE; $d+1$ for ROLLUP; $\prod(L_i+1)$ when dimensions have hierarchy levels (2025 Q11, 2026 Q54).
+4. **B+ tree order** — compute order $n$ from the block-size constraint $n\cdot p_{\text{ptr}}+(n-1)\cdot k\le B$; or find minimum height to index $N$ records.
+5. **SQL GROUP BY + aggregate** — identify which rows survive `HAVING`; understand that `WHERE` filters before grouping and `HAVING` filters after; correlated subquery vs scalar subquery distinction.
+
 ## 4.1 ER & Relational Models
 
 **Must know**

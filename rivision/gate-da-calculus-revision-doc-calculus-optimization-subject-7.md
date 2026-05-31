@@ -18,6 +18,16 @@ Condensed revision of **Subject 7** — must-knows, GATE angle, traps. Full deta
 | 7.2    | Differentiability & Taylor series |
 | 7.3    | Maxima, minima & optimization     |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in Calculus across GATE DA 2024–2026:
+
+1. **$0/0$ limit via Taylor expansion** — split with $\ln(AB)=\ln A+\ln B$, expand each piece using $\ln(1+u)\approx u$, $\cos u\approx 1-u^2/2$ etc., cancel leading terms (2024 Q60). Or use the double geometric series with careful start-index handling (2026 Q35).
+2. **$\infty - \infty$ limit via rationalization** — multiply by the conjugate $(\sqrt{\,}+\sqrt{\,})$ then divide by the dominant power (2025 Q32).
+3. **Sigmoid derivative at a given value** — $\sigma'=\sigma(1-\sigma)$; given $\sigma(x_0)=p$, answer is $p(1-p)$ (2024 Q33). Also: find constants $a,b$ so a piecewise function is $C^1$ at a boundary (2024 Q37).
+4. **Higher derivative at $0$ via Taylor coefficient** — use $f^{(n)}(0)=n!\times[\text{coeff of }x^n]$; substitute $u=x^k$ into a known series; recall $\sinh$ has only odd powers so all even-order derivatives vanish at $0$ (2025 Q14).
+5. **Classify critical points / convex function properties** — second-derivative test; global extrema require checking endpoints; convex $\Leftrightarrow f''\ge0$ but need not attain a minimum (2024 Q15, 2025 Q51).
+
 ## 7.1 Limits, Continuity & Series
 
 **Must know**

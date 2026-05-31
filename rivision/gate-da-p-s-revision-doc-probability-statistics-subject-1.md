@@ -23,6 +23,16 @@ nav_order: 1
 | 1.7    | Sampling, CLT, $\chi^2$, $t$                       | CLT, sampling distributions                |
 | 1.8    | Descriptive Stats & Inference                      | mean/median/mode, SD, z-score, CIs         |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in P&S across GATE DA 2024–2026:
+
+1. **Bayes theorem NAT** — "given evidence, find the cause": two or three hypotheses, compute $P(H_i\mid E)$ using total probability as the denominator. Appears every year (2024 Q58, 2025 Q31, 2026 Q57).
+2. **Distribution PMF/PDF plug-in** — given Binomial/Poisson/Exponential/Normal parameters, find $P(X=k)$, $P(X>t)$, or $E[g(X)]$. Know the distribution table (mean/variance) cold.
+3. **Expectation / variance of a transform** — compute $E[aX+b]$, $\text{Var}(aX+bY)$, or $E[X^2]$ via $E[X^2]=\text{Var}(X)+(E[X])^2$.
+4. **Normal standardization / CLT** — convert $X\sim N(\mu,\sigma^2)$ to $\Phi(z)$; or find the sample mean's distribution via CLT to answer a probability or confidence-interval question.
+5. **Covariance / correlation from a joint distribution** — compute $\text{Cov}(X,Y)=E[XY]-E[X]E[Y]$; watch for the "uncorrelated but dependent" trap (2026 Q63).
+
 ## 1.1 Counting & Basic Probability
 
 **Must know**

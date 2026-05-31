@@ -24,6 +24,16 @@ Condensed revision of **Subject 3** — must-knows, GATE angle, traps. Full deta
 | 3.8    | Clustering                       |
 | 3.9    | PCA                              |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in ML across GATE DA 2024–2026:
+
+1. **Information gain calculation** — compute parent entropy then weighted child entropy; answer to 2 dp using $\log_2$ (2024 Q62). Keep more decimals through the computation and round at the end.
+2. **SVM: find $w$, $b$, margin, support vectors** — from a small labeled dataset; verify all constraints $y_i(w^\top x_i+b)\ge1$; margin $=2/\lVert w\rVert$ (2025 Q53, 2024 Q53).
+3. **Confusion-matrix metrics** — from TP/FP/FN/TN (or a narrative description), compute precision, recall, accuracy, and/or $F_1$ (2026 Q47). The hardest variant gives the matrix as counts-in-prose.
+4. **PCA eigenvalue** — variance along the $i$-th PC $=\lambda_i$; proportion explained $=\lambda_i/\sum\lambda_j$; first PC maximizes variance (2025 Q60, 2026 Q11, 2024 Q18).
+5. **Clustering linkage / k-means trace** — from a distance matrix identify the first merge under single (min) or complete (max) linkage; or trace one k-means iteration (assign + update centroid).
+
 ## 3.1 Linear & Ridge Regression
 
 **Must know**

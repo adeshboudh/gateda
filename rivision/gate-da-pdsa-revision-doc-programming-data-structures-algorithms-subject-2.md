@@ -23,6 +23,16 @@ Condensed revision of **Subject 2** — must-knows, GATE angle, traps per topic.
 | 2.7    | Divide & conquer               |
 | 2.8    | Graphs                         |
 
+## Top 5 PYQ Patterns
+
+The question types that recur most reliably in PDSA across GATE DA 2024–2026:
+
+1. **Python output prediction** — trace a function with mutable default argument, reference aliasing, closure late-binding, or `//` vs `/`; answer what it prints or returns (appears every year).
+2. **Inversion / swap count** — count inversions in an array (= bubble-sort swaps = insertion-sort shifts); or count comparisons for a specific sort step (2025 Q29, 2026 Q49).
+3. **Graph BFS / DFS trace** — state traversal order from a source, or count vertices discovered after a marker vertex (2024 Q44, 2025 Q65, 2026 Q40).
+4. **Binary search comparison count** — max comparisons for $n$ elements via $\lfloor\log_2 n\rfloor+1$; or check prerequisites (sorted array + $O(1)$ access) (2025 Q27, 2026 Q31).
+5. **Recursion call count / Master theorem solve** — count how many times a function recurses; or reduce a D&C recurrence $T(n)=aT(n/b)+f(n)$ to $\Theta$ (2024 Q40, 2026 Q39).
+
 ## 2.1 Python Programming & Semantics
 
 **Must know**
