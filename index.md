@@ -9,19 +9,19 @@ Complete notes for **GATE Data Science & Artificial Intelligence (DA)**, with fu
 
 ## Subjects
 
-1. [Module 1: Probability & Statistics](module1/)
-2. [Module 2: Programming & DSA](module2/)
-3. [Module 3: Machine Learning](module3/)
-4. [Module 4: Databases & Warehousing](module4/)
-5. [Module 5: Linear Algebra](module5/)
-6. [Module 6: Artificial Intelligence](module6/)
-7. [Module 7: Calculus & Optimization](module7/)
+1. [Module 1: Probability & Statistics](module1/index)
+2. [Module 2: Programming & DSA](module2/index)
+3. [Module 3: Machine Learning](module3/index)
+4. [Module 4: Databases & Warehousing](module4/index)
+5. [Module 5: Linear Algebra](module5/index)
+6. [Module 6: Artificial Intelligence](module6/index)
+7. [Module 7: Calculus & Optimization](module7/index)
 
 ## Quick reference
 
-- [Cheat Sheets](cheatsheet/) — formula sheets per subject
-- [Revision Docs](rivision/) — last-mile revision per subject
-- [Strategy & Roadmap](docs/) — prep plan and topic analysis
+- [Cheat Sheets](cheatsheet/index) — formula sheets per subject
+- [Revision Docs](rivision/index) — last-mile revision per subject
+- [Strategy & Roadmap](docs/index) — prep plan and topic analysis
 
 ---
 
