@@ -14,3 +14,17 @@
   };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Apply saved color scheme before paint (no flash). Runs after the main stylesheet link. -->
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('jtd-theme');
+    if (!saved) return;
+    var link = document.querySelector('link[href*="just-the-docs-"]');
+    if (link) {
+      link.href = link.href.replace(/just-the-docs-[a-z]+\.css/, 'just-the-docs-' + saved + '.css');
+    }
+  } catch (e) {}
+})();
+</script>

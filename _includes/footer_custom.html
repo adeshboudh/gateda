@@ -1,0 +1,39 @@
+<!-- Light/dark toggle button injected into the aux-nav (top right) -->
+<script>
+(function () {
+  function savedTheme() { return localStorage.getItem('jtd-theme') || 'dark'; }
+
+  function syncIcon(btn, theme) {
+    btn.classList.toggle('is-dark', theme === 'dark');
+    btn.setAttribute('aria-label',
+      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    btn.setAttribute('title',
+      theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  function init() {
+    var list = document.querySelector('.aux-nav .aux-nav-list');
+    if (!list || typeof jtd === 'undefined') return;
+
+    var li = document.createElement('li');
+    li.className = 'aux-nav-list-item';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-toggle';
+    li.appendChild(btn);
+    list.insertBefore(li, list.firstChild);
+
+    syncIcon(btn, savedTheme());
+
+    btn.addEventListener('click', function () {
+      var next = (jtd.getTheme() === 'dark') ? 'light' : 'dark';
+      jtd.setTheme(next);
+      localStorage.setItem('jtd-theme', next);
+      syncIcon(btn, next);
+    });
+  }
+
+  if (document.readyState !== 'loading') init();
+  else document.addEventListener('DOMContentLoaded', init);
+})();
+</script>

@@ -34,6 +34,7 @@ color_scheme: dark
 
 # Files/dirs Jekyll should ignore
 exclude:
+  - docs/GATE_DA_2027_roadmap.md
   - _build_site.py
   - Gemfile
   - Gemfile.lock
