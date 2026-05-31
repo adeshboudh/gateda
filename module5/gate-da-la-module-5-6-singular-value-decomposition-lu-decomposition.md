@@ -143,6 +143,22 @@ $\det A=\prod U_{ii}=2\cdot3=6$ (matches $2\cdot5-1\cdot4=6$).
 
 **Answer:** $A=LU$ as above, $\det A=6$. _Method:_ Gaussian-elimination multiplier $\to L$, reduced matrix $\to U$, $\det=\prod U_{ii}$.
 
+---
+
+### Example 5 — Singular values via $A^\top A$ for a rectangular matrix _(original · Med–Hard)_
+
+**Q.** Find the singular values of $A=\begin{bmatrix}1&1\\\\1&0\\\\0&1\end{bmatrix}$ (a $3\times2$ matrix).
+
+**Solve.** Compute $A^\top A$ ($2\times2$, always square and PSD):
+
+$$A^\top A=\begin{bmatrix}1&1&0\\0&1&1\end{bmatrix}\begin{bmatrix}1&1\\\\1&0\\\\0&1\end{bmatrix}=\begin{bmatrix}1+1+0 & 1+0+0\\ 1+0+0 & 1+0+1\end{bmatrix}=\begin{bmatrix}2&1\\ 1&2\end{bmatrix}.$$
+
+Eigenvalues of $A^\top A$: $\det(A^\top A - \lambda I)=0 \Rightarrow (2-\lambda)^2-1=0 \Rightarrow \lambda = 2\pm1$; so $\lambda_1=3,\;\lambda_2=1$.
+
+Singular values: $\sigma_1=\sqrt{3},\;\sigma_2=1$ (a $3\times2$ matrix has at most $2$ nonzero singular values $=\operatorname{rank}=2$).
+
+**Answer: $\sqrt{3}$ and $1$.** _Method:_ form $A^\top A$, find its eigenvalues, take square roots. Works for **any** matrix — including rectangular. _(The right singular vectors of $A$ are the PCA directions when $A$ is the centered data matrix — Module 3.9.)_
+
 ## Part 4 — Practice Questions
 
 Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no negative marking; single-correct MCQ — penalty for a wrong answer. (★ easy · ★★ medium · ★★★ hard.)

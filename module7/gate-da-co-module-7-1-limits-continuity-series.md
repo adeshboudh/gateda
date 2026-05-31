@@ -131,7 +131,7 @@ Product $=2\times\tfrac12=1$.
 
 ### Example 4 — Continuity of a piecewise function _(original · Easy–Med)_
 
-**Q.** Is $f(x)=\begin{cases}x^2+1, & x\le1\\\\ 3x-1, & x>1\end{cases}$ continuous at $x=1$?
+**Q.** Is the piecewise function $f$ continuous at $x=1$, where $f(x)=x^2+1$ for $x\le1$ and $f(x)=3x-1$ for $x>1$?
 
 **Solve.** Compare the three quantities at $x=1$:
 
@@ -140,6 +140,24 @@ Product $=2\times\tfrac12=1$.
 - value $f(1)=1^2+1=2$.
 
 All equal $2$, so $f$ is **continuous at $x=1$**. _Method:_ left $=$ right $=$ value. _(Module 7.2 adds the differentiability check — see 2024 Q37.)_
+
+---
+
+### Example 5 — L'Hôpital applied twice _(original · Hard)_
+
+**Q.** Evaluate $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}$.
+
+**Solve.** Direct substitution gives $0/0$. Apply **L'Hôpital**:
+
+$$\lim_{x\to0}\frac{x-\sin x}{x^3} \xrightarrow{\text{L'H}} \lim_{x\to0}\frac{1-\cos x}{3x^2}.$$
+
+Still $0/0$ — apply **L'Hôpital again**:
+
+$$\lim_{x\to0}\frac{\sin x}{6x} = \frac16\lim_{x\to0}\frac{\sin x}{x}=\frac16\cdot1=\frac16.$$
+
+**Alternative (Taylor):** $x - \sin x = x-\!\left(x-\tfrac{x^3}{6}+O(x^5)\right) = \tfrac{x^3}{6}+O(x^5)$, so $\tfrac{x-\sin x}{x^3}\to\tfrac16$.
+
+**Answer: $1/6 \approx 0.167$.** _Method:_ L'Hôpital twice, or Taylor-expand $\sin x$ to the $x^3$ term. _(Taylor series machinery — Module 7.2.)_
 
 ## Part 4 — Practice Questions
 
@@ -168,6 +186,10 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10. ★★ (NAT)** $\displaystyle\sum_{n=1}^{\infty}\Big(\frac23\Big)^n=$ \***\*\_\_\*\*** .
 
+**Q11. ★★★ (NAT)** $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}=$ \***\*\_\_\*\*** (3 dp).
+
+**Q12. ★★★ (NAT)** $\displaystyle\sum_{n=2}^{\infty}\Big(\frac14\Big)^n=$ \***\*\_\_\*\*** (give as a fraction or 3 dp).
+
 ## Answer Key & Full Solutions
 
 **Q1 — (B) $1$.** Standard limit $\lim_{x\to0}\tfrac{\sin x}{x}=1$.
@@ -190,10 +212,14 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q10 — 2.** $\sum_{n=1}^\infty(\tfrac23)^n=\dfrac{2/3}{1-2/3}=\dfrac{2/3}{1/3}=2$.
 
+**Q11 — 0.167.** $\lim_{x\to0}\dfrac{x-\sin x}{x^3}=\tfrac16$ — apply L'Hôpital twice (from $\tfrac{1-\cos x}{3x^2}$ to $\tfrac{\sin x}{6x}\to\tfrac16$), or use $x-\sin x = \tfrac{x^3}{6}+O(x^5)$.
+
+**Q12 — 1/12 ($\approx0.083$).** Factor out $(1/4)^2$: $\sum_{n=2}^\infty(1/4)^n = (1/4)^2\cdot\dfrac{1}{1-1/4} = \dfrac{1/16}{3/4} = \dfrac{1}{12}$.
+
 ---
 
 ### How to read your score
 
-- **8–10:** limits & series are solid — on to **7.2 Differentiability & Taylor Series**.
-- **6–7:** re-drill **rationalizing** limits at infinity (Q4) and **geometric-series start index** (Q6, Q10).
-- **≤5:** re-read Part 1 A–E; memorize the standard limits and $\sum r^n=\tfrac{1}{1-r}$.
+- **10–12:** limits & series are solid — on to **7.2 Differentiability & Taylor Series**.
+- **7–9:** re-drill **rationalizing** limits at infinity (Q4) and **geometric-series start index** (Q6, Q10, Q12).
+- **≤6:** re-read Part 1 A–E; memorize the standard limits, $\sum r^n=\tfrac{1}{1-r}$, and the L'Hôpital technique (Example 5).
