@@ -225,7 +225,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 (C) Multiplying every data point by $k$ multiplies the standard deviation by $\lvert k\rvert$.
 (D) The sample variance divides the sum of squared deviations by $n$.
 
-**Q9. ★★★ (NAT)** For a dataset of $n = 100$, it is given that $\dfrac{1}{2000}\cdot\sum_i\sum_j (x_i - x_j)^2 = 99$. Then $\dfrac{1}{99}\cdot\sum_i (x_i - \bar{x})^2 =$ ****\_\_**** . _(2026 Q62)_
+**Q9. ★★★ (NAT)** For a dataset of $n = 100$, it is given that $\dfrac{1}{20000}\cdot\sum_i\sum_j (x_i - x_j)^2 = 99$. Then $\dfrac{1}{99}\cdot\sum_i (x_i - \bar{x})^2 =$ ****\_\_**** . _(2026 Q62)_
 
 **Q10. ★★ (MCQ)** Increasing the sample size $n$ (all else equal) makes a confidence interval
 (A) wider (B) narrower (C) unchanged (D) undefined
@@ -248,7 +248,7 @@ Attempt all before opening the solutions. **GATE marking:** NAT & MSQ — no neg
 
 **Q8 — (A), (B), (C).** (D) is **false** — the _sample_ variance divides by $n-1$, not $n$. The rest are standard properties.
 
-**Q9 — 100.** The identity $\dfrac{1}{2n^2}\sum_i\sum_j (x_i-x_j)^2 = \dfrac{1}{n}\sum_i (x_i-\bar{x})^2$. With $n=100$, $\dfrac{1}{2000}\sum\sum = 99$ means the biased variance $\dfrac{1}{n}\sum(x_i-\bar{x})^2 = 99$, so $\sum(x_i-\bar{x})^2 = 9900$. Then $\dfrac{1}{99}\times9900 = 100$.
+**Q9 — 100.** The identity $\dfrac{1}{2n^2}\sum_i\sum_j (x_i-x_j)^2 = \dfrac{1}{n}\sum_i (x_i-\bar{x})^2$. With $n=100$ ($2n^2 = 20000$), $\dfrac{1}{20000}\sum\sum = 99$ means the biased variance $\dfrac{1}{n}\sum(x_i-\bar{x})^2 = 99$, so $\sum(x_i-\bar{x})^2 = 9900$. Then $\dfrac{1}{99}\times9900 = 100$.
 
 **Q10 — (B) narrower.** The margin of error is proportional to $1/\sqrt{n}$, so larger $n$ shrinks the interval.
 
