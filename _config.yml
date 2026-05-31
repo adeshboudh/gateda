@@ -2,7 +2,10 @@ title: GATE DA 2027 Notes
 description: >-
   Probability & Statistics, Programming & DSA, Machine Learning, Databases,
   Linear Algebra, Artificial Intelligence, Calculus & Optimization.
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs@v0.10.1
+
+plugins:
+  - jekyll-remote-theme
 
 # Math: let MathJax handle TeX; kramdown must NOT pre-render it.
 kramdown:
@@ -16,7 +19,9 @@ heading_anchors: true
 nav_external_links: []
 
 aux_links:
-  "View on GitHub": []
+  "View on GitHub":
+    - "https://github.com/adeshboudh/gateda"
+aux_links_new_tab: true
 
 color_scheme: light
 
