@@ -61,10 +61,16 @@ function buildSidebar() {
     const isOpen = stored[group.id] !== false; // default open
     const links = group.notes.map(note => {
       const hrefAbs = siteRoot + note.href;
-      const isActive = currentPath.endsWith(note.href.replace(/^\//, '')) ||
-                       currentPath.endsWith(note.href.replace(/^\//, '').replace('.html',''));
-      return `<li><a class="gd-nav-link${isActive ? ' gd-nav-link--active' : ''}"
-          href="${hrefAbs}">${note.label}</a></li>`;
+      const vizHrefAbs = note.viz ? siteRoot + note.viz : null;
+      const notesPath = note.href.replace(/^\//, '');
+      const vizPath = note.viz ? note.viz.replace(/^\//, '') : '';
+      const isActiveNotes = currentPath.endsWith(notesPath) || currentPath.endsWith(notesPath.replace('.html',''));
+      const isActiveViz = vizPath && (currentPath.endsWith(vizPath) || currentPath.endsWith(vizPath.replace('.html','')));
+      const vizLink = vizHrefAbs
+        ? `<a class="gd-nav-viz-link${isActiveViz ? ' gd-nav-viz-link--active' : ''}" href="${vizHrefAbs}">✦ Visualization</a>`
+        : '';
+      return `<li><a class="gd-nav-link${isActiveNotes ? ' gd-nav-link--active' : ''}"
+          href="${hrefAbs}">${note.label}</a>${vizLink}</li>`;
     }).join('');
 
     return `
