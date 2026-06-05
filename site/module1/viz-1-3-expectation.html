@@ -167,6 +167,9 @@ function getStats() {
   return { mu, vr, sd: Math.sqrt(vr), ps };
 }
 
+// ── VIZ 2 params declared first (used inside VIZ 1's draw → drawTransform call)
+let aParam = 2, bParam = 3;
+
 // ── VIZ 1: DRAGGABLE PMF ─────────────────
 (function() {
   function draw() {
@@ -257,8 +260,6 @@ function getStats() {
 })();
 
 // ── VIZ 2: LINEAR TRANSFORM ──────────────
-let aParam = 2, bParam = 3;
-
 function drawTransform() {
   const container = document.getElementById('transform-chart');
   const cW = container.clientWidth || 560;
