@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.5 Normal & CLT — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .prob-display {
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      padding: 14px 18px;
+      font-family: var(--gd-font-mono);
+      font-size: 1.1rem;
+      color: var(--gd-brand);
+      font-weight: 600;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .clt-src-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .clt-src-tab {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid var(--gd-border);
+      color: var(--gd-text-1);
+      cursor: pointer;
+      background: var(--gd-bg-3);
+      transition: 0.15s;
+    }
+    .clt-src-tab--active { background: rgba(76,175,130,0.15); border-color: var(--gd-success); color: var(--gd-success); }
+    .clt-sample-count {
+      font-family: var(--gd-font-mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gd-brand);
+      text-align: center;
+      margin: 6px 0;
+    }
+    .clt-sample-label { font-size: 0.8rem; color: var(--gd-text-2); text-align: center; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.5 Normal &amp; CLT
+    </div>
+    <a class="gd-pill-link" href="1-5-normal-clt.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2025 Q14 · 2026 Q9</span>
+      </div>
+      <h1 id="top">Normal Distribution &amp; Central Limit Theorem</h1>
+      <p>Part 1: find probabilities under the bell curve. Part 2: watch any distribution converge to Normal as sample size grows.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         VIZ 1: Z-TABLE / AREA UNDER CURVE
+    ════════════════════════════════════════ -->
+    <h2 id="viz1">Visualization 1 — Area Under the Bell Curve</h2>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Standard Normal Z ~ N(0,1)</div>
+        <div class="gd-formula">$$P(a \le Z \le b) = \Phi(b) - \Phi(a)$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current area</div>
+        <div class="prob-display" id="area-display">P = —</div>
+      </div>
+    </div>
+
+    <div class="gd-chart" style="position:relative;">
+      <div class="gd-chart__title">Shaded area = P(a ≤ Z ≤ b)</div>
+      <div id="normal-chart"></div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Interval [a, b]</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">a</span> Left bound</label>
+        <span class="gd-control__value" id="a-val">−1.96</span>
+      </div>
+      <div class="gd-control--full">
+        <input class="gd-control__slider" type="range" id="a-slider" min="-4" max="4" step="0.01" value="-1.96">
+      </div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">b</span> Right bound</label>
+        <span class="gd-control__value" id="b-val">1.96</span>
+      </div>
+      <div class="gd-control--full">
+        <input class="gd-control__slider" type="range" id="b-slider" min="-4" max="4" step="0.01" value="1.96">
+      </div>
+    </div>
+
+    <!-- Preset buttons -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+      <button class="gd-btn gd-btn--secondary" data-a="-1" data-b="1">±1σ (68.3%)</button>
+      <button class="gd-btn gd-btn--secondary" data-a="-1.96" data-b="1.96">±1.96σ (95%)</button>
+      <button class="gd-btn gd-btn--secondary" data-a="-2" data-b="2">±2σ (95.5%)</button>
+      <button class="gd-btn gd-btn--secondary" data-a="-3" data-b="3">±3σ (99.7%)</button>
+      <button class="gd-btn gd-btn--secondary" data-a="-4" data-b="0">Left tail</button>
+      <button class="gd-btn gd-btn--secondary" data-a="1.645" data-b="4">Right tail (5%)</button>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live Values</div>
+      <div class="gd-insight gd-insight--active" id="ins-area">P(a ≤ Z ≤ b) = —</div>
+      <div class="gd-insight" id="ins-phi-b">Φ(b) = —</div>
+      <div class="gd-insight" id="ins-phi-a">Φ(a) = —</div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         VIZ 2: CLT DEMO
+    ════════════════════════════════════════ -->
+    <h2 id="viz2">Visualization 2 — Central Limit Theorem Demo</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      Sample <strong>n</strong> values from any distribution. Compute the sample mean $\bar{X}$. Repeat. Watch the distribution of $\bar{X}$ converge to Normal — regardless of the source distribution.
+    </p>
+
+    <div class="gd-formula-panel gd-formula-panel--single">
+      <div>
+        <div class="gd-formula-label">CLT</div>
+        <div class="gd-formula">$$\bar{X}_n = \frac{1}{n}\sum_{i=1}^n X_i \xrightarrow{d} \mathcal{N}\!\left(\mu,\,\frac{\sigma^2}{n}\right) \text{ as } n\to\infty$$</div>
+      </div>
+    </div>
+
+    <!-- Source distribution picker -->
+    <div class="gd-controls" style="margin-bottom:14px;">
+      <div class="gd-controls__title">Source distribution</div>
+      <div class="clt-src-tabs" id="clt-src-tabs">
+        <button class="clt-src-tab clt-src-tab--active" data-src="uniform">Uniform(0,1)</button>
+        <button class="clt-src-tab" data-src="exponential">Exponential(1)</button>
+        <button class="clt-src-tab" data-src="bernoulli">Bernoulli(0.3)</button>
+        <button class="clt-src-tab" data-src="bimodal">Bimodal</button>
+      </div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">n</span> Sample size per draw</label>
+        <span class="gd-control__value" id="clt-n-val">5</span>
+      </div>
+      <div class="gd-control--full">
+        <input class="gd-control__slider" type="range" id="clt-n" min="1" max="50" step="1" value="5">
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+      <button class="gd-btn gd-btn--primary" id="clt-sample-btn">Draw 1 sample</button>
+      <button class="gd-btn gd-btn--secondary" id="clt-many-btn">Draw 500 more</button>
+      <button class="gd-btn gd-btn--secondary" id="clt-reset-btn">Reset</button>
+    </div>
+
+    <div class="clt-sample-count" id="clt-count">0</div>
+    <div class="clt-sample-label">sample means collected</div>
+
+    <!-- Top: source distribution; Bottom: distribution of X̄ -->
+    <div class="gd-chart">
+      <div class="gd-chart__title" id="clt-src-title">Source distribution</div>
+      <div id="clt-src-chart"></div>
+    </div>
+    <div class="gd-chart" style="margin-top:0;">
+      <div class="gd-chart__title">Distribution of $\bar{X}$ (sample means) — watch it go Normal!</div>
+      <div id="clt-means-chart"></div>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">What CLT tells us</div>
+      <div class="gd-insight gd-insight--active" id="clt-ins-1">Collect more samples — the histogram will approach a bell curve shape.</div>
+      <div class="gd-insight" id="clt-ins-2">Std dev of X̄ = σ/√n (standard error). Larger n → narrower distribution.</div>
+      <div class="gd-insight gd-insight--warn" id="clt-ins-3">Works regardless of source distribution shape!</div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>Standard Normal:</strong> Know Φ(1.96)≈0.975, Φ(1.645)≈0.95, Φ(2.576)≈0.995. Most GATE Normal questions use these.</p>
+      <p><strong>Z-score:</strong> Z = (X−μ)/σ. GATE gives μ, σ, asks P(X ≤ x) → convert to Z → lookup table.</p>
+      <p><strong>CLT in GATE:</strong> "Sample of n=36 from population μ=100, σ=12 — find P(X̄ ≥ 102)" → SE=12/6=2, Z=(102−100)/2=1, P = 1−Φ(1) ≈ 0.159.</p>
+    </div>
+
+    <a class="gd-pill-link" href="1-5-normal-clt.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail">
+    <div class="gd-toc-rail__title">On this page</div>
+  </nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// ══════════════════════════════════════════
+// VIZ 1 — AREA UNDER NORMAL CURVE
+// ══════════════════════════════════════════
+(function() {
+  let aVal = -1.96, bVal = 1.96;
+
+  function drawNormal() {
+    const container = document.getElementById('normal-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.42);
+    const M = { top: 20, right: 20, bottom: 40, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    const xExt = 4;
+    const x = d3.scaleLinear().domain([-xExt, xExt]).range([0, W]);
+    const pts = d3.range(-xExt, xExt + 0.01, 8 * xExt / 600).map(v => ({ x: v, y: GD.normalPDF(v, 0, 1) }));
+    const yMax = GD.normalPDF(0, 0, 1) * 1.15;
+    const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class', 'grid')
+      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Shaded area
+    const lo = Math.min(aVal, bVal), hi = Math.max(aVal, bVal);
+    const shadePts = pts.filter(d => d.x >= lo && d.x <= hi);
+    const area = d3.area().x(d => x(d.x)).y0(H).y1(d => y(d.y)).curve(d3.curveCatmullRom);
+    g.append('path').attr('d', area(shadePts)).attr('fill', '#7c9eff').attr('opacity', 0.35);
+
+    // Curve
+    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveCatmullRom);
+    g.append('path').attr('d', line(pts)).attr('fill', 'none').attr('stroke', '#7c9eff').attr('stroke-width', 2.5);
+
+    // a and b lines
+    [aVal, bVal].forEach((v, i) => {
+      const col = i === 0 ? '#f0a44a' : '#4caf82';
+      g.append('line')
+        .attr('x1', x(v)).attr('x2', x(v)).attr('y1', 0).attr('y2', H)
+        .attr('stroke', col).attr('stroke-width', 1.5).attr('stroke-dasharray', '4 3');
+      g.append('text').attr('x', x(v)).attr('y', -6).attr('text-anchor', 'middle')
+        .attr('fill', col).attr('font-size', 11).attr('font-weight', '600')
+        .text(i === 0 ? `a=${aVal.toFixed(2)}` : `b=${bVal.toFixed(2)}`);
+    });
+
+    // Axes
+    g.append('g').attr('class', 'axis').attr('transform', `translate(0,${H})`)
+      .call(d3.axisBottom(x).ticks(9));
+    g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+
+    // Probability annotation in shaded area
+    const prob = GD.normalCDF(hi) - GD.normalCDF(lo);
+    const midX = x((lo + hi) / 2);
+    g.append('text').attr('x', midX).attr('y', H * 0.35)
+      .attr('text-anchor', 'middle').attr('fill', 'white')
+      .attr('font-size', 13).attr('font-weight', '600')
+      .text(`${(prob * 100).toFixed(1)}%`);
+
+    // Update sidebar info
+    const phiB = GD.normalCDF(hi), phiA = GD.normalCDF(lo);
+    document.getElementById('area-display').textContent = `P = ${prob.toFixed(4)}`;
+    document.getElementById('ins-area').textContent = `P(${lo.toFixed(2)} ≤ Z ≤ ${hi.toFixed(2)}) = ${prob.toFixed(4)} = ${(prob*100).toFixed(2)}%`;
+    document.getElementById('ins-phi-b').textContent = `Φ(${hi.toFixed(2)}) = ${phiB.toFixed(4)}`;
+    document.getElementById('ins-phi-a').textContent = `Φ(${lo.toFixed(2)}) = ${phiA.toFixed(4)}`;
+  }
+
+  function setSliders(a, b) {
+    aVal = +a; bVal = +b;
+    document.getElementById('a-slider').value = a;
+    document.getElementById('b-slider').value = b;
+    document.getElementById('a-val').textContent = (+a).toFixed(2);
+    document.getElementById('b-val').textContent = (+b).toFixed(2);
+    drawNormal();
+  }
+
+  document.getElementById('a-slider').addEventListener('input', function() {
+    aVal = +this.value;
+    document.getElementById('a-val').textContent = aVal.toFixed(2);
+    drawNormal();
+  });
+  document.getElementById('b-slider').addEventListener('input', function() {
+    bVal = +this.value;
+    document.getElementById('b-val').textContent = bVal.toFixed(2);
+    drawNormal();
+  });
+
+  // Preset buttons
+  document.querySelectorAll('[data-a]').forEach(btn => {
+    btn.addEventListener('click', () => setSliders(btn.dataset.a, btn.dataset.b));
+  });
+
+  drawNormal();
+  window.addEventListener('resize', () => setTimeout(drawNormal, 150));
+})();
+
+// ══════════════════════════════════════════
+// VIZ 2 — CLT DEMO
+// ══════════════════════════════════════════
+(function() {
+  let sampleMeans = [];
+  let nVal = 5;
+  let srcDist = 'uniform';
+
+  const SOURCES = {
+    uniform:     { label: 'Uniform(0,1)', mu: 0.5,  sigma: 1/Math.sqrt(12), sample: () => Math.random() },
+    exponential: { label: 'Exponential(1)', mu: 1,  sigma: 1,               sample: () => -Math.log(Math.random()) },
+    bernoulli:   { label: 'Bernoulli(0.3)', mu: 0.3, sigma: Math.sqrt(0.21), sample: () => Math.random() < 0.3 ? 1 : 0 },
+    bimodal:     { label: 'Bimodal (mix of 2 normals)', mu: 0, sigma: Math.sqrt(1.25),
+                   sample: () => Math.random() < 0.5 ? GD.normalPDF(0,0,1) * Math.random() * 3 - 1.5 : GD.normalPDF(0,0,1) * Math.random() * 3 + 1 }
+  };
+
+  // Bimodal sample fix
+  function sampleBimodal() {
+    const z1 = () => { let u,v,s; do { u=Math.random()*2-1; v=Math.random()*2-1; s=u*u+v*v; } while(s>=1||s===0); return u*Math.sqrt(-2*Math.log(s)/s); };
+    return Math.random() < 0.5 ? z1() - 2 : z1() + 2;
+  }
+  SOURCES.bimodal.sample = sampleBimodal;
+  SOURCES.bimodal.mu = 0; SOURCES.bimodal.sigma = Math.sqrt(((−2)*(−2) + 2*2)/2 + 1);
+
+  function drawSource() {
+    const src = SOURCES[srcDist];
+    const container = document.getElementById('clt-src-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.28);
+    const M = { top: 10, right: 20, bottom: 36, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    // Draw 2000 samples to show source shape
+    const samples = Array.from({length: 2000}, src.sample);
+    const x = d3.scaleLinear()
+      .domain([d3.min(samples) * 0.9, d3.max(samples) * 1.1])
+      .range([0, W]);
+    const bins = d3.bin().domain(x.domain()).thresholds(40)(samples);
+    const y = d3.scaleLinear().domain([0, d3.max(bins, d => d.length)]).range([H, 0]);
+
+    g.selectAll('rect').data(bins).enter().append('rect')
+      .attr('x', d => x(d.x0) + 1)
+      .attr('y', d => y(d.length))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+      .attr('height', d => H - y(d.length))
+      .attr('fill', '#4caf82').attr('opacity', 0.6);
+
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(6));
+    document.getElementById('clt-src-title').textContent = `Source: ${src.label}`;
+  }
+
+  function drawMeans() {
+    const src = SOURCES[srcDist];
+    const container = document.getElementById('clt-means-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.42);
+    const M = { top: 20, right: 20, bottom: 40, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    if (!sampleMeans.length) {
+      g.append('text').attr('x', W/2).attr('y', H/2).attr('text-anchor','middle')
+        .attr('fill', '#606880').attr('font-size', 14)
+        .text('Click "Draw 1 sample" to start →');
+      return;
+    }
+
+    const se   = src.sigma / Math.sqrt(nVal);
+    const mu   = src.mu;
+    const xLo  = mu - 4 * se, xHi = mu + 4 * se;
+    const allXLo = Math.min(d3.min(sampleMeans), xLo);
+    const allXHi = Math.max(d3.max(sampleMeans), xHi);
+
+    const x = d3.scaleLinear().domain([allXLo, allXHi]).range([0, W]);
+    const bins = d3.bin().domain(x.domain()).thresholds(Math.min(40, Math.ceil(sampleMeans.length / 5)))(sampleMeans);
+    const y = d3.scaleLinear().domain([0, d3.max(bins, d => d.length) * 1.1]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class','grid')
+      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Bars
+    g.selectAll('rect').data(bins).enter().append('rect')
+      .attr('x', d => x(d.x0) + 1).attr('y', d => y(d.length))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+      .attr('height', d => H - y(d.length))
+      .attr('fill', '#7c9eff').attr('opacity', 0.7);
+
+    // Theoretical normal overlay (if enough samples)
+    if (sampleMeans.length >= 30) {
+      const normalPts = d3.range(allXLo, allXHi, (allXHi - allXLo) / 300).map(v => ({
+        x: v,
+        y: GD.normalPDF(v, mu, se)
+      }));
+      // Scale PDF to match histogram (density scale)
+      const binW = (allXHi - allXLo) / bins.length;
+      const scale = sampleMeans.length * binW;
+      const line = d3.line().x(d => x(d.x)).y(d => y(d.y * scale)).curve(d3.curveCatmullRom);
+      g.append('path').attr('d', line(normalPts))
+        .attr('fill','none').attr('stroke','#f0a44a').attr('stroke-width', 2).attr('stroke-dasharray','none');
+      g.append('text').attr('x', x(mu + 2.5*se)).attr('y', 16)
+        .attr('fill','#f0a44a').attr('font-size', 10).text('Theoretical N(μ, σ²/n)');
+    }
+
+    // Mean line
+    const obsMean = d3.mean(sampleMeans);
+    g.append('line').attr('x1', x(obsMean)).attr('x2', x(obsMean))
+      .attr('y1', 0).attr('y2', H)
+      .attr('stroke', '#f0a44a').attr('stroke-width', 1.5).attr('stroke-dasharray', '4 3');
+    g.append('text').attr('x', x(obsMean) + 4).attr('y', 12)
+      .attr('fill', '#f0a44a').attr('font-size', 11)
+      .text(`x̄=${obsMean.toFixed(3)}`);
+
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4));
+
+    // Update insight 2
+    const obsSD = d3.deviation(sampleMeans) || 0;
+    document.getElementById('clt-ins-2').textContent =
+      `Observed SE=${obsSD.toFixed(3)}, theoretical σ/√n=${se.toFixed(3)}. n=${nVal} → ${sampleMeans.length} samples collected.`;
+    document.getElementById('clt-ins-1').textContent =
+      sampleMeans.length < 30
+        ? `Keep sampling — need more points to see the bell shape emerge.`
+        : `Bell shape is visible! The N(μ, σ²/n) overlay (orange) fits the histogram.`;
+    document.getElementById('clt-ins-1').className = `gd-insight${sampleMeans.length >= 30 ? ' gd-insight--active' : ''}`;
+  }
+
+  function takeSamples(count) {
+    const src = SOURCES[srcDist];
+    for (let i = 0; i < count; i++) {
+      const vals = Array.from({length: nVal}, src.sample);
+      sampleMeans.push(d3.mean(vals));
+    }
+    document.getElementById('clt-count').textContent = sampleMeans.length;
+    drawMeans();
+  }
+
+  // Controls
+  document.getElementById('clt-n').addEventListener('input', function() {
+    nVal = +this.value;
+    document.getElementById('clt-n-val').textContent = nVal;
+    sampleMeans = [];
+    document.getElementById('clt-count').textContent = 0;
+    drawMeans();
+  });
+  document.getElementById('clt-sample-btn').addEventListener('click', () => takeSamples(1));
+  document.getElementById('clt-many-btn').addEventListener('click', () => takeSamples(500));
+  document.getElementById('clt-reset-btn').addEventListener('click', () => {
+    sampleMeans = [];
+    document.getElementById('clt-count').textContent = 0;
+    drawMeans();
+  });
+
+  document.getElementById('clt-src-tabs').addEventListener('click', e => {
+    const btn = e.target.closest('.clt-src-tab');
+    if (!btn) return;
+    document.querySelectorAll('.clt-src-tab').forEach(t => t.classList.remove('clt-src-tab--active'));
+    btn.classList.add('clt-src-tab--active');
+    srcDist = btn.dataset.src;
+    sampleMeans = [];
+    document.getElementById('clt-count').textContent = 0;
+    drawSource();
+    drawMeans();
+  });
+
+  drawSource();
+  drawMeans();
+  window.addEventListener('resize', () => setTimeout(() => { drawSource(); drawMeans(); }, 150));
+})();
+</script>
+</body>
+</html>

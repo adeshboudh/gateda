@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.6 Correlation — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .r-display {
+      font-family: var(--gd-font-mono);
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px;
+      border-radius: var(--gd-r-md);
+      transition: color 0.3s, background 0.3s;
+    }
+    .scatter-dot { cursor: grab; }
+    .scatter-dot:active { cursor: grabbing; }
+    .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .preset-btn {
+      padding: 8px;
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      color: var(--gd-text-1);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+    .preset-btn:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.6 Covariance &amp; Correlation
+    </div>
+    <a class="gd-pill-link" href="1-6-correlation.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q52 · 2026 Q18</span>
+      </div>
+      <h1 id="top">Covariance &amp; Pearson Correlation</h1>
+      <p>Drag points to see how covariance and r respond. Use presets to understand edge cases.</p>
+    </div>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Pearson r</div>
+        <div class="gd-formula">$$r = \frac{\text{Cov}(X,Y)}{\sigma_X \sigma_Y} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i-\bar{x})^2\,\sum(y_i-\bar{y})^2}}$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current values</div>
+        <div class="gd-formula-live" id="corr-live">—</div>
+      </div>
+    </div>
+
+    <div class="r-display" id="r-display">r = —</div>
+
+    <!-- Presets -->
+    <div style="margin:16px 0 8px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gd-text-2);">Quick scenarios</div>
+    <div class="preset-grid">
+      <button class="preset-btn" data-preset="strong-pos">Strong positive<br>r ≈ 0.95</button>
+      <button class="preset-btn" data-preset="weak-pos">Weak positive<br>r ≈ 0.4</button>
+      <button class="preset-btn" data-preset="none">No correlation<br>r ≈ 0</button>
+      <button class="preset-btn" data-preset="weak-neg">Weak negative<br>r ≈ −0.4</button>
+      <button class="preset-btn" data-preset="strong-neg">Strong negative<br>r ≈ −0.95</button>
+      <button class="preset-btn" data-preset="nonlinear">Nonlinear<br>r ≈ 0 but related</button>
+    </div>
+
+    <div class="gd-chart" style="position:relative;">
+      <div class="gd-chart__title">Drag points · Double-click to add · Right-click to remove</div>
+      <div id="scatter-chart"></div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <button class="gd-btn gd-btn--secondary" id="add-point-btn">+ Add random point</button>
+      <button class="gd-btn gd-btn--secondary" id="clear-btn">Clear all</button>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live statistics</div>
+      <div class="gd-insight gd-insight--active" id="ins-r">r = —</div>
+      <div class="gd-insight" id="ins-cov">Cov(X,Y) = —</div>
+      <div class="gd-insight" id="ins-sx">σX = —, σY = —</div>
+      <div class="gd-insight gd-insight--warn" id="ins-warn" style="display:none;"></div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>Key formula:</strong> Cov(X,Y) = E[XY] − E[X]E[Y]. For independent X,Y: Cov = 0 (but NOT vice versa — see nonlinear preset!).</p>
+      <p><strong>Linearity:</strong> Cov(aX+b, cY+d) = ac·Cov(X,Y). Var(X+Y) = Var(X) + Var(Y) + 2·Cov(X,Y).</p>
+      <p><strong>r range:</strong> −1 ≤ r ≤ 1. r = ±1 iff perfect linear relationship. r = 0 does NOT mean independent.</p>
+    </div>
+
+    <a class="gd-pill-link" href="1-6-correlation.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail">
+    <div class="gd-toc-rail__title">On this page</div>
+  </nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+(function() {
+  // ── Data ────────────────────────────────
+  const PRESETS = {
+    'strong-pos': () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*1.5, y: i*0.9 + (Math.random()-0.5)*1.5})),
+    'weak-pos':   () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*3, y: i*0.5 + (Math.random()-0.5)*8})),
+    'none':       () => Array.from({length:20}, ()   => ({x: Math.random()*20, y: Math.random()*20})),
+    'weak-neg':   () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*3, y: 20 - i*0.5 + (Math.random()-0.5)*8})),
+    'strong-neg': () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*1.5, y: 20 - i*0.9 + (Math.random()-0.5)*1.5})),
+    'nonlinear':  () => Array.from({length:30}, (_,i) => { const x = (i/30)*20-10; return {x, y: x*x/5 + (Math.random()-0.5)*3}; })
+  };
+
+  let points = PRESETS['strong-pos']();
+
+  // ── Statistics ──────────────────────────
+  function stats(pts) {
+    if (pts.length < 2) return null;
+    const n  = pts.length;
+    const mx = d3.mean(pts, d => d.x);
+    const my = d3.mean(pts, d => d.y);
+    const cov = d3.mean(pts, d => (d.x - mx) * (d.y - my));
+    const sx  = d3.deviation(pts, d => d.x);
+    const sy  = d3.deviation(pts, d => d.y);
+    const r   = (sx > 0 && sy > 0) ? cov / (sx * sy) : 0;
+    return { mx, my, cov, sx, sy, r, n };
+  }
+
+  function rColor(r) {
+    if (r > 0.7)  return '#4caf82';
+    if (r > 0.3)  return '#7c9eff';
+    if (r < -0.7) return '#e05c6b';
+    if (r < -0.3) return '#f0a44a';
+    return '#606880';
+  }
+
+  // ── Chart ───────────────────────────────
+  let width, height, x, y, svg, g, M;
+
+  function setup() {
+    const container = document.getElementById('scatter-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.6);
+    M = { top: 20, right: 20, bottom: 40, left: 52 };
+    width  = cW - M.left - M.right;
+    height = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('display','block').style('cursor','crosshair');
+    g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    x = d3.scaleLinear().domain([-1, 22]).range([0, width]);
+    y = d3.scaleLinear().domain([-1, 22]).range([height, 0]);
+
+    // Grid
+    g.append('g').attr('class','grid')
+      .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+    g.append('g').attr('class','grid')
+      .attr('transform',`translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${height})`).call(d3.axisBottom(x).ticks(6));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(6));
+
+    // Double-click to add point
+    svg.on('dblclick', function(event) {
+      const [mx, my] = d3.pointer(event, g.node());
+      points.push({ x: x.invert(mx), y: y.invert(my) });
+      redraw();
+    });
+
+    redraw();
+  }
+
+  function redraw() {
+    // Remove old dots + regression
+    g.selectAll('.scatter-dot').remove();
+    g.selectAll('.reg-line').remove();
+    g.selectAll('.mean-lines').remove();
+
+    const st = stats(points);
+
+    // Mean cross lines
+    if (st) {
+      const mg = g.append('g').attr('class', 'mean-lines');
+      mg.append('line')
+        .attr('x1', x(st.mx)).attr('x2', x(st.mx)).attr('y1', 0).attr('y2', height)
+        .attr('stroke', '#606880').attr('stroke-width', 1).attr('stroke-dasharray', '3 3');
+      mg.append('line')
+        .attr('x1', 0).attr('x2', width).attr('y1', y(st.my)).attr('y2', y(st.my))
+        .attr('stroke', '#606880').attr('stroke-width', 1).attr('stroke-dasharray', '3 3');
+    }
+
+    // Regression line
+    if (st && st.sx > 0) {
+      const slope     = st.r * st.sy / st.sx;
+      const intercept = st.my - slope * st.mx;
+      const x0 = x.domain()[0], x1 = x.domain()[1];
+      const y0 = slope * x0 + intercept, y1 = slope * x1 + intercept;
+      g.append('line').attr('class', 'reg-line')
+        .attr('x1', x(x0)).attr('x2', x(x1))
+        .attr('y1', y(y0)).attr('y2', y(y1))
+        .attr('stroke', rColor(st.r)).attr('stroke-width', 2).attr('opacity', 0.8);
+    }
+
+    // Dots with drag
+    const drag = d3.drag()
+      .on('drag', function(event, d) {
+        d.x = x.invert(event.x); d.y = y.invert(event.y);
+        d3.select(this).attr('cx', event.x).attr('cy', event.y);
+        redraw();
+      });
+
+    g.selectAll('.scatter-dot').data(points).enter()
+      .append('circle').attr('class', 'scatter-dot')
+      .attr('cx', d => x(d.x)).attr('cy', d => y(d.y))
+      .attr('r', 6)
+      .attr('fill', st ? rColor(st.r) : '#7c9eff')
+      .attr('opacity', 0.75)
+      .attr('stroke', 'rgba(255,255,255,0.15)').attr('stroke-width', 1)
+      .on('contextmenu', function(event, d) {
+        event.preventDefault();
+        points = points.filter(p => p !== d);
+        redraw();
+      })
+      .call(drag);
+
+    // Update stats display
+    if (st) {
+      const col = rColor(st.r);
+      const rDisp = document.getElementById('r-display');
+      rDisp.textContent = `r = ${st.r.toFixed(3)}`;
+      rDisp.style.color = col;
+      rDisp.style.background = col + '18';
+
+      document.getElementById('ins-r').textContent =
+        `r = ${st.r.toFixed(4)} — ${Math.abs(st.r) > 0.7 ? 'strong' : Math.abs(st.r) > 0.3 ? 'moderate' : 'weak'} ${st.r > 0 ? 'positive' : st.r < 0 ? 'negative' : 'no'} linear relationship`;
+      document.getElementById('ins-cov').textContent =
+        `Cov(X,Y) = ${st.cov.toFixed(3)}`;
+      document.getElementById('ins-sx').textContent =
+        `σX = ${st.sx.toFixed(3)},  σY = ${st.sy.toFixed(3)},  n = ${st.n}`;
+
+      document.getElementById('corr-live').innerHTML =
+        `r = <span class="live-val">${st.r.toFixed(3)}</span><br>Cov = <span class="live-val">${st.cov.toFixed(3)}</span>`;
+
+      const warn = document.getElementById('ins-warn');
+      if (Math.abs(st.r) < 0.1 && points.length >= 20) {
+        warn.style.display = 'block';
+        warn.textContent = '⚠ r ≈ 0 does NOT mean X and Y are independent! (See nonlinear preset for a counter-example.)';
+      } else {
+        warn.style.display = 'none';
+      }
+    }
+  }
+
+  // Presets
+  document.querySelector('.preset-grid').addEventListener('click', e => {
+    const btn = e.target.closest('.preset-btn');
+    if (!btn || !PRESETS[btn.dataset.preset]) return;
+    points = PRESETS[btn.dataset.preset]();
+    redraw();
+  });
+
+  document.getElementById('add-point-btn').addEventListener('click', () => {
+    points.push({ x: Math.random() * 20, y: Math.random() * 20 });
+    redraw();
+  });
+
+  document.getElementById('clear-btn').addEventListener('click', () => {
+    points = [];
+    redraw();
+    document.getElementById('r-display').textContent = 'r = —';
+    document.getElementById('r-display').style.color = '';
+    document.getElementById('r-display').style.background = '';
+  });
+
+  setup();
+  window.addEventListener('resize', () => setTimeout(setup, 150));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.4 Distributions — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+    .stat-pill {
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      display: flex; gap: 8px; align-items: center;
+    }
+    .stat-pill__label { color: var(--gd-text-2); }
+    .stat-pill__val { font-family: var(--gd-font-mono); color: var(--gd-brand); font-weight: 600; }
+    .rule-band {
+      height: 4px;
+      border-radius: 2px;
+      margin-top: 6px;
+      position: absolute;
+      bottom: 44px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.4 Distributions
+    </div>
+    <a class="gd-pill-link" href="1-4-distributions.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q41 · 2025 Q19 · 2026 Q28</span>
+      </div>
+      <h1 id="top">Probability Distributions</h1>
+      <p>Move the sliders to see how each distribution's shape, mean, and variance respond. Switch between all 7 distributions tested in GATE DA.</p>
+    </div>
+
+    <!-- Distribution tabs -->
+    <div class="gd-tabs" id="dist-tabs" role="tablist">
+      <button class="gd-tab gd-tab--active" data-dist="bernoulli">Bernoulli</button>
+      <button class="gd-tab" data-dist="binomial">Binomial</button>
+      <button class="gd-tab" data-dist="geometric">Geometric</button>
+      <button class="gd-tab" data-dist="poisson">Poisson</button>
+      <button class="gd-tab" data-dist="uniform">Uniform</button>
+      <button class="gd-tab" data-dist="normal">Normal</button>
+      <button class="gd-tab" data-dist="exponential">Exponential</button>
+    </div>
+
+    <!-- Formula panel -->
+    <div class="gd-formula-panel" id="formula-panel">
+      <div>
+        <div class="gd-formula-label" id="formula-type-label">PMF</div>
+        <div class="gd-formula" id="formula-static"></div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current values</div>
+        <div class="gd-formula-live" id="formula-live"></div>
+      </div>
+    </div>
+
+    <!-- Stats: mean, variance -->
+    <div class="stat-row" id="stat-row"></div>
+
+    <!-- Chart -->
+    <div class="gd-chart" style="margin-top:16px;position:relative;">
+      <div class="gd-chart__title" id="chart-title"></div>
+      <div id="dist-chart"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="gd-controls" id="controls-area">
+      <div class="gd-controls__title">Parameters</div>
+      <div id="sliders-inner"></div>
+    </div>
+
+    <!-- Insights -->
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live Insights</div>
+      <div id="insights-area"></div>
+    </div>
+
+    <!-- GATE angle -->
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle — Distribution Cheatsheet</div>
+      <p><strong>Know by heart:</strong> mean &amp; variance of each distribution. GATE asks "E[X] = ?" constantly.</p>
+      <p><strong>Bernoulli(p):</strong> μ=p, σ²=p(1−p). &nbsp;<strong>Binomial(n,p):</strong> μ=np, σ²=np(1−p).</p>
+      <p><strong>Geometric(p):</strong> μ=1/p, σ²=(1−p)/p². &nbsp;<strong>Poisson(λ):</strong> μ=λ, σ²=λ (same!).</p>
+      <p><strong>Uniform(a,b):</strong> μ=(a+b)/2, σ²=(b−a)²/12. &nbsp;<strong>Exponential(λ):</strong> μ=1/λ, σ²=1/λ².</p>
+      <p><strong>Normal:</strong> 68%/95%/99.7% within 1/2/3σ. Z = (X−μ)/σ ~ N(0,1).</p>
+    </div>
+
+    <a class="gd-pill-link" href="1-4-distributions.html" style="margin-top:8px;">
+      Full text notes — theory + worked examples + 12 practice questions →
+    </a>
+  </main>
+
+  <nav class="gd-toc-rail">
+    <div class="gd-toc-rail__title">On this page</div>
+  </nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// ══════════════════════════════════════════
+// DISTRIBUTION CONFIGS
+// ══════════════════════════════════════════
+const DISTS = {
+  bernoulli: {
+    type: 'discrete',
+    label: 'Bernoulli(p)',
+    formulaType: 'PMF',
+    formula: 'P(X=k) = p^k (1-p)^{1-k}, \\quad k \\in \\{0,1\\}',
+    params: { p: { val: 0.3, min: 0.01, max: 0.99, step: 0.01, sym: 'p', label: 'Success probability' } },
+    mean:   p => p,
+    var:    p => p * (1 - p),
+    data:   ({p}) => [{k:0, prob:1-p}, {k:1, prob:p}],
+    liveFn: ({p}) => `P(X=1) = <span class="live-val">${p.toFixed(2)}</span> &nbsp;·&nbsp; P(X=0) = <span class="live-val">${(1-p).toFixed(2)}</span>`,
+    chartTitle: 'Probability Mass Function',
+    insights: ({p}) => [
+      { text: `Max variance at p=0.5 (current: ${(p*(1-p)).toFixed(3)})`, active: Math.abs(p-0.5)<0.1 },
+      { text: `Special case of Binomial(1, p)`, active: true },
+      { text: p < 0.1 ? `Very rare event — most trials fail` :
+               p > 0.9 ? `Very likely event — rarely fails` :
+               `Balanced case — significant uncertainty`, active: true }
+    ]
+  },
+
+  binomial: {
+    type: 'discrete',
+    label: 'Binomial(n, p)',
+    formulaType: 'PMF',
+    formula: 'P(X=k) = \\binom{n}{k} p^k (1-p)^{n-k}',
+    params: {
+      n: { val: 10, min: 1, max: 40, step: 1,    sym: 'n', label: 'Number of trials', fmt: v => v.toFixed(0) },
+      p: { val: 0.3, min: 0.01, max: 0.99, step: 0.01, sym: 'p', label: 'Success probability per trial' }
+    },
+    mean: ({n,p}) => n*p,
+    var:  ({n,p}) => n*p*(1-p),
+    data: ({n,p}) => GD.binomPMFArr(n, p),
+    liveFn: ({n,p}) => {
+      const k = Math.round(n*p);
+      const pmfK = Math.exp(GD.binomPMF(k, n, p));
+      return `μ = np = <span class="live-val">${(n*p).toFixed(2)}</span><br>P(X=${k}) = <span class="live-val">${pmfK.toFixed(4)}</span>`;
+    },
+    chartTitle: 'Probability Mass Function',
+    insights: ({n,p}) => [
+      { text: `n=1 → reduces to Bernoulli(${p.toFixed(2)})`, active: n === 1 },
+      { text: `Shape: ${p < 0.5 ? 'right-skewed' : p > 0.5 ? 'left-skewed' : 'symmetric (p=0.5)'}`, active: true },
+      { text: `Large n+small p → approaches Poisson(λ=${(n*p).toFixed(1)})`, active: n > 20 && p < 0.1 }
+    ]
+  },
+
+  geometric: {
+    type: 'discrete',
+    label: 'Geometric(p)',
+    formulaType: 'PMF',
+    formula: 'P(X=k) = (1-p)^{k-1}\\,p, \\quad k = 1,2,3,\\ldots',
+    params: { p: { val: 0.3, min: 0.05, max: 0.95, step: 0.01, sym: 'p', label: 'Success probability (per trial)' } },
+    mean: ({p}) => 1/p,
+    var:  ({p}) => (1-p)/(p*p),
+    data: ({p}) => GD.geomPMFArr(p, Math.max(20, Math.ceil(4/p))),
+    liveFn: ({p}) => `E[X] = 1/p = <span class="live-val">${(1/p).toFixed(2)}</span><br>P(X=1) = p = <span class="live-val">${p.toFixed(2)}</span>`,
+    chartTitle: 'Trials until first success',
+    insights: ({p}) => [
+      { text: `Memoryless: P(X>m+n | X>m) = P(X>n)`, active: true },
+      { text: `Expected ${(1/p).toFixed(1)} trials before first success`, active: true },
+      { text: p > 0.7 ? `High p — usually succeeds on first try` :
+               p < 0.2 ? `Low p — long tail, many trials expected` :
+               `Moderate p — moderate wait`, active: true }
+    ]
+  },
+
+  poisson: {
+    type: 'discrete',
+    label: 'Poisson(λ)',
+    formulaType: 'PMF',
+    formula: 'P(X=k) = \\frac{e^{-\\lambda}\\lambda^k}{k!}, \\quad k = 0,1,2,\\ldots',
+    params: { lambda: { val: 3, min: 0.1, max: 20, step: 0.1, sym: 'λ', label: 'Average rate (events per interval)' } },
+    mean: ({lambda}) => lambda,
+    var:  ({lambda}) => lambda,
+    data: ({lambda}) => GD.poissonPMFArr(lambda, Math.max(20, Math.ceil(lambda + 4*Math.sqrt(lambda)))),
+    liveFn: ({lambda}) => {
+      const k = Math.round(lambda);
+      return `E[X] = Var(X) = λ = <span class="live-val">${lambda.toFixed(1)}</span><br>P(X=${k}) = <span class="live-val">${GD.poissonPMF(k, lambda).toFixed(4)}</span>`;
+    },
+    chartTitle: 'Events per interval',
+    insights: ({lambda}) => [
+      { text: `Mean = Variance = λ (unique property of Poisson!)`, active: true },
+      { text: `λ > 10 → shape approximates Normal`, active: lambda > 10 },
+      { text: `Binomial(n,p) → Poisson(np) as n→∞, p→0`, active: lambda < 5 }
+    ]
+  },
+
+  uniform: {
+    type: 'continuous',
+    label: 'Uniform(a, b)',
+    formulaType: 'PDF',
+    formula: 'f(x) = \\frac{1}{b-a}, \\quad a \\le x \\le b',
+    params: {
+      a: { val: 0, min: -10, max:  9, step: 0.5, sym: 'a', label: 'Lower bound' },
+      b: { val: 5, min:  -9, max: 10, step: 0.5, sym: 'b', label: 'Upper bound',
+           validate: (v, params) => v > params.a.val + 0.5 }
+    },
+    mean: ({a,b}) => (a+b)/2,
+    var:  ({a,b}) => (b-a)**2/12,
+    data: ({a,b}) => {
+      const h = 1/(b-a);
+      const pts = [];
+      const pad = (b-a)*0.15;
+      for (let x = a - pad; x <= b + pad; x += (b-a)/200) {
+        pts.push({ x, y: (x >= a && x <= b) ? h : 0 });
+      }
+      return pts;
+    },
+    liveFn: ({a,b}) => {
+      const h = 1/(b-a);
+      return `f(x) = 1/(b−a) = <span class="live-val">${h.toFixed(3)}</span><br>` +
+             `μ = (${a}+${b})/2 = <span class="live-val">${((a+b)/2).toFixed(2)}</span>`;
+    },
+    chartTitle: 'Probability Density Function',
+    insights: ({a,b}) => [
+      { text: `Equal probability everywhere on [${a}, ${b}]`, active: true },
+      { text: `Width = ${(b-a).toFixed(1)} → height = ${(1/(b-a)).toFixed(3)} (area always = 1)`, active: true },
+      { text: `Variance = (b−a)²/12 = ${((b-a)**2/12).toFixed(3)}`, active: true }
+    ]
+  },
+
+  normal: {
+    type: 'continuous',
+    label: 'Normal(μ, σ)',
+    formulaType: 'PDF',
+    formula: 'f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}\\exp\\!\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right)',
+    params: {
+      mu:    { val: 0,   min: -5, max: 5,  step: 0.1, sym: 'μ', label: 'Mean (center)' },
+      sigma: { val: 1,   min: 0.2, max: 4, step: 0.1, sym: 'σ', label: 'Std deviation (spread)' }
+    },
+    mean: ({mu})    => mu,
+    var:  ({sigma}) => sigma*sigma,
+    data: ({mu, sigma}) => {
+      const pts = [];
+      for (let x = mu - 4*sigma; x <= mu + 4*sigma; x += 8*sigma/400) {
+        pts.push({ x, y: GD.normalPDF(x, mu, sigma) });
+      }
+      return pts;
+    },
+    liveFn: ({mu, sigma}) => {
+      const peak = GD.normalPDF(mu, mu, sigma);
+      return `f(μ) = <span class="live-val">${peak.toFixed(3)}</span><br>` +
+             `P(μ−σ ≤ X ≤ μ+σ) ≈ <span class="live-val">68.3%</span>`;
+    },
+    chartTitle: 'Bell curve — 68/95/99.7 rule shaded',
+    insights: ({mu, sigma}) => [
+      { text: `68% within [${(mu-sigma).toFixed(1)}, ${(mu+sigma).toFixed(1)}]  (±1σ)`, active: true },
+      { text: `95% within [${(mu-2*sigma).toFixed(1)}, ${(mu+2*sigma).toFixed(1)}]  (±2σ)`, active: true },
+      { text: `99.7% within [${(mu-3*sigma).toFixed(1)}, ${(mu+3*sigma).toFixed(1)}]  (±3σ)`, active: true }
+    ],
+    extraDraw: true  // flag to draw shaded regions
+  },
+
+  exponential: {
+    type: 'continuous',
+    label: 'Exponential(λ)',
+    formulaType: 'PDF',
+    formula: 'f(x) = \\lambda e^{-\\lambda x}, \\quad x \\ge 0',
+    params: { lambda: { val: 1, min: 0.1, max: 5, step: 0.1, sym: 'λ', label: 'Rate parameter (events per unit time)' } },
+    mean: ({lambda}) => 1/lambda,
+    var:  ({lambda}) => 1/(lambda*lambda),
+    data: ({lambda}) => {
+      const pts = [];
+      const xMax = Math.max(8/lambda, 1);
+      for (let x = 0; x <= xMax; x += xMax/400) {
+        pts.push({ x, y: lambda * Math.exp(-lambda * x) });
+      }
+      return pts;
+    },
+    liveFn: ({lambda}) => {
+      const mean = 1/lambda;
+      return `E[X] = 1/λ = <span class="live-val">${mean.toFixed(2)}</span><br>` +
+             `P(X ≤ 1/λ) = 1−e⁻¹ ≈ <span class="live-val">63.2%</span>`;
+    },
+    chartTitle: 'Time between events',
+    insights: ({lambda}) => [
+      { text: `Memoryless: P(X>s+t|X>s) = P(X>t) — waiting time forgets its past`, active: true },
+      { text: `Rate λ=${lambda.toFixed(1)} → average wait = ${(1/lambda).toFixed(2)} time units`, active: true },
+      { text: `Continuous counterpart of Geometric distribution`, active: true }
+    ]
+  }
+};
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let currentDist = 'bernoulli';
+let params = {};  // current param values
+
+function getParamVals(distName) {
+  const cfg = DISTS[distName];
+  const vals = {};
+  Object.entries(cfg.params).forEach(([k, p]) => { vals[k] = p.val; });
+  return vals;
+}
+
+// ══════════════════════════════════════════
+// RENDER CHART
+// ══════════════════════════════════════════
+function render() {
+  const cfg = DISTS[currentDist];
+  const data = cfg.data(params);
+
+  // Formula
+  document.getElementById('formula-type-label').textContent = cfg.formulaType;
+  document.getElementById('formula-static').textContent = `$${cfg.formula}$`;
+  document.getElementById('chart-title').textContent = cfg.chartTitle;
+  if (window.gdRenderMath) gdRenderMath(document.getElementById('formula-panel'));
+
+  // Live formula
+  document.getElementById('formula-live').innerHTML = cfg.liveFn(params);
+
+  // Stats
+  const meanVal = typeof cfg.mean === 'function'
+    ? (cfg.mean.length === 1 ? cfg.mean(params) : cfg.mean(params))
+    : cfg.mean(params);
+  const varVal  = typeof cfg.var === 'function'
+    ? (cfg.var.length === 1 ? cfg.var(params) : cfg.var(params))
+    : cfg.var(params);
+
+  document.getElementById('stat-row').innerHTML = `
+    <div class="stat-pill"><span class="stat-pill__label">Mean μ</span><span class="stat-pill__val">${isFinite(meanVal) ? meanVal.toFixed(3) : '∞'}</span></div>
+    <div class="stat-pill"><span class="stat-pill__label">Variance σ²</span><span class="stat-pill__val">${isFinite(varVal) ? varVal.toFixed(3) : '∞'}</span></div>
+    <div class="stat-pill"><span class="stat-pill__label">Std dev σ</span><span class="stat-pill__val">${isFinite(varVal) ? Math.sqrt(varVal).toFixed(3) : '∞'}</span></div>
+    <div class="stat-pill"><span class="stat-pill__label">Type</span><span class="stat-pill__val">${cfg.type === 'discrete' ? 'Discrete' : 'Continuous'}</span></div>
+  `;
+
+  // Chart
+  renderChart(cfg, data, meanVal);
+
+  // Insights
+  const insights = cfg.insights(params);
+  document.getElementById('insights-area').innerHTML = insights
+    .map(ins => `<div class="gd-insight${ins.active ? ' gd-insight--active' : ''}">${ins.text}</div>`)
+    .join('');
+}
+
+// ══════════════════════════════════════════
+// CHART RENDERING
+// ══════════════════════════════════════════
+function renderChart(cfg, data, meanVal) {
+  const container = document.getElementById('dist-chart');
+  const cW = container.clientWidth || 600;
+  const cH = Math.round(cW * 0.5);
+  const M = { top: 20, right: 30, bottom: 44, left: 52 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top - M.bottom;
+
+  d3.select(container).select('svg').remove();
+
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${cW} ${cH}`)
+    .style('width', '100%').style('display', 'block');
+
+  const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+  // ── DISCRETE BAR CHART ──────────────────
+  if (cfg.type === 'discrete') {
+    const maxP = d3.max(data, d => d.prob);
+    const yMax = Math.min(1, maxP * 1.2);
+
+    const x = d3.scaleBand()
+      .domain(data.map(d => d.k))
+      .range([0, W])
+      .padding(data.length > 25 ? 0.05 : 0.2);
+
+    const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class', 'grid')
+      .call(d3.axisLeft(y).ticks(5).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Bars
+    const barColor = d3.scaleLinear()
+      .domain([0, maxP])
+      .range(['#4a5d8a', '#7c9eff']);
+
+    g.selectAll('.gd-bar').data(data).enter()
+      .append('rect').attr('class', 'gd-bar')
+      .attr('x', d => x(d.k))
+      .attr('y', d => y(d.prob))
+      .attr('width', x.bandwidth())
+      .attr('height', d => Math.max(0, H - y(d.prob)))
+      .attr('fill', d => barColor(d.prob))
+      .attr('rx', 2)
+      .append('title')
+        .text(d => `P(X=${d.k}) = ${d.prob.toFixed(4)}`);
+
+    // Mean line
+    if (isFinite(meanVal)) {
+      const mx = x(Math.round(meanVal));
+      if (mx !== undefined) {
+        g.append('line').attr('class', 'gd-mean-line')
+          .attr('x1', mx + x.bandwidth()/2).attr('x2', mx + x.bandwidth()/2)
+          .attr('y1', 0).attr('y2', H)
+          .attr('stroke', GD.COLORS.warn).attr('stroke-width', 2)
+          .attr('stroke-dasharray', '5 3');
+        g.append('text')
+          .attr('x', mx + x.bandwidth()/2 + 4).attr('y', 12)
+          .attr('fill', GD.COLORS.warn).attr('font-size', 11)
+          .text(`μ=${meanVal.toFixed(2)}`);
+      }
+    }
+
+    // Axes
+    const xTickCount = data.length > 30 ? 10 : data.length;
+    g.append('g').attr('class', 'axis').attr('transform', `translate(0,${H})`)
+      .call(d3.axisBottom(x).tickValues(
+        data.length > 20
+          ? data.filter(d => d.k % Math.ceil(data.length/12) === 0).map(d => d.k)
+          : data.map(d => d.k)
+      ));
+    g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.3f')));
+
+    // Axis labels
+    g.append('text').attr('x', W/2).attr('y', H + 36).attr('text-anchor', 'middle')
+      .attr('fill', GD.COLORS.text2).attr('font-size', 11).text('k');
+    g.append('text').attr('transform', 'rotate(-90)').attr('x', -H/2).attr('y', -42)
+      .attr('text-anchor', 'middle').attr('fill', GD.COLORS.text2).attr('font-size', 11).text('P(X = k)');
+
+  // ── CONTINUOUS CURVE ────────────────────
+  } else {
+    const xMin = d3.min(data, d => d.x);
+    const xMax = d3.max(data, d => d.x);
+    const yMax = d3.max(data, d => d.y) * 1.15;
+
+    const x = d3.scaleLinear().domain([xMin, xMax]).range([0, W]);
+    const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class', 'grid')
+      .call(d3.axisLeft(y).ticks(5).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Normal: shade 1σ, 2σ, 3σ bands first (under the curve)
+    if (cfg.extraDraw && currentDist === 'normal') {
+      const mu = params.mu, sigma = params.sigma;
+      const bands = [
+        { lo: mu-sigma,   hi: mu+sigma,   color: '#7c9eff', op: 0.30 },
+        { lo: mu-2*sigma, hi: mu+2*sigma, color: '#7c9eff', op: 0.15 },
+        { lo: mu-3*sigma, hi: mu+3*sigma, color: '#7c9eff', op: 0.08 }
+      ];
+      bands.reverse().forEach(band => {
+        const bandData = data.filter(d => d.x >= band.lo && d.x <= band.hi);
+        if (!bandData.length) return;
+        const area = d3.area().x(d => x(d.x)).y0(H).y1(d => y(d.y)).curve(d3.curveCatmullRom);
+        g.append('path').attr('d', area(bandData))
+          .attr('fill', band.color).attr('opacity', band.op);
+      });
+
+      // Band labels
+      [
+        {x: mu,       label: '68.3%', dy: -8},
+        {x: mu+1.5*sigma, label: '95.5%', dy: -8},
+        {x: mu+2.5*sigma, label: '99.7%', dy: -8}
+      ].forEach(lbl => {
+        const px = x(lbl.x);
+        if (px > 0 && px < W) {
+          g.append('text').attr('x', px).attr('y', H/2 + lbl.dy)
+            .attr('text-anchor', 'middle').attr('fill', '#7c9eff')
+            .attr('font-size', 10).attr('opacity', 0.8).text(lbl.label);
+        }
+      });
+    }
+
+    // Exponential: shade area up to mean
+    if (currentDist === 'exponential') {
+      const lambda = params.lambda;
+      const shadePts = data.filter(d => d.x <= 1/lambda);
+      if (shadePts.length) {
+        const area = d3.area().x(d => x(d.x)).y0(H).y1(d => y(d.y)).curve(d3.curveCatmullRom);
+        g.append('path').attr('d', area(shadePts))
+          .attr('fill', GD.COLORS.success).attr('opacity', 0.25);
+        g.append('text').attr('x', x(0.4/lambda)).attr('y', H * 0.35)
+          .attr('text-anchor', 'middle').attr('fill', GD.COLORS.success)
+          .attr('font-size', 10).text('63.2%');
+      }
+    }
+
+    // Uniform: shade the rectangle
+    if (currentDist === 'uniform') {
+      const {a, b} = params;
+      const h = 1/(b-a);
+      g.append('rect')
+        .attr('x', x(a)).attr('y', y(h))
+        .attr('width', x(b) - x(a))
+        .attr('height', H - y(h))
+        .attr('fill', '#7c9eff').attr('opacity', 0.25);
+    }
+
+    // Main curve
+    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveCatmullRom);
+    g.append('path').attr('d', line(data))
+      .attr('fill', 'none').attr('stroke', GD.COLORS.brand).attr('stroke-width', 2.5);
+
+    // Mean vertical line
+    if (isFinite(meanVal)) {
+      const mx = x(meanVal);
+      g.append('line')
+        .attr('x1', mx).attr('x2', mx).attr('y1', 0).attr('y2', H)
+        .attr('stroke', GD.COLORS.warn).attr('stroke-width', 1.5).attr('stroke-dasharray', '5 3');
+      g.append('text').attr('x', mx + 4).attr('y', 14)
+        .attr('fill', GD.COLORS.warn).attr('font-size', 11)
+        .text(`μ=${meanVal.toFixed(2)}`);
+    }
+
+    // Axes
+    g.append('g').attr('class', 'axis').attr('transform', `translate(0,${H})`)
+      .call(d3.axisBottom(x).ticks(8));
+    g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.3f')));
+
+    // Axis labels
+    g.append('text').attr('x', W/2).attr('y', H + 36).attr('text-anchor', 'middle')
+      .attr('fill', GD.COLORS.text2).attr('font-size', 11).text('x');
+    g.append('text').attr('transform', 'rotate(-90)').attr('x', -H/2).attr('y', -42)
+      .attr('text-anchor', 'middle').attr('fill', GD.COLORS.text2).attr('font-size', 11).text('f(x)');
+  }
+}
+
+// ══════════════════════════════════════════
+// CONTROLS (sliders)
+// ══════════════════════════════════════════
+function buildControls(distName) {
+  const cfg = DISTS[distName];
+  const inner = document.getElementById('sliders-inner');
+  inner.innerHTML = '';
+
+  Object.entries(cfg.params).forEach(([key, spec]) => {
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div class="gd-control">
+        <label class="gd-control__label">
+          <span class="gd-control__sym">${spec.sym}</span>
+          ${spec.label}
+        </label>
+        <span class="gd-control__value" id="val-${key}">${(spec.fmt || (v=>v.toFixed(2)))(spec.val)}</span>
+      </div>
+      <div class="gd-control--full">
+        <input class="gd-control__slider" type="range"
+               id="slider-${key}"
+               min="${spec.min}" max="${spec.max}" step="${spec.step}"
+               value="${spec.val}">
+      </div>`;
+    inner.appendChild(row);
+
+    document.getElementById(`slider-${key}`).addEventListener('input', function() {
+      let v = +this.value;
+      if (spec.validate && !spec.validate(v, cfg.params)) return;
+      params[key] = v;
+      spec.val = v;
+      document.getElementById(`val-${key}`).textContent = (spec.fmt || (v=>v.toFixed(2)))(v);
+      render();
+    });
+  });
+}
+
+// ══════════════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════════════
+document.getElementById('dist-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.gd-tab');
+  if (!btn) return;
+  document.querySelectorAll('.gd-tab').forEach(t => t.classList.remove('gd-tab--active'));
+  btn.classList.add('gd-tab--active');
+  currentDist = btn.dataset.dist;
+  params = getParamVals(currentDist);
+  buildControls(currentDist);
+  render();
+});
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+params = getParamVals(currentDist);
+buildControls(currentDist);
+render();
+
+// Re-render on resize
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(render, 150);
+});
+</script>
+</body>
+</html>
