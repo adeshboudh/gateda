@@ -1,0 +1,41 @@
+:root {
+  /* Backgrounds */
+  --gd-bg-0: #0f1117;
+  --gd-bg-1: #161b27;
+  --gd-bg-2: #1e2535;
+  --gd-bg-3: #252d40;
+  --gd-border: #2e3a52;
+
+  /* Text */
+  --gd-text-0: #e8eaf0;
+  --gd-text-1: #9aa5be;
+  --gd-text-2: #606880;
+
+  /* Brand (from _sass/custom/custom.scss) */
+  --gd-brand: #7c9eff;
+  --gd-brand-hover: #9bb4ff;
+
+  /* Semantic */
+  --gd-success: #4caf82;
+  --gd-error: #e05c6b;
+  --gd-warn: #f0a44a;
+
+  /* Difficulty stars */
+  --gd-star-1: #6fa3ef;
+  --gd-star-2: #f0a44a;
+  --gd-star-3: #e05c6b;
+
+  /* Radius */
+  --gd-r-sm: 4px;
+  --gd-r-md: 8px;
+  --gd-r-lg: 12px;
+
+  /* Fonts (matching Jekyll site) */
+  --gd-font-body: "Inter", system-ui, sans-serif;
+  --gd-font-head: "Lexend", "Inter", system-ui, sans-serif;
+  --gd-font-mono: "JetBrains Mono", monospace;
+
+  /* Sidebar */
+  --gd-sidebar-w: 260px;
+  --gd-toc-w: 220px;
+}

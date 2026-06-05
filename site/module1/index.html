@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 1 — Probability & Statistics · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <style>
+    .topic-grid { display: flex; flex-direction: column; gap: 10px; }
+    .topic-row {
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      padding: 14px 18px;
+      transition: border-color 0.15s;
+    }
+    .topic-row:hover { border-color: var(--gd-brand); }
+    .topic-num {
+      font-family: var(--gd-font-mono);
+      font-size: 0.82rem;
+      color: var(--gd-text-2);
+      font-weight: 600;
+    }
+    .topic-label { font-size: 0.92rem; color: var(--gd-text-0); font-weight: 500; }
+    .topic-sublabel { font-size: 0.78rem; color: var(--gd-text-2); margin-top: 2px; }
+    .topic-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--gd-border);
+      white-space: nowrap;
+    }
+    .topic-btn--viz { background: rgba(124,158,255,0.1); border-color: rgba(124,158,255,0.3); color: var(--gd-brand); }
+    .topic-btn--notes { color: var(--gd-text-1); }
+    .topic-btn--soon { color: var(--gd-text-2); cursor: default; }
+    .topic-btn:not(.topic-btn--soon):hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+    .module-meta {
+      background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+      border-left: 3px solid var(--gd-brand);
+      border-radius: var(--gd-r-lg);
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      display: flex; gap: 32px; flex-wrap: wrap;
+    }
+    .module-meta__item { }
+    .module-meta__label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gd-text-2); margin-bottom: 4px; }
+    .module-meta__val { font-size: 1rem; font-weight: 600; color: var(--gd-text-0); }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content" style="margin-right:0;">
+    <div class="gd-breadcrumb"><a href="../index.html">Home</a><span>›</span> Module 1</div>
+
+    <h1 style="font-family:var(--gd-font-head);font-size:1.85rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;">
+      Module 1 — Probability &amp; Statistics
+    </h1>
+    <p style="color:var(--gd-text-1);margin-bottom:24px;font-size:0.95rem;">
+      Highest-weight subject (~18%). Each topic has an interactive visualization and a full text note with worked examples and practice questions.
+    </p>
+
+    <div class="module-meta">
+      <div class="module-meta__item"><div class="module-meta__label">GATE weight</div><div class="module-meta__val">~18%</div></div>
+      <div class="module-meta__item"><div class="module-meta__label">Topics</div><div class="module-meta__val">8</div></div>
+      <div class="module-meta__item"><div class="module-meta__label">Practice Qs</div><div class="module-meta__val">~96</div></div>
+      <div class="module-meta__item"><div class="module-meta__label">Priority</div><div class="module-meta__val">★ Highest ROI</div></div>
+    </div>
+
+    <div class="topic-grid">
+      <div class="topic-row">
+        <div class="topic-num">1.1</div>
+        <div>
+          <div class="topic-label">Counting &amp; Basic Probability</div>
+          <div class="topic-sublabel">Set theory, Venn diagrams, nPr, nCr, addition rule</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.2</div>
+        <div>
+          <div class="topic-label">Conditional Probability &amp; Bayes' Theorem</div>
+          <div class="topic-sublabel">P(A|B), independence, Bayes rule, base rate fallacy</div>
+        </div>
+        <a class="topic-btn topic-btn--viz" href="viz-1-2-bayes.html">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.3</div>
+        <div>
+          <div class="topic-label">Random Variables &amp; Expectation</div>
+          <div class="topic-sublabel">E[X], Var(X), linear transforms, PMF/PDF</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.4</div>
+        <div>
+          <div class="topic-label">Probability Distributions</div>
+          <div class="topic-sublabel">Bernoulli, Binomial, Geometric, Poisson, Uniform, Normal, Exponential</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.5</div>
+        <div>
+          <div class="topic-label">Normal Distribution &amp; CLT</div>
+          <div class="topic-sublabel">Z-table, 68-95-99.7 rule, Central Limit Theorem demo</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.6</div>
+        <div>
+          <div class="topic-label">Covariance &amp; Correlation</div>
+          <div class="topic-sublabel">Cov(X,Y), Pearson r, scatter plot, joint distributions</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.7</div>
+        <div>
+          <div class="topic-label">Estimation &amp; Confidence Intervals</div>
+          <div class="topic-sublabel">MLE, CI coverage animation, sample size effect</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+
+      <div class="topic-row">
+        <div class="topic-num">1.8</div>
+        <div>
+          <div class="topic-label">Hypothesis Testing</div>
+          <div class="topic-sublabel">Type I/II error, p-value, power, z-test, t-test</div>
+        </div>
+        <a class="topic-btn topic-btn--viz topic-btn--soon" title="Coming soon">✦ Viz</a>
+        <a class="topic-btn topic-btn--notes topic-btn--soon" title="Coming soon">Notes</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/nav.js"></script>
+</body>
+</html>

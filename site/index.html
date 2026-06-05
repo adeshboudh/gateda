@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GATE DA — Interactive Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <style>
+    .home-hero {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--gd-border);
+      margin-bottom: 40px;
+    }
+    .home-hero h1 {
+      font-family: var(--gd-font-head);
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+    .home-hero p { color: var(--gd-text-1); font-size: 1rem; max-width: 500px; }
+    .home-hero .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(124,158,255,0.12);
+      color: var(--gd-brand);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .module-card {
+      background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-lg);
+      padding: 22px 24px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .module-card:hover { border-color: var(--gd-brand); background: var(--gd-bg-3); }
+    .module-card__num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gd-text-2);
+    }
+    .module-card__title {
+      font-family: var(--gd-font-head);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gd-text-0);
+    }
+    .module-card__desc { font-size: 0.82rem; color: var(--gd-text-2); line-height: 1.5; }
+    .module-card__weight {
+      font-size: 0.75rem;
+      color: var(--gd-brand);
+      font-weight: 600;
+    }
+    .module-card__actions { display: flex; gap: 8px; margin-top: 6px; }
+    .module-card__btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--gd-border);
+      color: var(--gd-text-1);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .module-card__btn--viz {
+      background: rgba(124,158,255,0.1);
+      border-color: rgba(124,158,255,0.3);
+      color: var(--gd-brand);
+    }
+    .module-card__btn:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+    .section-title {
+      font-family: var(--gd-font-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gd-text-1);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gd-border);
+    }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content" style="margin-right:0; max-width:900px;">
+    <div class="home-hero">
+      <span class="tag">GATE DA 2027</span>
+      <h1>Interactive Study Notes</h1>
+      <p>Visual concept explainers + complete text notes with worked examples and practice questions. Built for deep understanding, not just memorization.</p>
+    </div>
+
+    <div class="section-title">Modules</div>
+    <div class="module-grid">
+      <a class="module-card" href="module1/index.html">
+        <div class="module-card__num">Module 1</div>
+        <div class="module-card__title">Probability &amp; Statistics</div>
+        <div class="module-card__desc">Distributions, Bayes, CLT, hypothesis testing, covariance.</div>
+        <div class="module-card__weight">~18% · Highest weight</div>
+        <div class="module-card__actions">
+          <span class="module-card__btn module-card__btn--viz">✦ Visualize</span>
+          <span class="module-card__btn">Notes</span>
+        </div>
+      </a>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 2</div>
+        <div class="module-card__title">Programming &amp; DSA</div>
+        <div class="module-card__desc">Sorting animations, BFS/DFS traversal, binary search, recursion.</div>
+        <div class="module-card__weight">~14% · Coming soon</div>
+      </div>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 3</div>
+        <div class="module-card__title">Machine Learning</div>
+        <div class="module-card__desc">SVM margin, entropy slider, PCA variance, gradient descent.</div>
+        <div class="module-card__weight">~17% · Coming soon</div>
+      </div>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 4</div>
+        <div class="module-card__title">Databases &amp; Warehousing</div>
+        <div class="module-card__desc">B+ tree insertion, SQL join, OLAP cuboid drill-down.</div>
+        <div class="module-card__weight">~14% · Coming soon</div>
+      </div>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 5</div>
+        <div class="module-card__title">Linear Algebra</div>
+        <div class="module-card__desc">Eigenvector transformation, SVD, matrix multiply visualization.</div>
+        <div class="module-card__weight">~12% · Coming soon</div>
+      </div>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 6</div>
+        <div class="module-card__title">Artificial Intelligence</div>
+        <div class="module-card__desc">A* search on a grid, minimax game tree, Bayes net DAG.</div>
+        <div class="module-card__weight">~9% · Coming soon</div>
+      </div>
+
+      <div class="module-card" style="opacity:0.5; cursor:default;">
+        <div class="module-card__num">Module 7</div>
+        <div class="module-card__title">Calculus &amp; Optimization</div>
+        <div class="module-card__desc">Taylor series approx, gradient descent on a loss surface.</div>
+        <div class="module-card__weight">~8% · Coming soon</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>
