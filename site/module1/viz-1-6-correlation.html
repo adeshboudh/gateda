@@ -172,6 +172,7 @@
 
   // ── Drag — defined once; does NOT call redraw() so dots are never destroyed mid-drag ──
   const pointDrag = d3.drag()
+    .subject(function(event, d) { return { x: x(d.x), y: y(d.y) }; })
     .on('start', function() {
       d3.select(this).raise().attr('stroke-width', 2.5).attr('stroke', 'white');
     })
