@@ -172,78 +172,102 @@ let aParam = 2, bParam = 3;
 
 // ── VIZ 1: DRAGGABLE PMF ─────────────────
 (function() {
-  function draw() {
+  let g, xScale, yScale, W, H;
+
+  function initChart() {
     const container = document.getElementById('pmf-chart');
     const cW = container.clientWidth || 560;
     const cH = Math.round(cW * 0.52);
     const M = { top: 20, right: 20, bottom: 50, left: 50 };
-    const W = cW - M.left - M.right;
-    const H = cH - M.top  - M.bottom;
+    W = cW - M.left - M.right;
+    H = cH - M.top  - M.bottom;
 
     d3.select(container).select('svg').remove();
     const svg = d3.select(container).append('svg')
-      .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
-    const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+    g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
 
+    xScale = d3.scaleBand().domain(OUTCOMES).range([0, W]).padding(0.25);
+    yScale = d3.scaleLinear().range([H, 0]);
+
+    // Static structure — created once
+    g.append('g').attr('class', 'pmf-grid');
+    g.append('g').attr('class', 'pmf-bars');
+    g.append('g').attr('class', 'pmf-labels');
+    g.append('line').attr('class', 'pmf-mean-line');
+    g.append('polygon').attr('class', 'pmf-mean-tri');
+    g.append('text').attr('class', 'pmf-mean-lbl');
+    g.append('line').attr('class', 'pmf-sd-span');
+    g.append('g').attr('class', 'axis pmf-x-axis').attr('transform', `translate(0,${H})`);
+    g.append('g').attr('class', 'axis pmf-y-axis');
+
+    update();
+  }
+
+  function update() {
     const ps = getProbs();
     const st = getStats();
-    const x = d3.scaleBand().domain(OUTCOMES).range([0,W]).padding(0.25);
-    const y = d3.scaleLinear().domain([0, Math.max(...ps)*1.3]).range([H, 0]);
+    yScale.domain([0, Math.max(...ps) * 1.3]);
 
     // Grid
-    g.append('g').attr('class','grid')
-      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    g.select('.pmf-grid')
+      .call(d3.axisLeft(yScale).ticks(4).tickSize(-W).tickFormat(''))
       .call(gr => gr.select('.domain').remove());
 
-    // Bars
-    g.selectAll('.gd-bar').data(OUTCOMES).enter().append('rect')
-      .attr('class','gd-bar').attr('x', d => x(d))
-      .attr('y', (d,i) => y(ps[i])).attr('width', x.bandwidth())
-      .attr('height', (d,i) => Math.max(0, H - y(ps[i])))
-      .attr('rx',3).attr('fill','#7c9eff').attr('opacity',0.75)
-      .style('cursor','ns-resize')
+    // Bars — D3 join; drag handler stays on persistent elements
+    g.select('.pmf-bars').selectAll('rect')
+      .data(OUTCOMES)
+      .join('rect')
+      .attr('x', d => xScale(d))
+      .attr('y', (d, i) => yScale(ps[i]))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d, i) => Math.max(0, H - yScale(ps[i])))
+      .attr('rx', 3).attr('fill', '#7c9eff').attr('opacity', 0.75)
+      .style('cursor', 'ns-resize')
       .call(d3.drag()
         .on('drag', function(event, d) {
           const i = OUTCOMES.indexOf(d);
-          const newH = Math.max(0, H - event.y);
-          rawWeights[i] = Math.max(0.1, newH / H * 10);
-          draw();
+          // event.y is in the g coordinate system (already offset by M.top)
+          rawWeights[i] = Math.max(0.1, Math.max(0, H - event.y) / H * 10);
+          update();
         })
       );
 
-    // Probability labels on bars
-    ps.forEach((p,i) => {
-      if (p > 0.03) {
-        g.append('text').attr('x', x(OUTCOMES[i]) + x.bandwidth()/2)
-          .attr('y', y(p) - 4).attr('text-anchor','middle')
-          .attr('fill','#9aa5be').attr('font-size', 10).text(p.toFixed(3));
-      }
-    });
+    // Prob labels
+    g.select('.pmf-labels').selectAll('text')
+      .data(OUTCOMES)
+      .join('text')
+      .attr('x', d => xScale(d) + xScale.bandwidth() / 2)
+      .attr('y', (d, i) => ps[i] > 0.03 ? yScale(ps[i]) - 4 : -999)
+      .attr('text-anchor', 'middle').attr('fill', '#9aa5be').attr('font-size', 10)
+      .text((d, i) => ps[i].toFixed(3));
 
-    // Mean line (triangle marker below x-axis)
-    const mx = x(Math.round(st.mu)) + x.bandwidth()/2;
-    const muX = x.range()[0] + (st.mu - OUTCOMES[0]) / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0]) * W;
-    g.append('line').attr('x1',muX).attr('x2',muX).attr('y1',0).attr('y2',H)
-      .attr('stroke','#f0a44a').attr('stroke-width',2).attr('stroke-dasharray','4 3');
-    g.append('polygon')
-      .attr('points',`${muX-7},${H+8} ${muX+7},${H+8} ${muX},${H+1}`)
-      .attr('fill','#f0a44a');
-    g.append('text').attr('x',muX).attr('y',H+22)
-      .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size',11).attr('font-weight','600')
+    // Mean line + triangle + label
+    const muX = (st.mu - OUTCOMES[0]) / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0]) * W;
+    g.select('.pmf-mean-line')
+      .attr('x1', muX).attr('x2', muX).attr('y1', 0).attr('y2', H)
+      .attr('stroke', '#f0a44a').attr('stroke-width', 2).attr('stroke-dasharray', '4 3');
+    g.select('.pmf-mean-tri')
+      .attr('points', `${muX-7},${H+8} ${muX+7},${H+8} ${muX},${H+1}`)
+      .attr('fill', '#f0a44a');
+    g.select('.pmf-mean-lbl')
+      .attr('x', muX).attr('y', H + 22)
+      .attr('text-anchor', 'middle').attr('fill', '#f0a44a')
+      .attr('font-size', 11).attr('font-weight', '600')
       .text(`μ=${st.mu.toFixed(2)}`);
 
-    // ±σ bands
-    const xLo = muX - (st.sd / (OUTCOMES[OUTCOMES.length-1]-OUTCOMES[0])) * W;
-    const xHi = muX + (st.sd / (OUTCOMES[OUTCOMES.length-1]-OUTCOMES[0])) * W;
-    g.append('line').attr('x1',xLo).attr('x2',xHi).attr('y1',H/2).attr('y2',H/2)
-      .attr('stroke','rgba(240,164,74,0.4)').attr('stroke-width',6).attr('stroke-linecap','round');
+    // ±σ span bar
+    const spanW = (st.sd / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0])) * W;
+    g.select('.pmf-sd-span')
+      .attr('x1', muX - spanW).attr('x2', muX + spanW)
+      .attr('y1', H / 2).attr('y2', H / 2)
+      .attr('stroke', 'rgba(240,164,74,0.4)').attr('stroke-width', 6).attr('stroke-linecap', 'round');
 
     // Axes
-    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`)
-      .call(d3.axisBottom(x).tickFormat(d => `X=${d}`));
-    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+    g.select('.pmf-x-axis').call(d3.axisBottom(xScale).tickFormat(d => `X=${d}`));
+    g.select('.pmf-y-axis').call(d3.axisLeft(yScale).ticks(4).tickFormat(d3.format('.2f')));
 
-    // Update stats
+    // Stats panel
     document.getElementById('ex-val').textContent  = st.mu.toFixed(3);
     document.getElementById('var-val').textContent = st.vr.toFixed(3);
     document.getElementById('sd-val').textContent  = st.sd.toFixed(3);
@@ -254,9 +278,9 @@ let aParam = 2, bParam = 3;
     drawTransform();
   }
 
-  window.redrawPMF = draw;
-  draw();
-  window.addEventListener('resize', () => setTimeout(draw, 150));
+  window.redrawPMF = update;
+  initChart();
+  window.addEventListener('resize', () => setTimeout(initChart, 150));
 })();
 
 // ── VIZ 2: LINEAR TRANSFORM ──────────────
