@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.8 Hypothesis Testing — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .error-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 14px 0; }
+    .error-card {
+      background: var(--gd-bg-2); border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md); padding: 13px 15px; text-align: center;
+    }
+    .error-card__label { font-size: 0.68rem; color: var(--gd-text-2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .error-card__val { font-family: var(--gd-font-mono); font-size: 1.2rem; font-weight: 700; }
+    .error-card--alpha .error-card__val { color: #e05c6b; }
+    .error-card--beta .error-card__val { color: #f0a44a; }
+    .error-card--power .error-card__val { color: #4caf82; }
+    .error-card--z .error-card__val { color: #7c9eff; }
+    .pvalue-display {
+      font-family: var(--gd-font-mono); font-size: 2rem; font-weight: 700;
+      text-align: center; padding: 14px; border-radius: var(--gd-r-lg);
+      margin: 12px 0; transition: 0.2s; background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+    }
+    .decision-tag {
+      display: inline-block; padding: 3px 12px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700; margin-left: 12px;
+    }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.8 Hypothesis Testing
+    </div>
+    <a class="gd-pill-link" href="1-8-hypothesis.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q8 · 2025 Q29</span>
+      </div>
+      <h1 id="top">Hypothesis Testing</h1>
+      <p>Type I error (α) and Type II error (β) are in tension — reducing one raises the other. Power = 1 − β is what good tests maximise.</p>
+    </div>
+
+    <!-- ═══ VIZ 1: NULL vs ALTERNATIVE ═══ -->
+    <h2 id="viz1">Visualization 1 — Type I / II Errors &amp; Power</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      Blue = H₀ distribution (null). Green = H₁ distribution (alternative). Move sliders to see how α, β, and power change.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Definitions</div>
+        <div class="gd-formula">$$\alpha = P(\text{Reject }H_0 \mid H_0\text{ true}) \qquad \beta = P(\text{Fail to reject }H_0 \mid H_1\text{ true})$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Power = 1 − β</div>
+        <div class="gd-formula-live" id="error-live">—</div>
+      </div>
+    </div>
+
+    <div class="gd-chart">
+      <div class="gd-chart__title">Red region = α (Type I) · Orange region = β (Type II) · Green = Power</div>
+      <div id="error-chart"></div>
+    </div>
+
+    <div class="error-grid">
+      <div class="error-card error-card--alpha">
+        <div class="error-card__label">α (Type I)</div>
+        <div class="error-card__val" id="alpha-val">—</div>
+      </div>
+      <div class="error-card error-card--beta">
+        <div class="error-card__label">β (Type II)</div>
+        <div class="error-card__val" id="beta-val">—</div>
+      </div>
+      <div class="error-card error-card--power">
+        <div class="error-card__label">Power (1−β)</div>
+        <div class="error-card__val" id="power-val">—</div>
+      </div>
+      <div class="error-card error-card--z">
+        <div class="error-card__label">Crit value z*</div>
+        <div class="error-card__val" id="zstar-val">—</div>
+      </div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Parameters (H₀: μ=0, known σ=1)</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">δ</span> Effect size (H₁: μ = δ)</label>
+        <span class="gd-control__value" id="delta-val">1.5</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="delta-slider" min="0.2" max="4" step="0.1" value="1.5"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">α</span> Significance level (one-tailed)</label>
+        <span class="gd-control__value" id="alpha-slider-val">0.05</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="alpha-slider-ctrl" min="1" max="4" step="1" value="2"></div>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live insights</div>
+      <div class="gd-insight gd-insight--active" id="ins-tradeoff">—</div>
+      <div class="gd-insight gd-insight--warn" id="ins-practical">—</div>
+    </div>
+
+    <!-- ═══ VIZ 2: P-VALUE ═══ -->
+    <h2 id="viz2">Visualization 2 — p-value Visualizer</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      Drag the test statistic. The p-value is the probability of seeing a result this extreme (or more) under H₀.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">p-value (one-tailed right)</div>
+        <div class="gd-formula">$$p = P(Z \geq z_{\text{obs}} \mid H_0) = 1 - \Phi(z_{\text{obs}})$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current</div>
+        <div class="gd-formula-live" id="pval-live">—</div>
+      </div>
+    </div>
+
+    <div class="gd-chart">
+      <div class="gd-chart__title">Drag the vertical line to move z_obs · Shaded area = p-value</div>
+      <div id="pval-chart"></div>
+    </div>
+
+    <div class="pvalue-display" id="pval-display">p = —</div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Test statistic</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">z</span> Observed z-statistic (drag chart or use slider)</label>
+        <span class="gd-control__value" id="zobs-val">1.96</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="zobs-slider" min="-4" max="4" step="0.05" value="1.96"></div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>p-value ≠ P(H₀ is true)</strong>. It's P(data this extreme | H₀ true). A very common confusion.</p>
+      <p><strong>α ↓ ⟹ power ↓</strong> (harder to detect real effect). Increasing n raises power without changing α.</p>
+      <p><strong>Two-tailed test:</strong> Reject if |z| &gt; z_α/2 (e.g., 1.96 for α=0.05). p-value = 2×P(Z≥|z_obs|).</p>
+      <p><strong>t-test vs z-test:</strong> Use t when σ unknown (use sample s). t → z as n → ∞.</p>
+    </div>
+    <a class="gd-pill-link" href="1-8-hypothesis.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// Normal CDF (Abramowitz & Stegun)
+function Phi(x) {
+  const t = 1/(1+0.2316419*Math.abs(x));
+  const d = 0.3989423*Math.exp(-x*x/2);
+  const p = d*t*(0.3193815+t*(-0.3565638+t*(1.7814779+t*(-1.8212560+t*1.3302744))));
+  return x >= 0 ? 1-p : p;
+}
+function normalPDF(x, mu=0, s=1) { return Math.exp(-0.5*((x-mu)/s)**2)/(s*Math.sqrt(2*Math.PI)); }
+function invPhi(p) {
+  // Rational approximation
+  function rationalApprox(t) {
+    const c = [2.515517, 0.802853, 0.010328];
+    const d = [1.432788, 0.189269, 0.001308];
+    return t-(c[0]+c[1]*t+c[2]*t*t)/(1+d[0]*t+d[1]*t*t+d[2]*t*t*t);
+  }
+  if (p < 0.5) return -rationalApprox(Math.sqrt(-2*Math.log(p)));
+  return rationalApprox(Math.sqrt(-2*Math.log(1-p)));
+}
+
+const ALPHA_OPTS = [
+  { a: 0.10, label: '0.10' },
+  { a: 0.05, label: '0.05' },
+  { a: 0.025, label: '0.025' },
+  { a: 0.01, label: '0.01' }
+];
+
+let delta = 1.5, alphaIdx = 1;
+
+// ── VIZ 1 ────────────────────────────────
+function drawErrorChart() {
+  const container = document.getElementById('error-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.5);
+  const M = { top: 22, right: 24, bottom: 44, left: 54 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const alpha = ALPHA_OPTS[alphaIdx].a;
+  const zstar = invPhi(1 - alpha);  // one-tailed critical value
+  const H1mu  = delta;
+
+  const xRange = [-3.5, delta + 3.5];
+  const x = d3.scaleLinear().domain(xRange).range([0,W]);
+  const pts  = d3.range(xRange[0], xRange[1]+0.02, 0.05);
+  const yMax = normalPDF(0, 0, 1) * 1.15;
+  const y    = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Fill: α region (under H0 beyond zstar) — red
+  const alphaArea = d3.area().x(d=>x(d)).y0(H).y1(d => y(normalPDF(d,0,1)))
+    .curve(d3.curveBasis);
+  const alphaPts = pts.filter(p => p >= zstar);
+  g.append('path').datum(alphaPts).attr('d', alphaArea).attr('fill','#e05c6b').attr('opacity',0.4);
+
+  // Fill: β region (under H1 below zstar) — orange
+  const betaArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  const betaPts = pts.filter(p => p <= zstar);
+  g.append('path').datum(betaPts).attr('d', betaArea).attr('fill','#f0a44a').attr('opacity',0.35);
+
+  // Fill: power region (under H1 beyond zstar) — green
+  const powerArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  const powerPts = pts.filter(p => p >= zstar);
+  g.append('path').datum(powerPts).attr('d', powerArea).attr('fill','#4caf82').attr('opacity',0.35);
+
+  // H0 curve
+  const lineH0 = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',lineH0).attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // H1 curve
+  const lineH1 = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',lineH1).attr('fill','none').attr('stroke','#4caf82').attr('stroke-width',2);
+
+  // Critical line
+  g.append('line').attr('x1',x(zstar)).attr('x2',x(zstar)).attr('y1',0).attr('y2',H)
+    .attr('stroke','#fff').attr('stroke-width',1.5).attr('stroke-dasharray','5 3');
+  g.append('text').attr('x',x(zstar)+3).attr('y',12).attr('fill','#fff').attr('font-size',10)
+    .text(`z*=${zstar.toFixed(2)}`);
+
+  // Labels
+  g.append('text').attr('x',x(0)).attr('y',y(yMax*0.97)).attr('text-anchor','middle')
+    .attr('fill','#7c9eff').attr('font-size',10).attr('font-weight','700').text('H₀ (μ=0)');
+  if (H1mu <= xRange[1]-0.5)
+    g.append('text').attr('x',x(H1mu)).attr('y',y(yMax*0.97)).attr('text-anchor','middle')
+      .attr('fill','#4caf82').attr('font-size',10).attr('font-weight','700').text(`H₁ (μ=${H1mu.toFixed(1)})`);
+
+  // Region labels
+  if (zstar < xRange[1]-0.3)
+    g.append('text').attr('x',(x(zstar)+W)/2).attr('y',H*0.6).attr('text-anchor','middle')
+      .attr('fill','#e05c6b').attr('font-size',9).text('α');
+  g.append('text').attr('x',(x(xRange[0])+x(zstar))/2).attr('y',H*0.72).attr('text-anchor','middle')
+    .attr('fill','#f0a44a').attr('font-size',9).text('β');
+  if (zstar < xRange[1]-0.3)
+    g.append('text').attr('x',(x(zstar)+W)/2).attr('y',H*0.45).attr('text-anchor','middle')
+      .attr('fill','#4caf82').attr('font-size',9).text('Power');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+
+  // Compute values
+  const alphaVal = alpha;
+  const betaVal  = Phi(zstar - H1mu);
+  const power    = 1 - betaVal;
+
+  document.getElementById('alpha-val').textContent  = (alphaVal*100).toFixed(1)+'%';
+  document.getElementById('beta-val').textContent   = (betaVal*100).toFixed(1)+'%';
+  document.getElementById('power-val').textContent  = (power*100).toFixed(1)+'%';
+  document.getElementById('zstar-val').textContent  = zstar.toFixed(2);
+  document.getElementById('error-live').innerHTML   =
+    `α=${(alphaVal*100).toFixed(1)}% · β=${(betaVal*100).toFixed(1)}%<br>Power = <span class="live-val">${(power*100).toFixed(1)}%</span>`;
+  document.getElementById('ins-tradeoff').textContent =
+    `With α=${(alphaVal*100).toFixed(0)}% and effect δ=${H1mu.toFixed(1)}σ: power=${(power*100).toFixed(0)}%. ` +
+    (power < 0.5 ? 'Underpowered — increase n or effect size.' : power > 0.8 ? 'Good power (>80%).' : 'Moderate power.');
+  document.getElementById('ins-practical').textContent =
+    `Reducing α from 0.05 → 0.01 moves z* right → power drops from ${(100*(1-Phi(invPhi(0.95)-H1mu))).toFixed(0)}% to ${(100*(1-Phi(invPhi(0.99)-H1mu))).toFixed(0)}%. Same data, harder to detect effect.`;
+}
+
+document.getElementById('delta-slider').addEventListener('input', function() {
+  delta = +this.value; document.getElementById('delta-val').textContent = delta.toFixed(1); drawErrorChart();
+});
+document.getElementById('alpha-slider-ctrl').addEventListener('input', function() {
+  alphaIdx = +this.value - 1;
+  document.getElementById('alpha-slider-val').textContent = ALPHA_OPTS[alphaIdx].label;
+  drawErrorChart();
+});
+
+drawErrorChart();
+
+// ── VIZ 2: P-VALUE ───────────────────────
+let zObs = 1.96;
+
+function drawPvalChart() {
+  const container = document.getElementById('pval-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.44);
+  const M = { top: 20, right: 20, bottom: 44, left: 54 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto')
+    .style('cursor','ew-resize');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const xRange = [-4, 4];
+  const x = d3.scaleLinear().domain(xRange).range([0,W]);
+  const pts = d3.range(xRange[0], xRange[1]+0.02, 0.04);
+  const yMax = normalPDF(0,0,1)*1.15;
+  const y = d3.scaleLinear().domain([0,yMax]).range([H,0]);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Shade tail (p-value region) — right tail for positive, left for negative
+  const pArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  const pPts = zObs >= 0 ? pts.filter(p => p >= zObs) : pts.filter(p => p <= zObs);
+  g.append('path').datum(pPts).attr('d',pArea).attr('fill','#7c9eff').attr('opacity',0.45);
+
+  // Curve
+  const line = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',line).attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // z_obs line (draggable)
+  const zLine = g.append('line').attr('x1',x(zObs)).attr('x2',x(zObs)).attr('y1',0).attr('y2',H)
+    .attr('stroke','#fff').attr('stroke-width',2).style('cursor','ew-resize');
+  g.append('circle').attr('cx',x(zObs)).attr('cy',H+2).attr('r',7)
+    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5).style('cursor','ew-resize')
+    .call(d3.drag().on('drag', function(event) {
+      const xNew = Math.max(0, Math.min(W, event.x));
+      zObs = x.invert(xNew);
+      document.getElementById('zobs-slider').value = zObs;
+      document.getElementById('zobs-val').textContent = zObs.toFixed(2);
+      drawPvalChart();
+    }));
+
+  g.append('text').attr('x',x(zObs)).attr('y',H+20).attr('text-anchor','middle')
+    .attr('fill','#fff').attr('font-size',10).text(`z=${zObs.toFixed(2)}`);
+
+  // α lines for common levels
+  [1.645, 1.96, 2.576].forEach(zc => {
+    g.append('line').attr('x1',x(zc)).attr('x2',x(zc)).attr('y1',0).attr('y2',H)
+      .attr('stroke','rgba(240,164,74,0.5)').attr('stroke-width',1).attr('stroke-dasharray','3 2');
+  });
+  g.append('text').attr('x',x(1.96)+3).attr('y',H*0.15).attr('fill','rgba(240,164,74,0.8)').attr('font-size',9).text('1.96(α=.05)');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+
+  // p-value
+  const pval = zObs >= 0 ? 1 - Phi(zObs) : Phi(zObs);
+  const reject = pval < 0.05;
+  const disp = document.getElementById('pval-display');
+  disp.textContent = `p = ${pval.toFixed(4)}`;
+  disp.style.color = reject ? '#4caf82' : '#e05c6b';
+  disp.style.borderColor = reject ? 'rgba(76,175,130,0.4)' : 'rgba(224,92,107,0.4)';
+  disp.innerHTML += `<span class="decision-tag" style="background:${reject?'rgba(76,175,130,0.15)':'rgba(224,92,107,0.12)'};color:${reject?'#4caf82':'#e05c6b'}">${reject ? 'Reject H₀' : 'Fail to Reject H₀'}</span>`;
+
+  document.getElementById('pval-live').innerHTML =
+    `P(Z ≥ ${zObs.toFixed(2)}) = 1 − Φ(${zObs.toFixed(2)}) = <span class="live-val">${pval.toFixed(4)}</span>`;
+}
+
+document.getElementById('zobs-slider').addEventListener('input', function() {
+  zObs = +this.value; document.getElementById('zobs-val').textContent = zObs.toFixed(2); drawPvalChart();
+});
+
+drawPvalChart();
+window.addEventListener('resize', () => setTimeout(() => { drawErrorChart(); drawPvalChart(); }, 150));
+</script>
+</body>
+</html>

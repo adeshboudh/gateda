@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.3 Expectation & Variance — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 14px 0; }
+    .stat-card {
+      background: var(--gd-bg-2); border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md); padding: 14px 16px; text-align: center;
+    }
+    .stat-card__label { font-size: 0.7rem; color: var(--gd-text-2); margin-bottom: 4px; }
+    .stat-card__val { font-family: var(--gd-font-mono); font-size: 1.3rem; font-weight: 700; color: var(--gd-brand); }
+    .draggable-hint { font-size: 0.78rem; color: var(--gd-text-2); margin-bottom: 8px; }
+    .beam-svg { overflow: visible; }
+    .var-bar { opacity: 0.5; }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.3 Expectation &amp; Variance
+    </div>
+    <a class="gd-pill-link" href="1-3-expectation.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q17 · 2025 Q22 · 2026 Q14</span>
+      </div>
+      <h1 id="top">Expectation &amp; Variance</h1>
+      <p>Drag the probability bars to reshape the distribution. E[X] is the balance point; Var(X) measures spread from it.</p>
+    </div>
+
+    <!-- ═══ VIZ 1: DRAGGABLE PMF ═══ -->
+    <h2 id="viz1">Visualization 1 — E[X] as Centre of Mass</h2>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Definitions</div>
+        <div class="gd-formula">$$E[X]=\sum_i x_i p_i \qquad \text{Var}(X)=\sum_i p_i(x_i-\mu)^2 = E[X^2]-\mu^2$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current values</div>
+        <div class="gd-formula-live" id="exp-live">—</div>
+      </div>
+    </div>
+
+    <div class="draggable-hint">Drag any bar up or down to change its probability. Probabilities auto-normalise to sum to 1.</div>
+    <div class="gd-chart" style="position:relative;">
+      <div class="gd-chart__title">▲ = E[X] balance point · span bars = ±σ from mean</div>
+      <div id="pmf-chart"></div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-card__label">E[X] = μ</div>
+        <div class="stat-card__val" id="ex-val">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Var(X) = σ²</div>
+        <div class="stat-card__val" id="var-val">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Std dev σ</div>
+        <div class="stat-card__val" id="sd-val">—</div>
+      </div>
+    </div>
+
+    <!-- ═══ VIZ 2: LINEAR TRANSFORM ═══ -->
+    <h2 id="viz2">Visualization 2 — Linear Transform E[aX + b]</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      Shift (b) moves the whole distribution left/right. Scale (a) stretches it. Variance scales by a², not by a.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Linear transform rules</div>
+        <div class="gd-formula">$$E[aX+b] = a\,E[X]+b \qquad \text{Var}(aX+b) = a^2\,\text{Var}(X)$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">With current a, b</div>
+        <div class="gd-formula-live" id="transform-live">—</div>
+      </div>
+    </div>
+
+    <div class="gd-chart">
+      <div class="gd-chart__title">Original distribution (blue) vs transformed aX+b (orange)</div>
+      <div id="transform-chart"></div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Transform parameters</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">a</span> Scale factor</label>
+        <span class="gd-control__value" id="a-val">2.0</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="a-slider" min="-3" max="3" step="0.1" value="2"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">b</span> Shift</label>
+        <span class="gd-control__value" id="b-val">3.0</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="b-slider" min="-10" max="10" step="0.5" value="3"></div>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live transform</div>
+      <div class="gd-insight gd-insight--active" id="ins-transform">—</div>
+      <div class="gd-insight gd-insight--warn" id="ins-var-warn">—</div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>E[X²] ≠ (E[X])²</strong>. Always: E[X²] = Var(X) + (E[X])². This is the most common trap.</p>
+      <p><strong>Independence:</strong> E[XY] = E[X]·E[Y] only if X, Y independent. Var(X+Y) = Var(X)+Var(Y) only if independent.</p>
+      <p><strong>Var(aX+b) = a²Var(X)</strong>: b shifts, doesn't spread. a² not a — very commonly tested.</p>
+    </div>
+    <a class="gd-pill-link" href="1-3-expectation.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// Shared distribution state
+const OUTCOMES = [1,2,3,4,5,6];
+let rawWeights = [3,5,4,6,5,3];  // unnormalised
+
+function getProbs() {
+  const s = d3.sum(rawWeights);
+  return rawWeights.map(w => w / s);
+}
+function getStats() {
+  const ps = getProbs();
+  const mu  = d3.sum(OUTCOMES, (x,i) => x * ps[i]);
+  const ex2 = d3.sum(OUTCOMES, (x,i) => x*x * ps[i]);
+  const vr  = ex2 - mu*mu;
+  return { mu, vr, sd: Math.sqrt(vr), ps };
+}
+
+// ── VIZ 1: DRAGGABLE PMF ─────────────────
+(function() {
+  function draw() {
+    const container = document.getElementById('pmf-chart');
+    const cW = container.clientWidth || 560;
+    const cH = Math.round(cW * 0.52);
+    const M = { top: 20, right: 20, bottom: 50, left: 50 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+    const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+    const ps = getProbs();
+    const st = getStats();
+    const x = d3.scaleBand().domain(OUTCOMES).range([0,W]).padding(0.25);
+    const y = d3.scaleLinear().domain([0, Math.max(...ps)*1.3]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class','grid')
+      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Bars
+    g.selectAll('.gd-bar').data(OUTCOMES).enter().append('rect')
+      .attr('class','gd-bar').attr('x', d => x(d))
+      .attr('y', (d,i) => y(ps[i])).attr('width', x.bandwidth())
+      .attr('height', (d,i) => Math.max(0, H - y(ps[i])))
+      .attr('rx',3).attr('fill','#7c9eff').attr('opacity',0.75)
+      .style('cursor','ns-resize')
+      .call(d3.drag()
+        .on('drag', function(event, d) {
+          const i = OUTCOMES.indexOf(d);
+          const newH = Math.max(0, H - event.y);
+          rawWeights[i] = Math.max(0.1, newH / H * 10);
+          draw();
+        })
+      );
+
+    // Probability labels on bars
+    ps.forEach((p,i) => {
+      if (p > 0.03) {
+        g.append('text').attr('x', x(OUTCOMES[i]) + x.bandwidth()/2)
+          .attr('y', y(p) - 4).attr('text-anchor','middle')
+          .attr('fill','#9aa5be').attr('font-size', 10).text(p.toFixed(3));
+      }
+    });
+
+    // Mean line (triangle marker below x-axis)
+    const mx = x(Math.round(st.mu)) + x.bandwidth()/2;
+    const muX = x.range()[0] + (st.mu - OUTCOMES[0]) / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0]) * W;
+    g.append('line').attr('x1',muX).attr('x2',muX).attr('y1',0).attr('y2',H)
+      .attr('stroke','#f0a44a').attr('stroke-width',2).attr('stroke-dasharray','4 3');
+    g.append('polygon')
+      .attr('points',`${muX-7},${H+8} ${muX+7},${H+8} ${muX},${H+1}`)
+      .attr('fill','#f0a44a');
+    g.append('text').attr('x',muX).attr('y',H+22)
+      .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size',11).attr('font-weight','600')
+      .text(`μ=${st.mu.toFixed(2)}`);
+
+    // ±σ bands
+    const xLo = muX - (st.sd / (OUTCOMES[OUTCOMES.length-1]-OUTCOMES[0])) * W;
+    const xHi = muX + (st.sd / (OUTCOMES[OUTCOMES.length-1]-OUTCOMES[0])) * W;
+    g.append('line').attr('x1',xLo).attr('x2',xHi).attr('y1',H/2).attr('y2',H/2)
+      .attr('stroke','rgba(240,164,74,0.4)').attr('stroke-width',6).attr('stroke-linecap','round');
+
+    // Axes
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`)
+      .call(d3.axisBottom(x).tickFormat(d => `X=${d}`));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+
+    // Update stats
+    document.getElementById('ex-val').textContent  = st.mu.toFixed(3);
+    document.getElementById('var-val').textContent = st.vr.toFixed(3);
+    document.getElementById('sd-val').textContent  = st.sd.toFixed(3);
+    document.getElementById('exp-live').innerHTML  =
+      `E[X] = <span class="live-val">${st.mu.toFixed(3)}</span><br>` +
+      `E[X²] = <span class="live-val">${(st.vr + st.mu*st.mu).toFixed(3)}</span><br>` +
+      `Var = E[X²]−μ² = <span class="live-val">${st.vr.toFixed(3)}</span>`;
+    drawTransform();
+  }
+
+  window.redrawPMF = draw;
+  draw();
+  window.addEventListener('resize', () => setTimeout(draw, 150));
+})();
+
+// ── VIZ 2: LINEAR TRANSFORM ──────────────
+let aParam = 2, bParam = 3;
+
+function drawTransform() {
+  const container = document.getElementById('transform-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.45);
+  const M = { top: 20, right: 20, bottom: 46, left: 50 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const ps  = getProbs();
+  const st  = getStats();
+  const a   = aParam, b = bParam;
+
+  // Transformed outcomes
+  const transOut = OUTCOMES.map(xi => a*xi + b);
+  const allX = [...OUTCOMES, ...transOut];
+  const xMin = Math.min(...allX) - 1, xMax = Math.max(...allX) + 1;
+
+  const x = d3.scaleLinear().domain([xMin, xMax]).range([0, W]);
+  const yMax = Math.max(...ps) * 1.3;
+  const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+  const bw = Math.max(4, W / (xMax - xMin) * 0.4);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Original bars (blue)
+  OUTCOMES.forEach((xi,i) => {
+    g.append('rect').attr('x', x(xi) - bw/2).attr('y', y(ps[i]))
+      .attr('width', bw).attr('height', Math.max(0,H-y(ps[i])))
+      .attr('fill','#7c9eff').attr('opacity',0.7).attr('rx',2);
+  });
+
+  // Transformed bars (orange)
+  transOut.forEach((xi,i) => {
+    g.append('rect').attr('x', x(xi) - bw/2).attr('y', y(ps[i]))
+      .attr('width', bw).attr('height', Math.max(0,H-y(ps[i])))
+      .attr('fill','#f0a44a').attr('opacity',0.7).attr('rx',2);
+  });
+
+  // Mean lines
+  const muTrans = a*st.mu + b;
+  [
+    [st.mu, '#7c9eff', `μ=${st.mu.toFixed(2)}`],
+    [muTrans, '#f0a44a', `aμ+b=${muTrans.toFixed(2)}`]
+  ].forEach(([val, col, lbl]) => {
+    if (val >= xMin && val <= xMax) {
+      g.append('line').attr('x1',x(val)).attr('x2',x(val)).attr('y1',0).attr('y2',H)
+        .attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','4 3');
+      g.append('text').attr('x',x(val)+4).attr('y',14)
+        .attr('fill',col).attr('font-size',10).text(lbl);
+    }
+  });
+
+  // Legend
+  g.append('rect').attr('x',W-90).attr('y',4).attr('width',10).attr('height',10).attr('fill','#7c9eff').attr('rx',2);
+  g.append('text').attr('x',W-77).attr('y',13).attr('fill','#9aa5be').attr('font-size',10).text('Original X');
+  g.append('rect').attr('x',W-90).attr('y',20).attr('width',10).attr('height',10).attr('fill','#f0a44a').attr('rx',2);
+  g.append('text').attr('x',W-77).attr('y',29).attr('fill','#9aa5be').attr('font-size',10).text('aX + b');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+
+  // Insight
+  const varTrans = a*a*st.vr;
+  document.getElementById('transform-live').innerHTML =
+    `E[aX+b] = ${a.toFixed(1)}×${st.mu.toFixed(2)}+${b.toFixed(1)} = <span class="live-val">${muTrans.toFixed(2)}</span><br>` +
+    `Var(aX+b) = ${a.toFixed(1)}²×${st.vr.toFixed(2)} = <span class="live-val">${varTrans.toFixed(2)}</span>`;
+  document.getElementById('ins-transform').textContent =
+    `Shift b=${b.toFixed(1)} moved mean by ${b.toFixed(1)} but did NOT change variance.`;
+  document.getElementById('ins-var-warn').textContent =
+    `Scale a=${a.toFixed(1)}: Var multiplied by ${(a*a).toFixed(2)} (a²), not ${Math.abs(a).toFixed(1)} (|a|). σ multiplied by |a|=${Math.abs(a).toFixed(1)}.`;
+}
+
+[['a-slider','a-val', v => aParam=v, v=>v.toFixed(1)],
+ ['b-slider','b-val', v => bParam=v, v=>v.toFixed(1)]
+].forEach(([id,vid,set,fmt]) => {
+  document.getElementById(id).addEventListener('input', function() {
+    set(+this.value); document.getElementById(vid).textContent = fmt(+this.value); drawTransform();
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 Counting & Probability — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .prob-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .prob-cell {
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .prob-cell__label { font-size: 0.7rem; color: var(--gd-text-2); margin-bottom: 3px; }
+    .prob-cell__val { font-family: var(--gd-font-mono); font-size: 1rem; font-weight: 700; }
+    .combo-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    .combo-card {
+      background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-lg);
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .combo-card__label { font-size: 0.72rem; color: var(--gd-text-2); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+    .combo-card__val { font-family: var(--gd-font-mono); font-size: 2rem; font-weight: 700; color: var(--gd-brand); }
+    .combo-card__formula { font-size: 0.78rem; color: var(--gd-text-2); margin-top: 6px; }
+    .item-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .item-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600;
+      transition: 0.2s;
+    }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.1 Counting &amp; Basic Probability
+    </div>
+    <a class="gd-pill-link" href="1-1-counting.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q11 · 2025 Q5</span>
+      </div>
+      <h1 id="top">Counting &amp; Basic Probability</h1>
+      <p>Venn diagram shows how the addition rule works geometrically. The nPr/nCr visualizer shows why order matters in permutations but not combinations.</p>
+    </div>
+
+    <!-- ═══ VIZ 1: VENN DIAGRAM ═══ -->
+    <h2 id="viz1">Visualization 1 — Addition Rule &amp; Venn Diagram</h2>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Addition Rule</div>
+        <div class="gd-formula">$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current values</div>
+        <div class="gd-formula-live" id="venn-live">—</div>
+      </div>
+    </div>
+
+    <div class="gd-chart" style="position:relative;">
+      <div class="gd-chart__title">Click a region to highlight it · Sliders change circle sizes</div>
+      <div id="venn-chart"></div>
+    </div>
+
+    <div class="prob-strip">
+      <div class="prob-cell"><div class="prob-cell__label">P(A)</div><div class="prob-cell__val" id="pA" style="color:#7c9eff">—</div></div>
+      <div class="prob-cell"><div class="prob-cell__label">P(B)</div><div class="prob-cell__val" id="pB" style="color:#4caf82">—</div></div>
+      <div class="prob-cell"><div class="prob-cell__label">P(A∩B)</div><div class="prob-cell__val" id="pAB" style="color:#f0a44a">—</div></div>
+      <div class="prob-cell"><div class="prob-cell__label">P(A∪B)</div><div class="prob-cell__val" id="pAuB" style="color:white">—</div></div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Parameters (out of 100 total outcomes)</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">|A|</span> Outcomes in A</label>
+        <span class="gd-control__value" id="nA-val">40</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nA" min="5" max="80" step="1" value="40"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">|B|</span> Outcomes in B</label>
+        <span class="gd-control__value" id="nB-val">35</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nB" min="5" max="80" step="1" value="35"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">|A∩B|</span> Outcomes in both</label>
+        <span class="gd-control__value" id="nAB-val">10</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nAB" min="0" max="40" step="1" value="10"></div>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live insight</div>
+      <div class="gd-insight gd-insight--active" id="venn-ins">—</div>
+      <div class="gd-insight gd-insight--warn" id="venn-ins2">⚠ If P(A∩B) = 0, A and B are mutually exclusive — P(A∪B) = P(A)+P(B).</div>
+    </div>
+
+    <!-- ═══ VIZ 2: nPr / nCr ═══ -->
+    <h2 id="viz2">Visualization 2 — Permutations vs Combinations</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      Permutation: order matters (AB ≠ BA). Combination: order doesn't (AB = BA). Slider n = total items, r = items chosen.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Formulas</div>
+        <div class="gd-formula">$$P(n,r) = \frac{n!}{(n-r)!} \qquad C(n,r) = \frac{n!}{r!\,(n-r)!}$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Ratio</div>
+        <div class="gd-formula-live" id="combo-live">—</div>
+      </div>
+    </div>
+
+    <div class="combo-display">
+      <div class="combo-card">
+        <div class="combo-card__label">Permutations P(n,r)</div>
+        <div class="combo-card__val" id="pnr-val">—</div>
+        <div class="combo-card__formula" id="pnr-formula">—</div>
+      </div>
+      <div class="combo-card" style="border-color:rgba(76,175,130,0.3);">
+        <div class="combo-card__label" style="color:var(--gd-success);">Combinations C(n,r)</div>
+        <div class="combo-card__val" id="cnr-val" style="color:var(--gd-success);">—</div>
+        <div class="combo-card__formula" id="cnr-formula">—</div>
+      </div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Parameters</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">n</span> Total items</label>
+        <span class="gd-control__value" id="n-val">8</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="n-slider" min="2" max="15" step="1" value="8"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">r</span> Items chosen</label>
+        <span class="gd-control__value" id="r-val">3</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="r-slider" min="1" max="8" step="1" value="3"></div>
+    </div>
+
+    <!-- Item visual -->
+    <div class="gd-chart">
+      <div class="gd-chart__title">Blue dots = chosen (r). For permutations, order of blue dots matters.</div>
+      <div class="item-grid" id="item-grid"></div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>Key trap:</strong> "arrange" → permutation; "select"/"choose" → combination.</p>
+      <p><strong>Complement:</strong> P(at least one) = 1 − P(none). Often easier.</p>
+      <p><strong>Inclusion-exclusion:</strong> P(A∪B∪C) = P(A)+P(B)+P(C) − P(A∩B) − P(A∩C) − P(B∩C) + P(A∩B∩C).</p>
+    </div>
+    <a class="gd-pill-link" href="1-1-counting.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// ── VIZ 1: VENN ─────────────────────────
+(function() {
+  let nA = 40, nB = 35, nAB = 10, N = 100;
+
+  function clampAB() { nAB = Math.min(nAB, nA, nB, N - nA - nB + nAB); nAB = Math.max(0, nAB); }
+
+  function drawVenn() {
+    clampAB();
+    const pa = nA/N, pb = nB/N, pab = nAB/N, paub = (nA+nB-nAB)/N;
+    const container = document.getElementById('venn-chart');
+    const cW = container.clientWidth || 560;
+    const cH = Math.round(cW * 0.55);
+    d3.select(container).select('svg').remove();
+
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('height','auto');
+
+    const cx = cW/2, cy = cH/2;
+    const baseR = cH * 0.32;
+    const rA = baseR * Math.sqrt(pa / 0.4);
+    const rB = baseR * Math.sqrt(pb / 0.35);
+    // Offset circles so intersection area is proportional to pab
+    const overlapFrac = pab / Math.min(pa, pb);
+    const d = (rA + rB) * (1 - overlapFrac * 0.85);
+    const xA = cx - d * 0.5, xB = cx + d * 0.5;
+
+    // Background
+    svg.append('rect').attr('width', cW).attr('height', cH).attr('fill', '#0f1117');
+
+    // A-only region
+    svg.append('circle').attr('cx', xA).attr('cy', cy).attr('r', rA)
+      .attr('fill', '#7c9eff').attr('opacity', 0.25).attr('stroke', '#7c9eff').attr('stroke-width', 1.5);
+    // B-only region
+    svg.append('circle').attr('cx', xB).attr('cy', cy).attr('r', rB)
+      .attr('fill', '#4caf82').attr('opacity', 0.20).attr('stroke', '#4caf82').attr('stroke-width', 1.5);
+
+    // Intersection hint (text label)
+    const intX = (xA + xB) / 2;
+
+    // Labels
+    svg.append('text').attr('x', xA - rA*0.35).attr('y', cy + 5)
+      .attr('text-anchor','middle').attr('fill','#7c9eff').attr('font-size', Math.max(11, cW*0.025)).attr('font-weight','700').text('A');
+    svg.append('text').attr('x', xB + rB*0.35).attr('y', cy + 5)
+      .attr('text-anchor','middle').attr('fill','#4caf82').attr('font-size', Math.max(11, cW*0.025)).attr('font-weight','700').text('B');
+    svg.append('text').attr('x', intX).attr('y', cy + 5)
+      .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size', Math.max(10, cW*0.022)).attr('font-weight','600').text('A∩B');
+
+    // Probability labels
+    svg.append('text').attr('x', xA - rA*0.6).attr('y', cy - rA*0.55)
+      .attr('text-anchor','middle').attr('fill','#7c9eff').attr('font-size', 11)
+      .text(`P(A)=${pa.toFixed(2)}`);
+    svg.append('text').attr('x', xB + rB*0.6).attr('y', cy - rB*0.55)
+      .attr('text-anchor','middle').attr('fill','#4caf82').attr('font-size', 11)
+      .text(`P(B)=${pb.toFixed(2)}`);
+    svg.append('text').attr('x', intX).attr('y', cy + rA*0.55)
+      .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size', 11)
+      .text(`P(A∩B)=${pab.toFixed(2)}`);
+    // Universe label
+    svg.append('text').attr('x', 12).attr('y', 18)
+      .attr('fill','#606880').attr('font-size', 11).text('Ω (N=100)');
+    svg.append('text').attr('x', cW*0.85).attr('y', cy + 5)
+      .attr('text-anchor','middle').attr('fill','#606880').attr('font-size', 11)
+      .text(`neither\n${100-nA-nB+nAB}%`);
+
+    // Update displays
+    document.getElementById('pA').textContent   = pa.toFixed(3);
+    document.getElementById('pB').textContent   = pb.toFixed(3);
+    document.getElementById('pAB').textContent  = pab.toFixed(3);
+    document.getElementById('pAuB').textContent = paub.toFixed(3);
+    document.getElementById('venn-live').innerHTML =
+      `P(A∪B) = ${pa.toFixed(2)} + ${pb.toFixed(2)} − ${pab.toFixed(2)}<br>` +
+      `= <span class="live-val">${paub.toFixed(3)}</span>`;
+    document.getElementById('venn-ins').textContent =
+      `P(A∪B) = ${(paub*100).toFixed(0)}% of outcomes fall in A or B (or both).`;
+    document.getElementById('venn-ins2').style.display = nAB === 0 ? 'block' : 'none';
+  }
+
+  [['nA', v => nA=v, 'nA-val'], ['nB', v => nB=v, 'nB-val'], ['nAB', v => nAB=v, 'nAB-val']]
+    .forEach(([id, set, valId]) => {
+      document.getElementById(id).addEventListener('input', function() {
+        set(+this.value); document.getElementById(valId).textContent = this.value; drawVenn();
+      });
+    });
+
+  drawVenn();
+  window.addEventListener('resize', () => setTimeout(drawVenn, 150));
+})();
+
+// ── VIZ 2: nPr / nCr ────────────────────
+(function() {
+  let n = 8, r = 3;
+
+  function factorial(k) {
+    if (k <= 1) return 1;
+    let res = 1; for (let i = 2; i <= k; i++) res *= i; return res;
+  }
+  function pnr(n,r) { return factorial(n) / factorial(n-r); }
+  function cnr(n,r) { return factorial(n) / (factorial(r) * factorial(n-r)); }
+
+  function update() {
+    r = Math.min(r, n);
+    document.getElementById('r-slider').max = n;
+    document.getElementById('r-slider').value = r;
+    document.getElementById('r-val').textContent = r;
+
+    const P = pnr(n,r), C = cnr(n,r);
+    document.getElementById('pnr-val').textContent = P.toLocaleString();
+    document.getElementById('cnr-val').textContent = C.toLocaleString();
+    document.getElementById('pnr-formula').textContent = `${n}! / (${n-r})! = ${n}×${n-1}×...×${n-r+1}`;
+    document.getElementById('cnr-formula').textContent = `${n}! / (${r}! × ${n-r}!) = P/${factorial(r)} = ${C}`;
+    document.getElementById('combo-live').innerHTML =
+      `P/C = r! = ${r}! = <span class="live-val">${factorial(r)}</span><br>` +
+      `(r! orderings of each combination)`;
+
+    // Item grid
+    const grid = document.getElementById('item-grid');
+    grid.innerHTML = '';
+    for (let i = 0; i < n; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'item-dot';
+      dot.textContent = i + 1;
+      if (i < r) {
+        dot.style.background = 'rgba(124,158,255,0.25)';
+        dot.style.border = '2px solid #7c9eff';
+        dot.style.color = '#7c9eff';
+      } else {
+        dot.style.background = 'var(--gd-bg-3)';
+        dot.style.border = '1px solid var(--gd-border)';
+        dot.style.color = 'var(--gd-text-2)';
+      }
+      grid.appendChild(dot);
+    }
+  }
+
+  document.getElementById('n-slider').addEventListener('input', function() {
+    n = +this.value; document.getElementById('n-val').textContent = n; update();
+  });
+  document.getElementById('r-slider').addEventListener('input', function() {
+    r = +this.value; document.getElementById('r-val').textContent = r; update();
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>

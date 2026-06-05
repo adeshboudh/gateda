@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.7 Estimation & Confidence Intervals — Visualized · GATE DA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/viz.css">
+  <style>
+    .ci-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin: 14px 0; }
+    .ci-stat { background: var(--gd-bg-2); border: 1px solid var(--gd-border); border-radius: var(--gd-r-md); padding: 12px 14px; text-align: center; }
+    .ci-stat__label { font-size: 0.68rem; color: var(--gd-text-2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .ci-stat__val { font-family: var(--gd-font-mono); font-size: 1.15rem; font-weight: 700; color: var(--gd-brand); }
+    .ci-btn-row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+    .ci-btn {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--gd-border);
+      background: var(--gd-bg-3); color: var(--gd-text-1); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: 0.15s;
+    }
+    .ci-btn:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+    .ci-btn--primary { background: rgba(124,158,255,0.12); border-color: rgba(124,158,255,0.4); color: var(--gd-brand); }
+    .ci-btn--danger { border-color: rgba(224,92,107,0.4); color: var(--gd-error); }
+  </style>
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <div class="gd-sidebar__logo">
+      <a href="../index.html">GATE DA</a>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+    <nav class="gd-sidebar__nav"></nav>
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <div class="gd-breadcrumb">
+      <a href="../index.html">Home</a><span>›</span>
+      <a href="index.html">Module 1</a><span>›</span>
+      1.7 Estimation &amp; Confidence Intervals
+    </div>
+    <a class="gd-pill-link" href="1-7-estimation.html">← Full text notes &amp; practice questions</a>
+
+    <div class="gd-viz-header">
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+        <span class="gd-badge gd-badge--pyq">2024 Q19 · 2025 Q18</span>
+      </div>
+      <h1 id="top">Estimation &amp; Confidence Intervals</h1>
+      <p>A confidence interval either contains the true parameter or it doesn't. The "95% confidence" refers to the <em>procedure</em> — 95% of CIs constructed this way will contain the true value.</p>
+    </div>
+
+    <!-- ═══ VIZ 1: CI COVERAGE SIMULATION ═══ -->
+    <h2 id="viz1">Visualization 1 — CI Coverage Simulation</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      True μ = 5 (orange line). Each sample of size n gives one CI. Watch how many capture μ.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Confidence interval formula</div>
+        <div class="gd-formula">$$\bar{x} \pm z_{\alpha/2}\,\dfrac{\sigma}{\sqrt{n}}$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Live width</div>
+        <div class="gd-formula-live" id="ci-live">—</div>
+      </div>
+    </div>
+
+    <div class="ci-btn-row">
+      <button class="ci-btn ci-btn--primary" id="btn-sample1">Draw 1 sample</button>
+      <button class="ci-btn" id="btn-sample20">Draw 20 more</button>
+      <button class="ci-btn" id="btn-sample100">Draw 100 more</button>
+      <button class="ci-btn ci-btn--danger" id="btn-reset">Reset</button>
+    </div>
+
+    <div class="gd-chart" style="position:relative;">
+      <div class="gd-chart__title">Green bars contain μ · Red bars miss μ · Orange line = true μ = 5</div>
+      <div id="ci-chart"></div>
+    </div>
+
+    <div class="ci-stats">
+      <div class="ci-stat"><div class="ci-stat__label">Samples</div><div class="ci-stat__val" id="ci-total">0</div></div>
+      <div class="ci-stat"><div class="ci-stat__label">Cover μ</div><div class="ci-stat__val" id="ci-cover" style="color:var(--gd-success)">0</div></div>
+      <div class="ci-stat"><div class="ci-stat__label">Miss μ</div><div class="ci-stat__val" id="ci-miss" style="color:var(--gd-error)">0</div></div>
+      <div class="ci-stat"><div class="ci-stat__label">Coverage %</div><div class="ci-stat__val" id="ci-pct">—</div></div>
+    </div>
+
+    <div class="gd-controls">
+      <div class="gd-controls__title">Parameters</div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">n</span> Sample size</label>
+        <span class="gd-control__value" id="n-val">30</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="n-slider" min="5" max="100" step="5" value="30"></div>
+      <div class="gd-control">
+        <label class="gd-control__label"><span class="gd-control__sym">α</span> Significance level → z<sub>α/2</sub></label>
+        <span class="gd-control__value" id="alpha-val">0.05 (z=1.96)</span>
+      </div>
+      <div class="gd-control--full"><input class="gd-control__slider" type="range" id="alpha-slider" min="1" max="4" step="1" value="2"></div>
+    </div>
+
+    <div class="gd-insights">
+      <div class="gd-insights__title">Live insights</div>
+      <div class="gd-insight gd-insight--active" id="ci-ins1">Draw samples to see CI coverage.</div>
+      <div class="gd-insight gd-insight--warn" id="ci-ins2">
+        ⚠ Key misconception: a single CI does NOT have 95% probability of containing μ — it either does or doesn't. The 95% describes the method, not any one interval.
+      </div>
+    </div>
+
+    <!-- ═══ VIZ 2: WIDTH vs N ═══ -->
+    <h2 id="viz2">Visualization 2 — CI Width vs Sample Size</h2>
+    <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+      CI width shrinks as 1/√n — doubling precision requires 4× more data.
+    </p>
+
+    <div class="gd-formula-panel">
+      <div>
+        <div class="gd-formula-label">Width formula</div>
+        <div class="gd-formula">$$\text{Width} = 2\,z_{\alpha/2}\,\dfrac{\sigma}{\sqrt{n}}$$</div>
+      </div>
+      <div>
+        <div class="gd-formula-label">Current values</div>
+        <div class="gd-formula-live" id="width-live">—</div>
+      </div>
+    </div>
+
+    <div class="gd-chart">
+      <div class="gd-chart__title">Width vs n curve · blue dot = current n from slider above</div>
+      <div id="width-chart"></div>
+    </div>
+
+    <div class="gd-gate-box">
+      <div class="gd-gate-box__title">GATE Angle</div>
+      <p><strong>To halve CI width, quadruple n</strong> (from n to 4n). Extremely common GATE calculation.</p>
+      <p><strong>MLE properties:</strong> Consistent (converges to true θ), asymptotically normal, asymptotically efficient (achieves Cramér-Rao bound).</p>
+      <p><strong>Width depends on:</strong> z (confidence level), σ (population spread), n (sample size). It does NOT depend on population size N (unless n/N &gt; 0.05 — finite population correction).</p>
+    </div>
+    <a class="gd-pill-link" href="1-7-estimation.html" style="margin-top:8px;">Full notes →</a>
+  </main>
+
+  <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>
+</div>
+
+<script src="../assets/js/katex-init.js"></script>
+<script src="../assets/js/nav.js"></script>
+<script src="../assets/js/toc.js"></script>
+<script src="../assets/js/d3-helpers.js"></script>
+<script>
+// Params
+const TRUE_MU = 5, SIGMA = 2;
+const ALPHA_LEVELS = [
+  { alpha: 0.10, z: 1.645, label: '0.10 (z=1.645)' },
+  { alpha: 0.05, z: 1.960, label: '0.05 (z=1.96)' },
+  { alpha: 0.01, z: 2.576, label: '0.01 (z=2.576)' },
+  { alpha: 0.001, z: 3.291, label: '0.001 (z=3.29)' }
+];
+
+let nSample = 30, alphaIdx = 1;
+let cis = [];  // { lo, hi, xbar, covers }
+const MAX_VIS = 80;
+
+function getZ() { return ALPHA_LEVELS[alphaIdx].z; }
+
+function randn() {
+  let u = 0, v = 0;
+  while (!u) u = Math.random();
+  while (!v) v = Math.random();
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+
+function drawSample(count) {
+  for (let i = 0; i < count; i++) {
+    // sample mean of nSample draws from N(TRUE_MU, SIGMA²)
+    let sum = 0; for (let j = 0; j < nSample; j++) sum += TRUE_MU + SIGMA * randn();
+    const xbar = sum / nSample;
+    const margin = getZ() * SIGMA / Math.sqrt(nSample);
+    cis.push({ lo: xbar-margin, hi: xbar+margin, xbar, covers: xbar-margin <= TRUE_MU && xbar+margin >= TRUE_MU });
+  }
+  renderCI();
+  updateWidthChart();
+}
+
+function renderCI() {
+  const container = document.getElementById('ci-chart');
+  const cW = container.clientWidth || 560;
+  const visible = cis.slice(-MAX_VIS);
+  const rowH = Math.max(8, Math.min(16, (cW*0.65) / Math.max(visible.length,1)));
+  const cH = Math.max(120, visible.length * rowH + 50);
+  const M = { top: 20, right: 20, bottom: 36, left: 50 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+  const xMin = TRUE_MU - 3*SIGMA, xMax = TRUE_MU + 3*SIGMA;
+  const x = d3.scaleLinear().domain([xMin, xMax]).range([0, W]);
+  const y = d3.scaleLinear().domain([0, Math.max(visible.length,1)]).range([0, H]);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisBottom(x).ticks(6).tickSize(H).tickFormat(''))
+    .call(gr => gr.select('.domain').remove())
+    .attr('transform','translate(0,0)');
+
+  // True mu line
+  g.append('line').attr('x1',x(TRUE_MU)).attr('x2',x(TRUE_MU)).attr('y1',0).attr('y2',H)
+    .attr('stroke','#f0a44a').attr('stroke-width',2);
+  g.append('text').attr('x',x(TRUE_MU)+4).attr('y',10).attr('fill','#f0a44a').attr('font-size',10).text(`μ=${TRUE_MU}`);
+
+  // CI bars
+  visible.forEach((ci, i) => {
+    const yPos = y(i) + rowH*0.5;
+    const col = ci.covers ? '#4caf82' : '#e05c6b';
+    g.append('line').attr('x1',x(Math.max(xMin,ci.lo))).attr('x2',x(Math.min(xMax,ci.hi)))
+      .attr('y1',yPos).attr('y2',yPos)
+      .attr('stroke',col).attr('stroke-width', Math.max(2, rowH-2)).attr('stroke-linecap','round').attr('opacity',0.75);
+    // xbar dot
+    if (ci.xbar >= xMin && ci.xbar <= xMax)
+      g.append('circle').attr('cx',x(ci.xbar)).attr('cy',yPos).attr('r',Math.max(2,rowH*0.3))
+        .attr('fill',col).attr('opacity',0.9);
+  });
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(6));
+
+  // Stats
+  const total = cis.length, cover = cis.filter(c=>c.covers).length, miss = total-cover;
+  document.getElementById('ci-total').textContent = total;
+  document.getElementById('ci-cover').textContent = cover;
+  document.getElementById('ci-miss').textContent = miss;
+  document.getElementById('ci-pct').textContent = total ? (cover/total*100).toFixed(1)+'%' : '—';
+
+  if (total > 5) {
+    const pct = (cover/total*100).toFixed(1);
+    const expected = (1-ALPHA_LEVELS[alphaIdx].alpha)*100;
+    document.getElementById('ci-ins1').textContent =
+      `${pct}% coverage after ${total} samples. Expected ≈${expected}% at this α. ` +
+      (Math.abs(+pct - expected) < 3 ? 'Converging well.' : 'Keep drawing — will converge.');
+  }
+
+  const margin = getZ() * SIGMA / Math.sqrt(nSample);
+  document.getElementById('ci-live').innerHTML =
+    `Width = 2×${getZ()}×${SIGMA}/√${nSample}<br>= <span class="live-val">${(2*margin).toFixed(3)}</span>`;
+}
+
+function updateWidthChart() {
+  const container = document.getElementById('width-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.42);
+  const M = { top: 20, right: 20, bottom: 44, left: 60 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const ns = d3.range(5, 201, 5);
+  const z = getZ();
+  const widths = ns.map(n => ({ n, w: 2*z*SIGMA/Math.sqrt(n) }));
+
+  const x = d3.scaleLinear().domain([5,200]).range([0,W]);
+  const y = d3.scaleLinear().domain([0, widths[0].w * 1.1]).range([H,0]);
+
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  const line = d3.line().x(d=>x(d.n)).y(d=>y(d.w)).curve(d3.curveCatmullRom);
+  g.append('path').datum(widths).attr('d',line)
+    .attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // Current n dot
+  const curW = 2*z*SIGMA/Math.sqrt(nSample);
+  g.append('circle').attr('cx',x(nSample)).attr('cy',y(curW)).attr('r',6)
+    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5);
+  g.append('text').attr('x',x(nSample)+8).attr('y',y(curW))
+    .attr('fill','#7c9eff').attr('font-size',10).attr('dominant-baseline','middle')
+    .text(`n=${nSample}, w=${curW.toFixed(2)}`);
+
+  // 4n doubling arrow annotation
+  const n1 = 20, n2 = 80, w1 = 2*z*SIGMA/Math.sqrt(n1), w2 = 2*z*SIGMA/Math.sqrt(n2);
+  [[n1,w1],[n2,w2]].forEach(([n,w],i) => {
+    g.append('circle').attr('cx',x(n)).attr('cy',y(w)).attr('r',4)
+      .attr('fill','none').attr('stroke','#f0a44a').attr('stroke-width',1.5);
+  });
+  g.append('line').attr('x1',x(n1)).attr('x2',x(n2)).attr('y1',y(w1+0.02)).attr('y2',y(w1+0.02))
+    .attr('stroke','rgba(240,164,74,0.4)').attr('stroke-width',1).attr('stroke-dasharray','3 2');
+  g.append('text').attr('x',(x(n1)+x(n2))/2).attr('y',y(w1+0.05))
+    .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size',9)
+    .text('4×n → ½ width');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.2f')));
+  g.append('text').attr('x',W/2).attr('y',H+36).attr('text-anchor','middle').attr('fill','var(--gd-text-2)').attr('font-size',11).text('Sample size n');
+  g.append('text').attr('transform',`rotate(-90)`).attr('x',-H/2).attr('y',-46).attr('text-anchor','middle').attr('fill','var(--gd-text-2)').attr('font-size',11).text('CI width');
+
+  document.getElementById('width-live').innerHTML =
+    `Width at n=${nSample}: <span class="live-val">${curW.toFixed(3)}</span><br>` +
+    `n×4=${nSample*4} → width: <span class="live-val">${(curW/2).toFixed(3)}</span> (half)`;
+}
+
+// Button handlers
+document.getElementById('btn-sample1').addEventListener('click', () => drawSample(1));
+document.getElementById('btn-sample20').addEventListener('click', () => drawSample(20));
+document.getElementById('btn-sample100').addEventListener('click', () => drawSample(100));
+document.getElementById('btn-reset').addEventListener('click', () => { cis = []; renderCI(); updateWidthChart(); });
+
+document.getElementById('n-slider').addEventListener('input', function() {
+  nSample = +this.value; document.getElementById('n-val').textContent = nSample;
+  cis = []; renderCI(); updateWidthChart();
+});
+document.getElementById('alpha-slider').addEventListener('input', function() {
+  alphaIdx = +this.value - 1;
+  document.getElementById('alpha-val').textContent = ALPHA_LEVELS[alphaIdx].label;
+  cis = []; renderCI(); updateWidthChart();
+});
+
+renderCI();
+updateWidthChart();
+window.addEventListener('resize', () => setTimeout(() => { renderCI(); updateWidthChart(); }, 150));
+</script>
+</body>
+</html>
