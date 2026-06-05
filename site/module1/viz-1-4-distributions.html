@@ -170,7 +170,7 @@ const DISTS = {
     },
     mean: ({n,p}) => n*p,
     var:  ({n,p}) => n*p*(1-p),
-    data: ({n,p}) => GD.binomPMFArr(n, p),
+    data: ({n,p}) => GD.binomPMFArr(n, p).map(d => ({ k: d.k, prob: d.p })),
     liveFn: ({n,p}) => {
       const k = Math.round(n*p);
       const pmfK = Math.exp(GD.binomPMF(k, n, p));
@@ -192,7 +192,7 @@ const DISTS = {
     params: { p: { val: 0.3, min: 0.05, max: 0.95, step: 0.01, sym: 'p', label: 'Success probability (per trial)' } },
     mean: ({p}) => 1/p,
     var:  ({p}) => (1-p)/(p*p),
-    data: ({p}) => GD.geomPMFArr(p, Math.max(20, Math.ceil(4/p))),
+    data: ({p}) => GD.geomPMFArr(p, Math.max(20, Math.ceil(4/p))).map(d => ({ k: d.k, prob: d.p })),
     liveFn: ({p}) => `E[X] = 1/p = <span class="live-val">${(1/p).toFixed(2)}</span><br>P(X=1) = p = <span class="live-val">${p.toFixed(2)}</span>`,
     chartTitle: 'Trials until first success',
     insights: ({p}) => [
@@ -212,7 +212,7 @@ const DISTS = {
     params: { lambda: { val: 3, min: 0.1, max: 20, step: 0.1, sym: 'λ', label: 'Average rate (events per interval)' } },
     mean: ({lambda}) => lambda,
     var:  ({lambda}) => lambda,
-    data: ({lambda}) => GD.poissonPMFArr(lambda, Math.max(20, Math.ceil(lambda + 4*Math.sqrt(lambda)))),
+    data: ({lambda}) => GD.poissonPMFArr(lambda, Math.max(20, Math.ceil(lambda + 4*Math.sqrt(lambda)))).map(d => ({ k: d.k, prob: d.p })),
     liveFn: ({lambda}) => {
       const k = Math.round(lambda);
       return `E[X] = Var(X) = λ = <span class="live-val">${lambda.toFixed(1)}</span><br>P(X=${k}) = <span class="live-val">${GD.poissonPMF(k, lambda).toFixed(4)}</span>`;
@@ -237,14 +237,14 @@ const DISTS = {
     },
     mean: ({a,b}) => (a+b)/2,
     var:  ({a,b}) => (b-a)**2/12,
+    linearCurve: true,
     data: ({a,b}) => {
-      const h = 1/(b-a);
-      const pts = [];
-      const pad = (b-a)*0.15;
-      for (let x = a - pad; x <= b + pad; x += (b-a)/200) {
-        pts.push({ x, y: (x >= a && x <= b) ? h : 0 });
-      }
-      return pts;
+      const h = 1/(b-a), pad = (b-a)*0.2;
+      return [
+        {x: a-pad, y: 0}, {x: a, y: 0},
+        {x: a, y: h},     {x: b, y: h},
+        {x: b, y: 0},     {x: b+pad, y: 0}
+      ];
     },
     liveFn: ({a,b}) => {
       const h = 1/(b-a);
@@ -518,19 +518,20 @@ function renderChart(cfg, data, meanVal) {
       }
     }
 
-    // Uniform: shade the rectangle
+    // Uniform: shade the rectangle directly
     if (currentDist === 'uniform') {
       const {a, b} = params;
       const h = 1/(b-a);
       g.append('rect')
         .attr('x', x(a)).attr('y', y(h))
-        .attr('width', x(b) - x(a))
-        .attr('height', H - y(h))
+        .attr('width', Math.max(0, x(b) - x(a)))
+        .attr('height', Math.max(0, H - y(h)))
         .attr('fill', '#7c9eff').attr('opacity', 0.25);
     }
 
     // Main curve
-    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveCatmullRom);
+    const curveType = cfg.linearCurve ? d3.curveLinear : d3.curveCatmullRom;
+    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(curveType);
     g.append('path').attr('d', line(data))
       .attr('fill', 'none').attr('stroke', GD.COLORS.brand).attr('stroke-width', 2.5);
 
