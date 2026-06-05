@@ -318,68 +318,99 @@ drawErrorChart();
 
 // ── VIZ 2: P-VALUE ───────────────────────
 let zObs = 1.96;
+let _pG, _pX, _pY, _pW, _pH;  // persistent SVG state — never destroyed during drag
 
-function drawPvalChart() {
+function initPvalChart() {
   const container = document.getElementById('pval-chart');
   const cW = container.clientWidth || 560;
   const cH = Math.round(cW * 0.44);
   const M = { top: 20, right: 20, bottom: 44, left: 54 };
-  const W = cW - M.left - M.right;
-  const H = cH - M.top  - M.bottom;
+  _pW = cW - M.left - M.right;
+  _pH = cH - M.top - M.bottom;
+  const W = _pW, H = _pH;
 
   d3.select(container).select('svg').remove();
   const svg = d3.select(container).append('svg')
     .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto')
     .style('cursor','ew-resize');
-  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+  _pG = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
 
   const xRange = [-4, 4];
-  const x = d3.scaleLinear().domain(xRange).range([0,W]);
-  const pts = d3.range(xRange[0], xRange[1]+0.02, 0.04);
+  _pX = d3.scaleLinear().domain(xRange).range([0, W]);
   const yMax = normalPDF(0,0,1)*1.15;
-  const y = d3.scaleLinear().domain([0,yMax]).range([H,0]);
+  _pY = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+  const x = _pX, y = _pY, g = _pG;
+  const pts = d3.range(-4, 4.02, 0.04);
 
   // Grid
   g.append('g').attr('class','grid')
     .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
     .call(gr => gr.select('.domain').remove());
 
-  // Shade tail (p-value region) — right tail for positive, left for negative
-  const pArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
-  const pPts = zObs >= 0 ? pts.filter(p => p >= zObs) : pts.filter(p => p <= zObs);
-  g.append('path').datum(pPts).attr('d',pArea).attr('fill','#7c9eff').attr('opacity',0.45);
+  // Tail area — updated in-place by updatePvalChart
+  g.append('path').attr('class','pval-tail');
 
-  // Curve
+  // Normal curve (static)
   const line = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
-  g.append('path').datum(pts).attr('d',line).attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+  g.append('path').datum(pts).attr('d',line)
+    .attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
 
-  // z_obs line (draggable)
-  const zLine = g.append('line').attr('x1',x(zObs)).attr('x2',x(zObs)).attr('y1',0).attr('y2',H)
+  // z-line — updated in-place
+  g.append('line').attr('class','pval-zline').attr('y1',0).attr('y2',H)
     .attr('stroke','#fff').attr('stroke-width',2).style('cursor','ew-resize');
-  g.append('circle').attr('cx',x(zObs)).attr('cy',H+2).attr('r',7)
-    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5).style('cursor','ew-resize')
-    .call(d3.drag().on('drag', function(event) {
-      const xNew = Math.max(0, Math.min(W, event.x));
-      zObs = x.invert(xNew);
-      document.getElementById('zobs-slider').value = zObs;
-      document.getElementById('zobs-val').textContent = zObs.toFixed(2);
-      drawPvalChart();
-    }));
 
-  g.append('text').attr('x',x(zObs)).attr('y',H+20).attr('text-anchor','middle')
-    .attr('fill','#fff').attr('font-size',10).text(`z=${zObs.toFixed(2)}`);
-
-  // α lines for common levels
+  // α reference lines (static)
   [1.645, 1.96, 2.576].forEach(zc => {
     g.append('line').attr('x1',x(zc)).attr('x2',x(zc)).attr('y1',0).attr('y2',H)
       .attr('stroke','rgba(240,164,74,0.5)').attr('stroke-width',1).attr('stroke-dasharray','3 2');
   });
-  g.append('text').attr('x',x(1.96)+3).attr('y',H*0.15).attr('fill','rgba(240,164,74,0.8)').attr('font-size',9).text('1.96(α=.05)');
+  g.append('text').attr('x',x(1.96)+3).attr('y',H*0.15)
+    .attr('fill','rgba(240,164,74,0.8)').attr('font-size',9).text('1.96(α=.05)');
 
-  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
-  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+  // z label — updated in-place
+  g.append('text').attr('class','pval-zlabel')
+    .attr('y',H+20).attr('text-anchor','middle').attr('fill','#fff').attr('font-size',10);
 
-  // p-value
+  // Draggable circle — persists across updates; drag defined once here
+  const dragBehavior = d3.drag()
+    .on('drag', function(event) {
+      const xNew = Math.max(0, Math.min(W, event.x));
+      zObs = x.invert(xNew);
+      document.getElementById('zobs-slider').value = zObs;
+      document.getElementById('zobs-val').textContent = zObs.toFixed(2);
+      updatePvalChart();  // update in-place — no SVG destroy
+    });
+
+  g.append('circle').attr('class','pval-drag-circle')
+    .attr('cy', H+2).attr('r',7)
+    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5)
+    .style('cursor','ew-resize')
+    .call(dragBehavior);
+
+  // Axes
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`)
+    .call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis')
+    .call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+
+  updatePvalChart();
+}
+
+function updatePvalChart() {
+  const g = _pG, x = _pX, y = _pY, H = _pH;
+  const pts = d3.range(-4, 4.02, 0.04);
+
+  // Tail area
+  const pArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  const pPts = zObs >= 0 ? pts.filter(p => p >= zObs) : pts.filter(p => p <= zObs);
+  g.select('.pval-tail').datum(pPts).attr('d', pArea).attr('fill','#7c9eff').attr('opacity',0.45);
+
+  // z-line and drag circle
+  g.select('.pval-zline').attr('x1',x(zObs)).attr('x2',x(zObs));
+  g.select('.pval-drag-circle').attr('cx', x(zObs));
+  g.select('.pval-zlabel').attr('x', x(zObs)).text(`z=${zObs.toFixed(2)}`);
+
+  // p-value display
   const pval = zObs >= 0 ? 1 - Phi(zObs) : Phi(zObs);
   const reject = pval < 0.05;
   const disp = document.getElementById('pval-display');
@@ -389,15 +420,17 @@ function drawPvalChart() {
   disp.innerHTML += `<span class="decision-tag" style="background:${reject?'rgba(76,175,130,0.15)':'rgba(224,92,107,0.12)'};color:${reject?'#4caf82':'#e05c6b'}">${reject ? 'Reject H₀' : 'Fail to Reject H₀'}</span>`;
 
   document.getElementById('pval-live').innerHTML =
-    `P(Z ≥ ${zObs.toFixed(2)}) = 1 − Φ(${zObs.toFixed(2)}) = <span class="live-val">${pval.toFixed(4)}</span>`;
+    `P(Z ≥ ${zObs.toFixed(2)}) = 1 - Φ(${zObs.toFixed(2)}) = <span class="live-val">${pval.toFixed(4)}</span>`;
 }
 
 document.getElementById('zobs-slider').addEventListener('input', function() {
-  zObs = +this.value; document.getElementById('zobs-val').textContent = zObs.toFixed(2); drawPvalChart();
+  zObs = +this.value;
+  document.getElementById('zobs-val').textContent = zObs.toFixed(2);
+  updatePvalChart();
 });
 
-drawPvalChart();
-window.addEventListener('resize', () => setTimeout(() => { drawErrorChart(); drawPvalChart(); }, 150));
+initPvalChart();
+window.addEventListener('resize', () => setTimeout(() => { drawErrorChart(); initPvalChart(); }, 150));
 </script>
 </body>
 </html>
