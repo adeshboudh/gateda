@@ -339,7 +339,7 @@
     return Math.random() < 0.5 ? z1() - 2 : z1() + 2;
   }
   SOURCES.bimodal.sample = sampleBimodal;
-  SOURCES.bimodal.mu = 0; SOURCES.bimodal.sigma = Math.sqrt(((−2)*(−2) + 2*2)/2 + 1);
+  SOURCES.bimodal.mu = 0; SOURCES.bimodal.sigma = Math.sqrt(((-2)*(-2) + 2*2)/2 + 1);
 
   function drawSource() {
     const src = SOURCES[srcDist];
