@@ -16,7 +16,7 @@ export const SITE_MAP: SiteModule[] = [
   {
     id: 'module1',
     label: 'Module 1 · Probability & Statistics',
-    href: '/module1/index',
+    href: '/module1.html',
     notes: [
       { id: 'm1-1', label: '1.1 Counting & Basic Probability',        viz: '/module1/viz-1-1-counting' },
       { id: 'm1-2', label: '1.2 Conditional Probability & Bayes',     viz: '/module1/viz-1-2-bayes' },
