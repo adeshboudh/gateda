@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Module 2 — Programming & DSA · GATE DA" currentPath={Astro.url.pathname}>
+  <Fragment slot="head">
+    <style is:global>
+      .topic-grid { display:flex; flex-direction:column; gap:10px; }
+      .topic-row { display:grid; grid-template-columns:40px 1fr auto; gap:12px; align-items:center; background:var(--gd-bg-2); border:1px solid var(--gd-border); border-radius:var(--gd-r-md); padding:14px 18px; transition:border-color 0.15s; cursor:pointer; }
+      .topic-row:hover { border-color:var(--gd-brand); }
+      .topic-num { font-family:var(--gd-font-mono); font-size:0.82rem; color:var(--gd-text-2); font-weight:600; }
+      .topic-label { font-size:0.92rem; color:var(--gd-text-0); font-weight:500; }
+      .topic-sublabel { font-size:0.78rem; color:var(--gd-text-2); margin-top:2px; }
+      .topic-btn { padding:5px 14px; border-radius:20px; font-size:0.75rem; font-weight:600; text-decoration:none; border:1px solid var(--gd-border); white-space:nowrap; }
+      .topic-btn--soon { color:var(--gd-text-2); cursor:default; }
+      .topic-btn:not(.topic-btn--soon):hover { border-color:var(--gd-brand); color:var(--gd-brand); }
+      .module-meta { background:var(--gd-bg-2); border:1px solid var(--gd-border); border-left:3px solid var(--gd-brand); border-radius:var(--gd-r-lg); padding:20px 24px; margin-bottom:28px; display:flex; gap:32px; flex-wrap:wrap; }
+      .module-meta__label { font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--gd-text-2); margin-bottom:4px; }
+      .module-meta__val { font-size:1rem; font-weight:600; color:var(--gd-text-0); }
+    </style>
+  </Fragment>
+  <div class="gd-breadcrumb"><a href="/index.html">Home</a><span>›</span> Module 2</div>
+  <h1 style="font-family:var(--gd-font-head);font-size:1.85rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;">
+    Module 2 — Programming &amp; DSA
+  </h1>
+  <p style="color:var(--gd-text-1);margin-bottom:24px;font-size:0.95rem;">
+    Core algorithms and data structures tested every year (~14%). Each topic has an interactive visualization and practice questions.
+  </p>
+  <div class="module-meta">
+    <div class="module-meta__item"><div class="module-meta__label">GATE weight</div><div class="module-meta__val">~14%</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Topics</div><div class="module-meta__val">7</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Practice Qs</div><div class="module-meta__val">210</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Priority</div><div class="module-meta__val">★★ High</div></div>
+  </div>
+  <div class="topic-grid">
+    {[
+      { num:'2.1', label:'Arrays & Searching', sub:'Linear search, binary search, two-pointer, sliding window', viz:'viz-2-1-searching.html', q:'2-1-questions.html', bank:'2-1-bank.html' },
+      { num:'2.2', label:'Sorting Algorithms', sub:'Bubble, insertion, merge, quick, heap — stability & complexity', viz:'viz-2-2-sorting.html', q:'2-2-questions.html', bank:'2-2-bank.html' },
+      { num:'2.3', label:'Recursion & Dynamic Programming', sub:'Memoization, tabulation, LCS, knapsack, coin change', viz:'viz-2-3-dp.html', q:'2-3-questions.html', bank:'2-3-bank.html' },
+      { num:'2.4', label:'Trees & Heaps', sub:'BST, AVL, heap operations, tree traversals', viz:'viz-2-4-trees.html', q:'2-4-questions.html', bank:'2-4-bank.html' },
+      { num:'2.5', label:'Graphs — BFS & DFS', sub:'Traversal, shortest path, MST, topological sort, Dijkstra', viz:'viz-2-5-graphs.html', q:'2-5-questions.html', bank:'2-5-bank.html' },
+      { num:'2.6', label:'Algorithm Complexity', sub:'Big-O, Master theorem, recurrences, P vs NP', viz:'viz-2-6-complexity.html', q:'2-6-questions.html', bank:'2-6-bank.html' },
+      { num:'2.7', label:'Hashing & Collision', sub:'Hash functions, chaining, open addressing, load factor', viz:'viz-2-7-hashing.html', q:'2-7-questions.html', bank:'2-7-bank.html' },
+    ].map(t => (
+      <div class="topic-row" onclick={`window.location='${t.viz}'`}>
+        <div class="topic-num">{t.num}</div>
+        <div><div class="topic-label">{t.label}</div><div class="topic-sublabel">{t.sub}</div></div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          {t.q
+            ? <a class="topic-btn" href={t.q} style="background:rgba(110,231,168,.08);border-color:rgba(110,231,168,.3);color:var(--gd-green);" onclick="event.stopPropagation()">Questions</a>
+            : <span class="topic-btn topic-btn--soon">Questions</span>
+          }
+          {t.bank && <a class="topic-btn" href={t.bank} style="background:rgba(124,158,255,.08);border-color:rgba(124,158,255,.3);color:var(--gd-brand);" onclick="event.stopPropagation()">Bank</a>}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

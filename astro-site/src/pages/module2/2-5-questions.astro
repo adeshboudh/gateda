@@ -1,0 +1,189 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.5 Graphs — BFS & DFS · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-5-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.5 Questions
+</div>
+<a class="gd-pill-link" href="/module2/viz-2-5-graphs.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.5 Graphs — BFS &amp; DFS Practice Questions</h1>
+  <p>GATE-style questions. Attempt before revealing answer. NAT/MSQ: no negative marking; MCQ: −⅓ mark.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Breadth-first search is implemented using a</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> stack</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> queue</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> priority queue</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> hash table</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) queue.</span></b> BFS visits nodes in FIFO order, expanding level by level.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">DFS / BFS on a graph with $V$ vertices and $E$ edges (adjacency list) runs in</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(V)$</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(E)$</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(V+E)$</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(V^2)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','C')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (C) $O(V+E)$.</span></b> Each vertex and edge is processed a constant number of times.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Which traversal finds the shortest path (fewest edges) in an unweighted graph?</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> DFS</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> BFS</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Either</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Neither</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (B) BFS.</span></b> BFS reaches each node along a minimum-edge path because it explores in distance order.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">In a tree (connected acyclic graph) with 10 vertices, how many edges are there?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q4-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">edges</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,8.9,9.1)">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ 9.</span></b> A tree on $V$ vertices has exactly $V-1 = 9$ edges.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A topological sort exists for a directed graph if and only if it is</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> connected</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> acyclic (a DAG)</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> complete</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> bipartite</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (B) acyclic.</span></b> Only DAGs admit a topological ordering; a cycle has no valid linear order.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Dijkstra's algorithm can fail to produce correct shortest paths when the graph has</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> cycles</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> negative-weight edges</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> more than 100 vertices</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> parallel edges</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (B) negative-weight edges.</span></b> Dijkstra finalizes nodes greedily; a later negative edge can violate that. Use Bellman-Ford instead.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which can DFS be used for? (Select all.)</div>
+    <div class="q-options" id="q7-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="A"> <span class="q-opt-key">A</span> Cycle detection</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="B"> <span class="q-opt-key">B</span> Topological sorting</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="C"> <span class="q-opt-key">C</span> Finding shortest paths in unweighted graphs</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="D"> <span class="q-opt-key">D</span> Detecting connected components</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(7,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (A), (B), (D).</span></b> (C) is <span class="ans-wrong">False</span> — that is BFS's job; DFS does not guarantee shortest paths.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The complete graph $K_5$ has how many edges?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q8-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">edges</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,9.9,10.1)">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ 10.</span></b> $\binom&#123;5&#125;&#123;2&#125; = \dfrac&#123;5 \cdot 4&#125;&#123;2&#125; = 10$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">A minimum spanning tree of a connected graph with $V$ vertices has exactly</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $V$ edges</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $V-1$ edges</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $V+1$ edges</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E-1$ edges</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','B')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (B) $V-1$ edges.</span></b> Any spanning tree of $V$ vertices is acyclic and connected, so it has $V-1$ edges.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Prim's algorithm grows the MST by</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> sorting all edges first</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> starting from a vertex and adding the cheapest crossing edge</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> removing the heaviest edge</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> depth-first traversal</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (B).</span></b> Prim starts at a vertex and repeatedly adds the minimum-weight edge crossing the cut.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-5-bank.html" style="margin-top:0;">Question Bank (20 Qs) →</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

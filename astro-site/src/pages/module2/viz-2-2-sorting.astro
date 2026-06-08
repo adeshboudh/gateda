@@ -1,0 +1,198 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.2 Sorting Algorithms · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-2-sorting" pageCss="/assets/css/pages/viz-2-2-sorting.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.2 Sorting Algorithms
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">Stability · complexity · lower bound</span>
+    </div>
+    <h1 id="top">Sorting Algorithms</h1>
+    <p>Complexity, stability and in-place properties of the standard sorts — GATE tests the table relentlessly.</p>
+  </div>
+
+  <h2 id="theory">Complexity &amp; Stability Table</h2>
+  <p>The examiner expects you to recall best/average/worst time, space, and stability for each sort by heart.</p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Merge sort recurrence (Master theorem)</div>
+    <div class="gd-formula">
+      $$T(n) = 2T(n/2) + \Theta(n) \;\Longrightarrow\; T(n) = \Theta(n \log n)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Comparison-based lower bound</div>
+      <div class="gd-formula">$$\Omega(n \log n)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">No comparison sort can beat $n \log n$ — proven from the $n!$ leaves of the decision tree.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Stable sorts</div>
+      <div class="gd-formula">$$\text&#123;merge, insertion, bubble&#125;$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Quick sort and heap sort are <em>not</em> stable. Heap sort is in-place; merge sort needs $O(n)$ extra.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--insight">
+      <span class="gd-insight__title">Key facts</span>
+      Bubble $O(n^2)$, merge $O(n \log n)$ always, quick avg $O(n \log n)$ but worst $O(n^2)$, heap $O(n \log n)$ in-place. Insertion best case $O(n)$ on a nearly-sorted array.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: Sorting Animation</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Pick an algorithm and press <strong>Play</strong>. Yellow = comparing, green = settled.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-controls__title">Controls</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <select id="sort-algo" style="padding:8px 10px;background:var(--gd-bg-1);border:1px solid var(--gd-border);border-radius:6px;color:var(--gd-text-0);">
+        <option value="bubble">Bubble Sort</option>
+        <option value="insertion">Insertion Sort</option>
+      </select>
+      <button id="sort-play" class="gd-btn gd-btn--primary">Play</button>
+      <button id="sort-shuffle" class="gd-btn gd-btn--secondary">Shuffle</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">16 bars — animation runs at 80 ms per step</div>
+    <div id="sort-bars"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="sort-log">Press Play to animate.</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · In-place + n log n · MCQ · ★★</span>
+      <p>Which comparison sort runs in $O(n \log n)$ worst case <em>and</em> uses $O(1)$ auxiliary space?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>Merge sort is $O(n \log n)$ but needs $O(n)$ space. Quick sort is in-place but $O(n^2)$ worst case. Heap sort satisfies both.</p>
+      <div class="gd-example__ans">Heap sort — $O(n \log n)$ worst case, in-place.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Stability · ★</span>
+      <p>Why is quick sort not stable?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>Partitioning swaps elements across the pivot regardless of equal keys, so the relative order of equal-key records is not preserved.</p>
+      <div class="gd-example__ans">Long-range swaps during partitioning break stability.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>Stable sorts:</strong> merge, insertion, bubble (and counting/radix). Quick and heap are unstable.</p>
+    <p><strong>Lower bound:</strong> any comparison-based sort is $\Omega(n \log n)$. Counting/radix beat this because they are not comparison-based.</p>
+    <p><strong>Heap sort:</strong> the only $O(n \log n)$ in-place comparison sort — a common single-answer MCQ.</p>
+    <p><strong>Quick sort worst case:</strong> $O(n^2)$ on an already-sorted array with naive pivot; randomized pivot makes it expected $O(n \log n)$.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-2-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const N = 16;
+  let arr = [];
+  const container = document.getElementById("sort-bars");
+  let playing = false;
+
+  function randArr() {
+    arr = Array.from({ length: N }, () => Math.floor(Math.random() * 90) + 10);
+  }
+
+  function draw(highlight, sorted) {
+    highlight = highlight || [];
+    sorted = sorted || [];
+    const W = 560, H = 200, gap = 6;
+    const barW = (W - gap * (N - 1)) / N;
+    const maxV = 100;
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+    arr.forEach((v, i) => {
+      let fill = "#4a5680";
+      if (sorted.includes(i)) fill = "#6ee7a8";
+      if (highlight.includes(i)) fill = "#f5c46b";
+      const h = (v / maxV) * (H - 30);
+      svg.append("rect").attr("x", i * (barW + gap)).attr("y", H - h - 16)
+        .attr("width", barW).attr("height", h).attr("rx", 3).attr("fill", fill);
+      svg.append("text").attr("x", i * (barW + gap) + barW / 2).attr("y", H - 4)
+        .attr("text-anchor", "middle").attr("fill", "#606880").attr("font-size", 9).text(v);
+    });
+  }
+
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function bubble() {
+    const sorted = [];
+    for (let i = 0; i < N - 1; i++) {
+      for (let j = 0; j < N - 1 - i; j++) {
+        if (!playing) return;
+        draw([j, j + 1], sorted);
+        document.getElementById("sort-log").textContent = `Comparing index ${j} and ${j + 1}.`;
+        await sleep(80);
+        if (arr[j] > arr[j + 1]) { const t = arr[j]; arr[j] = arr[j + 1]; arr[j + 1] = t; }
+      }
+      sorted.unshift(N - 1 - i);
+    }
+    sorted.unshift(0);
+    draw([], Array.from({ length: N }, (_, k) => k));
+    document.getElementById("sort-log").textContent = "Bubble sort complete.";
+  }
+
+  async function insertion() {
+    const sorted = [0];
+    for (let i = 1; i < N; i++) {
+      let j = i;
+      while (j > 0) {
+        if (!playing) return;
+        draw([j, j - 1], sorted);
+        document.getElementById("sort-log").textContent = `Inserting element ${i}: comparing ${j} and ${j - 1}.`;
+        await sleep(80);
+        if (arr[j] < arr[j - 1]) { const t = arr[j]; arr[j] = arr[j - 1]; arr[j - 1] = t; j--; }
+        else break;
+      }
+      sorted.push(i);
+    }
+    draw([], Array.from({ length: N }, (_, k) => k));
+    document.getElementById("sort-log").textContent = "Insertion sort complete.";
+  }
+
+  async function play() {
+    if (playing) return;
+    playing = true;
+    const algo = document.getElementById("sort-algo").value;
+    if (algo === "bubble") await bubble(); else await insertion();
+    playing = false;
+  }
+
+  function shuffle() { playing = false; randArr(); draw(); document.getElementById("sort-log").textContent = "Shuffled. Press Play."; }
+
+  document.getElementById("sort-play").addEventListener("click", play);
+  document.getElementById("sort-shuffle").addEventListener("click", shuffle);
+  randArr();
+  draw();
+})();
+</script>

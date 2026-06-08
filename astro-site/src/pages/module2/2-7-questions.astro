@@ -1,0 +1,179 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.7 Hashing & Collision · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-7-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.7 Questions
+</div>
+<a class="gd-pill-link" href="/module2/viz-2-7-hashing.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.7 Hashing &amp; Collision Practice Questions</h1>
+  <p>GATE-style questions. Attempt before revealing answer. NAT/MSQ: no negative marking; MCQ: −⅓ mark.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">With separate chaining and load factor $\alpha$, the expected search time is</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(1 + \alpha)$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\alpha^2)$</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\log \alpha)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) $O(1+\alpha)$.</span></b> One slot lookup plus traversal of the chain whose expected length is $\alpha$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">With $h(k) = k \bmod 10$, to which slot does key 73 hash?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q2-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">slot</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,2.9,3.1)">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ 3.</span></b> $73 \bmod 10 = 3$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Insert keys 12, 22, 32 into a table of size 10 with $h(k)=k \bmod 10$ and chaining. How many keys collide into the <strong>same</strong> slot?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q3-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">keys</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,2.9,3.1)">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ 3.</span></b> All three hash to slot 2 (12 mod 10 = 22 mod 10 = 32 mod 10 = 2), forming a chain of length 3.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Open addressing requires the load factor to satisfy</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\alpha = 1$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\alpha \lt 1$</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\alpha \gt 1$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\alpha$ unbounded</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (B) $\alpha \lt 1$.</span></b> All keys live inside the table, so it must have free slots: $n \lt m$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which are properties of a good hash function? (Select all.)</div>
+    <div class="q-options" id="q5-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="A"> <span class="q-opt-key">A</span> Distributes keys uniformly</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="B"> <span class="q-opt-key">B</span> Is fast to compute</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="C"> <span class="q-opt-key">C</span> Minimizes collisions</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="D"> <span class="q-opt-key">D</span> Always maps distinct keys to distinct slots</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(5,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (A), (B), (C).</span></b> (D) is <span class="ans-wrong">impossible</span> in general — by pigeonhole, more keys than slots forces collisions.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Primary clustering is a problem specific to</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> separate chaining</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> linear probing</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> double hashing</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> perfect hashing</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (B) linear probing.</span></b> Consecutive occupied slots merge into long runs, lengthening future probe sequences.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Keys 5, 15, 25, 35, 45 are inserted with $h(k)=k \bmod 10$ and chaining. What is the length of the chain at slot 5?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q7-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">length</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7,4.9,5.1)">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ 5.</span></b> All five keys end in 5, so $k \bmod 10 = 5$ for each — chain length 5.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">In double hashing $h(k,i) = (h_1(k) + i \cdot h_2(k)) \bmod m$, $h_2(k)$ should be coprime to $m$ so that</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> the hash is faster</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> the probe sequence visits every slot</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> keys are smaller</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> chaining is avoided</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','B')">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ (B).</span></b> If $\gcd(h_2(k), m) = 1$, the step size generates a full permutation of slots, avoiding premature cycling.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Universal hashing guarantees expected $O(1)$ operations by</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> using a fixed hash function</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> choosing the hash function randomly from a family</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> sorting the keys first</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> doubling the table on every insert</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','B')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (B).</span></b> Randomly selecting from a universal family bounds the expected collisions regardless of the input keys.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A hash table has $m = 13$ slots. Keys 18, 41, 22, 59 are inserted with $h(k)=k \bmod 13$. How many <strong>distinct</strong> slots are occupied?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q10-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">slots</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ 4.</span></b> 18→5, 41→2, 22→9, 59→7 — all different, so 4 distinct slots, no collisions.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-7-bank.html" style="margin-top:0;">Question Bank (20 Qs) →</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

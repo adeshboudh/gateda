@@ -1,0 +1,151 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.3 Recursion & Dynamic Programming · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-3-dp" pageCss="/assets/css/pages/viz-2-3-dp.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.3 Recursion &amp; DP
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">Memoization · LCS · knapsack</span>
+    </div>
+    <h1 id="top">Recursion &amp; Dynamic Programming</h1>
+    <p>When subproblems overlap, caching turns exponential recursion into polynomial DP — the Fibonacci table makes it visible.</p>
+  </div>
+
+  <h2 id="theory">When Does DP Apply?</h2>
+  <p>
+    Dynamic programming works when a problem has <strong>overlapping subproblems</strong> (the same subproblem recurs) <em>and</em> <strong>optimal substructure</strong> (an optimal solution is built from optimal sub-solutions).
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Fibonacci — naive vs memoized</div>
+    <div class="gd-formula">
+      $$T_&#123;\text&#123;naive&#125;&#125;(n) = O(2^n), \qquad T_&#123;\text&#123;memo&#125;&#125;(n) = O(n)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">LCS — 2D table</div>
+      <div class="gd-formula">$$O(mn)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Longest Common Subsequence of strings of length $m$ and $n$ fills an $(m+1)\times(n+1)$ table.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Fibonacci recurrence</div>
+      <div class="gd-formula">$$F(n) = F(n-1) + F(n-2)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Each cached value reuses two prior cells — linear once memoized.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title">DP vs Greedy</span>
+      Greedy commits to a locally-best choice; DP explores all sub-solutions. 0/1 knapsack needs DP — the greedy ratio heuristic fails. Fractional knapsack is the greedy exception.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: Fibonacci DP Table</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Slide $n$ and watch cells fill left to right. Each new cell (yellow) is the sum of the two cached cells (blue) before it.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-control">
+      <label class="gd-control__label"><span class="gd-control__sym">n</span> Fibonacci index to compute</label>
+      <span class="gd-control__value" id="fib-n-val">10</span>
+    </div>
+    <div class="gd-control--full">
+      <input class="gd-control__slider" type="range" id="fib-n" min="1" max="15" step="1" value="10">
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">DP table — cell i holds F(i), built bottom-up</div>
+    <div id="fib-table"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="fib-log">F(10) = 55. Filled 11 cells, each in O(1) — total O(n).</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · Fibonacci value · NAT · ★</span>
+      <p>With $F(0) = 0$, $F(1) = 1$, what is $F(6)$?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>0, 1, 1, 2, 3, 5, 8 → $F(6) = 8$.</p>
+      <div class="gd-example__ans">F(6) = 8.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · LCS · ★★</span>
+      <p>Find the length of the LCS of "ABCBDAB" and "BDCAB".</p>
+    </div>
+    <div class="gd-example__body">
+      <p>The DP table gives LCS length 4 (e.g. "BCAB").</p>
+      <div class="gd-example__ans">LCS length = 4.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>Complexity:</strong> naive Fibonacci is $O(2^n)$; with memoization it is $O(n)$. LCS and edit distance are $O(mn)$.</p>
+    <p><strong>0/1 knapsack:</strong> DP table is $O(nW)$ — pseudo-polynomial, since $W$ is a value not a length.</p>
+    <p><strong>Coin change / LIS:</strong> classic DP recurrences; know the min-coins and longest-increasing-subsequence forms.</p>
+    <p><strong>DP vs greedy:</strong> 0/1 knapsack needs DP; fractional knapsack is greedy. Know which is which.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-3-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const container = document.getElementById("fib-table");
+  function fibs(n) {
+    const f = [0, 1];
+    for (let i = 2; i <= n; i++) f[i] = f[i - 1] + f[i - 2];
+    return f.slice(0, n + 1);
+  }
+  function draw(n) {
+    const f = fibs(n);
+    const cellW = 56, gap = 8, H = 100;
+    const W = (n + 1) * (cellW + gap);
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+    f.forEach((v, i) => {
+      let fill = "#243250", stroke = "#7c9eff", tcol = "#cbd5f0";
+      if (i === n) { fill = "#f5c46b"; stroke = "#f5c46b"; tcol = "#1a1f2e"; }
+      else if (i === n - 1 || i === n - 2) { fill = "#3a4d80"; }
+      const x = i * (cellW + gap);
+      svg.append("rect").attr("x", x).attr("y", 30).attr("width", cellW).attr("height", 44)
+        .attr("rx", 6).attr("fill", fill).attr("stroke", stroke).attr("stroke-width", 1.5);
+      svg.append("text").attr("x", x + cellW / 2).attr("y", 57).attr("text-anchor", "middle")
+        .attr("fill", tcol).attr("font-size", 14).attr("font-weight", "600").text(v);
+      svg.append("text").attr("x", x + cellW / 2).attr("y", 20).attr("text-anchor", "middle")
+        .attr("fill", "#606880").attr("font-size", 10).text("F(" + i + ")");
+    });
+    document.getElementById("fib-log").textContent =
+      `F(${n}) = ${f[n]}. Filled ${n + 1} cells, each in O(1) — total O(n). Yellow cell = F(${n}) = F(${n - 1}) + F(${n - 2}) = ${f[n - 1]} + ${f[n - 2]}.`;
+  }
+  const slider = document.getElementById("fib-n");
+  slider.addEventListener("input", function () {
+    document.getElementById("fib-n-val").textContent = this.value;
+    draw(+this.value);
+  });
+  draw(10);
+})();
+</script>

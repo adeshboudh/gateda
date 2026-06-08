@@ -1,0 +1,329 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.2 Sorting Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-2-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.2 Bank
+</div>
+<a class="gd-pill-link" href="/module2/2-2-questions.html">← Practice Questions (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.2 Sorting — Question Bank</h1>
+  <p>Extended practice: counting/radix/bucket sort, external merge, quickselect, in-place merge, timsort, three-way partition, stability, partial sort and string sorting.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Counting sort on $n$ keys in range $[0,k]$ runs in</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n+k)$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(nk)$</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n^2)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) $O(n+k)$.</span></b> Linear when $k = O(n)$; it is not comparison-based, so it beats the $n\log n$ bound.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Radix sort with $d$ digits using a stable counting sort per digit runs in</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(d(n+b))$</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(d \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','A')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (A) $O(d(n+b))$.</span></b> $b$ = base; each of the $d$ passes is a stable $O(n+b)$ counting sort.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">External merge sort is used when</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> data fits in cache</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> data is too large to fit in main memory</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> keys are integers</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> the array is already sorted</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (B).</span></b> It sorts runs that fit in RAM then merges them from disk — minimizing I/O.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Quickselect finds the k-th smallest element in expected</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','A')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (A) $O(n)$ expected.</span></b> Partition once and recurse into only one side; expected linear, worst case $O(n^2)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">In-place merge sort reduces space to $O(1)$ but typically increases</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> stability</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> time complexity or implementation complexity</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> cache misses to zero</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> the number of comparisons to $O(n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (B).</span></b> In-place merging is intricate and often raises the constant factors or time.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Timsort (Python/Java) is a hybrid of</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> quick + heap sort</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> merge + insertion sort</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> radix + counting sort</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> bubble + selection sort</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (B).</span></b> It runs insertion sort on small runs then merges them — stable and adaptive.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Three-way partitioning (Dutch national flag) is most useful when the array has</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> all distinct keys</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> many duplicate keys</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> negative numbers</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> floating-point keys</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (B) many duplicates.</span></b> It groups equal keys in one pass, avoiding quick sort's degradation on duplicates.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Stability matters most when</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> sorting integers</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> sorting records by a secondary key after a primary sort</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> the array is small</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> using $O(1)$ space</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','B')">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ (B).</span></b> A stable sort preserves the earlier ordering of equal keys — essential for multi-key sorts.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Partial sort to get the top 3 of $n=8$ elements using a min-heap of size 3 needs at most how many heap operations of $O(\log 3)$? Give the count of elements processed.</div>
+    <div class="q-nat"><input class="q-nat__input" id="q9-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">elements</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,7.9,8.1)">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ 8.</span></b> Each of the 8 elements is processed once against the size-3 heap.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Sorting an array of strings of total length $L$ by comparison costs</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n \log n)$ ignoring string length</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(L \log n)$ accounting for comparisons</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(L)$</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n^2)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (B).</span></b> Each comparison can scan up to the string length, so total work is $O(L \log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Heap sort first builds a heap in $O(n)$ then extracts $n$ times, giving total</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','B')">Check</button>
+      <div class="q-answer" id="q11-ans"><b><span class="ans-correct">✓ (B) $O(n \log n)$.</span></b> Build is $O(n)$ but $n$ extract-max operations cost $O(n \log n)$ overall.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Number of comparisons selection sort makes on $n=5$ elements is $n(n-1)/2$. Compute it.</div>
+    <div class="q-nat"><input class="q-nat__input" id="q12-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">comparisons</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(12,9.9,10.1)">Check</button>
+      <div class="q-answer" id="q12-ans"><b><span class="ans-correct">✓ 10.</span></b> $5 \cdot 4 / 2 = 10$ comparisons regardless of input order.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc13">
+    <div class="q-header"><span class="q-num">Q13</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Which sort is NOT comparison-based?</div>
+    <div class="q-options" id="q13-opts">
+      <div class="q-opt" data-q="13" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Merge sort</div>
+      <div class="q-opt" data-q="13" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Counting sort</div>
+      <div class="q-opt" data-q="13" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Quick sort</div>
+      <div class="q-opt" data-q="13" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Heap sort</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(13,'mcq','B')">Check</button>
+      <div class="q-answer" id="q13-ans"><b><span class="ans-correct">✓ (B) Counting sort.</span></b> It uses key values as indices, bypassing the $\Omega(n \log n)$ comparison bound.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc14">
+    <div class="q-header"><span class="q-num">Q14</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Bucket sort gives expected $O(n)$ when input is</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> uniformly distributed over a known range</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> reverse sorted</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> all equal</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> arbitrary</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','A')">Check</button>
+      <div class="q-answer" id="q14-ans"><b><span class="ans-correct">✓ (A).</span></b> Uniform distribution spreads keys evenly across buckets, each sorted in $O(1)$ expected.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc15">
+    <div class="q-header"><span class="q-num">Q15</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Merge sort makes how many levels of recursion for $n=16$? (depth of the recursion tree)</div>
+    <div class="q-nat"><input class="q-nat__input" id="q15-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">levels</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(15,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q15-ans"><b><span class="ans-correct">✓ 4.</span></b> $\log_2 16 = 4$ levels of halving.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc16">
+    <div class="q-header"><span class="q-num">Q16</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Which sort is adaptive (faster on nearly-sorted input)?</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Merge sort</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Insertion sort</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Heap sort</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Selection sort</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','B')">Check</button>
+      <div class="q-answer" id="q16-ans"><b><span class="ans-correct">✓ (B) Insertion sort.</span></b> On a nearly-sorted array it approaches $O(n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc17">
+    <div class="q-header"><span class="q-num">Q17</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which sorts are NOT stable? (Select all.)</div>
+    <div class="q-options" id="q17-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="A"> <span class="q-opt-key">A</span> Quick sort</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="B"> <span class="q-opt-key">B</span> Heap sort</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="C"> <span class="q-opt-key">C</span> Merge sort</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="D"> <span class="q-opt-key">D</span> Selection sort (standard)</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(17,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q17-ans"><b><span class="ans-correct">✓ (A), (B), (D).</span></b> Merge sort is stable. Quick, heap and standard selection sort are not.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc18">
+    <div class="q-header"><span class="q-num">Q18</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Shell sort improves insertion sort by</div>
+    <div class="q-options" id="q18-opts">
+      <div class="q-opt" data-q="18" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> using a heap</div>
+      <div class="q-opt" data-q="18" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> comparing elements separated by a gap that shrinks</div>
+      <div class="q-opt" data-q="18" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> partitioning around a pivot</div>
+      <div class="q-opt" data-q="18" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> counting occurrences</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(18,'mcq','B')">Check</button>
+      <div class="q-answer" id="q18-ans"><b><span class="ans-correct">✓ (B).</span></b> Gap sequences move elements long distances early, reducing later work.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc19">
+    <div class="q-header"><span class="q-num">Q19</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Bubble sort on a sorted array of $n=6$ (with early-exit) makes how many passes before stopping?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q19-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">passes</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(19,0.9,1.1)">Check</button>
+      <div class="q-answer" id="q19-ans"><b><span class="ans-correct">✓ 1.</span></b> One clean pass with no swaps triggers early termination.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc20">
+    <div class="q-header"><span class="q-num">Q20</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The minimum number of comparisons to sort 3 elements in the worst case is</div>
+    <div class="q-options" id="q20-opts">
+      <div class="q-opt" data-q="20" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 2</div>
+      <div class="q-opt" data-q="20" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 3</div>
+      <div class="q-opt" data-q="20" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 4</div>
+      <div class="q-opt" data-q="20" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 6</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(20,'mcq','B')">Check</button>
+      <div class="q-answer" id="q20-ans"><b><span class="ans-correct">✓ (B) 3.</span></b> The decision tree for 3 elements has $3! = 6$ leaves; height $\lceil \log_2 6 \rceil = 3$.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-2-questions.html" style="margin-top:0;">← Practice Questions (10 Qs)</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

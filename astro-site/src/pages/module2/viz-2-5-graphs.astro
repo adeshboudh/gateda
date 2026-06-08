@@ -1,0 +1,206 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.5 Graphs — BFS & DFS · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-5-graphs" pageCss="/assets/css/pages/viz-2-5-graphs.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.5 Graphs — BFS &amp; DFS
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">BFS queue · DFS stack · O(V+E)</span>
+    </div>
+    <h1 id="top">Graphs — BFS &amp; DFS</h1>
+    <p>BFS finds shortest paths in unweighted graphs; DFS detects cycles and orders DAGs. Both run in $O(V+E)$.</p>
+  </div>
+
+  <h2 id="theory">Traversal Fundamentals</h2>
+  <p>
+    <strong>BFS</strong> uses a <em>queue</em> and explores level by level — giving shortest paths in unweighted graphs.
+    <strong>DFS</strong> uses a <em>stack</em> (or recursion), diving deep before backtracking — used for cycle detection and topological sort.
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Traversal complexity (adjacency list)</div>
+    <div class="gd-formula">
+      $$T_&#123;\text&#123;BFS&#125;&#125; = T_&#123;\text&#123;DFS&#125;&#125; = O(V + E)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Dijkstra (binary heap)</div>
+      <div class="gd-formula">$$O((V + E)\log V)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Single-source shortest path on non-negative weights. Fails when edges can be negative.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Kruskal MST</div>
+      <div class="gd-formula">$$O(E \log E)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">A minimum spanning tree on a connected graph has exactly $V - 1$ edges.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title">Dijkstra + negative edges</span>
+      Dijkstra assumes once a node is finalized its distance is optimal — negative edges break that, so use Bellman-Ford instead.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: BFS / DFS Frontier</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Pick a mode, then press <strong>Step</strong> to expand the frontier from node 0. Blue = visited, yellow = current frontier.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-controls__title">Controls</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <select id="g-mode" style="padding:8px 10px;background:var(--gd-bg-1);border:1px solid var(--gd-border);border-radius:6px;color:var(--gd-text-0);">
+        <option value="bfs">BFS (queue)</option>
+        <option value="dfs">DFS (stack)</option>
+      </select>
+      <button id="g-step" class="gd-btn gd-btn--primary">Step</button>
+      <button id="g-reset" class="gd-btn gd-btn--secondary">Reset</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">8-node graph — traversal starts at node 0</div>
+    <div id="graph-viz"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="g-log">Press Step to start traversal from node 0.</div>
+    <div class="gd-insight" id="g-order">Visit order: —</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · Shortest path · ★</span>
+      <p>Which traversal gives the shortest path in an <em>unweighted</em> graph, and why?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>BFS explores in order of increasing distance, so the first time it reaches a node is along a minimum-edge path.</p>
+      <div class="gd-example__ans">BFS — it visits nodes in non-decreasing distance order.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Complete graph edges · NAT · ★★</span>
+      <p>How many edges does the complete graph $K_5$ have?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>$\binom&#123;5&#125;&#123;2&#125; = \dfrac&#123;5 \cdot 4&#125;&#123;2&#125; = 10$.</p>
+      <div class="gd-example__ans">10 edges.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>BFS:</strong> queue-based, shortest path in unweighted graphs.</p>
+    <p><strong>DFS:</strong> stack/recursion, used for cycle detection and topological sort on a DAG.</p>
+    <p><strong>Dijkstra:</strong> $O((V+E)\log V)$ with a heap; fails on negative edges — use Bellman-Ford.</p>
+    <p><strong>MST:</strong> $V - 1$ edges; Kruskal $O(E \log E)$, Prim $O(E \log V)$.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-5-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  // 8-node graph, undirected adjacency
+  const adj = {
+    0: [1, 2], 1: [0, 3, 4], 2: [0, 5], 3: [1, 6],
+    4: [1, 6], 5: [2, 7], 6: [3, 4, 7], 7: [5, 6]
+  };
+  const pos = {
+    0: [300, 40], 1: [160, 120], 2: [440, 120], 3: [90, 220],
+    4: [230, 220], 5: [510, 220], 6: [180, 310], 7: [430, 310]
+  };
+  const container = document.getElementById("graph-viz");
+
+  let visited, frontier, order, queue, started, done;
+
+  function resetState() {
+    visited = new Set();
+    frontier = new Set();
+    order = [];
+    queue = [0];
+    started = false;
+    done = false;
+    document.getElementById("g-log").textContent = "Press Step to start traversal from node 0.";
+    document.getElementById("g-order").textContent = "Visit order: —";
+    draw();
+  }
+
+  function draw() {
+    const W = 600, H = 360;
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+    const seen = new Set();
+    Object.keys(adj).forEach(a => {
+      adj[a].forEach(b => {
+        const key = Math.min(a, b) + "-" + Math.max(a, b);
+        if (seen.has(key)) return;
+        seen.add(key);
+        svg.append("line").attr("x1", pos[a][0]).attr("y1", pos[a][1])
+          .attr("x2", pos[b][0]).attr("y2", pos[b][1]).attr("stroke", "#2e3a52").attr("stroke-width", 1.5);
+      });
+    });
+    Object.keys(pos).forEach(n => {
+      const id = +n;
+      let fill = "#1e2535", stroke = "#2e3a52", tcol = "#9aa5be";
+      if (visited.has(id)) { fill = "#243250"; stroke = "#7c9eff"; tcol = "#cbd5f0"; }
+      if (frontier.has(id)) { fill = "#f5c46b"; stroke = "#f5c46b"; tcol = "#1a1f2e"; }
+      svg.append("circle").attr("cx", pos[n][0]).attr("cy", pos[n][1]).attr("r", 18)
+        .attr("fill", fill).attr("stroke", stroke).attr("stroke-width", 2);
+      svg.append("text").attr("x", pos[n][0]).attr("y", pos[n][1] + 4).attr("text-anchor", "middle")
+        .attr("fill", tcol).attr("font-size", 13).attr("font-weight", "600").text(n);
+    });
+  }
+
+  function step() {
+    if (done) return;
+    const mode = document.getElementById("g-mode").value;
+    frontier.clear();
+    let node;
+    // pop from front (BFS queue) or back (DFS stack)
+    if (mode === "bfs") node = queue.shift();
+    else node = queue.pop();
+    while (node !== undefined && visited.has(node)) {
+      node = mode === "bfs" ? queue.shift() : queue.pop();
+    }
+    if (node === undefined) {
+      done = true;
+      document.getElementById("g-log").textContent = `${mode.toUpperCase()} complete. All reachable nodes visited.`;
+      draw();
+      return;
+    }
+    visited.add(node);
+    order.push(node);
+    const neighbors = adj[node].filter(x => !visited.has(x));
+    neighbors.forEach(x => { frontier.add(x); });
+    if (mode === "bfs") neighbors.forEach(x => queue.push(x));
+    else neighbors.forEach(x => queue.push(x));
+    document.getElementById("g-log").textContent =
+      `Visited node ${node}. ${mode === "bfs" ? "Enqueued" : "Pushed"} unvisited neighbours: [${neighbors.join(", ") || "none"}].`;
+    document.getElementById("g-order").textContent = `Visit order: ${order.join(" → ")}`;
+    draw();
+  }
+
+  document.getElementById("g-step").addEventListener("click", step);
+  document.getElementById("g-reset").addEventListener("click", resetState);
+  document.getElementById("g-mode").addEventListener("change", resetState);
+  resetState();
+})();
+</script>

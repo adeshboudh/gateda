@@ -1,0 +1,189 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.1 Arrays & Searching · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-1-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.1 Questions
+</div>
+<a class="gd-pill-link" href="/module2/viz-2-1-searching.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.1 Arrays &amp; Searching Practice Questions</h1>
+  <p>GATE-style questions. Attempt before revealing answer. NAT/MSQ: no negative marking; MCQ: −⅓ mark.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Maximum number of comparisons binary search makes on a sorted array of $n = 1024$ elements is</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 10</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 11</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 512</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1024</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) 11.</span></b> $\lfloor \log_2 1024 \rfloor + 1 = 10 + 1 = 11$. Each comparison halves the range.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">What is the essential pre-condition for binary search to be correct?</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Array has distinct elements</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Array is sorted</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Array size is a power of 2</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Array is stored contiguously</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','B')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (B).</span></b> Binary search discards a half based on order; it is only correct on a sorted array. Duplicates and non-power-of-2 sizes are fine.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">The auxiliary space of the <strong>iterative</strong> binary search is</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','A')">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (A) O(1).</span></b> Iterative binary search keeps only lo, hi, mid. The recursive version costs $O(\log n)$ stack space.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">The worst-case time of linear search on $n$ elements is</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n)$</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (B) O(n).</span></b> In the worst case (target absent or last) linear search scans all $n$ elements.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Binary search for target 23 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91] (mid = floor((lo+hi)/2)). How many comparisons until found?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q5-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">comparisons</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(5,2.9,3.1)">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ 3.</span></b> mid=floor((0+9)/2)=4, a[4]=16&lt;23 → lo=5. mid=floor((5+9)/2)=7, a[7]=56&gt;23 → hi=6. mid=floor((5+6)/2)=5, a[5]=23 → found. 3 comparisons.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A sorted array is rotated at an unknown pivot. The best worst-case time to search a value is</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (B) O(log n).</span></b> A modified binary search decides which half is sorted at each step, still halving the range — $O(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A sorted array has $n = 63$ elements. What is the maximum number of comparisons binary search may need?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q7-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">comparisons</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7,5.9,6.1)">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ 6.</span></b> $\lfloor \log_2 63 \rfloor + 1 = 5 + 1 = 6$ (since $2^5 = 32 \le 63 \lt 64 = 2^6$).</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">The best-case time of binary search (target is the first mid) is</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\sqrt n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','A')">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ (A) O(1).</span></b> If the target equals the first computed mid, it finishes in a single comparison.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Interpolation search achieves average $O(\log \log n)$ when the keys are</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> uniformly distributed</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> in arbitrary order</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> all equal</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> stored in a linked list</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','A')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (A).</span></b> Interpolation search estimates position by value; on uniformly distributed sorted keys it averages $O(\log \log n)$, but degrades to $O(n)$ on skewed data.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which statements about binary search are <strong>TRUE</strong>? (Select all.)</div>
+    <div class="q-options" id="q10-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="A"> <span class="q-opt-key">A</span> It requires a sorted array.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="B"> <span class="q-opt-key">B</span> Its worst-case time is $O(\log n)$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="C"> <span class="q-opt-key">C</span> The iterative version uses $O(\log n)$ space.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="D"> <span class="q-opt-key">D</span> It can be adapted to a rotated sorted array in $O(\log n)$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(10,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (A), (B), (D).</span></b> (C) is <span class="ans-wrong">False</span> — iterative binary search is $O(1)$ space; only the recursive form is $O(\log n)$.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-1-bank.html" style="margin-top:0;">Question Bank (20 Qs) →</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

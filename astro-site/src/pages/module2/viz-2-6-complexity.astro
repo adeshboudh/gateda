@@ -1,0 +1,181 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.6 Algorithm Complexity · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-6-complexity" pageCss="/assets/css/pages/viz-2-6-complexity.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.6 Algorithm Complexity
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">Big-O · Master theorem · recurrences</span>
+    </div>
+    <h1 id="top">Algorithm Complexity</h1>
+    <p>The growth-rate hierarchy and the Master theorem — memorize all three cases for guaranteed GATE marks.</p>
+  </div>
+
+  <h2 id="theory">The Big-O Hierarchy</h2>
+  <p>Ordering by asymptotic growth, slowest-growing first:</p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Growth hierarchy</div>
+    <div class="gd-formula">
+      $$O(1) \lt O(\log n) \lt O(n) \lt O(n \log n) \lt O(n^2) \lt O(2^n)$$
+    </div>
+  </div>
+
+  <h2 id="master">Master Theorem</h2>
+  <p>For $T(n) = a\,T(n/b) + f(n)$ with $a \ge 1$, $b \gt 1$, compare $f(n)$ to $n^&#123;\log_b a&#125;$:</p>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Case 1 — leaf-dominated</div>
+      <div class="gd-formula">$$f(n) = O(n^&#123;\log_b a - \epsilon&#125;) \Rightarrow \Theta(n^&#123;\log_b a&#125;)$$</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Case 2 — balanced</div>
+      <div class="gd-formula">$$f(n) = \Theta(n^&#123;\log_b a&#125;) \Rightarrow \Theta(n^&#123;\log_b a&#125; \log n)$$</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Case 3 — root-dominated</div>
+      <div class="gd-formula">$$f(n) = \Omega(n^&#123;\log_b a + \epsilon&#125;) \Rightarrow \Theta(f(n))$$</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Common results</div>
+      <div class="gd-formula">$$2T(n/2)+n \Rightarrow \Theta(n \log n)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">And $4T(n/2)+n \Rightarrow \Theta(n^2)$ (case 1, since $\log_2 4 = 2$).</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--insight">
+      <span class="gd-insight__title">Quick Master checks</span>
+      $T(n)=2T(n/2)+n$: $\log_2 2 = 1$, $f=n=n^1$ → case 2 → $n \log n$ (merge sort). $T(n)=4T(n/2)+n$: $\log_2 4 = 2$, $f=n \lt n^2$ → case 1 → $n^2$.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: Growth Curves</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Slide $n$ and compare how the five complexity classes diverge. Toggle a log scale to see them spread out.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-control">
+      <label class="gd-control__label"><span class="gd-control__sym">n</span> Maximum input size on the x-axis</label>
+      <span class="gd-control__value" id="cx-n-val">50</span>
+    </div>
+    <div class="gd-control--full">
+      <input class="gd-control__slider" type="range" id="cx-n" min="10" max="100" step="1" value="50">
+    </div>
+    <div style="margin-top:10px;">
+      <button id="cx-log" class="gd-btn gd-btn--secondary">Toggle log scale</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">Growth curves — O(1), O(log n), O(n), O(n log n), O(n²)</div>
+    <div id="cx-chart"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="cx-log-state">Linear scale. The O(n²) curve dominates everything else as n grows.</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · Master theorem · ★★</span>
+      <p>Solve $T(n) = 2T(n/2) + n$.</p>
+    </div>
+    <div class="gd-example__body">
+      <p>$a = 2$, $b = 2$, $\log_b a = 1$, $f(n) = n = \Theta(n^1)$ → case 2.</p>
+      <div class="gd-example__ans">T(n) = Θ(n log n).</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Towers of Hanoi · NAT · ★</span>
+      <p>$T(n) = 2T(n-1) + 1$, $T(1) = 1$. Closed form for $T(n)$?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>Unrolling gives $T(n) = 2^n - 1$.</p>
+      <div class="gd-example__ans">T(n) = 2ⁿ − 1.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>Master theorem:</strong> memorize all three cases — at least one recurrence appears most years.</p>
+    <p><strong>$2T(n/2)+n \to n \log n$</strong> (merge sort) and <strong>$4T(n/2)+n \to n^2$</strong> are the two staples.</p>
+    <p><strong>Hierarchy:</strong> $O(1) \lt O(\log n) \lt O(n) \lt O(n \log n) \lt O(n^2) \lt O(2^n)$.</p>
+    <p><strong>Hanoi:</strong> $2^n - 1$ moves — the canonical exponential recurrence.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-6-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const container = document.getElementById("cx-chart");
+  let nMax = 50, logScale = false;
+
+  const funcs = [
+    { name: "O(1)", color: "#9aa5be", f: () => 1 },
+    { name: "O(log n)", color: "#6ee7a8", f: n => Math.log2(n) },
+    { name: "O(n)", color: "#7c9eff", f: n => n },
+    { name: "O(n log n)", color: "#f5c46b", f: n => n * Math.log2(n) },
+    { name: "O(n²)", color: "#e05c6b", f: n => n * n }
+  ];
+
+  function draw() {
+    const W = 600, H = 340, pad = 50;
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+
+    const xs = [];
+    for (let i = 1; i <= nMax; i++) xs.push(i);
+    let yMax = nMax * nMax;
+    const x = d3.scaleLinear().domain([1, nMax]).range([pad, W - pad]);
+    const y = logScale
+      ? d3.scaleLog().domain([1, yMax]).range([H - pad, 20]).clamp(true)
+      : d3.scaleLinear().domain([0, yMax]).range([H - pad, 20]);
+
+    // axes
+    svg.append("line").attr("x1", pad).attr("y1", H - pad).attr("x2", W - pad).attr("y2", H - pad).attr("stroke", "#2e3a52");
+    svg.append("line").attr("x1", pad).attr("y1", H - pad).attr("x2", pad).attr("y2", 20).attr("stroke", "#2e3a52");
+    svg.append("text").attr("x", W / 2).attr("y", H - 12).attr("text-anchor", "middle").attr("fill", "#9aa5be").attr("font-size", 11).text("input size n");
+
+    funcs.forEach((fn, idx) => {
+      const line = d3.line().x(d => x(d)).y(d => y(Math.max(fn.f(d), logScale ? 1 : 0)));
+      svg.append("path").datum(xs).attr("fill", "none").attr("stroke", fn.color).attr("stroke-width", 2).attr("d", line);
+      // legend
+      const ly = 30 + idx * 18;
+      svg.append("rect").attr("x", W - pad - 110).attr("y", ly - 9).attr("width", 10).attr("height", 10).attr("fill", fn.color).attr("rx", 2);
+      svg.append("text").attr("x", W - pad - 95).attr("y", ly).attr("fill", "#9aa5be").attr("font-size", 11).text(fn.name);
+    });
+  }
+
+  document.getElementById("cx-n").addEventListener("input", function () {
+    nMax = +this.value;
+    document.getElementById("cx-n-val").textContent = this.value;
+    draw();
+  });
+  document.getElementById("cx-log").addEventListener("click", function () {
+    logScale = !logScale;
+    document.getElementById("cx-log-state").textContent = logScale
+      ? "Log scale. On a log y-axis the curves become near-straight lines with different slopes."
+      : "Linear scale. The O(n²) curve dominates everything else as n grows.";
+    draw();
+  });
+  draw();
+})();
+</script>

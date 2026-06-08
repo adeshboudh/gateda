@@ -1,0 +1,319 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.4 Trees Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-4-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.4 Bank
+</div>
+<a class="gd-pill-link" href="/module2/2-4-questions.html">← Practice Questions (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.4 Trees &amp; Heaps — Question Bank</h1>
+  <p>Extended practice: AVL rotations, red-black properties, segment trees, Fenwick trees, tries, B-trees, expression trees, threaded BSTs, priority queues and complete-tree properties.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Inserting into an AVL tree where the imbalance is a left-left case requires a</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> single right rotation</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> single left rotation</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> left-right double rotation</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> no rotation</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','A')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (A) single right rotation.</span></b> LL imbalance is fixed by one right rotation about the unbalanced node.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A left-right (LR) imbalance in an AVL tree is fixed by</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> one right rotation</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> one left rotation</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> a left rotation then a right rotation</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> two right rotations</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','C')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (C).</span></b> First left-rotate the child, then right-rotate the node.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which are red-black tree properties? (Select all.)</div>
+    <div class="q-options" id="q3-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="3" data-val="A"> <span class="q-opt-key">A</span> The root is black</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="3" data-val="B"> <span class="q-opt-key">B</span> Red nodes have black children</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="3" data-val="C"> <span class="q-opt-key">C</span> Every root-to-leaf path has the same number of black nodes</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="3" data-val="D"> <span class="q-opt-key">D</span> All leaves are red</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(3,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (A), (B), (C).</span></b> Leaves (NIL) are black, so (D) is <span class="ans-wrong">False</span>.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A segment tree answers range queries on $n$ elements in</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$ per query</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (B) $O(\log n)$.</span></b> Both range query and point update are $O(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A Fenwick (binary indexed) tree supports prefix-sum update and query in</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\sqrt n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (B) $O(\log n)$.</span></b> It uses the low-bit trick to jump in $O(\log n)$ steps.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A trie storing the words &#123;a, an, and&#125; has how many nodes (excluding the root)?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q6-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">nodes</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,3,3)">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ 3.</span></b> The three words share the prefix path root→a→n→d. That single chain has 3 nodes (a, n, d) excluding the root; the words "a", "an", "and" are marked as terminal at depths 1, 2, 3 respectively.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">A B-tree of order $m$ has each internal node with at most</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $m$ children</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $m-1$ children</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 2 children</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\log m$ children</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','A')">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (A) $m$ children.</span></b> Order-$m$ B-tree nodes hold up to $m-1$ keys and $m$ children.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Evaluate the expression tree for (3 + 4) * 2.</div>
+    <div class="q-nat"><input class="q-nat__input" id="q8-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,14,14)">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ 14.</span></b> $(3+4) \times 2 = 7 \times 2 = 14$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A threaded binary tree replaces null pointers with</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> duplicate keys</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> links to in-order predecessor/successor</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> random pointers</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> parent pointers only</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','B')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (B).</span></b> Threads enable in-order traversal without a stack or recursion.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which use a priority queue (heap)? (Select all.)</div>
+    <div class="q-options" id="q10-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="A"> <span class="q-opt-key">A</span> Dijkstra's algorithm</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="B"> <span class="q-opt-key">B</span> Prim's MST</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="C"> <span class="q-opt-key">C</span> Huffman coding</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="D"> <span class="q-opt-key">D</span> Binary search</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(10,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (A), (B), (C).</span></b> All extract the minimum/maximum repeatedly. Binary search uses no heap.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A complete binary tree with 7 nodes has height (root at 0) of</div>
+    <div class="q-nat"><input class="q-nat__input" id="q11-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">height</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(11,2,2)">Check</button>
+      <div class="q-answer" id="q11-ans"><b><span class="ans-correct">✓ 2.</span></b> $2^&#123;2+1&#125;-1 = 7$, so a perfect tree of 7 nodes has height 2.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The in-order successor of a node with a right child is the</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> parent</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> leftmost node of the right subtree</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> rightmost node</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> root</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','B')">Check</button>
+      <div class="q-answer" id="q12-ans"><b><span class="ans-correct">✓ (B).</span></b> Descend right once, then go left until null.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc13">
+    <div class="q-header"><span class="q-num">Q13</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Number of leaf nodes in a max-heap of 15 elements (stored in an array) is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q13-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">leaves</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,8,8)">Check</button>
+      <div class="q-answer" id="q13-ans"><b><span class="ans-correct">✓ 8.</span></b> Leaves are indices $\lfloor n/2 \rfloor .. n-1$ → indices 7..14 = 8 leaves.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc14">
+    <div class="q-header"><span class="q-num">Q14</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Pre-order traversal visits nodes in the order</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> left, root, right</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> root, left, right</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> left, right, root</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> level by level</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans"><b><span class="ans-correct">✓ (B) root, left, right.</span></b> Pre-order processes the root before its subtrees.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc15">
+    <div class="q-header"><span class="q-num">Q15</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The height of a balanced binary tree with $n$ nodes is</div>
+    <div class="q-options" id="q15-opts">
+      <div class="q-opt" data-q="15" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\Theta(n)$</div>
+      <div class="q-opt" data-q="15" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\Theta(\log n)$</div>
+      <div class="q-opt" data-q="15" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\Theta(\sqrt n)$</div>
+      <div class="q-opt" data-q="15" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\Theta(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(15,'mcq','B')">Check</button>
+      <div class="q-answer" id="q15-ans"><b><span class="ans-correct">✓ (B) $\Theta(\log n)$.</span></b> Balance keeps the height logarithmic.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc16">
+    <div class="q-header"><span class="q-num">Q16</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Maximum number of nodes in a binary tree of height 3 (root at height 0) is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q16-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">nodes</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(16,15,15)">Check</button>
+      <div class="q-answer" id="q16-ans"><b><span class="ans-correct">✓ 15.</span></b> $2^&#123;3+1&#125; - 1 = 15$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc17">
+    <div class="q-header"><span class="q-num">Q17</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A splay tree gives amortized $O(\log n)$ by</div>
+    <div class="q-options" id="q17-opts">
+      <div class="q-opt" data-q="17" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> random balancing</div>
+      <div class="q-opt" data-q="17" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> moving accessed nodes to the root via rotations</div>
+      <div class="q-opt" data-q="17" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> coloring nodes</div>
+      <div class="q-opt" data-q="17" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> storing parent pointers</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(17,'mcq','B')">Check</button>
+      <div class="q-answer" id="q17-ans"><b><span class="ans-correct">✓ (B).</span></b> Splaying recently-accessed nodes to the root yields amortized $O(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc18">
+    <div class="q-header"><span class="q-num">Q18</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Post-order traversal of a tree with root R, left L (leaf), right N (leaf) visits how many nodes before R?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q18-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">nodes</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(18,2,2)">Check</button>
+      <div class="q-answer" id="q18-ans"><b><span class="ans-correct">✓ 2.</span></b> Post-order = L, N, R — two nodes precede the root.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc19">
+    <div class="q-header"><span class="q-num">Q19</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A min-heap stored as an array places the parent of index $i$ (1-based) at</div>
+    <div class="q-options" id="q19-opts">
+      <div class="q-opt" data-q="19" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $2i$</div>
+      <div class="q-opt" data-q="19" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\lfloor i/2 \rfloor$</div>
+      <div class="q-opt" data-q="19" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $i-1$</div>
+      <div class="q-opt" data-q="19" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $i+1$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(19,'mcq','B')">Check</button>
+      <div class="q-answer" id="q19-ans"><b><span class="ans-correct">✓ (B) $\lfloor i/2 \rfloor$.</span></b> Children of $i$ are $2i$ and $2i+1$; the parent is $\lfloor i/2 \rfloor$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc20">
+    <div class="q-header"><span class="q-num">Q20</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">A complete binary tree is one in which</div>
+    <div class="q-options" id="q20-opts">
+      <div class="q-opt" data-q="20" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> every node has 2 children</div>
+      <div class="q-opt" data-q="20" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> all levels are full except possibly the last, filled left to right</div>
+      <div class="q-opt" data-q="20" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> it is perfectly balanced</div>
+      <div class="q-opt" data-q="20" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> there are no leaves</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(20,'mcq','B')">Check</button>
+      <div class="q-answer" id="q20-ans"><b><span class="ans-correct">✓ (B).</span></b> This is the heap shape property enabling array storage.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-4-questions.html" style="margin-top:0;">← Practice Questions (10 Qs)</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

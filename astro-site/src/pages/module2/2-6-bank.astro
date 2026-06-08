@@ -1,0 +1,329 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.6 Complexity Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-6-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.6 Bank
+</div>
+<a class="gd-pill-link" href="/module2/2-6-questions.html">← Practice Questions (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.6 Algorithm Complexity — Question Bank</h1>
+  <p>Extended practice: amortized analysis, P vs NP, NP-completeness, substitution and recursion-tree methods, more Master theorem, space-time tradeoffs, Strassen and approximation algorithms.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The amortized cost of appending to a dynamic array that doubles on overflow is</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(1)$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) $O(1)$ amortized.</span></b> Doubling spreads the $O(n)$ copy cost over $n$ cheap appends.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">P is the class of problems solvable in</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> polynomial time</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> exponential time</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> constant time</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> logarithmic space</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','A')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (A) polynomial time.</span></b> P = deterministic polynomial time.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Which is a known NP-complete problem?</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Sorting</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Boolean satisfiability (SAT)</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Binary search</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Matrix addition</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (B) SAT.</span></b> SAT was the first proven NP-complete problem (Cook-Levin).</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Solving $T(n)=T(n-1)+n$ by the substitution method gives</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\Theta(n)$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\Theta(n^2)$</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\Theta(n \log n)$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\Theta(2^n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (B) $\Theta(n^2)$.</span></b> Sum $1+2+\dots+n = n(n+1)/2 = \Theta(n^2)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A recursion tree for $T(n)=2T(n/2)+n$ has how much work per level?</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n)$ on every level</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> decreasing geometrically</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (B) $O(n)$ per level.</span></b> With $\log n$ levels each costing $n$, total is $O(n \log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">$T(n)=3T(n/2)+n$ solves to (Master theorem)</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\Theta(n)$</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\Theta(n \log n)$</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\Theta(n^&#123;\log_2 3&#125;)$</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\Theta(n^2)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','C')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (C) $\Theta(n^&#123;\log_2 3&#125;) \approx \Theta(n^&#123;1.585&#125;)$.</span></b> $\log_2 3 &gt; 1$ so case 1 dominates (Karatsuba-like).</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Trading extra memory to speed up computation is called a</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> greedy choice</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> space-time tradeoff</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> divide and conquer</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> amortization</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (B) space-time tradeoff.</span></b> Memoization and lookup tables are examples.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Quick sort's average case is $O(n \log n)$ but worst case is</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n \log n)$</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(2^n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','C')">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ (C) $O(n^2)$.</span></b> Unbalanced partitions on adversarial input.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Strassen's matrix multiplication runs in approximately</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n^3)$</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n^&#123;2.81&#125;)$</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','B')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (B) $O(n^&#123;2.81&#125;)$.</span></b> 7 recursive multiplications give $\log_2 7 \approx 2.81$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">An approximation algorithm is used when a problem is</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> in P</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> NP-hard and exact solutions are intractable</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> trivial</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> sortable</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (B).</span></b> It trades optimality for polynomial-time near-optimal answers.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">$T(n)=T(n/2)+1$, $T(1)=1$. Find $T(8)$.</div>
+    <div class="q-nat"><input class="q-nat__input" id="q11-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(11,4,4)">Check</button>
+      <div class="q-answer" id="q11-ans"><b><span class="ans-correct">✓ 4.</span></b> $T(8)=T(4)+1=T(2)+2=T(1)+3=4$ (i.e. $\log_2 8 + 1 = 4$).</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Big-Theta $\Theta(g(n))$ means $f(n)$ is bounded</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> only above by $g$</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> only below by $g$</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> both above and below by constant multiples of $g$</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> unbounded</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','C')">Check</button>
+      <div class="q-answer" id="q12-ans"><b><span class="ans-correct">✓ (C).</span></b> $\Theta$ is a tight bound: $c_1 g \le f \le c_2 g$ for large $n$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc13">
+    <div class="q-header"><span class="q-num">Q13</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Which grows slowest for large $n$?</div>
+    <div class="q-options" id="q13-opts">
+      <div class="q-opt" data-q="13" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $n$</div>
+      <div class="q-opt" data-q="13" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\log n$</div>
+      <div class="q-opt" data-q="13" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $n \log n$</div>
+      <div class="q-opt" data-q="13" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\sqrt n$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(13,'mcq','B')">Check</button>
+      <div class="q-answer" id="q13-ans"><b><span class="ans-correct">✓ (B) $\log n$.</span></b> Logarithm is the slowest-growing among these.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc14">
+    <div class="q-header"><span class="q-num">Q14</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">$T(n)=2T(n/2)+n$ for $n=8$ (with $T(1)=0$): total non-recursive work summed over all levels is $n \log_2 n$. Compute it.</div>
+    <div class="q-nat"><input class="q-nat__input" id="q14-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(14,24,24)">Check</button>
+      <div class="q-answer" id="q14-ans"><b><span class="ans-correct">✓ 24.</span></b> $8 \times \log_2 8 = 8 \times 3 = 24$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc15">
+    <div class="q-header"><span class="q-num">Q15</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The recurrence for binary search, $T(n)=T(n/2)+O(1)$, is which Master case?</div>
+    <div class="q-options" id="q15-opts">
+      <div class="q-opt" data-q="15" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> case 1</div>
+      <div class="q-opt" data-q="15" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> case 2</div>
+      <div class="q-opt" data-q="15" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> case 3</div>
+      <div class="q-opt" data-q="15" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> inapplicable</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(15,'mcq','B')">Check</button>
+      <div class="q-answer" id="q15-ans"><b><span class="ans-correct">✓ (B) case 2.</span></b> $\Theta(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc16">
+    <div class="q-header"><span class="q-num">Q16</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">An algorithm with best case $O(n)$ and worst case $O(n^2)$ has average case</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> always $O(n)$</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> always $O(n^2)$</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> problem-dependent, between the two</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','C')">Check</button>
+      <div class="q-answer" id="q16-ans"><b><span class="ans-correct">✓ (C).</span></b> Average case depends on input distribution and lies between best and worst.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc17">
+    <div class="q-header"><span class="q-num">Q17</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Number of moves for Towers of Hanoi with 4 disks is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q17-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">moves</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(17,15,15)">Check</button>
+      <div class="q-answer" id="q17-ans"><b><span class="ans-correct">✓ 15.</span></b> $2^4 - 1 = 15$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc18">
+    <div class="q-header"><span class="q-num">Q18</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">NP-hard problems are</div>
+    <div class="q-options" id="q18-opts">
+      <div class="q-opt" data-q="18" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> always in NP</div>
+      <div class="q-opt" data-q="18" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> at least as hard as the hardest NP problems</div>
+      <div class="q-opt" data-q="18" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> solvable in polynomial time</div>
+      <div class="q-opt" data-q="18" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> trivial</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(18,'mcq','B')">Check</button>
+      <div class="q-answer" id="q18-ans"><b><span class="ans-correct">✓ (B).</span></b> NP-hard need not be in NP; they are at least as hard as every NP problem.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc19">
+    <div class="q-header"><span class="q-num">Q19</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">$T(n)=\sqrt n \cdot T(\sqrt n)+n$ type recurrences are typically solved by</div>
+    <div class="q-options" id="q19-opts">
+      <div class="q-opt" data-q="19" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Master theorem directly</div>
+      <div class="q-opt" data-q="19" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> changing variables / recursion tree</div>
+      <div class="q-opt" data-q="19" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> greedy</div>
+      <div class="q-opt" data-q="19" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> binary search</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(19,'mcq','B')">Check</button>
+      <div class="q-answer" id="q19-ans"><b><span class="ans-correct">✓ (B).</span></b> Such non-standard forms need a substitution like $m=\log n$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc20">
+    <div class="q-header"><span class="q-num">Q20</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">If an algorithm does $n^2$ operations and each takes 1 ns, how many microseconds for $n=100$? (1 µs = 1000 ns)</div>
+    <div class="q-nat"><input class="q-nat__input" id="q20-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">microseconds</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,10,10)">Check</button>
+      <div class="q-answer" id="q20-ans"><b><span class="ans-correct">✓ 10.</span></b> $100^2 = 10000$ ns $= 10$ µs.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-6-questions.html" style="margin-top:0;">← Practice Questions (10 Qs)</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

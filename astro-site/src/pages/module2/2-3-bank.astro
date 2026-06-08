@@ -1,0 +1,304 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.3 DP Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-3-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.3 Bank
+</div>
+<a class="gd-pill-link" href="/module2/2-3-questions.html">← Practice Questions (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.3 Recursion &amp; DP — Question Bank</h1>
+  <p>Extended practice: edit distance, matrix chain, subset sum, rod cutting, egg drop, grid paths, word break, longest palindromic subsequence, coin change and DP-vs-greedy.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Edit distance (Levenshtein) between "cat" and "cut" is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q1-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(1,1,1)">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ 1.</span></b> One substitution (a→u) transforms cat into cut.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Matrix chain multiplication finds the optimal parenthesization in</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n^2)$</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n^3)$</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(2^n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','C')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (C) $O(n^3)$.</span></b> The DP fills $O(n^2)$ table cells, each minimizing over $O(n)$ split points.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The subset-sum problem with target $T$ and $n$ items has a DP running in</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(nT)$</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(2^n)$ only</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(T)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ (B) $O(nT)$.</span></b> Pseudo-polynomial: the table is items × target sums.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Rod cutting: rod length 4, prices p[1..4] = [1, 5, 8, 9]. Maximum revenue?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q4-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">revenue</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,10,10)">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ 10.</span></b> Best is two pieces of length 2: $5 + 5 = 10$, beating length-4 price 9.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The egg-drop problem with $k$ eggs and $n$ floors is solved by DP in</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(kn^2)$ naively, improvable</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n)$</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(k)$</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(2^n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','A')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (A).</span></b> Standard DP is $O(k n^2)$; binary/optimized formulations reduce this.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Number of distinct paths from top-left to bottom-right of a 3×3 grid (only right/down moves) is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q6-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">paths</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,6,6)">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ 6.</span></b> $\binom&#123;4&#125;&#123;2&#125; = 6$ — choose 2 downs among 4 moves.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The word-break problem (can a string be split into dictionary words) is solved by DP in</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n^2)$ (with substring checks)</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(2^n)$ only</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(\log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (B) $O(n^2)$.</span></b> For each end index, try all split points — quadratic with $O(1)$ dictionary lookups.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Length of the longest palindromic subsequence of "BBABCBCAB".</div>
+    <div class="q-nat"><input class="q-nat__input" id="q8-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">length</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,7,7)">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ 7.</span></b> One LPS is "BABCBAB" (or "BACBCAB") of length 7.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Coin change counting the number of ways (unlimited coins) uses a DP of size</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\text&#123;amount&#125;)$ with $O(\text&#123;coins&#125; \times \text&#123;amount&#125;)$ time</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(2^n)$</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\text&#123;coins&#125;)$</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','A')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (A).</span></b> A 1D table over amounts, updated once per coin type.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which problems are solved <strong>greedily</strong>, not by DP? (Select all.)</div>
+    <div class="q-options" id="q10-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="A"> <span class="q-opt-key">A</span> Fractional knapsack</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="B"> <span class="q-opt-key">B</span> 0/1 knapsack</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="C"> <span class="q-opt-key">C</span> Activity selection</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="10" data-val="D"> <span class="q-opt-key">D</span> Huffman coding</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(10,['A','C','D'])">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ (A), (C), (D).</span></b> 0/1 knapsack needs DP; the others have a greedy-optimal structure.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">With memoization, computing $F(20)$ touches how many distinct subproblems $F(0)..F(20)$?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q11-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(11,21,21)">Check</button>
+      <div class="q-answer" id="q11-ans"><b><span class="ans-correct">✓ 21.</span></b> Indices 0 through 20 inclusive = 21 cached subproblems.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Bottom-up (tabulation) DP differs from top-down (memoization) in that it</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> uses recursion</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> fills the table iteratively in dependency order</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> always uses less time</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> cannot solve knapsack</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','B')">Check</button>
+      <div class="q-answer" id="q12-ans"><b><span class="ans-correct">✓ (B).</span></b> Tabulation iterates over states without recursion; memoization recurses and caches.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc13">
+    <div class="q-header"><span class="q-num">Q13</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">0/1 knapsack: items (w,v) = (2,3),(3,4),(4,5), capacity 5. Max value?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q13-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,7,7)">Check</button>
+      <div class="q-answer" id="q13-ans"><b><span class="ans-correct">✓ 7.</span></b> Items (2,3)+(3,4) = weight 5, value 7.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc14">
+    <div class="q-header"><span class="q-num">Q14</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The optimal substructure of shortest paths is exploited by</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> BFS only</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> dynamic programming (e.g. Floyd-Warshall, Bellman-Ford)</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> hashing</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> quicksort</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans"><b><span class="ans-correct">✓ (B).</span></b> Both are DP over intermediate vertices / edge relaxations.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc15">
+    <div class="q-header"><span class="q-num">Q15</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Longest common substring (contiguous) of "ABAB" and "BABA" has length</div>
+    <div class="q-nat"><input class="q-nat__input" id="q15-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">length</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(15,3,3)">Check</button>
+      <div class="q-answer" id="q15-ans"><b><span class="ans-correct">✓ 3.</span></b> "ABA" (or "BAB") of length 3 is common and contiguous.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc16">
+    <div class="q-header"><span class="q-num">Q16</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">DP trades time for</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> correctness</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> space (storing subproblem results)</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> recursion depth only</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> nothing</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','B')">Check</button>
+      <div class="q-answer" id="q16-ans"><b><span class="ans-correct">✓ (B) space.</span></b> Caching subproblem answers uses memory to avoid recomputation.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc17">
+    <div class="q-header"><span class="q-num">Q17</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The number of binary search trees with $n$ distinct keys is the $n$-th</div>
+    <div class="q-options" id="q17-opts">
+      <div class="q-opt" data-q="17" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Fibonacci number</div>
+      <div class="q-opt" data-q="17" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Catalan number</div>
+      <div class="q-opt" data-q="17" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> factorial</div>
+      <div class="q-opt" data-q="17" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> power of 2</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(17,'mcq','B')">Check</button>
+      <div class="q-answer" id="q17-ans"><b><span class="ans-correct">✓ (B) Catalan number.</span></b> $C_n = \dfrac&#123;1&#125;&#123;n+1&#125;\binom&#123;2n&#125;&#123;n&#125;$ counts the distinct BST shapes.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc18">
+    <div class="q-header"><span class="q-num">Q18</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">The 4th Catalan number $C_4 = \frac&#123;1&#125;&#123;5&#125;\binom&#123;8&#125;&#123;4&#125;$ equals</div>
+    <div class="q-nat"><input class="q-nat__input" id="q18-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">value</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(18,14,14)">Check</button>
+      <div class="q-answer" id="q18-ans"><b><span class="ans-correct">✓ 14.</span></b> $\frac&#123;1&#125;&#123;5&#125; \times 70 = 14$ distinct BSTs on 4 keys.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc19">
+    <div class="q-header"><span class="q-num">Q19</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Space-optimized 0/1 knapsack reduces the 2D table to 1D by iterating capacity</div>
+    <div class="q-options" id="q19-opts">
+      <div class="q-opt" data-q="19" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> left to right</div>
+      <div class="q-opt" data-q="19" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> right to left (descending)</div>
+      <div class="q-opt" data-q="19" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> randomly</div>
+      <div class="q-opt" data-q="19" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> it cannot be optimized</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(19,'mcq','B')">Check</button>
+      <div class="q-answer" id="q19-ans"><b><span class="ans-correct">✓ (B) descending.</span></b> Descending capacity prevents reusing an item more than once within a row.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc20">
+    <div class="q-header"><span class="q-num">Q20</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Number of cells in the LCS DP table for strings of lengths 5 and 4 (including the zero row/column) is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q20-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">cells</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,30,30)">Check</button>
+      <div class="q-answer" id="q20-ans"><b><span class="ans-correct">✓ 30.</span></b> $(5+1)(4+1) = 6 \times 5 = 30$ cells.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-3-questions.html" style="margin-top:0;">← Practice Questions (10 Qs)</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

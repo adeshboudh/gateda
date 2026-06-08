@@ -1,0 +1,187 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.1 Arrays & Searching · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-1-searching" pageCss="/assets/css/pages/viz-2-1-searching.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.1 Arrays &amp; Searching
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">Binary search · log n · sorted pre-condition</span>
+    </div>
+    <h1 id="top">Arrays &amp; Searching</h1>
+    <p>Binary search halves the search space every step — the canonical $O(\log n)$ algorithm and a perennial GATE NAT on comparison counts.</p>
+  </div>
+
+  <h2 id="theory">Linear vs Binary Search</h2>
+  <p>
+    <strong>Linear search</strong> scans every element: $O(n)$ time, works on any array.
+    <strong>Binary search</strong> requires a <em>sorted</em> array and repeatedly compares the target with the middle element, discarding half the range each step.
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Binary search recurrence</div>
+    <div class="gd-formula">
+      $$T(n) = T(n/2) + O(1) \;\Longrightarrow\; T(n) = O(\log_2 n)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Worst-case comparisons</div>
+      <div class="gd-formula">$$\lfloor \log_2 n \rfloor + 1$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">For $n = 1024$, this is $\log_2 1024 + 1 = 11$ comparisons.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Space — iterative vs recursive</div>
+      <div class="gd-formula">$$O(1) \;\text&#123;vs&#125;\; O(\log n)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Iterative binary search uses constant space; recursion costs $O(\log n)$ stack frames.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title">Pre-condition trap</span>
+      Binary search is only correct on a <em>sorted</em> array. On an unsorted array it gives wrong results — a favourite GATE distractor.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: Binary Search Step-Through</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Enter a target and press <strong>Step</strong>. Blue = active window [lo, hi], yellow = mid being compared, green = found.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-controls__title">Search target</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <input id="bs-target" type="number" value="23" style="width:120px;padding:8px 10px;background:var(--gd-bg-1);border:1px solid var(--gd-border);border-radius:6px;color:var(--gd-text-0);font-family:var(--gd-font-mono);">
+      <button id="bs-step" class="gd-btn gd-btn--primary">Step</button>
+      <button id="bs-reset" class="gd-btn gd-btn--secondary">Reset</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">Sorted array — [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]</div>
+    <div id="bs-array"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="bs-log">Press Step to begin. lo = 0, hi = 9.</div>
+    <div class="gd-insight" id="bs-count">Comparisons: 0</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · Comparison count · NAT · ★</span>
+      <p>What is the maximum number of comparisons binary search needs on a sorted array of $n = 1024$ elements?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>Each comparison halves the range. After $k$ comparisons the range has size $n / 2^k$.</p>
+      <p>We need $2^k \ge n$, i.e. $k = \lceil \log_2 1024 \rceil = 10$, plus one final check $\Rightarrow 11$.</p>
+      <div class="gd-example__ans">Maximum comparisons = 11.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Trace · ★★</span>
+      <p>Search for 38 in [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]. How many comparisons?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>lo=0, hi=9, mid=4 → a[4]=16 &lt; 38 → lo=5.</p>
+      <p>lo=5, hi=9, mid=7 → a[7]=56 &gt; 38 → hi=6.</p>
+      <p>lo=5, hi=6, mid=5 → a[5]=23 &lt; 38 → lo=6.</p>
+      <p>lo=6, hi=6, mid=6 → a[6]=38 → found.</p>
+      <div class="gd-example__ans">Found at index 6 in 4 comparisons.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>Comparison count:</strong> for $n = 1024$ the worst case is 11. Memorize $\lfloor \log_2 n \rfloor + 1$.</p>
+    <p><strong>Pre-condition:</strong> the array <em>must</em> be sorted. If a question hands you an unsorted array, binary search does not apply.</p>
+    <p><strong>Space:</strong> iterative binary search is $O(1)$; the recursive version is $O(\log n)$ from the call stack.</p>
+    <p><strong>Rotated array:</strong> a sorted-then-rotated array still allows $O(\log n)$ search via a modified binary search comparing endpoints.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-1-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const data = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91];
+  let lo = 0, hi = data.length - 1, mid = -1, count = 0, done = false;
+
+  const container = document.getElementById("bs-array");
+
+  function draw() {
+    const cellW = 56, gap = 8, H = 90;
+    const W = data.length * (cellW + gap);
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%")
+      .style("max-width", `${W}px`)
+      .style("display", "block");
+
+    data.forEach((v, i) => {
+      let fill = "#1e2535", stroke = "#2e3a52", tcol = "#9aa5be";
+      if (!done && i >= lo && i <= hi) { fill = "#243250"; stroke = "#7c9eff"; tcol = "#cbd5f0"; }
+      if (i === mid && !done) { fill = "#f5c46b"; stroke = "#f5c46b"; tcol = "#1a1f2e"; }
+      if (done && i === mid) { fill = "#6ee7a8"; stroke = "#6ee7a8"; tcol = "#0d1117"; }
+      const x = i * (cellW + gap);
+      svg.append("rect").attr("x", x).attr("y", 28).attr("width", cellW).attr("height", 44)
+        .attr("rx", 6).attr("fill", fill).attr("stroke", stroke).attr("stroke-width", 1.5);
+      svg.append("text").attr("x", x + cellW / 2).attr("y", 55).attr("text-anchor", "middle")
+        .attr("fill", tcol).attr("font-size", 15).attr("font-weight", "600").text(v);
+      svg.append("text").attr("x", x + cellW / 2).attr("y", 18).attr("text-anchor", "middle")
+        .attr("fill", "#606880").attr("font-size", 10).text(i);
+    });
+  }
+
+  function reset() {
+    lo = 0; hi = data.length - 1; mid = -1; count = 0; done = false;
+    document.getElementById("bs-log").textContent = `Press Step to begin. lo = 0, hi = ${data.length - 1}.`;
+    document.getElementById("bs-count").textContent = "Comparisons: 0";
+    draw();
+  }
+
+  function step() {
+    if (done) return;
+    const target = parseInt(document.getElementById("bs-target").value, 10);
+    if (isNaN(target)) return;
+    if (lo > hi) {
+      document.getElementById("bs-log").textContent = `Not found — search window empty (lo > hi). ${target} is not in the array.`;
+      done = true; draw(); return;
+    }
+    mid = Math.floor((lo + hi) / 2);
+    count++;
+    document.getElementById("bs-count").textContent = `Comparisons: ${count}`;
+    const v = data[mid];
+    if (v === target) {
+      done = true;
+      document.getElementById("bs-log").textContent = `a[${mid}] = ${v} = target. Found at index ${mid} in ${count} comparison(s).`;
+    } else if (v < target) {
+      document.getElementById("bs-log").textContent = `a[${mid}] = ${v} < ${target} → discard left half, lo = ${mid + 1}.`;
+      lo = mid + 1;
+    } else {
+      document.getElementById("bs-log").textContent = `a[${mid}] = ${v} > ${target} → discard right half, hi = ${mid - 1}.`;
+      hi = mid - 1;
+    }
+    draw();
+  }
+
+  document.getElementById("bs-step").addEventListener("click", step);
+  document.getElementById("bs-reset").addEventListener("click", reset);
+  document.getElementById("bs-target").addEventListener("change", reset);
+  reset();
+})();
+</script>

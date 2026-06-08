@@ -1,0 +1,177 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.4 Trees & Heaps · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-4-trees" pageCss="/assets/css/pages/viz-2-4-trees.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.4 Trees &amp; Heaps
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">BST · heap · build-heap O(n)</span>
+    </div>
+    <h1 id="top">Trees &amp; Heaps</h1>
+    <p>BST in-order gives sorted output; heaps give $O(\log n)$ priority operations — and build-heap is the classic $O(n)$ trap.</p>
+  </div>
+
+  <h2 id="theory">BST &amp; Heap Properties</h2>
+  <p>
+    A <strong>BST</strong> keeps left subtree &lt; node &lt; right subtree, so an in-order traversal yields elements in sorted order. A <strong>binary heap</strong> is a complete tree where each parent dominates its children.
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Heap operations</div>
+    <div class="gd-formula">
+      $$\text&#123;insert / extract&#125; = O(\log n), \qquad \text&#123;build-heap&#125; = O(n)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">BST height</div>
+      <div class="gd-formula">$$O(\log n) \;\text&#123;balanced&#125;,\; O(n) \;\text&#123;skewed&#125;$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">A balanced BST has logarithmic height; inserting sorted keys gives a degenerate $O(n)$ chain.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Build-heap is O(n)</div>
+      <div class="gd-formula">$$\sum_&#123;h&#125; \frac&#123;n&#125;&#123;2^&#123;h+1&#125;&#125; \cdot O(h) = O(n)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Not $O(n \log n)$ — the leaf-heavy structure makes the sum converge to $O(n)$.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title">Build-heap trap</span>
+      Inserting $n$ elements one-by-one is $O(n \log n)$, but the bottom-up <em>build-heap</em> (heapify) is $O(n)$. GATE loves this distinction.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: BST Insertion</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Enter a number and press <strong>Insert</strong>. The new node animates down the highlighted path to its sorted position.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-controls__title">Insert value</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <input id="bst-val" type="number" value="45" style="width:120px;padding:8px 10px;background:var(--gd-bg-1);border:1px solid var(--gd-border);border-radius:6px;color:var(--gd-text-0);font-family:var(--gd-font-mono);">
+      <button id="bst-insert" class="gd-btn gd-btn--primary">Insert</button>
+      <button id="bst-reset" class="gd-btn gd-btn--secondary">Reset</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">Binary Search Tree — initial keys 50, 30, 70, 20, 40, 60, 80</div>
+    <div id="bst-tree"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="bst-log">Enter a value and press Insert.</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · In-order traversal · ★</span>
+      <p>What property does the in-order traversal of a BST have?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>By the BST invariant, left &lt; node &lt; right, so in-order visits keys in ascending order.</p>
+      <div class="gd-example__ans">In-order traversal of a BST is sorted ascending.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Build-heap cost · ★★</span>
+      <p>What is the time complexity to build a heap from an unsorted array of $n$ elements?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>Bottom-up heapify sums $O(n/2^&#123;h+1&#125;\cdot h)$ over levels, which converges to $O(n)$, not $O(n \log n)$.</p>
+      <div class="gd-example__ans">Build-heap = O(n).</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>In-order = sorted:</strong> the single most-tested BST fact.</p>
+    <p><strong>Build-heap O(n):</strong> distinguish from $n$ successive inserts ($O(n \log n)$).</p>
+    <p><strong>Heap extract:</strong> extract-max/min is $O(\log n)$ due to sift-down.</p>
+    <p><strong>Balanced vs skewed:</strong> AVL/red-black guarantee $O(\log n)$ height; plain BST can degrade to $O(n)$.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-4-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const container = document.getElementById("bst-tree");
+  let root = null;
+
+  function insert(node, v, path) {
+    if (node === null) return { v: v, left: null, right: null, isNew: true };
+    path.push(node.v);
+    if (v < node.v) node.left = insert(node.left, v, path);
+    else if (v > node.v) node.right = insert(node.right, v, path);
+    return node;
+  }
+
+  function layout(node, depth, xMin, xMax, arr) {
+    if (!node) return;
+    const x = (xMin + xMax) / 2;
+    const y = 40 + depth * 70;
+    node._x = x; node._y = y;
+    arr.push(node);
+    layout(node.left, depth + 1, xMin, x, arr);
+    layout(node.right, depth + 1, x, xMax, arr);
+  }
+
+  function draw(pathSet, newVal) {
+    pathSet = pathSet || [];
+    const W = 600, H = 360;
+    const nodes = [];
+    layout(root, 0, 20, W - 20, nodes);
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+
+    nodes.forEach(n => {
+      if (n.left) svg.append("line").attr("x1", n._x).attr("y1", n._y).attr("x2", n.left._x).attr("y2", n.left._y).attr("stroke", "#2e3a52").attr("stroke-width", 1.5);
+      if (n.right) svg.append("line").attr("x1", n._x).attr("y1", n._y).attr("x2", n.right._x).attr("y2", n.right._y).attr("stroke", "#2e3a52").attr("stroke-width", 1.5);
+    });
+    nodes.forEach(n => {
+      let fill = "#243250", stroke = "#7c9eff", tcol = "#cbd5f0";
+      if (pathSet.includes(n.v)) { fill = "#f5c46b"; stroke = "#f5c46b"; tcol = "#1a1f2e"; }
+      if (n.v === newVal) { fill = "#6ee7a8"; stroke = "#6ee7a8"; tcol = "#0d1117"; }
+      svg.append("circle").attr("cx", n._x).attr("cy", n._y).attr("r", 18).attr("fill", fill).attr("stroke", stroke).attr("stroke-width", 2);
+      svg.append("text").attr("x", n._x).attr("y", n._y + 4).attr("text-anchor", "middle").attr("fill", tcol).attr("font-size", 12).attr("font-weight", "600").text(n.v);
+    });
+  }
+
+  function reset() {
+    root = null;
+    [50, 30, 70, 20, 40, 60, 80].forEach(v => { root = insert(root, v, []); });
+    draw();
+    document.getElementById("bst-log").textContent = "Tree reset. Enter a value and press Insert.";
+  }
+
+  document.getElementById("bst-insert").addEventListener("click", function () {
+    const v = parseInt(document.getElementById("bst-val").value, 10);
+    if (isNaN(v)) return;
+    const path = [];
+    root = insert(root, v, path);
+    draw(path, v);
+    document.getElementById("bst-log").textContent =
+      path.length ? `Inserted ${v}. Path from root: ${path.join(" → ")} → ${v}.` : `Inserted ${v} as root.`;
+  });
+  document.getElementById("bst-reset").addEventListener("click", reset);
+  reset();
+})();
+</script>

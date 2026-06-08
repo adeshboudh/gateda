@@ -1,0 +1,177 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "2.7 Hashing & Collision · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/viz-2-7-hashing" pageCss="/assets/css/pages/viz-2-7-hashing.css">
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module2.html">Module 2</a><span>›</span>
+    2.7 Hashing &amp; Collision
+  </div>
+  <a class="gd-pill-link" href="/module2.html">← Module 2 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+      <span class="gd-badge gd-badge--pyq">h(k)=k mod m · load factor · chaining</span>
+    </div>
+    <h1 id="top">Hashing &amp; Collision</h1>
+    <p>A good hash function spreads keys uniformly; the load factor governs how fast lookups degrade as collisions pile up.</p>
+  </div>
+
+  <h2 id="theory">Hash Functions &amp; Load Factor</h2>
+  <p>
+    The division-method hash is $h(k) = k \bmod m$. The <strong>load factor</strong> $\alpha = n/m$ is the ratio of stored keys to slots.
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Load factor &amp; chaining cost</div>
+    <div class="gd-formula">
+      $$\alpha = \frac&#123;n&#125;&#123;m&#125;, \qquad \text&#123;search (chaining)&#125; = O(1 + \alpha)$$
+    </div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Chaining</div>
+      <div class="gd-formula">$$O(1 + \alpha)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Collisions form a linked list per slot. $\alpha$ may exceed 1.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Open addressing</div>
+      <div class="gd-formula">$$\alpha \lt 1$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">All keys live in the table, so it must never be full. Linear probing causes <em>primary clustering</em>.</p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title">Primary clustering</span>
+      Linear probing fills consecutive slots, so long runs grow and slow down future inserts. Double hashing scatters probes to avoid this.
+    </div>
+  </div>
+
+  <h2 id="viz1">Interactive: Hash Table with Chaining</h2>
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Enter a key and press <strong>Insert</strong>. We compute $h(k) = k \bmod 10$ and drop the key into its slot — collisions chain below.
+  </p>
+
+  <div class="gd-controls" style="margin-bottom:14px;">
+    <div class="gd-controls__title">Insert key</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <input id="hash-key" type="number" value="73" style="width:120px;padding:8px 10px;background:var(--gd-bg-1);border:1px solid var(--gd-border);border-radius:6px;color:var(--gd-text-0);font-family:var(--gd-font-mono);">
+      <button id="hash-insert" class="gd-btn gd-btn--primary">Insert</button>
+      <button id="hash-reset" class="gd-btn gd-btn--secondary">Reset</button>
+    </div>
+  </div>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">10-slot table — slots 0..9, chains grow downward</div>
+    <div id="hash-table"></div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="hash-log">Enter a key and press Insert.</div>
+    <div class="gd-insight" id="hash-alpha">Load factor α = n/m = 0/10 = 0.00</div>
+  </div>
+
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 1 · Hash slot · NAT · ★</span>
+      <p>With $h(k) = k \bmod 10$, which slot does key 73 map to?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>$73 \bmod 10 = 3$.</p>
+      <div class="gd-example__ans">Slot 3.</div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num">Example 2 · Load factor · ★</span>
+      <p>A hash table has $m = 8$ slots and stores $n = 6$ keys. What is the load factor?</p>
+    </div>
+    <div class="gd-example__body">
+      <p>$\alpha = n/m = 6/8 = 0.75$.</p>
+      <div class="gd-example__ans">α = 0.75.</div>
+    </div>
+  </div>
+
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p><strong>Division hash:</strong> $h(k) = k \bmod m$ — compute the slot quickly.</p>
+    <p><strong>Load factor:</strong> $\alpha = n/m$; chaining search is $O(1 + \alpha)$.</p>
+    <p><strong>Open addressing:</strong> requires $\alpha \lt 1$; linear probing suffers primary clustering.</p>
+    <p><strong>Chaining vs open addressing:</strong> chaining tolerates $\alpha \gt 1$ at the cost of pointers; open addressing is cache-friendly but degrades near full.</p>
+  </div>
+
+  <a class="gd-pill-link" href="/module2/2-7-questions.html" style="margin-top:32px;">Practice Questions →</a>
+</VizLayout>
+
+<script is:inline slot="scripts">
+(function () {
+  const M = 10;
+  const container = document.getElementById("hash-table");
+  let slots = Array.from({ length: M }, () => []);
+  let n = 0;
+
+  function draw(activeSlot, newKey) {
+    if (activeSlot === undefined) activeSlot = -1;
+    const slotW = 54, gap = 6, top = 30;
+    const W = M * (slotW + gap);
+    const maxChain = Math.max(1, ...slots.map(s => s.length));
+    const H = top + 40 + maxChain * 36 + 10;
+    d3.select(container).select("svg").remove();
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .style("width", "100%").style("max-width", `${W}px`).style("display", "block");
+
+    for (let i = 0; i < M; i++) {
+      const x = i * (slotW + gap);
+      const isActive = i === activeSlot;
+      svg.append("rect").attr("x", x).attr("y", top).attr("width", slotW).attr("height", 36)
+        .attr("rx", 5).attr("fill", isActive ? "#243250" : "#1e2535")
+        .attr("stroke", isActive ? "#7c9eff" : "#2e3a52").attr("stroke-width", 1.5);
+      svg.append("text").attr("x", x + slotW / 2).attr("y", top - 8).attr("text-anchor", "middle")
+        .attr("fill", "#606880").attr("font-size", 11).text(i);
+      slots[i].forEach((k, j) => {
+        const cy = top + 40 + j * 36;
+        const isNew = k === newKey && i === activeSlot;
+        svg.append("rect").attr("x", x).attr("y", cy).attr("width", slotW).attr("height", 30)
+          .attr("rx", 5).attr("fill", isNew ? "#6ee7a8" : "#3a4d80")
+          .attr("stroke", isNew ? "#6ee7a8" : "#4a5680");
+        svg.append("text").attr("x", x + slotW / 2).attr("y", cy + 20).attr("text-anchor", "middle")
+          .attr("fill", isNew ? "#0d1117" : "#cbd5f0").attr("font-size", 12).attr("font-weight", "600").text(k);
+        if (j === 0) svg.append("line").attr("x1", x + slotW / 2).attr("y1", top + 36).attr("x2", x + slotW / 2).attr("y2", cy).attr("stroke", "#2e3a52");
+        else svg.append("line").attr("x1", x + slotW / 2).attr("y1", cy - 6).attr("x2", x + slotW / 2).attr("y2", cy).attr("stroke", "#2e3a52");
+      });
+    }
+    document.getElementById("hash-alpha").textContent =
+      `Load factor α = n/m = ${n}/${M} = ${(n / M).toFixed(2)}`;
+  }
+
+  function reset() {
+    slots = Array.from({ length: M }, () => []);
+    n = 0;
+    draw();
+    document.getElementById("hash-log").textContent = "Table cleared. Enter a key and press Insert.";
+  }
+
+  document.getElementById("hash-insert").addEventListener("click", function () {
+    const k = parseInt(document.getElementById("hash-key").value, 10);
+    if (isNaN(k)) return;
+    const slot = ((k % M) + M) % M;
+    const collision = slots[slot].length > 0;
+    slots[slot].push(k);
+    n++;
+    draw(slot, k);
+    document.getElementById("hash-log").textContent =
+      `h(${k}) = ${k} mod ${M} = ${slot}. ` +
+      (collision ? `Slot ${slot} occupied → chained (chain length now ${slots[slot].length}).` : `Slot ${slot} was empty → placed directly.`);
+  });
+  document.getElementById("hash-reset").addEventListener("click", reset);
+  reset();
+})();
+</script>

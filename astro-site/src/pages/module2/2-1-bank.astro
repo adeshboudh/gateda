@@ -1,0 +1,319 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "2.1 Searching Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module2/2-1-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module2.html">Module 2</a><span>›</span>
+  2.1 Bank
+</div>
+<a class="gd-pill-link" href="/module2/2-1-questions.html">← Practice Questions (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 2 · DSA</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">2.1 Searching — Question Bank</h1>
+  <p>Extended practice: interpolation, ternary, jump, exponential search, 2D matrix search, Floyd's cycle, sentinel search, inversions and recursion depth.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <div class="q-card" id="qc1">
+    <div class="q-header"><span class="q-num">Q1</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Interpolation search on uniformly distributed sorted keys has average time</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log \log n)$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans"><b><span class="ans-correct">✓ (B) $O(\log \log n)$.</span></b> On uniform data it estimates position by value; worst case is still $O(n)$ on skewed data.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc2">
+    <div class="q-header"><span class="q-num">Q2</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Ternary search splits the range into three parts. Its time complexity is</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\log_3 n)$, with more comparisons per step than binary</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n)$</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\sqrt n)$</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','A')">Check</button>
+      <div class="q-answer" id="q2-ans"><b><span class="ans-correct">✓ (A).</span></b> It is $O(\log_3 n)$ but does up to 2 comparisons per step, so it is slower than binary search in practice.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc3">
+    <div class="q-header"><span class="q-num">Q3</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Jump search on a sorted array of $n=100$ elements uses an optimal block size of $\sqrt n$. What is that block size?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q3-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">block size</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,9.9,10.1)">Check</button>
+      <div class="q-answer" id="q3-ans"><b><span class="ans-correct">✓ 10.</span></b> Optimal jump = $\sqrt&#123;100&#125; = 10$, giving $O(\sqrt n)$ time.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc4">
+    <div class="q-header"><span class="q-num">Q4</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Searching a target in an $m \times n$ sorted matrix (rows and columns sorted) via the staircase method takes</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(mn)$</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(m+n)$</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\log(mn))$</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(m \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans"><b><span class="ans-correct">✓ (B) $O(m+n)$.</span></b> Start at the top-right; each step eliminates a row or column, so at most $m+n$ steps.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc5">
+    <div class="q-header"><span class="q-num">Q5</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Exponential search finds a range then binary-searches it. On an unbounded sorted stream it runs in</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(\log i)$ where $i$ is the target index</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(n)$</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(i)$</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','A')">Check</button>
+      <div class="q-answer" id="q5-ans"><b><span class="ans-correct">✓ (A).</span></b> Doubling the bound takes $O(\log i)$ steps, then binary search within that bound is $O(\log i)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc6">
+    <div class="q-header"><span class="q-num">Q6</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Floyd's cycle-detection (tortoise and hare) uses</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$ extra space</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(1)$ extra space</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(\log n)$ space</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> a hash set</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans"><b><span class="ans-correct">✓ (B) $O(1)$.</span></b> Two pointers at different speeds detect a cycle without extra storage.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc7">
+    <div class="q-header"><span class="q-num">Q7</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Sentinel linear search improves practical speed by</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> sorting first</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> placing the target at the end to remove the bounds check</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> using recursion</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> hashing the keys</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans"><b><span class="ans-correct">✓ (B).</span></b> A sentinel guarantees a match, eliminating the per-iteration index-bound comparison.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc8">
+    <div class="q-header"><span class="q-num">Q8</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Recursive binary search on $n=256$ elements reaches a maximum recursion depth of $\lfloor \log_2 n \rfloor + 1$. What is that depth?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q8-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">depth</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,8.9,9.1)">Check</button>
+      <div class="q-answer" id="q8-ans"><b><span class="ans-correct">✓ 9.</span></b> $\lfloor \log_2 256 \rfloor + 1 = 8 + 1 = 9$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc9">
+    <div class="q-header"><span class="q-num">Q9</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Searching for an element in a singly linked list takes</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(1)$</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(n)$</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','C')">Check</button>
+      <div class="q-answer" id="q9-ans"><b><span class="ans-correct">✓ (C) $O(n)$.</span></b> No random access, so binary search is not applicable; you traverse linearly.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc10">
+    <div class="q-header"><span class="q-num">Q10</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Count inversions in the array [2, 4, 1, 3, 5].</div>
+    <div class="q-nat"><input class="q-nat__input" id="q10-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">inversions</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,2.9,3.1)">Check</button>
+      <div class="q-answer" id="q10-ans"><b><span class="ans-correct">✓ 3.</span></b> Inversions: (2,1), (4,1), (4,3) = 3 pairs out of order.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc11">
+    <div class="q-header"><span class="q-num">Q11</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Binary search divides the search space by a factor of</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 2</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 3</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\log n$</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $n$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','A')">Check</button>
+      <div class="q-answer" id="q11-ans"><b><span class="ans-correct">✓ (A) 2.</span></b> Each comparison discards half the remaining range.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc12">
+    <div class="q-header"><span class="q-num">Q12</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">To find the first occurrence of a repeated key with binary search, on a match you should</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> return immediately</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> continue searching the left half</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> continue searching the right half</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> switch to linear search</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','B')">Check</button>
+      <div class="q-answer" id="q12-ans"><b><span class="ans-correct">✓ (B).</span></b> Record the index and keep searching left to find the earliest occurrence — still $O(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc13">
+    <div class="q-header"><span class="q-num">Q13</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">With $h(\text&#123;mid&#125;) = \lfloor (0+15)/2 \rfloor$, the first mid index for a 16-element array (indices 0..15) is</div>
+    <div class="q-nat"><input class="q-nat__input" id="q13-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">index</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,6.9,7.1)">Check</button>
+      <div class="q-answer" id="q13-ans"><b><span class="ans-correct">✓ 7.</span></b> $\lfloor 15/2 \rfloor = 7$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc14">
+    <div class="q-header"><span class="q-num">Q14</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Which search is best when the data is on slow sequential-access storage (e.g. tape)?</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Binary search</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Linear / sequential search</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Interpolation search</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Hashing</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans"><b><span class="ans-correct">✓ (B).</span></b> Sequential access penalizes random jumps; linear scan matches the access pattern.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc15">
+    <div class="q-header"><span class="q-num">Q15</span><span class="q-type">MCQ</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">Binary search's recurrence $T(n)=T(n/2)+O(1)$ corresponds to Master theorem</div>
+    <div class="q-options" id="q15-opts">
+      <div class="q-opt" data-q="15" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> case 1</div>
+      <div class="q-opt" data-q="15" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> case 2</div>
+      <div class="q-opt" data-q="15" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> case 3</div>
+      <div class="q-opt" data-q="15" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> none</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(15,'mcq','B')">Check</button>
+      <div class="q-answer" id="q15-ans"><b><span class="ans-correct">✓ (B) case 2.</span></b> $a=1$, $b=2$, $\log_b a = 0$, $f(n)=1=\Theta(n^0)$ → $\Theta(\log n)$.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc16">
+    <div class="q-header"><span class="q-num">Q16</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Search target 72 in [2,5,8,12,16,23,38,56,72,91] with binary search. How many comparisons until found?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q16-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">comparisons</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(16,2.9,4.1)">Check</button>
+      <div class="q-answer" id="q16-ans"><b><span class="ans-correct">✓ 4.</span></b> mid4=16&lt;72→lo5; mid7=56&lt;72→lo8; mid8=72→found. 3 comparisons.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc17">
+    <div class="q-header"><span class="q-num">Q17</span><span class="q-type q-type--msq">MSQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks · no negative</span></div>
+    <div class="q-body">Which require the input to be sorted? (Select all.)</div>
+    <div class="q-options" id="q17-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="A"> <span class="q-opt-key">A</span> Binary search</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="B"> <span class="q-opt-key">B</span> Interpolation search</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="C"> <span class="q-opt-key">C</span> Linear search</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="D"> <span class="q-opt-key">D</span> Jump search</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(17,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q17-ans"><b><span class="ans-correct">✓ (A), (B), (D).</span></b> Only linear search works on unsorted data.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc18">
+    <div class="q-header"><span class="q-num">Q18</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">A peak element (greater than its neighbours) can be found in</div>
+    <div class="q-options" id="q18-opts">
+      <div class="q-opt" data-q="18" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $O(n)$ only</div>
+      <div class="q-opt" data-q="18" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $O(\log n)$ via binary search on the slope</div>
+      <div class="q-opt" data-q="18" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $O(1)$</div>
+      <div class="q-opt" data-q="18" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $O(n \log n)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(18,'mcq','B')">Check</button>
+      <div class="q-answer" id="q18-ans"><b><span class="ans-correct">✓ (B) $O(\log n)$.</span></b> Move toward the higher neighbour; a peak must exist in that direction.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc19">
+    <div class="q-header"><span class="q-num">Q19</span><span class="q-type q-type--nat">NAT</span><span class="q-diff">★</span><span class="q-marks">1 mark</span></div>
+    <div class="q-body">How many comparisons does linear search make in the worst case on 50 elements?</div>
+    <div class="q-nat"><input class="q-nat__input" id="q19-input" type="number" step="any" placeholder="your answer"><span class="q-nat__label">comparisons</span></div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(19,49.9,50.1)">Check</button>
+      <div class="q-answer" id="q19-ans"><b><span class="ans-correct">✓ 50.</span></b> Worst case checks every element once.</div>
+    </div>
+  </div>
+
+  <div class="q-card" id="qc20">
+    <div class="q-header"><span class="q-num">Q20</span><span class="q-type">MCQ</span><span class="q-diff">★★</span><span class="q-marks">2 marks</span></div>
+    <div class="q-body">Binary search fails (gives wrong answer) when the array is</div>
+    <div class="q-options" id="q20-opts">
+      <div class="q-opt" data-q="20" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> large</div>
+      <div class="q-opt" data-q="20" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> unsorted</div>
+      <div class="q-opt" data-q="20" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> of even length</div>
+      <div class="q-opt" data-q="20" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> full of duplicates</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(20,'mcq','B')">Check</button>
+      <div class="q-answer" id="q20-ans"><b><span class="ans-correct">✓ (B) unsorted.</span></b> Order is the correctness pre-condition; duplicates and even length are fine.</div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--gd-border);display:flex;gap:12px;flex-wrap:wrap;">
+  <a class="gd-pill-link" href="/module2/2-1-questions.html" style="margin-top:0;">← Practice Questions (10 Qs)</a>
+  <a class="gd-pill-link" href="/module2.html" style="margin-top:0;">← Module 2 Overview</a>
+</div>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>
