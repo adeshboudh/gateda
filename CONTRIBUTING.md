@@ -13,7 +13,7 @@ Every push to `main` triggers a GitHub Actions build (`.github/workflows/pages.y
 Any of these works:
 
 - **Local editor / Obsidian:** edit the `.md`, then `git add -A && git commit -m "..." && git push`.
-- **github.com:** open the file → pencil (✏️) → edit → *Commit changes*.
+- **github.com:** open the file → pencil (✏️) → edit → _Commit changes_.
 - **Pull request:** fork or branch, edit, and open a PR against `main` (small, focused fixes preferred).
 
 ## Adding a new note
@@ -31,6 +31,7 @@ Any of these works:
 
    - `parent` must exactly match the section's title (see the folder's `index.md`).
    - `nav_order` sets the position within the section.
+
 3. Add a link line to that folder's `index.md`:
 
    ```markdown
@@ -38,6 +39,7 @@ Any of these works:
    ```
 
    (Use the filename **without** `.md` — it resolves on both the site and Obsidian.)
+
 4. Commit + push.
 
 The sidebar nav updates automatically from front-matter; the folder `index.md` list is static, so it needs the manual link line.
@@ -46,16 +48,16 @@ The sidebar nav updates automatically from front-matter; the folder `index.md` l
 
 Math is written as `$...$` (inline) and `$$...$$` (display), rendered by MathJax. **kramdown protects `$$...$$` verbatim but treats inline `$...$` as text**, so a few characters get mangled inline. Follow these rules:
 
-| Don't write (in math) | Write instead | Why |
-| --- | --- | --- |
-| `\|x\|` (absolute value / cardinality) | `\lvert x\rvert` | bare `\|` becomes a markdown table |
-| `\|v\|` (norm) | `\lVert v\rVert` | same |
-| `P(A\|B)` (conditional) | `P(A\mid B)` | same (also breaks table cells) |
-| `x^*`, `h^*` (star) | `x^\ast`, `h^\ast` | `*` is eaten as markdown emphasis |
-| `\#` / `#` (count) | `N_{\text{items}}`, `N_{\lambda=1}` | bare `#` is a TeX error |
-| `\textbf{word}` inside math | `**word**` (plain markdown) | renders literally; bold numbers → `\mathbf{6}` |
-| `₹6,100` inside `$...$` | put `₹` as plain text outside math | currency glyph errors in MathJax |
-| inline matrix with `\\` row break | use `\\\\`, or move to `$$...$$` | inline `\\` collapses to `\` |
+| Don't write (in math)                  | Write instead                       | Why                                            |
+| -------------------------------------- | ----------------------------------- | ---------------------------------------------- |
+| `\|x\|` (absolute value / cardinality) | `\lvert x\rvert`                    | bare `\|` becomes a markdown table             |
+| `\|v\|` (norm)                         | `\lVert v\rVert`                    | same                                           |
+| `P(A\|B)` (conditional)                | `P(A\mid B)`                        | same (also breaks table cells)                 |
+| `x^*`, `h^*` (star)                    | `x^\ast`, `h^\ast`                  | `*` is eaten as markdown emphasis              |
+| `\#` / `#` (count)                     | `N_{\text{items}}`, `N_{\lambda=1}` | bare `#` is a TeX error                        |
+| `\textbf{word}` inside math            | `**word**` (plain markdown)         | renders literally; bold numbers → `\mathbf{6}` |
+| `₹6,100` inside `$...$`                | put `₹` as plain text outside math  | currency glyph errors in MathJax               |
+| inline matrix with `\\` row break      | use `\\\\`, or move to `$$...$$`    | inline `\\` collapses to `\`                   |
 
 Other rules:
 
@@ -72,6 +74,7 @@ Other rules:
   bundle exec jekyll serve
   # open http://localhost:4000/gateda/
   ```
+
 - **Quick math check:** GitHub's file view renders `$...$` natively — open the `.md` on github.com to spot-check a formula.
 - **Lint for render traps:** run `python3 _lint_math.py` — it scans every note for the issues in the table above (plus Obsidian wikilinks) and prints `file:line`. The build runs this automatically and **fails if any trap is found**, so bad math never deploys.
 

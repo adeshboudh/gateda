@@ -1,0 +1,640 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.5 Normal Distribution &amp; CLT — Visualized · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-5-normal-clt" pageCss="/assets/css/pages/viz-1-5-normal-clt.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.5 Normal &amp; CLT
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2024 Q56 · 2025 Q19 · 2025 Q20 · 2025 Q21</span>
+  </div>
+  <h1 id="top">Normal Distribution &amp; Central Limit Theorem</h1>
+  <p>The normal is the backbone of Modules 1.7–1.8. Master standardization and the $\Phi$ table now. Then watch the CLT demo to see why averages from any distribution become Normal.</p>
+</div>
+
+<!-- ═══ THEORY 1: UNIFORM DISTRIBUTION ═══ -->
+<h2 id="uniform">Theory — Uniform Distribution</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Uniform$(a,b)$ assigns equal density across an interval. Probability = length ratio — no integral needed.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Uniform(a, b) — PDF and CDF</div>
+    <div class="gd-formula">$$f(x) = \frac&#123;1&#125;&#123;b-a&#125;, \quad F(x) = \frac&#123;x-a&#125;&#123;b-a&#125; \quad \text&#123;for&#125;\; a \le x \le b$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$E[X] = (a+b)/2$ &nbsp;·&nbsp; $\text&#123;Var&#125;(X) = (b-a)^2/12$ &nbsp;·&nbsp; Median $= (a+b)/2$</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Probability = length ratio</div>
+    <div class="gd-formula">$$P(c \le X \le d) = \frac&#123;d - c&#125;&#123;b - a&#125; \quad (a \le c \le d \le b)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Faster than integrating. Median condition: $(a+b)/2 = m$ gives parameter directly. (2025 Q19)</p>
+  </div>
+</div>
+
+<!-- ═══ THEORY 2: EXPONENTIAL DISTRIBUTION ═══ -->
+<h2 id="exponential">Theory — Exponential Distribution</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Exponential$(\lambda)$ models waiting times. The tail $e^&#123;-\lambda x&#125;$ and memorylessness property answer most GATE problems in one line.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Exponential(λ) — PDF, tail, CDF</div>
+    <div class="gd-formula">$$f(x) = \lambda e^&#123;-\lambda x&#125;, \quad P(X > x) = e^&#123;-\lambda x&#125;, \quad x \ge 0$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$E[X] = 1/\lambda$ &nbsp;·&nbsp; $\text&#123;Var&#125;(X) = 1/\lambda^2$ &nbsp;·&nbsp; Rate $\lambda$, mean $1/\lambda$</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Memorylessness — the one-line shortcut</div>
+    <div class="gd-formula">$$P(X > s + t \mid X > s) = P(X > t)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Past waiting time is forgotten. Only exponential (continuous) and geometric (discrete) have this.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">Rate $\lambda$ vs mean $1/\lambda$ — read the problem carefully</span>
+    "Exponential with mean 4" → $\lambda = 1/4$. "Exponential with rate 0.5" → $\lambda = 0.5$. GATE sometimes states the mean directly (2026 Q34 says "mean $\lambda$" — that means rate $= 1/\lambda$). Plug the right value into $e^&#123;-\lambda x&#125;$.
+  </div>
+</div>
+
+<!-- ═══ THEORY 3: NORMAL + STANDARDIZATION ═══ -->
+<h2 id="normal">Theory — Normal Distribution &amp; Standardization</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  The normal is symmetric, bell-shaped, and fully determined by $\mu$ and $\sigma^2$ (variance — not SD). All normal probabilities reduce to $\Phi(z)$ after one standardization step.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Normal(μ, σ²) — PDF</div>
+    <div class="gd-formula">$$f(x) = \frac&#123;1&#125;&#123;\sigma\sqrt&#123;2\pi&#125;&#125;\, e^&#123;-(x-\mu)^2/(2\sigma^2)&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$E[X]=\mu$ &nbsp;·&nbsp; $\text&#123;Var&#125;(X)=\sigma^2$ &nbsp;·&nbsp; Mean = Median = Mode = $\mu$</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Standardization — convert any Normal to Z</div>
+    <div class="gd-formula">$$Z = \frac&#123;X - \mu&#125;&#123;\sigma&#125; \sim N(0,1) \quad\Rightarrow\quad P\!\left(a \le X \le b\right) = \Phi\!\!\left(\frac&#123;b-\mu&#125;&#123;\sigma&#125;\right) - \Phi\!\!\left(\frac&#123;a-\mu&#125;&#123;\sigma&#125;\right)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Symmetry: $\Phi(-z) = 1 - \Phi(z)$. &nbsp; $\Phi(0) = 0.5$.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Linear transform of Normal</div>
+    <div class="gd-formula">$$aX + b \sim N(a\mu + b,\; a^2\sigma^2)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">The shift $b$ moves the mean only. The scale $a$ multiplies the mean and squares into the variance.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Sum of independent Normals</div>
+    <div class="gd-formula">$$X_1 + X_2 \sim N(\mu_1+\mu_2,\; \sigma_1^2+\sigma_2^2)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Variances add — never add standard deviations. Requires independence. (2026 Q10)</p>
+  </div>
+</div>
+
+<!-- Φ key values grid -->
+<div class="rule-card" style="margin-top:16px;">
+  <div class="rule-card__label">Key $\Phi(z)$ values — memorise these</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;">
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 0</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.500</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 1.000</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.841</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 1.500</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.933</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 1.645</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.950</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 1.960</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.975</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 2.000</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.977</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 2.576</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.995</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">z = 3.000</div>
+      <div style="font-family:var(--gd-font-mono);font-size:14px;font-weight:700;color:var(--gd-brand);">0.999</div>
+    </div>
+    <div style="background:var(--gd-bg-3);border:1px solid var(--gd-peri-line);border-radius:8px;padding:8px;text-align:center;">
+      <div style="font-size:12px;color:var(--gd-text-2);margin-bottom:3px;">symmetry</div>
+      <div style="font-family:var(--gd-font-mono);font-size:12px;font-weight:700;color:var(--gd-brand);">Φ(−z)=1−Φ(z)</div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--gd-text-2);margin:8px 0 0;">1.645 and 1.96 reappear in Module 1.8 for 90% and 95% confidence intervals.</p>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">$N(\mu, \sigma^2)$ — second parameter is variance, not SD</span>
+    $X \sim N(5, 4)$ means $\mu=5$, $\sigma^2=4$, so $\sigma=\sqrt&#123;4&#125;=2$. Standardize with $\sigma$, not $\sigma^2$: $z=(x-5)/2$. Writing $z=(x-5)/4$ is the classic trap. (2025 Q20)
+  </div>
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">Three steps for every Normal question</span>
+    (1) Identify $\mu$ and $\sigma^2$. &nbsp; (2) Compute $\sigma = \sqrt&#123;\sigma^2&#125;$. &nbsp; (3) Standardize: $z = (x-\mu)/\sigma$, then look up $\Phi(z)$. Use symmetry $\Phi(-z)=1-\Phi(z)$ to avoid negative-z lookups.
+  </div>
+</div>
+
+<!-- ═══ VIZ 1: Z-TABLE / AREA UNDER CURVE ═══ -->
+<h2 id="viz1">Interactive 1 — Area Under the Bell Curve</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Drag sliders to set $[a, b]$. Shaded area = $\Phi(b) - \Phi(a)$. Use presets to see the 68/95/99.7 rule and confidence-interval cut-points.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Standard Normal Z ~ N(0,1)</div>
+    <div class="gd-formula">$$P(a \le Z \le b) = \Phi(b) - \Phi(a)$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current area</div>
+    <div class="prob-display" id="area-display">P = —</div>
+  </div>
+</div>
+
+<div class="gd-chart" style="position:relative;">
+  <div class="gd-chart__title">Shaded area = P(a ≤ Z ≤ b)</div>
+  <div id="normal-chart"></div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Interval [a, b]</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">a</span> Left bound</label>
+    <span class="gd-control__value" id="a-val">−1.96</span>
+  </div>
+  <div class="gd-control--full">
+    <input class="gd-control__slider" type="range" id="a-slider" min="-4" max="4" step="0.01" value="-1.96">
+  </div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">b</span> Right bound</label>
+    <span class="gd-control__value" id="b-val">1.96</span>
+  </div>
+  <div class="gd-control--full">
+    <input class="gd-control__slider" type="range" id="b-slider" min="-4" max="4" step="0.01" value="1.96">
+  </div>
+</div>
+
+<!-- Preset buttons -->
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;">
+  <button class="gd-btn gd-btn--secondary" data-a="-1" data-b="1">±1σ (68.3%)</button>
+  <button class="gd-btn gd-btn--secondary" data-a="-1.96" data-b="1.96">±1.96σ (95%)</button>
+  <button class="gd-btn gd-btn--secondary" data-a="-2" data-b="2">±2σ (95.5%)</button>
+  <button class="gd-btn gd-btn--secondary" data-a="-3" data-b="3">±3σ (99.7%)</button>
+  <button class="gd-btn gd-btn--secondary" data-a="-4" data-b="0">Left tail</button>
+  <button class="gd-btn gd-btn--secondary" data-a="1.645" data-b="4">Right tail (5%)</button>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live Values</div>
+  <div class="gd-insight gd-insight--active" id="ins-area">P(a ≤ Z ≤ b) = —</div>
+  <div class="gd-insight" id="ins-phi-b">Φ(b) = —</div>
+  <div class="gd-insight" id="ins-phi-a">Φ(a) = —</div>
+</div>
+
+<!-- ═══ VIZ 2: CLT DEMO ═══ -->
+<h2 id="viz2">Interactive 2 — Central Limit Theorem Demo</h2>
+<p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+  Sample <strong>n</strong> values from any distribution. Compute the sample mean $\bar&#123;X&#125;$. Repeat. Watch the distribution of $\bar&#123;X&#125;$ converge to Normal — regardless of the source distribution.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--single">
+  <div>
+    <div class="gd-formula-label">CLT</div>
+    <div class="gd-formula">$$\bar&#123;X&#125;_n = \frac&#123;1&#125;&#123;n&#125;\sum_&#123;i=1&#125;^n X_i \xrightarrow&#123;d&#125; \mathcal&#123;N&#125;\!\left(\mu,\,\frac&#123;\sigma^2&#125;&#123;n&#125;\right) \text&#123; as &#125; n\to\infty$$</div>
+  </div>
+</div>
+
+<!-- Step 1: pick source distribution -->
+<div class="gd-controls" style="margin-bottom:14px;">
+  <div class="gd-controls__title">Step 1 — Source distribution (population to sample from)</div>
+  <div class="clt-src-tabs" id="clt-src-tabs">
+    <button class="clt-src-tab clt-src-tab--active" data-src="uniform">Uniform(0,1)</button>
+    <button class="clt-src-tab" data-src="exponential">Exponential(1)</button>
+    <button class="clt-src-tab" data-src="bernoulli">Bernoulli(0.3)</button>
+    <button class="clt-src-tab" data-src="bimodal">Bimodal</button>
+  </div>
+</div>
+
+<!-- Source chart — shows the population shape -->
+<div class="gd-chart">
+  <div class="gd-chart__title" id="clt-src-title">Source distribution</div>
+  <div id="clt-src-chart"></div>
+</div>
+
+<!-- Step 2: sample from it -->
+<div class="gd-controls" style="margin-bottom:14px;">
+  <div class="gd-controls__title">Step 2 — Draw samples and collect means</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">n</span> Sample size per draw</label>
+    <span class="gd-control__value" id="clt-n-val">5</span>
+  </div>
+  <div class="gd-control--full">
+    <input class="gd-control__slider" type="range" id="clt-n" min="1" max="50" step="1" value="5">
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+  <button class="gd-btn gd-btn--primary" id="clt-sample-btn">Draw 1 sample</button>
+  <button class="gd-btn gd-btn--secondary" id="clt-many-btn">Draw 500 more</button>
+  <button class="gd-btn gd-btn--secondary" id="clt-reset-btn">Reset</button>
+</div>
+
+<div class="clt-sample-count" id="clt-count">0</div>
+<div class="clt-sample-label">sample means collected</div>
+
+<!-- Means chart — distribution of X̄ -->
+<div class="gd-chart" style="margin-top:0;">
+  <div class="gd-chart__title">Distribution of $\bar&#123;X&#125;$ (sample means) — watch it go Normal!</div>
+  <div id="clt-means-chart"></div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">What CLT tells us</div>
+  <div class="gd-insight gd-insight--active" id="clt-ins-1">Collect more samples — the histogram will approach a bell curve shape.</div>
+  <div class="gd-insight" id="clt-ins-2">Std dev of X̄ = σ/√n (standard error). Larger n → narrower distribution.</div>
+  <div class="gd-insight gd-insight--warn" id="clt-ins-3">Works regardless of source distribution shape!</div>
+</div>
+
+<!-- ═══ WORKED EXAMPLES ═══ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · Uniform — probability, mean, variance</span>
+    <p>$X \sim \text&#123;Uniform&#125;(2, 8)$. Find $P(3 \le X \le 5)$, $E[X]$, and $\text&#123;Var&#125;(X)$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Probability (length ratio):</strong> $P(3 \le X \le 5) = \frac&#123;5-3&#125;&#123;8-2&#125; = \frac&#123;2&#125;&#123;6&#125; = \frac&#123;1&#125;&#123;3&#125; \approx 0.333$.</p>
+    <p><strong>Mean:</strong> $E[X] = (2+8)/2 = 5$.</p>
+    <p><strong>Variance:</strong> $\text&#123;Var&#125;(X) = (8-2)^2/12 = 36/12 = 3$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Length ratio is always faster than integration for uniform. Median also equals 5 — the midpoint.</p>
+    <div class="gd-example__ans">P(3≤X≤5) = 1/3 · E[X] = 5 · Var(X) = 3</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · GATE 2025 Q21 — Exponential rate from tail probability (MCQ)</span>
+    <p>For $X \sim \text&#123;Exponential&#125;(\lambda)$, it is given that $P(X \ge 2) = 0.25$. Find $\lambda$.<br>
+    (A) $\ln 2$ &nbsp;&nbsp; (B) $\ln 4$ &nbsp;&nbsp; (C) $\ln 3$ &nbsp;&nbsp; (D) $\ln 0.25$</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Tail formula:</strong> $P(X \ge 2) = e^&#123;-2\lambda&#125; = 0.25 = 1/4$.</p>
+    <p><strong>Solve:</strong> $-2\lambda = \ln(1/4) = -\ln 4$, so $\lambda = \frac&#123;\ln 4&#125;&#123;2&#125; = \ln(4^&#123;1/2&#125;) = \ln 2$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Trap: stopping at $2\lambda = \ln 4$ and picking (B). You must halve it. $\ln 4 / 2 = \ln\sqrt&#123;4&#125; = \ln 2$.</p>
+    <div class="gd-example__ans">Answer: (A) λ = ln 2</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · Normal — standardize and apply Φ</span>
+    <p>Heights $X \sim N(\mu=170,\; \sigma^2=100)$ cm. Find $P(160 \le X \le 185)$.<br>
+    Use $\Phi(1)=0.8413$, $\Phi(1.5)=0.9332$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Extract σ:</strong> $\sigma = \sqrt&#123;100&#125; = 10$ (second parameter is variance).</p>
+    <p><strong>Standardize:</strong> $z_1 = \frac&#123;160-170&#125;&#123;10&#125; = -1$, &nbsp; $z_2 = \frac&#123;185-170&#125;&#123;10&#125; = 1.5$.</p>
+    <p><strong>Compute:</strong> $P = \Phi(1.5) - \Phi(-1) = 0.9332 - (1 - 0.8413) = 0.9332 - 0.1587 = 0.7745$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Used symmetry $\Phi(-1) = 1 - \Phi(1)$ to avoid a negative-z lookup.</p>
+    <div class="gd-example__ans">Answer: ≈ 0.7745</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · GATE 2025 Q20 — Normal linear transform from moments (MCQ)</span>
+    <p>$X = aZ + b$, $Z \sim N(0,1)$. Given $E[X]=1$, $E[(X-E[X])^2]=4$, $E[(X-E[X])Z]=-2$. Find $a$ and $b$.<br>
+    (A) $a=-2, b=1$ &nbsp;&nbsp; (B) $a=2, b=-1$ &nbsp;&nbsp; (C) $a=-2, b=-1$ &nbsp;&nbsp; (D) $a=1, b=1$</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Mean:</strong> $E[X] = aE[Z] + b = 0 + b = b = 1$. So $b = 1$.</p>
+    <p><strong>Variance:</strong> $E[(X-E[X])^2] = \text&#123;Var&#125;(X) = a^2\text&#123;Var&#125;(Z) = a^2 \cdot 1 = a^2 = 4$. So $a = \pm 2$.</p>
+    <p><strong>Cross-moment pins the sign:</strong> $E[(X-E[X])Z] = E[aZZ] = a\,E[Z^2] = a \cdot 1 = a = -2$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Variance gives $|a|=2$ but cannot fix sign. The cross-moment $E[(X-\mu)Z]=a$ provides the sign directly.</p>
+    <div class="gd-example__ans">Answer: (A) a = −2, b = 1</div>
+  </div>
+</div>
+
+<!-- ═══ GATE ANGLE ═══ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>Memorise $\Phi$ values:</strong> $\Phi(1)=0.841$, $\Phi(1.5)=0.933$, $\Phi(1.645)=0.95$, $\Phi(1.96)=0.975$, $\Phi(2)=0.977$, $\Phi(2.576)=0.995$. These numbers solve 80% of Normal MCQs.</p>
+  <p><strong>$N(\mu, \sigma^2)$ trap:</strong> The second parameter is the <em>variance</em>. Take $\sigma=\sqrt&#123;\sigma^2&#125;$ before standardizing. $N(0,9)$ → $\sigma=3$, not 9. (2025 Q20)</p>
+  <p><strong>Symmetry shortcut:</strong> $\Phi(-z) = 1 - \Phi(z)$. Negative-$z$ lookups become positive ones. $P(Z \le -1.5) = 1 - 0.933 = 0.067$.</p>
+  <p><strong>Exponential: rate vs mean.</strong> "Exponential with mean $m$" means $\lambda = 1/m$. Plug $\lambda$ — not $m$ — into $e^&#123;-\lambda x&#125;$. Stopping at $2\lambda = \ln 4$ without halving is the (B) trap on 2025 Q21.</p>
+  <p><strong>CLT standard error:</strong> "Sample of $n=36$ from $\mu=100$, $\sigma=12$" → $\text&#123;SE&#125; = 12/\sqrt&#123;36&#125; = 2$. Standardize $\bar&#123;X&#125;$: $Z = (\bar&#123;X&#125;-\mu)/\text&#123;SE&#125;$. Then look up $\Phi$. Appears yearly in hypothesis testing questions.</p>
+  <p><strong>$\text&#123;Var&#125;(aX+b) = a^2\sigma^2$.</strong> The shift $b$ disappears from variance. For independent normals, variances add: $\text&#123;Var&#125;(X+Y) = \sigma_X^2 + \sigma_Y^2$ (never add SDs).</p>
+</div>
+
+<!-- ═══ PREV / NEXT ═══ -->
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/viz-1-4-distributions.html">
+    <span class="gd-page-nav__dir">← Previous</span>
+    <span class="gd-page-nav__title">1.4 Distributions</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/viz-1-6-correlation.html">
+    <span class="gd-page-nav__dir">Next →</span>
+    <span class="gd-page-nav__title">1.6 Correlation &amp; Covariance</span>
+  </a>
+</div>
+
+<script is:inline slot="scripts">
+// ══════════════════════════════════════════
+// VIZ 1 — AREA UNDER NORMAL CURVE
+// ══════════════════════════════════════════
+(function() {
+  let aVal = -1.96, bVal = 1.96;
+
+  function drawNormal() {
+    const container = document.getElementById('normal-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.42);
+    const M = { top: 20, right: 20, bottom: 40, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    const xExt = 4;
+    const x = d3.scaleLinear().domain([-xExt, xExt]).range([0, W]);
+    const pts = d3.range(-xExt, xExt + 0.01, 8 * xExt / 600).map(v => ({ x: v, y: GD.normalPDF(v, 0, 1) }));
+    const yMax = GD.normalPDF(0, 0, 1) * 1.15;
+    const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class', 'grid')
+      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Shaded area
+    const lo = Math.min(aVal, bVal), hi = Math.max(aVal, bVal);
+    const shadePts = pts.filter(d => d.x >= lo && d.x <= hi);
+    const area = d3.area().x(d => x(d.x)).y0(H).y1(d => y(d.y)).curve(d3.curveCatmullRom);
+    g.append('path').attr('d', area(shadePts)).attr('fill', '#7c9eff').attr('opacity', 0.35);
+
+    // Curve
+    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveCatmullRom);
+    g.append('path').attr('d', line(pts)).attr('fill', 'none').attr('stroke', '#7c9eff').attr('stroke-width', 2.5);
+
+    // a and b lines
+    [aVal, bVal].forEach((v, i) => {
+      const col = i === 0 ? '#f0a44a' : '#4caf82';
+      g.append('line')
+        .attr('x1', x(v)).attr('x2', x(v)).attr('y1', 0).attr('y2', H)
+        .attr('stroke', col).attr('stroke-width', 1.5).attr('stroke-dasharray', '4 3');
+      g.append('text').attr('x', x(v)).attr('y', -6).attr('text-anchor', 'middle')
+        .attr('fill', col).attr('font-size', 11).attr('font-weight', '600')
+        .text(i === 0 ? `a=${aVal.toFixed(2)}` : `b=${bVal.toFixed(2)}`);
+    });
+
+    // Axes
+    g.append('g').attr('class', 'axis').attr('transform', `translate(0,${H})`)
+      .call(d3.axisBottom(x).ticks(9));
+    g.append('g').attr('class', 'axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+
+    // Probability annotation in shaded area
+    const prob = GD.normalCDF(hi) - GD.normalCDF(lo);
+    const midX = x((lo + hi) / 2);
+    g.append('text').attr('x', midX).attr('y', H * 0.35)
+      .attr('text-anchor', 'middle').attr('fill', 'white')
+      .attr('font-size', 13).attr('font-weight', '600')
+      .text(`${(prob * 100).toFixed(1)}%`);
+
+    // Update sidebar info
+    const phiB = GD.normalCDF(hi), phiA = GD.normalCDF(lo);
+    document.getElementById('area-display').textContent = `P = ${prob.toFixed(4)}`;
+    document.getElementById('ins-area').textContent = `P(${lo.toFixed(2)} ≤ Z ≤ ${hi.toFixed(2)}) = ${prob.toFixed(4)} = ${(prob*100).toFixed(2)}%`;
+    document.getElementById('ins-phi-b').textContent = `Φ(${hi.toFixed(2)}) = ${phiB.toFixed(4)}`;
+    document.getElementById('ins-phi-a').textContent = `Φ(${lo.toFixed(2)}) = ${phiA.toFixed(4)}`;
+  }
+
+  function setSliders(a, b) {
+    aVal = +a; bVal = +b;
+    document.getElementById('a-slider').value = a;
+    document.getElementById('b-slider').value = b;
+    document.getElementById('a-val').textContent = (+a).toFixed(2);
+    document.getElementById('b-val').textContent = (+b).toFixed(2);
+    drawNormal();
+  }
+
+  document.getElementById('a-slider').addEventListener('input', function() {
+    aVal = +this.value;
+    document.getElementById('a-val').textContent = aVal.toFixed(2);
+    drawNormal();
+  });
+  document.getElementById('b-slider').addEventListener('input', function() {
+    bVal = +this.value;
+    document.getElementById('b-val').textContent = bVal.toFixed(2);
+    drawNormal();
+  });
+
+  // Preset buttons
+  document.querySelectorAll('[data-a]').forEach(btn => {
+    btn.addEventListener('click', () => setSliders(btn.dataset.a, btn.dataset.b));
+  });
+
+  drawNormal();
+  window.addEventListener('resize', () => setTimeout(drawNormal, 150));
+})();
+
+// ══════════════════════════════════════════
+// VIZ 2 — CLT DEMO
+// ══════════════════════════════════════════
+(function() {
+  let sampleMeans = [];
+  let nVal = 5;
+  let srcDist = 'uniform';
+
+  const SOURCES = {
+    uniform:     { label: 'Uniform(0,1)', mu: 0.5,  sigma: 1/Math.sqrt(12), sample: () => Math.random() },
+    exponential: { label: 'Exponential(1)', mu: 1,  sigma: 1,               sample: () => -Math.log(Math.random()) },
+    bernoulli:   { label: 'Bernoulli(0.3)', mu: 0.3, sigma: Math.sqrt(0.21), sample: () => Math.random() < 0.3 ? 1 : 0 },
+    bimodal:     { label: 'Bimodal (mix of 2 normals)', mu: 0, sigma: Math.sqrt(1.25),
+                   sample: () => Math.random() < 0.5 ? GD.normalPDF(0,0,1) * Math.random() * 3 - 1.5 : GD.normalPDF(0,0,1) * Math.random() * 3 + 1 }
+  };
+
+  // Bimodal sample fix
+  function sampleBimodal() {
+    const z1 = () => { let u,v,s; do { u=Math.random()*2-1; v=Math.random()*2-1; s=u*u+v*v; } while(s>=1||s===0); return u*Math.sqrt(-2*Math.log(s)/s); };
+    return Math.random() < 0.5 ? z1() - 2 : z1() + 2;
+  }
+  SOURCES.bimodal.sample = sampleBimodal;
+  SOURCES.bimodal.mu = 0; SOURCES.bimodal.sigma = Math.sqrt(((-2)*(-2) + 2*2)/2 + 1);
+
+  function drawSource() {
+    const src = SOURCES[srcDist];
+    const container = document.getElementById('clt-src-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.28);
+    const M = { top: 10, right: 20, bottom: 36, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    // Draw 2000 samples to show source shape
+    const samples = Array.from({length: 2000}, src.sample);
+    const x = d3.scaleLinear()
+      .domain([d3.min(samples) * 0.9, d3.max(samples) * 1.1])
+      .range([0, W]);
+    const bins = d3.bin().domain(x.domain()).thresholds(40)(samples);
+    const y = d3.scaleLinear().domain([0, d3.max(bins, d => d.length)]).range([H, 0]);
+
+    g.selectAll('rect').data(bins).enter().append('rect')
+      .attr('x', d => x(d.x0) + 1)
+      .attr('y', d => y(d.length))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+      .attr('height', d => H - y(d.length))
+      .attr('fill', '#4caf82').attr('opacity', 0.6);
+
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(6));
+    document.getElementById('clt-src-title').textContent = `Source: ${src.label}`;
+  }
+
+  function drawMeans() {
+    const src = SOURCES[srcDist];
+    const container = document.getElementById('clt-means-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.42);
+    const M = { top: 20, right: 20, bottom: 40, left: 52 };
+    const W = cW - M.left - M.right;
+    const H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('display','block');
+    const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    if (!sampleMeans.length) {
+      g.append('text').attr('x', W/2).attr('y', H/2).attr('text-anchor','middle')
+        .attr('fill', '#606880').attr('font-size', 14)
+        .text('Click "Draw 1 sample" to start →');
+      return;
+    }
+
+    const se   = src.sigma / Math.sqrt(nVal);
+    const mu   = src.mu;
+    const xLo  = mu - 4 * se, xHi = mu + 4 * se;
+    const allXLo = Math.min(d3.min(sampleMeans), xLo);
+    const allXHi = Math.max(d3.max(sampleMeans), xHi);
+
+    const x = d3.scaleLinear().domain([allXLo, allXHi]).range([0, W]);
+    const bins = d3.bin().domain(x.domain()).thresholds(Math.min(40, Math.ceil(sampleMeans.length / 5)))(sampleMeans);
+    const y = d3.scaleLinear().domain([0, d3.max(bins, d => d.length) * 1.1]).range([H, 0]);
+
+    // Grid
+    g.append('g').attr('class','grid')
+      .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Bars
+    g.selectAll('rect').data(bins).enter().append('rect')
+      .attr('x', d => x(d.x0) + 1).attr('y', d => y(d.length))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+      .attr('height', d => H - y(d.length))
+      .attr('fill', '#7c9eff').attr('opacity', 0.7);
+
+    // Theoretical normal overlay (if enough samples)
+    if (sampleMeans.length >= 30) {
+      const normalPts = d3.range(allXLo, allXHi, (allXHi - allXLo) / 300).map(v => ({
+        x: v,
+        y: GD.normalPDF(v, mu, se)
+      }));
+      // Scale PDF to match histogram (density scale)
+      const binW = (allXHi - allXLo) / bins.length;
+      const scale = sampleMeans.length * binW;
+      const line = d3.line().x(d => x(d.x)).y(d => y(d.y * scale)).curve(d3.curveCatmullRom);
+      g.append('path').attr('d', line(normalPts))
+        .attr('fill','none').attr('stroke','#f0a44a').attr('stroke-width', 2).attr('stroke-dasharray','none');
+      g.append('text').attr('x', x(mu + 2.5*se)).attr('y', 16)
+        .attr('fill','#f0a44a').attr('font-size', 10).text('Theoretical N(μ, σ²/n)');
+    }
+
+    // Mean line
+    const obsMean = d3.mean(sampleMeans);
+    g.append('line').attr('x1', x(obsMean)).attr('x2', x(obsMean))
+      .attr('y1', 0).attr('y2', H)
+      .attr('stroke', '#f0a44a').attr('stroke-width', 1.5).attr('stroke-dasharray', '4 3');
+    g.append('text').attr('x', x(obsMean) + 4).attr('y', 12)
+      .attr('fill', '#f0a44a').attr('font-size', 11)
+      .text(`x̄=${obsMean.toFixed(3)}`);
+
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4));
+
+    // Update insight 2
+    const obsSD = d3.deviation(sampleMeans) || 0;
+    document.getElementById('clt-ins-2').textContent =
+      `Observed SE=${obsSD.toFixed(3)}, theoretical σ/√n=${se.toFixed(3)}. n=${nVal} → ${sampleMeans.length} samples collected.`;
+    document.getElementById('clt-ins-1').textContent =
+      sampleMeans.length < 30
+        ? `Keep sampling — need more points to see the bell shape emerge.`
+        : `Bell shape is visible! The N(μ, σ²/n) overlay (orange) fits the histogram.`;
+    document.getElementById('clt-ins-1').className = `gd-insight${sampleMeans.length >= 30 ? ' gd-insight--active' : ''}`;
+  }
+
+  function takeSamples(count) {
+    const src = SOURCES[srcDist];
+    for (let i = 0; i < count; i++) {
+      const vals = Array.from({length: nVal}, src.sample);
+      sampleMeans.push(d3.mean(vals));
+    }
+    document.getElementById('clt-count').textContent = sampleMeans.length;
+    drawMeans();
+  }
+
+  // Controls
+  document.getElementById('clt-n').addEventListener('input', function() {
+    nVal = +this.value;
+    document.getElementById('clt-n-val').textContent = nVal;
+    drawMeans();
+  });
+  document.getElementById('clt-sample-btn').addEventListener('click', () => takeSamples(1));
+  document.getElementById('clt-many-btn').addEventListener('click', () => takeSamples(500));
+  document.getElementById('clt-reset-btn').addEventListener('click', () => {
+    sampleMeans = [];
+    document.getElementById('clt-count').textContent = 0;
+    drawMeans();
+  });
+
+  document.getElementById('clt-src-tabs').addEventListener('click', e => {
+    const btn = e.target.closest('.clt-src-tab');
+    if (!btn) return;
+    document.querySelectorAll('.clt-src-tab').forEach(t => t.classList.remove('clt-src-tab--active'));
+    btn.classList.add('clt-src-tab--active');
+    srcDist = btn.dataset.src;
+    sampleMeans = [];
+    document.getElementById('clt-count').textContent = 0;
+    drawSource();
+    drawMeans();
+  });
+
+  drawSource();
+  drawMeans();
+  window.addEventListener('resize', () => setTimeout(() => { drawSource(); drawMeans(); }, 150));
+})();
+</script>
+</VizLayout>

@@ -1,0 +1,518 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.2 Question Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-2-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  <a href="/module1/1-2-questions.html">1.2 Questions</a><span>›</span>
+  Bank
+</div>
+<a class="gd-pill-link" href="/module1/1-2-questions.html">← Practice Set (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.2 Question Bank — Conditional Probability &amp; Bayes</h1>
+  <p>Extended practice: 20 questions covering the complement rule, chain rule, LOTP, Bayes, independence, and Naive Bayes. Attempt each before revealing the answer.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If $P(A\mid B)=0.4$, then $P(A'\mid B)=$</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.4</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.6</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.96</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Cannot be determined</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 0.6.</span></b>
+        Conditional probability obeys all axioms: $P(A'\mid B)=1-P(A\mid B)=1-0.4=0.6$. Trap: (D) "cannot determine" is wrong — the complement rule holds inside any conditioning event regardless of $P(A)$ or $P(B)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$P(A)=0.6$, $P(B\mid A)=0.5$, $P(C\mid A\cap B)=\tfrac&#123;1&#125;&#123;3&#125;$. Find $P(A\cap B\cap C)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,0.09,0.11)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 0.10.</span></b>
+        Chain rule: $P(A\cap B\cap C)=P(A)\cdot P(B\mid A)\cdot P(C\mid A\cap B)=0.6\times0.5\times\tfrac&#123;1&#125;&#123;3&#125;=0.10$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Spam filter: $P(\text&#123;spam&#125;)=0.3$. Word "lottery" has $P(\text&#123;lottery&#125;\mid\text&#123;spam&#125;)=0.8$ and $P(\text&#123;lottery&#125;\mid\text&#123;ham&#125;)=0.1$. Given "lottery" appears, $P(\text&#123;spam&#125;\mid\text&#123;lottery&#125;)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q3-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,0.75,0.80)">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ ≈ 0.77.</span></b>
+        $\dfrac&#123;0.8\times0.3&#125;&#123;0.8\times0.3+0.1\times0.7&#125;=\dfrac&#123;0.24&#125;&#123;0.31&#125;\approx0.774$. Prior 30% → posterior 77% — a single relevant word is strong evidence. The denominator is LOTP, not a guessed $P(\text&#123;lottery&#125;)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Machines A (40% of output, defect rate 5%), B (35%, defect rate 2%), C (25%, defect rate 4%). The probability a randomly chosen item is defective is</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.030</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.037</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.050</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.011</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ (B) 0.037.</span></b>
+        LOTP: $P(D)=0.4(0.05)+0.35(0.02)+0.25(0.04)=0.020+0.007+0.010=0.037$. Trap: (A) 0.030 = simple average of 5%,2%,4% — ignores machine proportions. (C) 0.050 = Machine A's rate alone.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Machines A (40%, defect rate 5%), B (35%, defect rate 2%), C (25%, defect rate 4%). Overall defect rate is 3.7%. Given a defective item, $P(\text&#123;from Machine B&#125;)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q5-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(5,0.18,0.20)">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ ≈ 0.19.</span></b>
+        $P(B\mid D)=\dfrac&#123;P(D\mid B)P(B)&#125;&#123;P(D)&#125;=\dfrac&#123;0.02\times0.35&#125;&#123;0.037&#125;=\dfrac&#123;0.007&#125;&#123;0.037&#125;\approx0.189$. Trap: 35% is the prior; Machine B has the lowest defect rate, so defects skew away from it. (A: 54%, B: 19%, C: 27%.)
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">Events $A$ and $B$ are mutually exclusive with $P(A)=0.3$, $P(B)=0.4$. Then $P(A\cap B)=$</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.12</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.70</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.58</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ (B) 0.</span></b>
+        Mutually exclusive means $A\cap B=\emptyset$, so $P(A\cap B)=0$. Trap: (A) 0.12 = $P(A)\cdot P(B)$ — that formula holds for <em>independence</em>, not ME. ME with positive probabilities always implies dependence.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$A\perp B$ (independent). Which pairs are <strong>guaranteed</strong> to also be independent? (Select all.)</div>
+    <div class="q-options" id="q7-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="A"> <span class="q-opt-key">A</span> $A'$ and $B$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="B"> <span class="q-opt-key">B</span> $A$ and $B'$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="C"> <span class="q-opt-key">C</span> $A'$ and $B'$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="D"> <span class="q-opt-key">D</span> $A$ and $B$ given any event $C$ with $P(C)>0$</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(7,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (A), (B), (C).</span></b><br>
+        Independence is preserved under complementation. Proof for (A): $P(A'\cap B)=P(B)-P(A\cap B)=P(B)(1-P(A))=P(A')P(B)$. Same logic for (B) and (C). (D) False — conditioning can create or destroy independence (e.g. if $C\subseteq A$, then $P(A\mid C)=1$).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$P(A\cap B)=0.15$, $P(B)=0.60$. Find $P(A\mid B)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q8-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,0.24,0.26)">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ 0.25.</span></b>
+        $P(A\mid B)=P(A\cap B)/P(B)=0.15/0.60=0.25$. Direct definition — no further steps.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Prevalence $P(D)=0.05$. Sensitivity $P(+\mid D)=0.95$, false-positive rate $P(+\mid\overline&#123;D&#125;)=0.10$. Given positive test, $P(D\mid+)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,0.32,0.35)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ ≈ 0.33.</span></b>
+        $\dfrac&#123;0.95\times0.05&#125;&#123;0.95\times0.05+0.10\times0.95&#125;=\dfrac&#123;0.0475&#125;&#123;0.1425&#125;=\tfrac&#123;1&#125;&#123;3&#125;\approx0.333$.
+        <br>Insight: 95% sensitivity still gives only 1-in-3 PPV when prevalence is 5%. False positives (10%×95% non-diseased) swamp true positives (95%×5% diseased).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Prior $P(H)=0.5$. A test has $P(+\mid H)=\tfrac&#123;3&#125;&#123;4&#125$ and $P(+\mid H')=\tfrac&#123;1&#125;&#123;4&#125;$. Two <em>independent</em> positive results are observed. The updated posterior $P(H)$ after both is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,0.89,0.91)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 0.90.</span></b>
+        After 1st positive: $P(H\mid+)=\dfrac&#123;(3/4)(1/2)&#125;&#123;(3/4)(1/2)+(1/4)(1/2)&#125;=\tfrac&#123;3&#125;&#123;4&#125;$. Use as new prior; after 2nd: $\dfrac&#123;(3/4)(3/4)&#125;&#123;(3/4)(3/4)+(1/4)(1/4)&#125;=\dfrac&#123;9/16&#125;&#123;10/16&#125;=0.9$.
+        <br><b>Odds shortcut:</b> prior odds $1:1$. Each positive multiplies by LR $= 3$. Posterior odds $= 9:1$, so $P = 9/10 = 0.9$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Box A: 4 red, 1 blue. Box B: 2 red, 3 blue. A box is chosen uniformly, then one ball is drawn. Given the ball is <strong>blue</strong>, $P(\text&#123;Box A chosen&#125;)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q11-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(11,0.24,0.26)">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ 0.25.</span></b>
+        $P(\text&#123;blue&#125;)=\tfrac&#123;1&#125;&#123;2&#125;\cdot\tfrac&#123;1&#125;&#123;5&#125;+\tfrac&#123;1&#125;&#123;2&#125;\cdot\tfrac&#123;3&#125;&#123;5&#125;=0.10+0.30=0.40$. $P(A\mid\text&#123;blue&#125;)=\dfrac&#123;0.10&#125;&#123;0.40&#125;=0.25$.
+        <br>Trap: Box A has mostly red balls — a blue draw is evidence <em>against</em> Box A, pulling posterior below the 50% prior.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qc12">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">A lawyer argues: "The DNA match probability given innocence is $10^&#123;-6&#125;$, therefore the probability the defendant is innocent given the DNA match is $10^&#123;-6&#125;$." This reasoning is</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Correct by Bayes' theorem</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> The prosecutor's fallacy — confuses $P(E\mid H)$ with $P(H\mid E)$</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Correct if the population is large enough</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Valid only when the prior is uniform</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','B')">Check</button>
+      <div class="q-answer" id="q12-ans">
+        <b><span class="ans-correct">✓ (B).</span></b>
+        $P(\text&#123;match&#125;\mid\text&#123;innocent&#125;)=10^&#123;-6&#125;$ is not $P(\text&#123;innocent&#125;\mid\text&#123;match&#125;)$. Bayes requires the prior $P(\text&#123;innocent&#125;)$ (typically high before the match). Swapping conditioning order without applying Bayes is the prosecutor's fallacy.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qc13">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Three doors: one hides a prize, two hide goats. You pick door 1. The host (who knows) opens a goat door from &#123;2, 3&#125;. You <strong>switch</strong> to the remaining door. $P(\text&#123;win&#125;\mid\text&#123;switched&#125;)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q13-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,0.65,0.68)">Check</button>
+      <div class="q-answer" id="q13-ans">
+        <b><span class="ans-correct">✓ 0.67.</span></b>
+        $P(\text&#123;prize at door 1&#125;\mid\text&#123;host reveals goat&#125;)=\tfrac&#123;1&#125;&#123;3&#125;$ (unchanged). $P(\text&#123;prize at switched door&#125;)=\tfrac&#123;2&#125;&#123;3&#125;\approx0.67$.
+        <br>Key: the host's action is non-random — he always avoids the prize door. This transfers $\tfrac&#123;2&#125;&#123;3&#125;$ of the probability mass to the single remaining door. Always switch.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qc14">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$P(A)=0.3$, $P(B)=0.4$, $P(A\cup B)=0.58$. Events $A$ and $B$ are</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Mutually exclusive</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Independent</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Positively correlated (dependent)</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Negatively correlated (dependent)</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans">
+        <b><span class="ans-correct">✓ (B) Independent.</span></b>
+        $P(A\cap B)=P(A)+P(B)-P(A\cup B)=0.3+0.4-0.58=0.12$. Since $P(A)\cdot P(B)=0.3\times0.4=0.12=P(A\cap B)$: independent. Trap: (A) ME requires $P(A\cap B)=0$, giving $P(A\cup B)=0.70$ — not 0.58.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qc15">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A bag has 6 red and 4 blue balls. Two are drawn <strong>without replacement</strong>. $P(\text&#123;both same colour&#125;)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q15-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(15,0.46,0.48)">Check</button>
+      <div class="q-answer" id="q15-ans">
+        <b><span class="ans-correct">✓ ≈ 0.47.</span></b>
+        $P(\text&#123;RR&#125;)=\tfrac&#123;6&#125;&#123;10&#125;\cdot\tfrac&#123;5&#125;&#123;9&#125;=\tfrac&#123;1&#125;&#123;3&#125;$; $P(\text&#123;BB&#125;)=\tfrac&#123;4&#125;&#123;10&#125;\cdot\tfrac&#123;3&#125;&#123;9&#125;=\tfrac&#123;2&#125;&#123;15&#125;$. Sum $=\tfrac&#123;5&#125;&#123;15&#125;+\tfrac&#123;2&#125;&#123;15&#125;=\tfrac&#123;7&#125;&#123;15&#125;\approx0.467$.
+        <br>Combination check: $\dfrac&#123;C(6,2)+C(4,2)&#125;&#123;C(10,2)&#125;=\dfrac&#123;15+6&#125;&#123;45&#125;=\dfrac&#123;21&#125;&#123;45&#125;=\tfrac&#123;7&#125;&#123;15&#125;$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="qc16">
+    <div class="q-header">
+      <span class="q-num">Q16</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">$P(A)=0.5$, $P(B)=0.4$, $P(A\cap B)=0.2$. Then $P(A\mid B')=$</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.6</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.5</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.3</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.4</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','B')">Check</button>
+      <div class="q-answer" id="q16-ans">
+        <b><span class="ans-correct">✓ (B) 0.5.</span></b>
+        $P(A\cap B')=P(A)-P(A\cap B)=0.5-0.2=0.3$. $P(B')=0.6$. $P(A\mid B')=0.3/0.6=0.5=P(A)$. This confirms $A\perp B$: conditioning on $B$ or $B'$ leaves $P(A)$ unchanged.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="qc17">
+    <div class="q-header">
+      <span class="q-num">Q17</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Naive Bayes spam filter: $P(\text&#123;spam&#125;)=0.4$. Features assumed conditionally independent: $P(\text&#123;free&#125;\mid\text&#123;spam&#125;)=0.6$, $P(\text&#123;free&#125;\mid\text&#123;ham&#125;)=0.1$, $P(\text&#123;win&#125;\mid\text&#123;spam&#125;)=0.5$, $P(\text&#123;win&#125;\mid\text&#123;ham&#125;)=0.2$. Given both "free" and "win" appear, the classifier predicts</div>
+    <div class="q-options" id="q17-opts">
+      <div class="q-opt" data-q="17" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Spam</div>
+      <div class="q-opt" data-q="17" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Ham</div>
+      <div class="q-opt" data-q="17" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Equal probability — no prediction</div>
+      <div class="q-opt" data-q="17" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Insufficient data</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(17,'mcq','A')">Check</button>
+      <div class="q-answer" id="q17-ans">
+        <b><span class="ans-correct">✓ (A) Spam.</span></b>
+        Score spam $\propto0.4\times0.6\times0.5=0.120$; score ham $\propto0.6\times0.1\times0.2=0.012$. Ratio 10:1 → classify spam. Posterior $P(\text&#123;spam&#125;)\approx0.12/0.132\approx0.91$. The "naive" assumption of conditional feature independence allows each feature to multiply independently.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="qc18">
+    <div class="q-header">
+      <span class="q-num">Q18</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Which formula is <strong>always</strong> correct?</div>
+    <div class="q-options" id="q18-opts">
+      <div class="q-opt" data-q="18" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $P(A\cup B\mid C)=P(A\mid C)+P(B\mid C)$</div>
+      <div class="q-opt" data-q="18" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $P(A\cup B\mid C)=P(A\mid C)+P(B\mid C)-P(A\cap B\mid C)$</div>
+      <div class="q-opt" data-q="18" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $P(A\cup B\mid C)=P(A\mid C)\cdot P(B\mid C)$</div>
+      <div class="q-opt" data-q="18" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $P(A\cup B\mid C)=1-P(A'\mid C)\cdot P(B'\mid C)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(18,'mcq','B')">Check</button>
+      <div class="q-answer" id="q18-ans">
+        <b><span class="ans-correct">✓ (B).</span></b>
+        $P(\cdot\mid C)$ is a valid probability measure — all standard laws including inclusion-exclusion hold. (A) holds only when $A\cap B=\emptyset$ given $C$. (C) would require $A\perp B\mid C$. (D) is the de Morgan expansion for independent events only.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="qc19">
+    <div class="q-header">
+      <span class="q-num">Q19</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Prior $P(H)=\tfrac&#123;1&#125;&#123;4&#125;$. Two independent tests each have likelihood ratio $\text&#123;LR&#125;=P(+\mid H)/P(+\mid H')=3$. The posterior $P(H)$ after two positive results is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q19-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(19,0.74,0.76)">Check</button>
+      <div class="q-answer" id="q19-ans">
+        <b><span class="ans-correct">✓ 0.75.</span></b>
+        Odds form: prior odds $=\tfrac&#123;1/4&#125;&#123;3/4&#125;=1:3$. Each LR=3 multiplies odds by 3. After two positives: posterior odds $=1\times3\times3:3=9:3=3:1$. $P(H)=3/4=0.75$.
+        <br>Direct verify (with $P(+\mid H)=3/4$, $P(+\mid H')=1/4$): $\dfrac&#123;(1/4)(9/16)&#125;&#123;(1/4)(9/16)+(3/4)(1/16)&#125;=\dfrac&#123;9&#125;&#123;12&#125;=0.75$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="qc20">
+    <div class="q-header">
+      <span class="q-num">Q20</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$P(W)=0.6$. If $W$ occurs, $P(\text&#123;success&#125;\mid W)=0.8$; otherwise $P(\text&#123;success&#125;\mid W')=0.3$. Given success was observed, $P(W\mid\text&#123;success&#125;)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q20-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,0.79,0.81)">Check</button>
+      <div class="q-answer" id="q20-ans">
+        <b><span class="ans-correct">✓ 0.80.</span></b>
+        $P(\text&#123;success&#125;)=0.6\times0.8+0.4\times0.3=0.48+0.12=0.60$. $P(W\mid\text&#123;success&#125;)=0.48/0.60=0.80$. Note $P(\text&#123;success&#125;)=P(W)=0.60$ — numerical coincidence; always compute the denominator explicitly.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>17–20 correct:</strong> Bayes mastered — advance to <a href="/module1/1-3-questions.html">1.3 Expectation &amp; Variance</a>.</p>
+  <p><strong>12–16:</strong> Review the Bayes denominator (Q3, Q5, Q9, Q11). The pattern is always LOTP in the denominator — write it out every time.</p>
+  <p><strong>≤11:</strong> Re-read the Bayes playbook; drill Q4–Q5 (LOTP → inverse) and Q10 (sequential update) — these patterns repeat verbatim on GATE.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-2-questions.html" style="margin-top:8px;">← Back to Practice Set</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

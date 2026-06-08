@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Module 1 — Probability & Statistics · GATE DA" currentPath={Astro.url.pathname}>
+  <Fragment slot="head">
+    <style is:global>
+      .topic-grid { display:flex; flex-direction:column; gap:10px; }
+      .topic-row { display:grid; grid-template-columns:40px 1fr auto; gap:12px; align-items:center; background:var(--gd-bg-2); border:1px solid var(--gd-border); border-radius:var(--gd-r-md); padding:14px 18px; transition:border-color 0.15s; cursor:pointer; }
+      .topic-row:hover { border-color:var(--gd-brand); }
+      .topic-num { font-family:var(--gd-font-mono); font-size:0.82rem; color:var(--gd-text-2); font-weight:600; }
+      .topic-label { font-size:0.92rem; color:var(--gd-text-0); font-weight:500; }
+      .topic-sublabel { font-size:0.78rem; color:var(--gd-text-2); margin-top:2px; }
+      .topic-btn { padding:5px 14px; border-radius:20px; font-size:0.75rem; font-weight:600; text-decoration:none; border:1px solid var(--gd-border); white-space:nowrap; }
+      .topic-btn--viz { background:rgba(124,158,255,0.1); border-color:rgba(124,158,255,0.3); color:var(--gd-brand); }
+      .topic-btn--notes { color:var(--gd-text-1); }
+      .topic-btn--soon { color:var(--gd-text-2); cursor:default; }
+      .topic-btn:not(.topic-btn--soon):hover { border-color:var(--gd-brand); color:var(--gd-brand); }
+      .module-meta { background:var(--gd-bg-2); border:1px solid var(--gd-border); border-left:3px solid var(--gd-brand); border-radius:var(--gd-r-lg); padding:20px 24px; margin-bottom:28px; display:flex; gap:32px; flex-wrap:wrap; }
+      .module-meta__label { font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--gd-text-2); margin-bottom:4px; }
+      .module-meta__val { font-size:1rem; font-weight:600; color:var(--gd-text-0); }
+    </style>
+  </Fragment>
+
+  <div class="gd-breadcrumb"><a href="/index.html">Home</a><span>›</span> Module 1</div>
+
+  <h1 style="font-family:var(--gd-font-head);font-size:1.85rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;">
+    Module 1 — Probability &amp; Statistics
+  </h1>
+  <p style="color:var(--gd-text-1);margin-bottom:24px;font-size:0.95rem;">
+    Highest-weight subject (~18%). Each topic has an interactive visualization and a full text note with worked examples and practice questions.
+  </p>
+
+  <div class="module-meta">
+    <div class="module-meta__item"><div class="module-meta__label">GATE weight</div><div class="module-meta__val">~18%</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Topics</div><div class="module-meta__val">8</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Practice Qs</div><div class="module-meta__val">100+</div></div>
+    <div class="module-meta__item"><div class="module-meta__label">Priority</div><div class="module-meta__val">★ Highest ROI</div></div>
+  </div>
+
+  <div class="topic-grid">
+    {[
+      { num:'1.1', label:'Counting & Basic Probability', sub:'Set theory, Venn diagrams, nPr, nCr, addition rule', viz:'viz-1-1-counting.html', q:'1-1-questions.html', bank:'1-1-bank.html' },
+      { num:'1.2', label:"Conditional Probability & Bayes' Theorem", sub:'P(A|B), independence, Bayes rule, base rate fallacy', viz:'viz-1-2-bayes.html', q:'1-2-questions.html', bank:'1-2-bank.html' },
+      { num:'1.3', label:'Random Variables & Expectation', sub:'E[X], Var(X), linear transforms, PMF/PDF', viz:'viz-1-3-expectation.html', q:'1-3-questions.html', bank:'1-3-bank.html' },
+      { num:'1.4', label:'Probability Distributions', sub:'Bernoulli, Binomial, Geometric, Poisson, Uniform, Normal, Exponential', viz:'viz-1-4-distributions.html', q:'1-4-questions.html', bank:'1-4-bank.html' },
+      { num:'1.5', label:'Normal Distribution & CLT', sub:'Z-table, 68-95-99.7 rule, Central Limit Theorem demo', viz:'viz-1-5-normal-clt.html', q:'1-5-questions.html', bank:'1-5-bank.html' },
+      { num:'1.6', label:'Covariance & Correlation', sub:'Cov(X,Y), Pearson r, scatter plot, joint distributions', viz:'viz-1-6-correlation.html', q:'1-6-questions.html', bank:'1-6-bank.html' },
+      { num:'1.7', label:'Estimation & Confidence Intervals', sub:'MLE, CI coverage animation, sample size effect', viz:'viz-1-7-estimation.html', q:'1-7-questions.html', bank:'1-7-bank.html' },
+      { num:'1.8', label:'Hypothesis Testing', sub:'Type I/II error, p-value, power, z-test, t-test', viz:'viz-1-8-hypothesis.html', q:'1-8-questions.html', bank:'1-8-bank.html' },
+    ].map(t => (
+      <div class="topic-row" onclick={`window.location='${t.viz}'`}>
+        <div class="topic-num">{t.num}</div>
+        <div>
+          <div class="topic-label">{t.label}</div>
+          <div class="topic-sublabel">{t.sub}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          {t.q
+            ? <a class="topic-btn" href={t.q} style="background:rgba(110,231,168,.08);border-color:rgba(110,231,168,.3);color:var(--gd-green);" onclick="event.stopPropagation()">Questions</a>
+            : <span class="topic-btn topic-btn--soon">Questions</span>
+          }
+          {t.bank &&
+            <a class="topic-btn" href={t.bank} style="background:rgba(124,158,255,.08);border-color:rgba(124,158,255,.3);color:var(--gd-brand);" onclick="event.stopPropagation()">Bank</a>
+          }
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

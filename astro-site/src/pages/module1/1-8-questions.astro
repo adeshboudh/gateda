@@ -1,0 +1,296 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.8 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-8-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.8 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-8-hypothesis.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.8 Practice Questions — Descriptive Stats &amp; Hypothesis Testing</h1>
+  <p>Mean, variance, z-score, and inference basics. Use $z=1.96$ for 95% CI. This module completes all of Subject 1.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2025 Q10</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">
+      In 100 shifts, patient count $X$ is: $X=5$ (20 shifts), $X=6$ (40 shifts), $X=7$ (30 shifts), $X=8$ (10 shifts). If earnings $= 1000(X - 0.2)$, the average earnings per shift is
+    </div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> ₹6,100</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> ₹6,300</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> ₹6,000</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> ₹6,500</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','A')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (A) ₹6,100.</span></b>
+        Weighted mean: $\bar&#123;X&#125; = (5\cdot20+6\cdot40+7\cdot30+8\cdot10)/100 = (100+240+210+80)/100 = 630/100 = 6.3$. Earnings $= 1000(6.3-0.2) = 1000(6.1) = 6100$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">The <strong>population</strong> variance of the dataset 1, 3, 5, 7, 9 is ___ .</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,7.9,8.1)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 8.</span></b>
+        Mean $= (1+3+5+7+9)/5 = 25/5 = 5$. Squared deviations: 16, 4, 0, 4, 16. Sum $= 40$. Population variance $= 40/5 = 8$ (divide by $n$, not $n-1$, since this is the entire population).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A z-test yields test statistic $z=2.00$. The alternative is $H_1: \mu \neq \mu_0$ (two-tailed). The p-value is ___ (two decimal places). Use $\Phi(2)=0.9772$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q3-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,0.04,0.06)">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ 0.05.</span></b>
+        Two-tailed p-value $= 2\times P(Z>|z|) = 2\times(1-\Phi(2)) = 2\times0.0228 = 0.0456\approx0.05$.
+        Since $p&lt;0.05$, reject $H_0$ at $\alpha=0.05$.
+        <b>Trap:</b> one-tail p $= 0.0228$ — correct only for $H_1: \mu&gt;\mu_0$, not two-tailed.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-ref">2024 Q27</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">A value of 85 in a distribution with mean 70 and SD 10 has z-score</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1.0</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1.5</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.85</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 2.0</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ (B) 1.5.</span></b>
+        $z = (x-\mu)/\sigma = (85-70)/10 = 15/10 = 1.5$. <b>Traps:</b> (A) 1.0 — numerator error, used $x=80$; (C) 0.85 — divided $x$ by 100, ignoring $\mu$ entirely; (D) 2.0 — divided by $\sigma/2=5$ instead of $\sigma$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A sample of $n=100$ has population SD $\sigma=20$. The <strong>margin of error</strong> of a 95% confidence interval for the mean is ___ (two decimals). Use $z=1.96$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q5-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(5,3.88,3.96)">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ 3.92.</span></b>
+        Margin $= z\cdot\sigma/\sqrt&#123;n&#125; = 1.96\times20/10 = 3.92$. Full CI: $\bar&#123;x&#125;\pm3.92$ → width $= 2\times3.92 = 7.84$.
+        <b>Note:</b> use $z$ when $\sigma$ is known; use $t_&#123;n-1&#125;$ with $s$ when $\sigma$ is unknown.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">A Type I error is</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Rejecting a true null hypothesis</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Failing to reject a false null hypothesis</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Accepting a true alternative</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Increasing the sample size</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','A')">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ (A).</span></b>
+        Type I ($\alpha$): reject true $H_0$ — false alarm. Type II ($\beta$): fail to reject false $H_0$ — missed detection. Power $= 1-\beta$ = P(correctly reject false $H_0$).
+        <br><b>Trade-off:</b> stricter $\alpha$ (e.g. 0.01 vs 0.05) → harder to reject → $\beta$ rises and power falls. To maintain power while reducing $\alpha$, increase $n$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">To test a population mean when the population SD is <strong>unknown</strong> and the sample is small, the appropriate distribution is the</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $z$ (standard normal)</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $t$</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> chi-squared</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $F$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (B) $t$.</span></b>
+        Unknown $\sigma$ + small sample → Student's $t$ with df $= n-1$. The $t$-test uses the sample SD $s$ in place of $\sigma$, which introduces extra variability captured by the heavier tails.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements are TRUE? (Select all that apply.)</div>
+    <div class="q-options" id="q8-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="A"> <span class="q-opt-key">A</span> Adding a constant $c$ to every data point increases the mean by $c$ but leaves the variance unchanged.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="B"> <span class="q-opt-key">B</span> The median is more robust to outliers than the mean.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="C"> <span class="q-opt-key">C</span> Multiplying every data point by $k$ multiplies the standard deviation by $|k|$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="D"> <span class="q-opt-key">D</span> The sample variance divides the sum of squared deviations by $n$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(8,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (A), (B), (C).</span></b><br>
+        (D) is <span class="ans-wrong">False</span> — the <em>sample</em> variance divides by $n-1$ (Bessel's correction), not $n$. Dividing by $n$ gives the population/biased variance.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2026 Q62</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">
+      For a dataset of $n=100$, it is given that $\dfrac&#123;1&#125;&#123;20000&#125;\cdot\displaystyle\sum_i\sum_j (x_i-x_j)^2 = 99$. Then $\dfrac&#123;1&#125;&#123;99&#125;\cdot\displaystyle\sum_i(x_i-\bar&#123;x&#125;)^2 =$ ___ .
+    </div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,99,101)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ 100.</span></b>
+        Identity: $\dfrac&#123;1&#125;&#123;2n^2&#125;\sum_i\sum_j(x_i-x_j)^2 = \dfrac&#123;1&#125;&#123;n&#125;\sum_i(x_i-\bar&#123;x&#125;)^2$. With $n=100$: $2n^2=20000$, so $\dfrac&#123;1&#125;&#123;n&#125;\sum(x_i-\bar&#123;x&#125;)^2 = 99$ → $\sum(x_i-\bar&#123;x&#125;)^2 = 9900$. Then $\dfrac&#123;1&#125;&#123;99&#125;\times9900 = 100$, which is the sample variance $s^2$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A 95% CI uses $z=1.96$, $\sigma=20$, $n=100$ and gives margin $M=3.92$. The <strong>minimum</strong> $n$ required to reduce the margin to $M\le1.96$ is ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,399,401)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 400.</span></b>
+        $M=z\sigma/\sqrt&#123;n&#125;\le1.96 \Rightarrow \sqrt&#123;n&#125;\ge1.96\times20/1.96=20 \Rightarrow n\ge400$.
+        <b>Quadratic scaling:</b> halving $M$ costs 4× data ($n$: 100→400). Verify: $1.96\times20/\sqrt&#123;400&#125;=1.96\times1=1.96$ ✓.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation — Module 1 complete!</div>
+  <p><strong>8–10 correct:</strong> Descriptive stats and inference fundamentals are solid — you have completed all of Subject 1 (Probability &amp; Statistics). Well done.</p>
+  <p><strong>6–7:</strong> Re-drill $\div n$ vs $\div(n-1)$ (Q2, Q8) and the z-score / margin-of-error formulas (Q4, Q5). Q9 (2026 Q62) is a classic identity worth knowing.</p>
+  <p><strong>&le;5:</strong> Re-read the descriptive stats theory; the inference section (Q6–Q7) is a bonus. Focus budget on the high-yield topics: mean, variance, z-score.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-8-bank.html" style="margin-top:8px;">Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

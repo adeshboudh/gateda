@@ -1,0 +1,531 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.3 Question Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-3-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  <a href="/module1/1-3-questions.html">1.3 Questions</a><span>›</span>
+  Bank
+</div>
+<a class="gd-pill-link" href="/module1/1-3-questions.html">← Practice Set (11 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.3 Question Bank — Expectation &amp; Variance</h1>
+  <p>Extended practice: 20 questions covering $E[X]$ from PMF/PDF, LOTUS, linearity, Var(X+Y), Jensen, Markov, Chebyshev, tower property, and law of total variance.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">$P(X=2)=0.1$, $P(X=4)=0.6$, $P(X=6)=0.3$. Then $E[X]=$</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 4.0</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 4.4</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 4.6</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 3.6</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 4.4.</span></b>
+        $E[X]=2(0.1)+4(0.6)+6(0.3)=0.2+2.4+1.8=4.4$. Trap: (A) 4.0 = simple average of 2, 4, 6 — ignores probabilities. Always weight by $p_i$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">PDF $f(x)=3x^2$ on $0\le x\le1$ (zero elsewhere). Then $E[X]=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,0.74,0.76)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 0.75.</span></b>
+        $E[X]=\int_0^1 x\cdot3x^2\,dx=\int_0^1 3x^3\,dx=\left[\frac&#123;3x^4&#125;&#123;4&#125;\right]_0^1=\frac&#123;3&#125;&#123;4&#125;=0.75$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X$ takes values $-1, 0, 1$ each with probability $\tfrac&#123;1&#125;&#123;3&#125;$. Then $\mathrm&#123;Var&#125;(X)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q3-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,0.66,0.68)">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ 0.67.</span></b>
+        $E[X]=(-1+0+1)/3=0$. $E[X^2]=(1+0+1)/3=2/3$. $\mathrm&#123;Var&#125;(X)=E[X^2]-(E[X])^2=2/3\approx0.667$.
+        Symmetric distributions about 0 always have $E[X]=0$, simplifying the calculation.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\mathrm&#123;Uniform&#125;(0,4)$. Using LOTUS, $E[X^2]=$</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 4</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 16/3</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 8</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 2</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ (B) 16/3.</span></b>
+        LOTUS: $E[X^2]=\int_0^4 x^2\cdot\frac&#123;1&#125;&#123;4&#125;\,dx=\frac&#123;1&#125;&#123;4&#125;\cdot\left[\frac&#123;x^3&#125;&#123;3&#125;\right]_0^4=\frac&#123;64&#125;&#123;12&#125;=\frac&#123;16&#125;&#123;3&#125;\approx5.33$.
+        Alternative: $E[X^2]=\mathrm&#123;Var&#125;(X)+(E[X])^2=\frac&#123;16&#125;&#123;12&#125;+4=\frac&#123;16&#125;&#123;3&#125;$ ✓.
+        Trap: (A) 4 = $E[X]$ — not $E[X^2]$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">$E[X]=3$, $E[Y]=5$. Then $E[2X-3Y+4]=$</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> &minus;5</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> &minus;3</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 7</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> &minus;9</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','A')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (A) &minus;5.</span></b>
+        $E[2X-3Y+4]=2E[X]-3E[Y]+4=6-15+4=-5$. Linearity of expectation holds for <em>any</em> $X,Y$ — independence is not required.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X$ and $Y$ are independent: $\mathrm&#123;Var&#125;(X)=4$, $\mathrm&#123;Var&#125;(Y)=9$. Then $\mathrm&#123;Var&#125;(X+Y)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,12.9,13.1)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 13.</span></b>
+        Independence → $\mathrm&#123;Cov&#125;(X,Y)=0$. $\mathrm&#123;Var&#125;(X+Y)=\mathrm&#123;Var&#125;(X)+\mathrm&#123;Var&#125;(Y)=4+9=13$.
+        If not independent: $\mathrm&#123;Var&#125;(X+Y)=\mathrm&#123;Var&#125;(X)+\mathrm&#123;Var&#125;(Y)+2\mathrm&#123;Cov&#125;(X,Y)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X,Y$ independent: $\mathrm&#123;Var&#125;(X)=2$, $\mathrm&#123;Var&#125;(Y)=3$. Then $\mathrm&#123;Var&#125;(3X-2Y)=$</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 6</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 30</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 18</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (B) 30.</span></b>
+        $\mathrm&#123;Var&#125;(3X-2Y)=3^2\mathrm&#123;Var&#125;(X)+2^2\mathrm&#123;Var&#125;(Y)=9(2)+4(3)=18+12=30$.
+        Note the $-2Y$ still uses $(-2)^2=4$. Trap: (A) 6 = $\mathrm&#123;Var&#125;(X)+\mathrm&#123;Var&#125;(Y)$ — forgot scalar multipliers.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$f(x)=x^2$ is convex. For any RV $X$ with $E[X]=2$, Jensen's inequality gives</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $E[X^2]=4$</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $E[X^2]\ge4$</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $E[X^2]\le4$</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E[X^2]=2$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','B')">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (B) $E[X^2]\ge4$.</span></b>
+        Jensen: for convex $f$, $E[f(X)]\ge f(E[X])$. Here $E[X^2]\ge(E[X])^2=4$. This is equivalent to $\mathrm&#123;Var&#125;(X)\ge0$ — equality holds iff $X$ is constant.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$f(x)=kx$ on $0\le x\le2$ (zero elsewhere) is a valid PDF. Then $E[X]=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,1.32,1.35)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ 4/3 ≈ 1.33.</span></b>
+        Normalise: $\int_0^2 kx\,dx=k[x^2/2]_0^2=2k=1\Rightarrow k=1/2$.
+        $E[X]=\int_0^2 x\cdot\frac&#123;x&#125;&#123;2&#125;\,dx=\int_0^2\frac&#123;x^2&#125;&#123;2&#125;\,dx=\left[\frac&#123;x^3&#125;&#123;6&#125;\right]_0^2=\frac&#123;8&#125;&#123;6&#125;=\frac&#123;4&#125;&#123;3&#125;\approx1.33$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">Discrete $X$ has CDF: $F(0)=0.3$, $F(1)=0.7$, $F(2)=1.0$. Then $P(X=1)=$</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.3</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.4</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.7</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1.0</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ (B) 0.4.</span></b>
+        $P(X=k)=F(k)-F(k-1)$. $P(X=1)=F(1)-F(0)=0.7-0.3=0.4$.
+        Trap: (C) 0.7 is the CDF value $F(1)$, not the mass $P(X=1)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$X\ge0$ with $E[X]=5$. Markov's inequality gives $P(X\ge20)\le$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q11-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(11,0.24,0.26)">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ 0.25.</span></b>
+        Markov: $P(X\ge a)\le E[X]/a=5/20=0.25$. Requires $X\ge0$. Useful when only $E[X]$ is known — no distribution assumed.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qc12">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$E[X]=10$, $\mathrm&#123;Var&#125;(X)=4$. Chebyshev's inequality gives $P(|X-10|\ge4)\le$</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.25</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.50</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 4.0</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.10</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','A')">Check</button>
+      <div class="q-answer" id="q12-ans">
+        <b><span class="ans-correct">✓ (A) 0.25.</span></b>
+        Chebyshev: $P(|X-\mu|\ge k)\le\sigma^2/k^2$. Here $\sigma^2=4$, $k=4$: bound $=4/16=0.25$.
+        Holds for <em>any</em> distribution with finite variance — no normality assumed.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qc13">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Geometric&#125;\!\left(p=\tfrac&#123;1&#125;&#123;3&#125;\right)$: $P(X=k)=\left(\tfrac&#123;2&#125;&#123;3&#125;\right)^&#123;k-1&#125;\!\cdot\tfrac&#123;1&#125;&#123;3&#125;$, $k=1,2,\ldots$ Find $E[X^2]-E[X]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q13-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,11.9,12.1)">Check</button>
+      <div class="q-answer" id="q13-ans">
+        <b><span class="ans-correct">✓ 12.</span></b>
+        $E[X]=1/p=3$. $\mathrm&#123;Var&#125;(X)=(1-p)/p^2=(2/3)/(1/9)=6$. $E[X^2]=\mathrm&#123;Var&#125;(X)+(E[X])^2=6+9=15$.
+        $E[X^2]-E[X]=15-3=12$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qc14">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$f(x)=\sqrt&#123;x&#125;$ is concave. For any RV $X\ge0$ with $E[X]=4$, Jensen's inequality gives</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $E[\sqrt&#123;X&#125;]=2$</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $E[\sqrt&#123;X&#125;]\le2$</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $E[\sqrt&#123;X&#125;]\ge2$</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E[\sqrt&#123;X&#125;]=E[X]/2$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans">
+        <b><span class="ans-correct">✓ (B) $E[\sqrt&#123;X&#125;]\le2$.</span></b>
+        Jensen for concave $f$: $E[f(X)]\le f(E[X])$. Here $f(E[X])=\sqrt&#123;4&#125;=2$, so $E[\sqrt&#123;X&#125;]\le2$.
+        Mnemonic: convex → $\ge$; concave → $\le$. ($\sqrt&#123;x&#125;$ concave: second derivative $=-\tfrac&#123;1&#125;&#123;4&#125;x^&#123;-3/2&#125;&lt;0$.)
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qc15">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$X=$ number of heads in 2 fair tosses ($E[X]=1$). $Z\sim\text&#123;Bernoulli&#125;(0.5)$, independent of $X$. Let $Y=X+Z$. Using the tower property, $E[Y]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q15-input" step="0.1" placeholder="0.0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(15,1.49,1.51)">Check</button>
+      <div class="q-answer" id="q15-ans">
+        <b><span class="ans-correct">✓ 1.5.</span></b>
+        $E[Y\mid X=k]=k+E[Z]=k+0.5$. Tower property: $E[Y]=E[E[Y\mid X]]=E[X+0.5]=E[X]+0.5=1+0.5=1.5$.
+        Or directly: $E[Y]=E[X]+E[Z]=1+0.5=1.5$ (linearity, no tower needed here).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="qc16">
+    <div class="q-header">
+      <span class="q-num">Q16</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X$ and $Y$ are independent. Then $E[X\mid Y=y]=$</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $E[X]/E[Y]$</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $E[X]$</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $y\cdot E[X]$</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E[XY]$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','B')">Check</button>
+      <div class="q-answer" id="q16-ans">
+        <b><span class="ans-correct">✓ (B) $E[X]$.</span></b>
+        Independence: $f(x\mid y)=f(x)$, so $E[X\mid Y=y]=\int xf(x)\,dx=E[X]$.
+        Knowing $Y$ gives no information about $X$. Consequently, by the tower property, $E[E[X\mid Y]]=E[E[X]]=E[X]$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="qc17">
+    <div class="q-header">
+      <span class="q-num">Q17</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which hold for <strong>any</strong> random variables $X$, $Y$? (Select all.)</div>
+    <div class="q-options" id="q17-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="A"> <span class="q-opt-key">A</span> $\mathrm&#123;Var&#125;(X)=E[\mathrm&#123;Var&#125;(X\mid Y)]+\mathrm&#123;Var&#125;(E[X\mid Y])$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="B"> <span class="q-opt-key">B</span> $E[\mathrm&#123;Var&#125;(X\mid Y)]\ge0$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="C"> <span class="q-opt-key">C</span> $\mathrm&#123;Var&#125;(X)\le E[\mathrm&#123;Var&#125;(X\mid Y)]$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="17" data-val="D"> <span class="q-opt-key">D</span> $E[E[X\mid Y]]=E[X]$</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(17,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q17-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (A) Law of total variance. (B) Variance is always non-negative. (C) <span class="ans-wrong">False</span> — the law of total variance says $\mathrm&#123;Var&#125;(X)=E[\mathrm&#123;Var&#125;(X\mid Y)]+\mathrm&#123;Var&#125;(E[X\mid Y])\ge E[\mathrm&#123;Var&#125;(X\mid Y)]$, so $\mathrm&#123;Var&#125;(X)\ge$ not $\le$. (D) Tower property.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="qc18">
+    <div class="q-header">
+      <span class="q-num">Q18</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Joint PMF: $P(X=0,Y=0)=0.1$, $P(X=0,Y=1)=0.2$, $P(X=1,Y=0)=0.3$, $P(X=1,Y=1)=0.4$. Then $E[X\mid Y=0]=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q18-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(18,0.74,0.76)">Check</button>
+      <div class="q-answer" id="q18-ans">
+        <b><span class="ans-correct">✓ 0.75.</span></b>
+        $P(Y=0)=P(X=0,Y=0)+P(X=1,Y=0)=0.1+0.3=0.4$.
+        $E[X\mid Y=0]=\dfrac&#123;0\cdot0.1+1\cdot0.3&#125;&#123;0.4&#125;=\dfrac&#123;0.3&#125;&#123;0.4&#125;=0.75$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="qc19">
+    <div class="q-header">
+      <span class="q-num">Q19</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$\mathrm&#123;Var&#125;(X)=4$. Which expression has the <strong>largest</strong> variance?</div>
+    <div class="q-options" id="q19-opts">
+      <div class="q-opt" data-q="19" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $2X$</div>
+      <div class="q-opt" data-q="19" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $X+5$</div>
+      <div class="q-opt" data-q="19" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $3X$</div>
+      <div class="q-opt" data-q="19" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $-2X$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(19,'mcq','C')">Check</button>
+      <div class="q-answer" id="q19-ans">
+        <b><span class="ans-correct">✓ (C) $3X$.</span></b>
+        $\mathrm&#123;Var&#125;(aX+b)=a^2\mathrm&#123;Var&#125;(X)$: $\mathrm&#123;Var&#125;(2X)=16$; $\mathrm&#123;Var&#125;(X+5)=4$; $\mathrm&#123;Var&#125;(3X)=36$; $\mathrm&#123;Var&#125;(-2X)=16$.
+        Maximum = 36 from $3X$. Note $\mathrm&#123;Var&#125;(X+5)=\mathrm&#123;Var&#125;(X)$: additive constants never change variance.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="qc20">
+    <div class="q-header">
+      <span class="q-num">Q20</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$E[X]=3$, $\mathrm&#123;Var&#125;(X)=7$. Then $E[X^2]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q20-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,15.9,16.1)">Check</button>
+      <div class="q-answer" id="q20-ans">
+        <b><span class="ans-correct">✓ 16.</span></b>
+        $\mathrm&#123;Var&#125;(X)=E[X^2]-(E[X])^2 \Rightarrow E[X^2]=\mathrm&#123;Var&#125;(X)+(E[X])^2=7+9=16$.
+        This rearrangement is used constantly — memorise it in both directions.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>17–20 correct:</strong> Expectation and variance mechanics solid — advance to <a href="/module1/1-4-questions.html">1.4 Distributions</a>.</p>
+  <p><strong>12–16:</strong> Drill Q4 (LOTUS), Q7 (Var of linear combo), Q12 (Chebyshev). These formulas reappear in every module.</p>
+  <p><strong>≤11:</strong> Re-read: $E[X^2]-(E[X])^2=\mathrm&#123;Var&#125;(X)$ is the single most-used identity. Make it automatic in both directions (Q20 forward, Q4 backward).</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-3-questions.html" style="margin-top:8px;">← Back to Practice Set</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

@@ -1,0 +1,50 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+interface Props {
+  title: string;
+  currentPath?: string;
+  pageCss?: string;  // path to per-page CSS file in /public
+}
+const { title, currentPath = Astro.url.pathname, pageCss } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+          onload="window.__gdKatexReady && window.__gdKatexReady()"></script>
+  <!-- D3 synchronous — must be available before inline viz scripts run -->
+  <script is:inline src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/viz.css">
+  {pageCss && <link rel="stylesheet" href={pageCss}>}
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <Sidebar currentPath={currentPath} />
+  </aside>
+
+  <main class="gd-main" id="main-content">
+    <slot />
+  </main>
+
+  <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>
+</div>
+
+<script is:inline src="/assets/js/katex-init.js"></script>
+<script is:inline src="/assets/js/toc.js"></script>
+<script is:inline src="/assets/js/d3-helpers.js"></script>
+<slot name="scripts" />
+</body>
+</html>

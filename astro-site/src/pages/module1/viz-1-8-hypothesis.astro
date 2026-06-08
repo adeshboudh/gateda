@@ -1,0 +1,579 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.8 Descriptive Statistics &amp; Hypothesis Testing — Visualized · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-8-hypothesis" pageCss="/assets/css/pages/viz-1-8-hypothesis.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.8 Descriptive Stats &amp; Hypothesis Testing
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2024 Q27 · 2024 Q34 · 2026 Q62</span>
+  </div>
+  <h1 id="top">Descriptive Statistics &amp; Hypothesis Testing</h1>
+  <p>Descriptive stats (mean/variance/z-score) appears every year. Formal inference (CI &amp; tests) hasn't been directly tested 2024–2026 — learn the fundamentals, but don't over-invest.</p>
+</div>
+
+<!-- ═══ THEORY 1: DESCRIPTIVE STATISTICS ═══ -->
+<h2 id="descriptive">Theory — Descriptive Statistics</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Summarizing data with numbers. The $\div n$ vs $\div(n-1)$ distinction for variance is the single most-tested subtlety in this section.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Central tendency</div>
+    <div class="gd-formula">$$\bar&#123;x&#125; = \frac&#123;1&#125;&#123;n&#125;\sum_&#123;i=1&#125;^n x_i, \qquad \bar&#123;x&#125;_w = \frac&#123;\sum w_i x_i&#125;&#123;\sum w_i&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;"><strong>Median</strong> — middle value (sorted); robust to outliers. <strong>Mean</strong> — pulled by outliers. <strong>Mode</strong> — most frequent.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Variance — population (÷n) vs sample (÷n−1)</div>
+    <div class="gd-formula">$$\sigma^2 = \frac&#123;1&#125;&#123;n&#125;\sum(x_i-\bar&#123;x&#125;)^2 \quad \text&#123;(population)&#125;$$</div>
+    <div class="gd-formula">$$s^2 = \frac&#123;1&#125;&#123;n-1&#125;\sum(x_i-\bar&#123;x&#125;)^2 \quad \text&#123;(sample)&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Bessel's correction: $\div(n-1)$ makes $s^2$ unbiased. $\text&#123;SD&#125; = \sqrt&#123;\text&#123;variance&#125;&#125;$.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">z-score normalization</div>
+    <div class="gd-formula">$$z = \frac&#123;x - \bar&#123;x&#125;&#125;&#123;s&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">How many SDs a value sits from the mean. $z \approx 0$: typical. $|z| > 2$: unusual. min/max are distractors — use mean and SD only. (2024 Q27)</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Effect of linear transformations</div>
+    <div class="gd-formula">$$x_i \to x_i + c: \quad \bar&#123;x&#125; \mathrel&#123;+&#125;= c, \quad \sigma^2 \text&#123; unchanged&#125;$$</div>
+    <div class="gd-formula">$$x_i \to k x_i: \quad \bar&#123;x&#125; \to k\bar&#123;x&#125;, \quad \sigma^2 \to k^2\sigma^2, \quad s \to |k|s$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Shifting leaves spread unchanged. Scaling multiplies variance by $k^2$, SD by $|k|$.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">The $\div n$ vs $\div(n-1)$ trap — read the problem carefully</span>
+    When the question says "population variance" or gives the entire dataset → $\div n$. When it says "sample variance" or "$s^2$" → $\div(n-1)$. Using the wrong divisor is the most common slip on descriptive-stats questions. (2026 Q62 is built around this identity.)
+  </div>
+</div>
+
+<!-- ═══ THEORY 2: HYPOTHESIS TESTING ═══ -->
+<h2 id="testing">Theory — Hypothesis Testing Framework</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  A formal procedure for deciding between two competing claims about a population. The five-step framework below applies to every z-, t-, and $\chi^2$-test.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">1 · Hypotheses &amp; significance level</div>
+    <div class="gd-formula">$$H_0: \mu = \mu_0 \;(\text&#123;null&#125;) \qquad H_1: \mu \ne \mu_0 \;(\text&#123;alternative&#125;)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$\alpha$ = significance level = P(Type I error). Commonly 0.05 or 0.01. One-tailed ($> $ or $< $) vs two-tailed ($\ne $).</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">2 · Test statistic</div>
+    <div class="gd-formula">$$z = \frac&#123;\bar&#123;x&#125; - \mu_0&#125;&#123;\sigma/\sqrt&#123;n&#125;&#125; \;(\sigma \text&#123; known&#125;) \qquad t = \frac&#123;\bar&#123;x&#125; - \mu_0&#125;&#123;s/\sqrt&#123;n&#125;&#125; \;(\sigma \text&#123; unknown&#125;)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$t$ has $\text&#123;df&#125; = n-1$. Both standardize the sample mean using the SE. $t \to z$ as $n \to \infty$.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">3 · Decision rule</div>
+    <div class="gd-formula">$$\text&#123;Reject &#125;H_0 \iff \text&#123;p-value&#125; < \alpha \iff |\text&#123;stat&#125;| > z_&#123;\alpha/2&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Two-tailed at $\alpha=0.05$: reject if $|z| > 1.96$. Never "accept $H_0$" — only fail to reject.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">4 · Critical z values</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px;">
+      <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:7px;padding:7px;text-align:center;">
+        <div style="font-size:11px;color:var(--gd-text-2);">90% CI</div>
+        <div style="font-family:var(--gd-font-mono);font-size:13px;font-weight:700;color:var(--gd-brand);">1.645</div>
+      </div>
+      <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:7px;padding:7px;text-align:center;">
+        <div style="font-size:11px;color:var(--gd-text-2);">95% CI</div>
+        <div style="font-family:var(--gd-font-mono);font-size:13px;font-weight:700;color:var(--gd-brand);">1.960</div>
+      </div>
+      <div style="background:var(--gd-bg-3);border:1px solid var(--gd-line-soft);border-radius:7px;padding:7px;text-align:center;">
+        <div style="font-size:11px;color:var(--gd-text-2);">99% CI</div>
+        <div style="font-family:var(--gd-font-mono);font-size:13px;font-weight:700;color:var(--gd-brand);">2.576</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--gd-text-2);margin:8px 0 0;">These are $z_&#123;\alpha/2&#125;$ values. Two-tailed test at 5% → $|z| > 1.96$ to reject.</p>
+  </div>
+</div>
+
+<!-- ═══ THEORY 3: ERROR TYPES & TEST SELECTION ═══ -->
+<h2 id="errors">Theory — Error Types &amp; Test Selection</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Two kinds of error exist: rejecting a true null (Type I) or missing a real effect (Type II). Power = 1 − β is what good tests maximize.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Type I and Type II errors</div>
+    <div class="gd-formula">$$\alpha = P(\text&#123;Reject &#125;H_0 \mid H_0\text&#123; true&#125;) \quad \text&#123;(Type I — false alarm)&#125;$$</div>
+    <div class="gd-formula">$$\beta = P(\text&#123;Fail reject &#125;H_0 \mid H_1\text&#123; true&#125;) \quad \text&#123;(Type II — missed effect)&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$\text&#123;Power&#125; = 1 - \beta$. Decreasing $\alpha$ increases $\beta$ (harder threshold → more misses).</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Power increases with…</div>
+    <div class="gd-formula">$$\text&#123;Power&#125; \uparrow \; \text&#123;when: &#125; \delta\uparrow,\; n\uparrow,\; \alpha\uparrow$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;"><strong>Effect size $\delta$:</strong> bigger difference from H₀ → easier to detect. <strong>n:</strong> larger sample → tighter SE → easier to detect. <strong>α:</strong> looser threshold → but increases Type I error (tradeoff).</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Which test to use</div>
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:4px 8px;font-size:13px;margin-top:8px;">
+      <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);border-bottom:1px solid var(--gd-line-soft);padding-bottom:3px;">Situation</div>
+      <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);border-bottom:1px solid var(--gd-line-soft);padding-bottom:3px;">Test</div>
+      <div style="color:var(--gd-text-1);">$\sigma$ known / large $n$</div>
+      <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">z-test</div>
+      <div style="color:var(--gd-text-1);">$\sigma$ unknown, small $n$</div>
+      <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">t-test (df=n−1)</div>
+      <div style="color:var(--gd-text-1);">Variance or categorical</div>
+      <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">χ²-test</div>
+    </div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">p-value — what it actually means</div>
+    <div class="gd-formula">$$p = P(\text&#123;data this extreme&#125; \mid H_0 \text&#123; true&#125;)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;"><strong>NOT</strong> $P(H_0\text&#123; true&#125;)$. It's the probability of the observation under the null — not the probability that the null is correct. Very commonly confused.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">Type I vs Type II — the definitions are frequently swapped on the exam</span>
+    Type I = <strong>false alarm</strong> (reject a true null — you said effect exists, but it didn't). Type II = <strong>missed effect</strong> (fail to reject a false null — the effect was real but you missed it). A useful mnemonic: α = "alarm" (Type I = alarm that goes off needlessly).
+  </div>
+</div>
+
+<!-- ═══ VIZ 1: NULL vs ALTERNATIVE ═══ -->
+<h2 id="viz1">Interactive 1 — Type I / II Errors &amp; Power</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Blue = $H_0$ distribution (null, $\mu=0$). Green = $H_1$ distribution (alternative, $\mu=\delta$). Adjust sliders to see how the tradeoff between $\alpha$, $\beta$, and power changes.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Definitions</div>
+    <div class="gd-formula">$$\alpha = P(\text&#123;Reject &#125;H_0 \mid H_0\text&#123; true&#125;) \qquad \beta = P(\text&#123;Fail to reject &#125;H_0 \mid H_1\text&#123; true&#125;)$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Power = 1 − β</div>
+    <div class="gd-formula-live" id="error-live">—</div>
+  </div>
+</div>
+
+<div class="gd-chart">
+  <div class="gd-chart__title">Red region = α (Type I) · Orange region = β (Type II) · Green = Power</div>
+  <div id="error-chart"></div>
+</div>
+
+<div class="error-grid">
+  <div class="error-card error-card--alpha">
+    <div class="error-card__label">α (Type I)</div>
+    <div class="error-card__val" id="alpha-val">—</div>
+  </div>
+  <div class="error-card error-card--beta">
+    <div class="error-card__label">β (Type II)</div>
+    <div class="error-card__val" id="beta-val">—</div>
+  </div>
+  <div class="error-card error-card--power">
+    <div class="error-card__label">Power (1−β)</div>
+    <div class="error-card__val" id="power-val">—</div>
+  </div>
+  <div class="error-card error-card--z">
+    <div class="error-card__label">Crit value z*</div>
+    <div class="error-card__val" id="zstar-val">—</div>
+  </div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Parameters (H₀: μ=0, known σ=1)</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">δ</span> Effect size (H₁: μ = δ)</label>
+    <span class="gd-control__value" id="delta-val">1.5</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="delta-slider" min="0.2" max="4" step="0.1" value="1.5"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">α</span> Significance level (one-tailed)</label>
+    <span class="gd-control__value" id="alpha-slider-val">0.05</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="alpha-slider-ctrl" min="1" max="4" step="1" value="2"></div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live insights</div>
+  <div class="gd-insight gd-insight--active" id="ins-tradeoff">—</div>
+  <div class="gd-insight gd-insight--warn" id="ins-practical">—</div>
+</div>
+
+<!-- ═══ VIZ 2: P-VALUE ═══ -->
+<h2 id="viz2">Interactive 2 — p-value Visualizer</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Drag the test statistic or use the slider. The shaded area is the p-value — the probability of seeing a result this extreme (or more extreme) under $H_0$.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">p-value (one-tailed right)</div>
+    <div class="gd-formula">$$p = P(Z \geq z_&#123;\text&#123;obs&#125;&#125; \mid H_0) = 1 - \Phi(z_&#123;\text&#123;obs&#125;&#125;)$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current</div>
+    <div class="gd-formula-live" id="pval-live">—</div>
+  </div>
+</div>
+
+<div class="gd-chart">
+  <div class="gd-chart__title">Drag the vertical line to move z_obs · Shaded area = p-value</div>
+  <div id="pval-chart"></div>
+</div>
+
+<div class="pvalue-display" id="pval-display">p = —</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Test statistic</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">z</span> Observed z-statistic (drag chart or use slider)</label>
+    <span class="gd-control__value" id="zobs-val">1.96</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="zobs-slider" min="-4" max="4" step="0.05" value="1.96"></div>
+</div>
+
+<!-- ═══ WORKED EXAMPLES ═══ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · Descriptive statistics — mean, median, mode, variance</span>
+    <p>Dataset: 3, 5, 5, 7, 10. Find the mean, median, mode, population variance ($\sigma^2$), and sample variance ($s^2$).</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Mean:</strong> $\bar&#123;x&#125; = (3+5+5+7+10)/5 = 30/5 = 6$.</p>
+    <p><strong>Median</strong> (sorted: 3,5,5,7,10): middle value $= 5$. &nbsp; <strong>Mode:</strong> $5$ (appears twice).</p>
+    <p><strong>Deviations²:</strong> $(3-6)^2=9$, $(5-6)^2=1$, $(5-6)^2=1$, $(7-6)^2=1$, $(10-6)^2=16$. Sum $= 28$.</p>
+    <p><strong>Population variance:</strong> $\sigma^2 = 28/5 = 5.6$ &nbsp;($\text&#123;SD&#125; \approx 2.37$).</p>
+    <p><strong>Sample variance:</strong> $s^2 = 28/(5-1) = 28/4 = 7$ &nbsp;($s \approx 2.65$).</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">The only step that changes: $\div 5$ for population, $\div 4$ for sample. Everything else is identical.</p>
+    <div class="gd-example__ans">Mean=6 · Median=5 · Mode=5 · σ²=5.6 · s²=7</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · GATE 2024 Q34 — Updated / running mean (NAT)</span>
+    <p>The sample average of 50 data points is 40. A new data point of value 142 is added. The updated average is ___.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Recover the sum:</strong> old sum $= 50 \times 40 = 2000$.</p>
+    <p><strong>Add new point:</strong> new sum $= 2000 + 142 = 2142$; new count $= 51$.</p>
+    <p><strong>New average:</strong> $2142 / 51 = 42$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Method: (count × mean) rebuilds the total. Then divide by new count. No need to store all 50 values.</p>
+    <div class="gd-example__ans">Updated average = 42</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · GATE 2024 Q27 — z-score normalization (MCQ)</span>
+    <p>Attribute <em>income</em>: min ₹46000, max ₹170000, mean ₹96000, SD ₹21000. The z-score normalized value of ₹106000 is closest to:<br>
+    (A) 0.217 &nbsp; (B) 0.476 &nbsp; (C) 0.623 &nbsp; (D) 2.304</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>z-score formula:</strong> $z = \dfrac&#123;x - \bar&#123;x&#125;&#125;&#123;s&#125; = \dfrac&#123;106000 - 96000&#125;&#123;21000&#125; = \dfrac&#123;10000&#125;&#123;21000&#125; \approx 0.476$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Trap: the min (₹46000) and max (₹170000) are distractors for min-max normalization — irrelevant for z-score. Use only mean and SD. (D) 2.304 = 10000/21000 × wrong formula — dimensional error.</p>
+    <div class="gd-example__ans">Answer: (B) 0.476</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · Two-tailed z-test — hypothesis testing framework</span>
+    <p>Test $H_0$: $\mu=100$ vs $H_1$: $\mu\ne100$ at $\alpha=0.05$. Sample of $n=64$ gives $\bar&#123;x&#125;=103$, known $\sigma=16$. Reach a decision.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>SE:</strong> $\sigma/\sqrt&#123;n&#125; = 16/\sqrt&#123;64&#125; = 2$.</p>
+    <p><strong>Test statistic:</strong> $z = \dfrac&#123;\bar&#123;x&#125; - \mu_0&#125;&#123;\text&#123;SE&#125;&#125; = \dfrac&#123;103 - 100&#125;&#123;2&#125; = 1.5$.</p>
+    <p><strong>Decision:</strong> two-tailed critical value at $\alpha=0.05$ is $\pm1.96$. Since $|1.5| &lt; 1.96$, <strong>fail to reject $H_0$</strong>.</p>
+    <p><strong>p-value check:</strong> $p = 2(1-\Phi(1.5)) = 2(1-0.9332) = 0.1336 > 0.05$ — same conclusion.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Never say "accept $H_0$". The evidence is insufficient to reject — that's different from proof that $H_0$ is true.</p>
+    <div class="gd-example__ans">z = 1.5 · |1.5| &lt; 1.96 → Fail to reject H₀</div>
+  </div>
+</div>
+
+<!-- ═══ GATE ANGLE ═══ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>Descriptive stats appears every year</strong> — mean/median/z-score/variance. Inference (CI, formal tests) has not been directly tested in 2024–2026, but the fundamentals below could appear in 2027. Invest accordingly.</p>
+  <p><strong>$\div n$ vs $\div(n-1)$:</strong> read the problem carefully. "Population variance" or full dataset → $\div n$. "Sample variance" or "$s^2$" → $\div(n-1)$. (2026 Q62 tests this via the identity $\frac&#123;1&#125;&#123;2n^2&#125;\sum_i\sum_j(x_i-x_j)^2 = \frac&#123;1&#125;&#123;n&#125;\sum(x_i-\bar&#123;x&#125;)^2$.)</p>
+  <p><strong>z-score uses mean and SD only.</strong> min/max are distractors — those are for min-max normalization, a different formula. Formula: $z = (x - \text&#123;mean&#125;)/\text&#123;SD&#125;$. (2024 Q27)</p>
+  <p><strong>Running mean:</strong> new mean $=$ (old count × old mean + new values) / new count. Rebuild the total then divide. (2024 Q34)</p>
+  <p><strong>Weighted mean (2025 Q10):</strong> $\bar&#123;x&#125;_w = \sum(f_i x_i)/\sum f_i$ where $f_i$ = frequency/weight. Compute the weighted sum first, then apply any earnings/transform formula.</p>
+  <p><strong>Type I vs Type II:</strong> α = P(false alarm) = P(reject true $H_0$). β = P(missed effect). Power = 1 − β. Decreasing α raises β — same data, stricter threshold means more misses.</p>
+</div>
+
+<!-- ═══ PREV / NEXT ═══ -->
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/viz-1-7-estimation.html">
+    <span class="gd-page-nav__dir">← Previous</span>
+    <span class="gd-page-nav__title">1.7 Sampling &amp; Estimation</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/index.html">
+    <span class="gd-page-nav__dir">Module Overview →</span>
+    <span class="gd-page-nav__title">Module 1 Complete</span>
+  </a>
+</div>
+
+<script is:inline slot="scripts">
+// Normal CDF (Abramowitz & Stegun)
+function Phi(x) {
+  const t = 1/(1+0.2316419*Math.abs(x));
+  const d = 0.3989423*Math.exp(-x*x/2);
+  const p = d*t*(0.3193815+t*(-0.3565638+t*(1.7814779+t*(-1.8212560+t*1.3302744))));
+  return x >= 0 ? 1-p : p;
+}
+function normalPDF(x, mu=0, s=1) { return Math.exp(-0.5*((x-mu)/s)**2)/(s*Math.sqrt(2*Math.PI)); }
+function invPhi(p) {
+  // Rational approximation
+  function rationalApprox(t) {
+    const c = [2.515517, 0.802853, 0.010328];
+    const d = [1.432788, 0.189269, 0.001308];
+    return t-(c[0]+c[1]*t+c[2]*t*t)/(1+d[0]*t+d[1]*t*t+d[2]*t*t*t);
+  }
+  if (p < 0.5) return -rationalApprox(Math.sqrt(-2*Math.log(p)));
+  return rationalApprox(Math.sqrt(-2*Math.log(1-p)));
+}
+
+const ALPHA_OPTS = [
+  { a: 0.10, label: '0.10' },
+  { a: 0.05, label: '0.05' },
+  { a: 0.025, label: '0.025' },
+  { a: 0.01, label: '0.01' }
+];
+
+let delta = 1.5, alphaIdx = 1;
+
+// ── VIZ 1 ────────────────────────────────
+function drawErrorChart() {
+  const container = document.getElementById('error-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.5);
+  const M = { top: 22, right: 24, bottom: 44, left: 54 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const alpha = ALPHA_OPTS[alphaIdx].a;
+  const zstar = invPhi(1 - alpha);  // one-tailed critical value
+  const H1mu  = delta;
+
+  const xRange = [-3.5, delta + 3.5];
+  const x = d3.scaleLinear().domain(xRange).range([0,W]);
+  const pts  = d3.range(xRange[0], xRange[1]+0.02, 0.05);
+  const yMax = normalPDF(0, 0, 1) * 1.15;
+  const y    = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Fill: α region (under H0 beyond zstar) — red
+  const alphaArea = d3.area().x(d=>x(d)).y0(H).y1(d => y(normalPDF(d,0,1)))
+    .curve(d3.curveBasis);
+  const alphaPts = pts.filter(p => p >= zstar);
+  g.append('path').datum(alphaPts).attr('d', alphaArea).attr('fill','#e05c6b').attr('opacity',0.4);
+
+  // Fill: β region (under H1 below zstar) — orange
+  const betaArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  const betaPts = pts.filter(p => p <= zstar);
+  g.append('path').datum(betaPts).attr('d', betaArea).attr('fill','#f0a44a').attr('opacity',0.35);
+
+  // Fill: power region (under H1 beyond zstar) — green
+  const powerArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  const powerPts = pts.filter(p => p >= zstar);
+  g.append('path').datum(powerPts).attr('d', powerArea).attr('fill','#4caf82').attr('opacity',0.35);
+
+  // H0 curve
+  const lineH0 = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',lineH0).attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // H1 curve
+  const lineH1 = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,H1mu,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',lineH1).attr('fill','none').attr('stroke','#4caf82').attr('stroke-width',2);
+
+  // Critical line
+  g.append('line').attr('x1',x(zstar)).attr('x2',x(zstar)).attr('y1',0).attr('y2',H)
+    .attr('stroke','#fff').attr('stroke-width',1.5).attr('stroke-dasharray','5 3');
+  g.append('text').attr('x',x(zstar)+3).attr('y',12).attr('fill','#fff').attr('font-size',10)
+    .text(`z*=${zstar.toFixed(2)}`);
+
+  // Labels
+  g.append('text').attr('x',x(0)).attr('y',y(yMax*0.97)).attr('text-anchor','middle')
+    .attr('fill','#7c9eff').attr('font-size',10).attr('font-weight','700').text('H₀ (μ=0)');
+  if (H1mu <= xRange[1]-0.5)
+    g.append('text').attr('x',x(H1mu)).attr('y',y(yMax*0.97)).attr('text-anchor','middle')
+      .attr('fill','#4caf82').attr('font-size',10).attr('font-weight','700').text(`H₁ (μ=${H1mu.toFixed(1)})`);
+
+  // Region labels
+  if (zstar < xRange[1]-0.3)
+    g.append('text').attr('x',(x(zstar)+W)/2).attr('y',H*0.6).attr('text-anchor','middle')
+      .attr('fill','#e05c6b').attr('font-size',9).text('α');
+  g.append('text').attr('x',(x(xRange[0])+x(zstar))/2).attr('y',H*0.72).attr('text-anchor','middle')
+    .attr('fill','#f0a44a').attr('font-size',9).text('β');
+  if (zstar < xRange[1]-0.3)
+    g.append('text').attr('x',(x(zstar)+W)/2).attr('y',H*0.45).attr('text-anchor','middle')
+      .attr('fill','#4caf82').attr('font-size',9).text('Power');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+
+  // Compute values
+  const alphaVal = alpha;
+  const betaVal  = Phi(zstar - H1mu);
+  const power    = 1 - betaVal;
+
+  document.getElementById('alpha-val').textContent  = (alphaVal*100).toFixed(1)+'%';
+  document.getElementById('beta-val').textContent   = (betaVal*100).toFixed(1)+'%';
+  document.getElementById('power-val').textContent  = (power*100).toFixed(1)+'%';
+  document.getElementById('zstar-val').textContent  = zstar.toFixed(2);
+  document.getElementById('error-live').innerHTML   =
+    `α=${(alphaVal*100).toFixed(1)}% · β=${(betaVal*100).toFixed(1)}%<br>Power = <span class="live-val">${(power*100).toFixed(1)}%</span>`;
+  document.getElementById('ins-tradeoff').textContent =
+    `With α=${(alphaVal*100).toFixed(0)}% and effect δ=${H1mu.toFixed(1)}σ: power=${(power*100).toFixed(0)}%. ` +
+    (power < 0.5 ? 'Underpowered — increase n or effect size.' : power > 0.8 ? 'Good power (>80%).' : 'Moderate power.');
+  document.getElementById('ins-practical').textContent =
+    `Reducing α from 0.05 → 0.01 moves z* right → power drops from ${(100*(1-Phi(invPhi(0.95)-H1mu))).toFixed(0)}% to ${(100*(1-Phi(invPhi(0.99)-H1mu))).toFixed(0)}%. Same data, harder to detect effect.`;
+}
+
+document.getElementById('delta-slider').addEventListener('input', function() {
+  delta = +this.value; document.getElementById('delta-val').textContent = delta.toFixed(1); drawErrorChart();
+});
+document.getElementById('alpha-slider-ctrl').addEventListener('input', function() {
+  alphaIdx = +this.value - 1;
+  document.getElementById('alpha-slider-val').textContent = ALPHA_OPTS[alphaIdx].label;
+  drawErrorChart();
+});
+
+drawErrorChart();
+
+// ── VIZ 2: P-VALUE ───────────────────────
+let zObs = 1.96;
+let _pG, _pX, _pY, _pW, _pH;  // persistent SVG state — never destroyed during drag
+
+function initPvalChart() {
+  const container = document.getElementById('pval-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.44);
+  const M = { top: 20, right: 20, bottom: 44, left: 54 };
+  _pW = cW - M.left - M.right;
+  _pH = cH - M.top - M.bottom;
+  const W = _pW, H = _pH;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto')
+    .style('cursor','ew-resize');
+  _pG = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const xRange = [-4, 4];
+  _pX = d3.scaleLinear().domain(xRange).range([0, W]);
+  const yMax = normalPDF(0,0,1)*1.15;
+  _pY = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+  const x = _pX, y = _pY, g = _pG;
+  const pts = d3.range(-4, 4.02, 0.04);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Tail area — updated in-place by updatePvalChart
+  g.append('path').attr('class','pval-tail');
+
+  // Normal curve (static)
+  const line = d3.line().x(d=>x(d)).y(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  g.append('path').datum(pts).attr('d',line)
+    .attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // z-line — updated in-place
+  g.append('line').attr('class','pval-zline').attr('y1',0).attr('y2',H)
+    .attr('stroke','#fff').attr('stroke-width',2).style('cursor','ew-resize');
+
+  // α reference lines (static)
+  [1.645, 1.96, 2.576].forEach(zc => {
+    g.append('line').attr('x1',x(zc)).attr('x2',x(zc)).attr('y1',0).attr('y2',H)
+      .attr('stroke','rgba(240,164,74,0.5)').attr('stroke-width',1).attr('stroke-dasharray','3 2');
+  });
+  g.append('text').attr('x',x(1.96)+3).attr('y',H*0.15)
+    .attr('fill','rgba(240,164,74,0.8)').attr('font-size',9).text('1.96(α=.05)');
+
+  // z label — updated in-place
+  g.append('text').attr('class','pval-zlabel')
+    .attr('y',H+20).attr('text-anchor','middle').attr('fill','#fff').attr('font-size',10);
+
+  // Draggable circle — persists across updates; drag defined once here
+  const dragBehavior = d3.drag()
+    .on('drag', function(event) {
+      const xNew = Math.max(0, Math.min(W, event.x));
+      zObs = x.invert(xNew);
+      document.getElementById('zobs-slider').value = zObs;
+      document.getElementById('zobs-val').textContent = zObs.toFixed(2);
+      updatePvalChart();  // update in-place — no SVG destroy
+    });
+
+  g.append('circle').attr('class','pval-drag-circle')
+    .attr('cy', H+2).attr('r',7)
+    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5)
+    .style('cursor','ew-resize')
+    .call(dragBehavior);
+
+  // Axes
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`)
+    .call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis')
+    .call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.3f')));
+
+  updatePvalChart();
+}
+
+function updatePvalChart() {
+  const g = _pG, x = _pX, y = _pY, H = _pH;
+  const pts = d3.range(-4, 4.02, 0.04);
+
+  // Tail area
+  const pArea = d3.area().x(d=>x(d)).y0(H).y1(d=>y(normalPDF(d,0,1))).curve(d3.curveBasis);
+  const pPts = zObs >= 0 ? pts.filter(p => p >= zObs) : pts.filter(p => p <= zObs);
+  g.select('.pval-tail').datum(pPts).attr('d', pArea).attr('fill','#7c9eff').attr('opacity',0.45);
+
+  // z-line and drag circle
+  g.select('.pval-zline').attr('x1',x(zObs)).attr('x2',x(zObs));
+  g.select('.pval-drag-circle').attr('cx', x(zObs));
+  g.select('.pval-zlabel').attr('x', x(zObs)).text(`z=${zObs.toFixed(2)}`);
+
+  // p-value display
+  const pval = zObs >= 0 ? 1 - Phi(zObs) : Phi(zObs);
+  const reject = pval < 0.05;
+  const disp = document.getElementById('pval-display');
+  disp.textContent = `p = ${pval.toFixed(4)}`;
+  disp.style.color = reject ? '#4caf82' : '#e05c6b';
+  disp.style.borderColor = reject ? 'rgba(76,175,130,0.4)' : 'rgba(224,92,107,0.4)';
+  disp.innerHTML += `<span class="decision-tag" style="background:${reject?'rgba(76,175,130,0.15)':'rgba(224,92,107,0.12)'};color:${reject?'#4caf82':'#e05c6b'}">${reject ? 'Reject H₀' : 'Fail to Reject H₀'}</span>`;
+
+  document.getElementById('pval-live').innerHTML =
+    `P(Z ≥ ${zObs.toFixed(2)}) = 1 - Φ(${zObs.toFixed(2)}) = <span class="live-val">${pval.toFixed(4)}</span>`;
+}
+
+document.getElementById('zobs-slider').addEventListener('input', function() {
+  zObs = +this.value;
+  document.getElementById('zobs-val').textContent = zObs.toFixed(2);
+  updatePvalChart();
+});
+
+initPvalChart();
+window.addEventListener('resize', () => setTimeout(() => { drawErrorChart(); initPvalChart(); }, 150));
+</script>
+</VizLayout>

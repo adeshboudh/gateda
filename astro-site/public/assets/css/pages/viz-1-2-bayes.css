@@ -1,0 +1,57 @@
+/* Bayes square diagram */
+.bayes-square rect { stroke: none; }
+.bayes-square text { font-size: 11px; pointer-events: none; }
+
+/* Medical test grid */
+#medical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; max-width: var(--gd-col); }
+.medical-cell {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.medical-cell__label { font-size: 12px; color: var(--gd-text-2); margin-bottom: 4px; }
+.medical-cell__val { font-size: 1.4rem; font-weight: 700; color: var(--gd-text-0); font-family: var(--gd-font-mono); }
+.medical-cell--highlight { border-color: var(--gd-peri-line); background: var(--gd-peri-bg); }
+.medical-cell--highlight .medical-cell__val { color: var(--gd-brand); }
+
+/* Tree */
+.tree-link { fill: none; stroke: var(--gd-line); stroke-width: 1.5; }
+
+/* Bayes terms 4-column grid */
+.bayes-terms {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 12px 0 16px;
+  max-width: var(--gd-col);
+}
+.bayes-term {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+}
+.bayes-term--posterior {
+  border-color: var(--gd-peri-line);
+  background: var(--gd-peri-bg);
+}
+.bayes-term__sym { font-size: 13px; color: var(--gd-text-0); margin-bottom: 5px; }
+.bayes-term--posterior .bayes-term__sym { color: var(--gd-brand); }
+.bayes-term__name {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--gd-brand);
+  margin-bottom: 3px;
+}
+.bayes-term__desc { font-size: 12px; color: var(--gd-text-2); line-height: 1.4; }
+
+@media (max-width: 600px) {
+  .bayes-terms { grid-template-columns: 1fr 1fr; }
+  #medical-grid { grid-template-columns: 1fr 1fr; }
+}

@@ -1,0 +1,484 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.1 Counting & Basic Probability · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-1-counting" pageCss="/assets/css/pages/viz-1-1-counting.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.1 Counting &amp; Basic Probability
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2024 Q11 · 2025 Q5</span>
+  </div>
+  <h1 id="top">Counting &amp; Basic Probability</h1>
+  <p>Foundation of all probability — sample spaces, event algebra, and counting ordered vs unordered selections. Expect 1–2 direct questions every GATE DA paper.</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     THEORY 1 — PROBABILITY FUNDAMENTALS
+     ═══════════════════════════════════════ -->
+<h2 id="theory">Probability Fundamentals</h2>
+
+<p>A <strong>sample space</strong> Ω is the complete set of all possible outcomes of an experiment. An <strong>event</strong> A is any subset of Ω. For experiments with equally-likely outcomes:</p>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">Classical Definition</div>
+  <div class="gd-formula">$$P(A) = \frac&#123;|A|&#125;&#123;|\Omega|&#125; = \frac&#123;\text&#123;number of favourable outcomes&#125;&#125;&#123;\text&#123;total outcomes&#125;&#125;, \quad 0 \le P(A) \le 1$$</div>
+</div>
+
+<h3 id="axioms">Kolmogorov Axioms</h3>
+
+<p>All probability theory rests on three axioms. Axiom 3 is the key one — it forces us to subtract the overlap in the addition rule.</p>
+
+<ol style="color:var(--gd-text-1);font-size:16px;padding-left:22px;line-height:2;">
+  <li>$P(A) \ge 0$ for every event $A$</li>
+  <li>$P(\Omega) = 1$ — the sample space is certain</li>
+  <li>If $A \cap B = \emptyset$ (mutually exclusive), then $P(A \cup B) = P(A) + P(B)$</li>
+</ol>
+
+<h3 id="rules">Derived Rules</h3>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Complement</div>
+    <div class="gd-formula">$$P(A^c) = 1 - P(A)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Use when "at least one" or "not" appears — complement is usually shorter.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Impossibility</div>
+    <div class="gd-formula">$$P(\emptyset) = 0$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Empty event (impossible outcome) has zero probability.</p>
+  </div>
+</div>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">General Addition Rule</div>
+  <div class="gd-formula">$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$</div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">Why subtract P(A∩B)?</span>
+    Outcomes in A∩B get counted once in P(A) and again in P(B). Subtracting once restores the correct count. The Venn diagram below makes this geometric.
+  </div>
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">Mutually exclusive ≠ independent</span>
+    Mutually exclusive (A∩B = ∅) means they can't both happen. Independent means knowing A happened doesn't change P(B). These are different properties — don't confuse them.
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     VIZ 1 — VENN DIAGRAM
+     ═══════════════════════════════════════ -->
+<h2 id="viz1">Interactive: Addition Rule &amp; Venn Diagram</h2>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Formula</div>
+    <div class="gd-formula">$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current values</div>
+    <div class="gd-formula-live" id="venn-live">—</div>
+  </div>
+</div>
+
+<div class="gd-chart" style="position:relative;">
+  <div id="venn-chart"></div>
+</div>
+
+<div class="prob-strip">
+  <div class="prob-cell"><div class="prob-cell__label">P(A)</div><div class="prob-cell__val" id="pA" style="color:#7c9eff">—</div></div>
+  <div class="prob-cell"><div class="prob-cell__label">P(B)</div><div class="prob-cell__val" id="pB" style="color:#6ee7a8">—</div></div>
+  <div class="prob-cell"><div class="prob-cell__label">P(A∩B)</div><div class="prob-cell__val" id="pAB" style="color:#f5c46b">—</div></div>
+  <div class="prob-cell"><div class="prob-cell__label">P(A∪B)</div><div class="prob-cell__val" id="pAuB" style="color:var(--gd-text-0)">—</div></div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Parameters (out of 100 total outcomes)</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">|A|</span> Outcomes in A</label>
+    <span class="gd-control__value" id="nA-val">40</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nA" min="5" max="80" step="1" value="40"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">|B|</span> Outcomes in B</label>
+    <span class="gd-control__value" id="nB-val">35</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nB" min="5" max="80" step="1" value="35"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">|A∩B|</span> Outcomes in both</label>
+    <span class="gd-control__value" id="nAB-val">10</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="nAB" min="0" max="40" step="1" value="10"></div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live insight</div>
+  <div class="gd-insight gd-insight--active" id="venn-ins">—</div>
+  <div class="gd-insight gd-insight--warn" id="venn-ins2" style="display:none;">If P(A∩B) = 0, A and B are mutually exclusive — P(A∪B) = P(A) + P(B).</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     THEORY 2 — COUNTING PRINCIPLES
+     ═══════════════════════════════════════ -->
+<h2 id="counting">Counting Principles</h2>
+
+<p><strong>Multiplication principle:</strong> if a task has two independent steps — step 1 in $m$ ways and step 2 in $n$ ways — the total number of outcomes is $m \times n$. This extends to any number of steps.</p>
+
+<p style="color:var(--gd-text-2);font-size:15px;margin-bottom:20px;">Example: toss a coin (2 outcomes) then roll a die (6 outcomes) → 12 equally-likely outcomes.</p>
+
+<h3 id="perm">Permutations — order matters</h3>
+
+<p>Choose $r$ items from $n$ <em>in a specific order</em>. Each different ordering is a distinct permutation.</p>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">Permutation formula</div>
+  <div class="gd-formula">$$P(n,r) = \frac&#123;n!&#125;&#123;(n-r)!&#125; = n \times (n-1) \times \cdots \times (n-r+1)$$</div>
+</div>
+
+<p style="color:var(--gd-text-1);font-size:15px;">Think of it as filling $r$ slots: $n$ choices for slot 1, $(n-1)$ for slot 2, ..., $(n-r+1)$ for slot $r$.</p>
+
+<h3 id="comb">Combinations — order doesn't matter</h3>
+
+<p>Choose $r$ items from $n$ where the <em>set</em> chosen is what counts, not the sequence.</p>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">Combination formula</div>
+  <div class="gd-formula">$$C(n,r) = \binom&#123;n&#125;&#123;r&#125; = \frac&#123;n!&#125;&#123;r! \cdot (n-r)!&#125; = \frac&#123;P(n,r)&#125;&#123;r!&#125;$$</div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">Why divide by r! ?</span>
+    Every set of $r$ items can be arranged in $r!$ different orders. All those $r!$ permutations represent the same combination. So $C(n,r) = P(n,r) \div r!$. The interactive below shows this ratio live.
+  </div>
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">Keyword cues in GATE problems</span>
+    "Arrange", "rank", "schedule", "order" → permutation. "Select", "choose", "committee", "group", "team" → combination.
+  </div>
+</div>
+
+<p style="color:var(--gd-text-1);font-size:15px;margin-bottom:4px;"><strong style="color:var(--gd-text-0);">Useful identities:</strong></p>
+<ul style="color:var(--gd-text-1);font-size:15px;padding-left:20px;line-height:2.1;">
+  <li>$C(n,0) = C(n,n) = 1$</li>
+  <li>$C(n,1) = n$</li>
+  <li>$C(n,r) = C(n, n-r)$ — choosing $r$ to include = choosing $n-r$ to exclude</li>
+  <li>$C(n,r) + C(n,r+1) = C(n+1, r+1)$ — Pascal's identity</li>
+</ul>
+
+
+<!-- ═══════════════════════════════════════
+     VIZ 2 — nPr / nCr
+     ═══════════════════════════════════════ -->
+<h2 id="viz2">Interactive: Permutations vs Combinations</h2>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Formulas</div>
+    <div class="gd-formula">$$P(n,r) = \frac&#123;n!&#125;&#123;(n-r)!&#125; \qquad C(n,r) = \frac&#123;n!&#125;&#123;r!\,(n-r)!&#125;$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Ratio P/C = r!</div>
+    <div class="gd-formula-live" id="combo-live">—</div>
+  </div>
+</div>
+
+<div class="combo-display">
+  <div class="combo-card">
+    <div class="combo-card__label">Permutations P(n,r)</div>
+    <div class="combo-card__val" id="pnr-val">—</div>
+    <div class="combo-card__formula" id="pnr-formula">—</div>
+  </div>
+  <div class="combo-card" style="border-color:rgba(110,231,168,0.3);">
+    <div class="combo-card__label" style="color:var(--gd-green);">Combinations C(n,r)</div>
+    <div class="combo-card__val" id="cnr-val" style="color:var(--gd-green);">—</div>
+    <div class="combo-card__formula" id="cnr-formula">—</div>
+  </div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Parameters</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">n</span> Total items</label>
+    <span class="gd-control__value" id="n-val">8</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="n-slider" min="2" max="15" step="1" value="8"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">r</span> Items chosen</label>
+    <span class="gd-control__value" id="r-val">3</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="r-slider" min="1" max="8" step="1" value="3"></div>
+</div>
+
+<div class="gd-chart">
+  <div class="gd-chart__title">Blue = chosen (r items). For permutations the order of blue dots matters — each reordering is a distinct outcome.</div>
+  <div class="item-grid" id="item-grid"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     WORKED EXAMPLES
+     ═══════════════════════════════════════ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · Without replacement</span>
+    <p>A bag contains 5 red and 3 blue balls. Two balls are drawn without replacement. Find the probability that both are red.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong style="color:var(--gd-text-0);">Method A — Multiplication rule:</strong></p>
+    <p>P(1st red) = 5/8. Given 1st is red, 4 red remain from 7 total.</p>
+    <p>P(2nd red | 1st red) = 4/7</p>
+    <p>P(both red) = 5/8 × 4/7 = 20/56</p>
+    <p style="margin-top:10px;"><strong style="color:var(--gd-text-0);">Method B — Combinations:</strong></p>
+    <p>Ways to choose 2 red from 5 = $C(5,2) = 10$. Total ways to choose 2 from 8 = $C(8,2) = 28$.</p>
+    <div class="gd-example__ans">P(both red) = C(5,2) / C(8,2) = 10/28 = 5/14 ≈ 0.357</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · Permutation</span>
+    <p>From 8 athletes, how many ways can gold, silver, and bronze medals be awarded?</p>
+  </div>
+  <div class="gd-example__body">
+    <p>Order matters (gold ≠ silver ≠ bronze) → permutation.</p>
+    <p>P(8,3) = 8 × 7 × 6 = 8! / 5!</p>
+    <div class="gd-example__ans">P(8,3) = 336 ways</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · Complement trick</span>
+    <p>A committee of 3 is chosen from 4 men and 3 women. Find the probability the committee has at least one woman.</p>
+  </div>
+  <div class="gd-example__body">
+    <p>Direct count is messy (1 woman, 2 women, 3 women — three cases). Use complement:</p>
+    <p>P(at least 1 woman) = 1 − P(no women) = 1 − P(all men)</p>
+    <p>Total ways = $C(7,3) = 35$. All-men ways = $C(4,3) = 4$.</p>
+    <p>P(all men) = 4/35</p>
+    <div class="gd-example__ans">P(at least 1 woman) = 1 − 4/35 = 31/35 ≈ 0.886</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · Inclusion-Exclusion (3 events)</span>
+    <p>In a class of 60, 30 study Maths (M), 25 study Stats (S), 20 study CS (C). Overlaps: M∩S = 10, M∩C = 8, S∩C = 7, M∩S∩C = 4. How many study at least one?</p>
+  </div>
+  <div class="gd-example__body">
+    <p>|M∪S∪C| = |M| + |S| + |C| − |M∩S| − |M∩C| − |S∩C| + |M∩S∩C|</p>
+    <p>= 30 + 25 + 20 − 10 − 8 − 7 + 4</p>
+    <div class="gd-example__ans">= 54 students study at least one subject</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     GATE ANGLE
+     ═══════════════════════════════════════ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>Complement shortcut:</strong> "at least one" / "at least k" problems — always try 1 − P(none) first. Saves a multi-case sum.</p>
+  <p><strong>Keyword trap:</strong> "arrange" / "rank" / "seat" → permutation. "Select" / "choose" / "committee" / "sample" → combination.</p>
+  <p><strong>3-event inclusion-exclusion:</strong> P(A∪B∪C) = P(A)+P(B)+P(C) − P(A∩B) − P(A∩C) − P(B∩C) + P(A∩B∩C). Memorise the sign pattern: +singles −pairs +triple.</p>
+  <p><strong>Without vs with replacement:</strong> Without replacement → denominator shrinks each draw, use combinations. With replacement → draws are independent, multiply probabilities directly.</p>
+</div>
+
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/index.html">
+    <span class="gd-page-nav__dir">← Module 1</span>
+    <span class="gd-page-nav__title">Module 1 Overview</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/viz-1-2-bayes.html">
+    <span class="gd-page-nav__dir">Next →</span>
+    <span class="gd-page-nav__title">1.2 Conditional Probability &amp; Bayes' Theorem</span>
+  </a>
+</div>
+
+  <script is:inline slot="scripts">
+// ── VIZ 1: VENN ─────────────────────────
+(function() {
+  let nA = 40, nB = 35, nAB = 10, N = 100;
+
+  function clampAB() { nAB = Math.min(nAB, nA, nB, N - nA - nB + nAB); nAB = Math.max(0, nAB); }
+
+  // Exact area of lens formed by two intersecting circles
+  function lensArea(r1, r2, d) {
+    if (d >= r1 + r2) return 0;
+    if (d <= Math.abs(r1 - r2)) return Math.PI * Math.min(r1, r2) * Math.min(r1, r2);
+    const c1 = Math.max(-1, Math.min(1, (d*d + r1*r1 - r2*r2) / (2*d*r1)));
+    const c2 = Math.max(-1, Math.min(1, (d*d + r2*r2 - r1*r1) / (2*d*r2)));
+    const a1 = r1*r1 * Math.acos(c1);
+    const a2 = r2*r2 * Math.acos(c2);
+    const s = (-d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(d+r1+r2);
+    return a1 + a2 - 0.5 * Math.sqrt(Math.max(0, s));
+  }
+
+  // Binary-search distance d that gives target lens area
+  function findD(r1, r2, targetArea) {
+    if (targetArea <= 0) return r1 + r2 + 1;
+    const maxA = Math.PI * Math.min(r1, r2) * Math.min(r1, r2);
+    if (targetArea >= maxA) return Math.abs(r1 - r2);
+    let lo = Math.abs(r1 - r2), hi = r1 + r2;
+    for (let i = 0; i < 64; i++) {
+      const mid = (lo + hi) / 2;
+      if (lensArea(r1, r2, mid) > targetArea) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function drawVenn() {
+    clampAB();
+    const pa = nA/N, pb = nB/N, pab = nAB/N, paub = (nA+nB-nAB)/N;
+    const container = document.getElementById('venn-chart');
+    const cW = container.clientWidth || 560;
+    const cH = Math.round(cW * 0.55);
+    d3.select(container).select('svg').remove();
+
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('height','auto');
+
+    const cx = cW/2, cy = cH/2;
+
+    // Circle areas ∝ P(A), P(B) — baseR is reference radius for P=1
+    const baseR = Math.min(cH * 0.42, cW * 0.32);
+    const rA0 = baseR * Math.sqrt(pa);
+    const rB0 = baseR * Math.sqrt(pb);
+
+    // Find d so lens area / (π·baseR²) = pab  →  lens area = π·baseR²·pab
+    const rawD = findD(rA0, rB0, Math.PI * baseR * baseR * pab);
+
+    // Uniform scale to fit canvas (preserves all proportions)
+    const pad = 32;
+    const s = Math.min(cW / (rawD + rA0 + rB0 + pad*2), cH / (2*Math.max(rA0,rB0) + pad*2), 1);
+    const rA = rA0*s, rB = rB0*s, d = rawD*s;
+    const xA = cx - d/2, xB = cx + d/2;
+
+    svg.append('rect').attr('width', cW).attr('height', cH).attr('fill', '#0f1117');
+
+    svg.append('circle').attr('cx', xA).attr('cy', cy).attr('r', rA)
+      .attr('fill', '#7c9eff').attr('opacity', 0.25).attr('stroke', '#7c9eff').attr('stroke-width', 1.5);
+    svg.append('circle').attr('cx', xB).attr('cy', cy).attr('r', rB)
+      .attr('fill', '#6ee7a8').attr('opacity', 0.20).attr('stroke', '#6ee7a8').attr('stroke-width', 1.5);
+
+    const intX = (xA + xB) / 2;
+    const fs = Math.max(11, cW*0.025);
+    const hasOverlap = nAB > 0 && d < rA + rB;
+
+    svg.append('text').attr('x', xA - rA*0.5).attr('y', cy + 4)
+      .attr('text-anchor','middle').attr('fill','#7c9eff').attr('font-size', fs).attr('font-weight','700').text('A');
+    svg.append('text').attr('x', xB + rB*0.5).attr('y', cy + 4)
+      .attr('text-anchor','middle').attr('fill','#6ee7a8').attr('font-size', fs).attr('font-weight','700').text('B');
+    if (hasOverlap) {
+      svg.append('text').attr('x', intX).attr('y', cy + 4)
+        .attr('text-anchor','middle').attr('fill','#f5c46b')
+        .attr('font-size', Math.max(10, cW*0.022)).attr('font-weight','600').text('A∩B');
+    }
+
+    svg.append('text').attr('x', xA - rA*0.65).attr('y', cy - rA*0.55)
+      .attr('text-anchor','middle').attr('fill','#7c9eff').attr('font-size', 11)
+      .text(`P(A)=${pa.toFixed(2)}`);
+    svg.append('text').attr('x', xB + rB*0.65).attr('y', cy - rB*0.55)
+      .attr('text-anchor','middle').attr('fill','#6ee7a8').attr('font-size', 11)
+      .text(`P(B)=${pb.toFixed(2)}`);
+    if (nAB > 0) {
+      svg.append('text').attr('x', intX).attr('y', cy + Math.max(rA,rB)*0.65)
+        .attr('text-anchor','middle').attr('fill','#f5c46b').attr('font-size', 11)
+        .text(`P(A∩B)=${pab.toFixed(2)}`);
+    }
+    svg.append('text').attr('x', 12).attr('y', 18)
+      .attr('fill','#6b7384').attr('font-size', 11).text('Ω (N=100)');
+
+    document.getElementById('pA').textContent   = pa.toFixed(3);
+    document.getElementById('pB').textContent   = pb.toFixed(3);
+    document.getElementById('pAB').textContent  = pab.toFixed(3);
+    document.getElementById('pAuB').textContent = paub.toFixed(3);
+    document.getElementById('venn-live').innerHTML =
+      `P(A∪B) = ${pa.toFixed(2)} + ${pb.toFixed(2)} − ${pab.toFixed(2)}<br>` +
+      `= <span class="live-val">${paub.toFixed(3)}</span>`;
+    document.getElementById('venn-ins').textContent =
+      `P(A∪B) = ${(paub*100).toFixed(0)}% of outcomes fall in A or B (or both).`;
+    document.getElementById('venn-ins2').style.display = nAB === 0 ? 'block' : 'none';
+  }
+
+  [['nA', v => nA=v, 'nA-val'], ['nB', v => nB=v, 'nB-val'], ['nAB', v => nAB=v, 'nAB-val']]
+    .forEach(([id, set, valId]) => {
+      document.getElementById(id).addEventListener('input', function() {
+        set(+this.value); document.getElementById(valId).textContent = this.value; drawVenn();
+      });
+    });
+
+  drawVenn();
+  window.addEventListener('resize', () => setTimeout(drawVenn, 150));
+})();
+
+// ── VIZ 2: nPr / nCr ────────────────────
+(function() {
+  let n = 8, r = 3;
+
+  function factorial(k) {
+    if (k <= 1) return 1;
+    let res = 1; for (let i = 2; i <= k; i++) res *= i; return res;
+  }
+  function pnr(n,r) { return factorial(n) / factorial(n-r); }
+  function cnr(n,r) { return factorial(n) / (factorial(r) * factorial(n-r)); }
+
+  function update() {
+    r = Math.min(r, n);
+    document.getElementById('r-slider').max = n;
+    document.getElementById('r-slider').value = r;
+    document.getElementById('r-val').textContent = r;
+
+    const P = pnr(n,r), C = cnr(n,r);
+    document.getElementById('pnr-val').textContent = P.toLocaleString();
+    document.getElementById('cnr-val').textContent = C.toLocaleString();
+    document.getElementById('pnr-formula').textContent = `${n}! / (${n-r})! = ${n}×${n-1}×...×${n-r+1}`;
+    document.getElementById('cnr-formula').textContent = `${n}! / (${r}! × ${n-r}!) = P/${factorial(r)} = ${C}`;
+    document.getElementById('combo-live').innerHTML =
+      `P/C = r! = ${r}! = <span class="live-val">${factorial(r)}</span><br>` +
+      `(${factorial(r)} orderings of the same ${r} items collapse to 1 combination)`;
+
+    const grid = document.getElementById('item-grid');
+    grid.innerHTML = '';
+    for (let i = 0; i < n; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'item-dot';
+      dot.textContent = i + 1;
+      if (i < r) {
+        dot.style.background = 'rgba(124,158,255,0.2)';
+        dot.style.border = '2px solid #7c9eff';
+        dot.style.color = '#7c9eff';
+      } else {
+        dot.style.background = 'var(--gd-bg-3)';
+        dot.style.border = '1px solid var(--gd-line)';
+        dot.style.color = 'var(--gd-text-2)';
+      }
+      grid.appendChild(dot);
+    }
+  }
+
+  document.getElementById('n-slider').addEventListener('input', function() {
+    n = +this.value; document.getElementById('n-val').textContent = n; update();
+  });
+  document.getElementById('r-slider').addEventListener('input', function() {
+    r = +this.value; document.getElementById('r-val').textContent = r; update();
+  });
+
+  update();
+})();
+  </script>
+</VizLayout>

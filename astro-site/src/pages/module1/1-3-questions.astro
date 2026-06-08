@@ -1,0 +1,366 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.3 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-3-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.3 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-3-expectation.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">11 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.3 Practice Questions — Expectation &amp; Variance</h1>
+  <p>GATE-style questions on $E[X]$, $\mathrm&#123;Var&#125;(X)$, the tower property, and linear transforms. These tools recur in every later module.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 11</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">A random variable $X$ has $P(X=0)=0.2$, $P(X=1)=0.5$, $P(X=2)=0.3$. Then $E[X] =$</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1.0</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1.1</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 1.5</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.9</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 1.1.</span></b>
+        $E[X] = 0(0.2)+1(0.5)+2(0.3) = 0 + 0.5 + 0.6 = 1.1$. Trap: (A) 1.0 is the median/mode here, not the mean — always apply $\sum x_i p_i$ directly. (C) 1.5 comes from averaging just $p(1)$ and $p(2)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2026 Q54</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Let $X$ be a discrete random variable with CDF $F(x)$. Which statements are correct?</div>
+    <div class="q-options" id="q2-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="2" data-val="A"> <span class="q-opt-key">A</span> $F(x)$ is always a positive function.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="2" data-val="B"> <span class="q-opt-key">B</span> $F(x)$ is a non-decreasing function.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="2" data-val="C"> <span class="q-opt-key">C</span> $F(x)$ has jump discontinuities.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="2" data-val="D"> <span class="q-opt-key">D</span> $F(x)$ is a left-continuous function.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(2,['B','C'])">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ (B), (C).</span></b><br>
+        (A) <span class="ans-wrong">False</span>: $F(x)=0$ for all $x$ below the smallest value of $X$. (B) True: every CDF is non-decreasing by definition. (C) True: a discrete CDF jumps by $p(x)$ at each mass point. (D) <span class="ans-wrong">False</span>: CDFs are <b>right</b>-continuous, not left-continuous.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-ref">2025 Q11</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">For random variables $X$ and $Y$, $E[E[X\mid Y]]$ equals</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $E[X\mid Y]$</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $E[X]/E[Y]$</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $E[X]$</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E[Y]$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','C')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (C) $E[X]$.</span></b>
+        Law of total expectation (tower property): $E[E[X\mid Y]] = E[X]$. (A) is still a function of $Y$, not a scalar. The tower property says averaging the conditional expectation over $Y$ recovers the unconditional expectation.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A random variable $X$ has $P(X=1)=0.3$, $P(X=2)=0.4$, $P(X=3)=0.3$. Then $\mathrm&#123;Var&#125;(X) =$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,0.58,0.62)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 0.60.</span></b>
+        $E[X]=0.3(1)+0.4(2)+0.3(3)=0.3+0.8+0.9=2.0$. $E[X^2]=0.3(1)+0.4(4)+0.3(9)=0.3+1.6+2.7=4.6$. $\mathrm&#123;Var&#125;(X)=E[X^2]-(E[X])^2=4.6-4.0=0.60$. Always use the shortcut $E[X^2]-(E[X])^2$ — computing $\sum(x-\mu)^2 p(x)$ directly is slower and error-prone.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2025 Q54</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">In $n$ independent tosses of a coin with $P(\text&#123;head&#125;)=p$, let $\hat p = \frac&#123;1&#125;&#123;n&#125;\sum X_i$ where $X_i=1$ for head, 0 for tail. Which are correct?</div>
+    <div class="q-options" id="q5-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="A"> <span class="q-opt-key">A</span> $E[\hat p] = p$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="B"> <span class="q-opt-key">B</span> $E[\hat p] = p/n$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="C"> <span class="q-opt-key">C</span> As $n$ increases, $\mathrm&#123;Var&#125;(\hat p)$ decreases.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="5" data-val="D"> <span class="q-opt-key">D</span> $\mathrm&#123;Var&#125;(\hat p)$ does not depend on $n$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(5,['A','C'])">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (A), (C).</span></b><br>
+        Each $X_i\sim\text&#123;Bernoulli&#125;(p)$: $E[X_i]=p$, $\mathrm&#123;Var&#125;(X_i)=p(1-p)$. Then $E[\hat p] = (1/n)(np) = p$ (A true, B false). $\mathrm&#123;Var&#125;(\hat p) = (1/n^2)(n\cdot p(1-p)) = p(1-p)/n$ — this <em>decreases</em> as $n$ grows (C true, D false).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2024 Q59</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Joint PDF $f(x,y) = 2xy$ for $0 &lt; x &lt; 2,\ 0 &lt; y &lt; x$ (else 0). Then $E[Y \mid X = 1.5] =$ ___ .</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="0.1" placeholder="0.0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,0.95,1.05)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 1.0.</span></b>
+        Marginal: $f_X(x) = \int_0^x 2xy\,dy = x^3$. Conditional density: $f(y\mid x) = 2xy/x^3 = 2y/x^2$ on $0&lt;y&lt;x$. Conditional expectation: $E[Y\mid X=x] = \int_0^x y\cdot(2y/x^2)\,dy = (2/x^2)(x^3/3) = 2x/3$. At $x=1.5$: $2(1.5)/3 = 1.0$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">If $E[X] = 4$ and $\mathrm&#123;Var&#125;(X) = 9$, then $(E[2X+3],\ \mathrm&#123;Var&#125;(2X+3)) =$</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> (11, 36)</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> (11, 21)</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> (8, 36)</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> (11, 18)</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','A')">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (A) (11, 36).</span></b>
+        $E[2X+3] = 2(4)+3 = 11$. $\mathrm&#123;Var&#125;(2X+3) = 2^2\cdot\mathrm&#123;Var&#125;(X) = 4(9) = 36$. The constant $+3$ shifts the mean but does <em>not</em> change the variance. Common wrong answer (B) 21 adds $b^2=9$ to the variance.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2024 Q57</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X$ is exponential with $E[X] = 1/\lambda$ and $\mathrm&#123;Var&#125;(X) = 1/\lambda^2$. If $5E[X] = \mathrm&#123;Var&#125;(X)$, then $\lambda =$ ___ (one decimal).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q8-input" step="0.1" placeholder="0.0">
+      <span class="q-nat__label">one decimal place</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,0.19,0.21)">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ 0.2.</span></b>
+        $5(1/\lambda) = 1/\lambda^2$. Multiply both sides by $\lambda^2$: $5\lambda = 1 \Rightarrow \lambda = 0.2$. Sanity check: $E[X]=5$, $\mathrm&#123;Var&#125;(X)=25$, and $5\times5=25$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X \sim \mathrm&#123;Uniform&#125;(-1,\,1)$. Using LOTUS, $E[|X|] =$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,0.48,0.52)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ 0.50.</span></b>
+        LOTUS: $E[|X|]=\int_&#123;-1&#125;^1|x|\cdot\tfrac&#123;1&#125;&#123;2&#125;\,dx = 2\int_0^1 x\cdot\tfrac&#123;1&#125;&#123;2&#125;\,dx = \int_0^1 x\,dx = \tfrac&#123;1&#125;&#123;2&#125;$.
+        <br><b>Critical trap:</b> $E[|X|] \ne |E[X]| = 0$. Expectation does not commute with non-linear functions — always integrate $g(x)f(x)$, never apply $g$ to $E[X]$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2025 Q41</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Let $Y = \lfloor X \rfloor$ where $X$ is exponential with mean $1/(\ln 10)$. For positive integers $\ell$, $P(Y=\ell) = q^\ell(1-q)$. Then $q =$</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.1</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.01</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.5</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.434</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','A')">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ (A) 0.1.</span></b>
+        $\lambda = \ln 10$. $P(Y=\ell) = P(\ell \le X &lt; \ell+1) = e^&#123;-\lambda\ell&#125; - e^&#123;-\lambda(\ell+1)&#125; = e^&#123;-\lambda\ell&#125;(1-e^&#123;-\lambda&#125;)$.
+        So $q = e^&#123;-\lambda&#125; = e^&#123;-\ln 10&#125; = 1/10 = 0.1$. The floor of an exponential is geometric — a standard result.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements are TRUE for any random variable $X$ (constants $a,b$)? (Select all that apply.)</div>
+    <div class="q-options" id="q11-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="A"> <span class="q-opt-key">A</span> $E[aX+b] = aE[X]+b$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="B"> <span class="q-opt-key">B</span> $\mathrm&#123;Var&#125;(X) = E[X^2] - (E[X])^2$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="C"> <span class="q-opt-key">C</span> $\mathrm&#123;Var&#125;(aX+b) = a^2\mathrm&#123;Var&#125;(X) + b$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="D"> <span class="q-opt-key">D</span> $E[X^2] \ge (E[X])^2$</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(11,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (A) True — linearity of expectation. (B) True — computational formula for variance. (C) <span class="ans-wrong">False</span> — $\mathrm&#123;Var&#125;(aX+b) = a^2\mathrm&#123;Var&#125;(X)$; the constant $b$ contributes zero to variance. (D) True — since $\mathrm&#123;Var&#125;(X) = E[X^2]-(E[X])^2 \ge 0$.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>9–11 correct:</strong> the machinery is solid — advance to <a href="/module1/1-4-questions.html">1.4 Discrete Distributions</a>.</p>
+  <p><strong>6–8:</strong> Re-drill $\mathrm&#123;Var&#125;$ via $E[X^2]-(E[X])^2$ (Q4, Q7) and conditional expectation (Q3, Q6).</p>
+  <p><strong>&le;5:</strong> Re-read theory; this is the foundation for every distribution that follows — make it automatic.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-3-bank.html" style="margin-top:8px;">Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+<script is:inline slot="scripts">
+var scores = {};
+function updateScore() { document.getElementById('score-num').textContent = Object.values(scores).filter(Boolean).length; }
+function selectOpt(el) {
+  var q = el.dataset.q; var card = document.getElementById('qc'+q);
+  if (card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong')) return;
+  document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});
+  el.classList.add('q-opt--selected');
+}
+function check(q,type,correct) {
+  var card=document.getElementById('qc'+q); var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');
+  var ansEl=document.getElementById('q'+q+'-ans'); var btn=card.querySelector('.q-check-btn');
+  if(!selected) return;
+  var val=selected.dataset.val; var isCorrect=val===correct;
+  document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){
+    o.classList.remove('q-opt--selected');
+    if(o.dataset.val===correct) o.classList.add('q-opt--correct');
+    else if(o.dataset.val===val&&!isCorrect) o.classList.add('q-opt--wrong');
+    o.style.pointerEvents='none';
+  });
+  card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');
+  ansEl.style.display='block'; btn.disabled=true; scores[q]=isCorrect; updateScore();
+}
+function checkNat(q,min,max) {
+  var input=document.getElementById('q'+q+'-input'); var ansEl=document.getElementById('q'+q+'-ans');
+  var card=document.getElementById('qc'+q); var btn=card.querySelector('.q-check-btn');
+  var val=parseFloat(input.value); var isCorrect=!isNaN(val)&&val>=min&&val<=max;
+  input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');
+  input.disabled=true; ansEl.style.display='block'; btn.disabled=true;
+  card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');
+  scores[q]=isCorrect; updateScore();
+}
+function checkMsq(q,correctArr) {
+  var card=document.getElementById('qc'+q); var ansEl=document.getElementById('q'+q+'-ans');
+  var btn=card.querySelector('.q-check-btn');
+  var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});
+  var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});
+  card.querySelectorAll('.q-opt--msq').forEach(function(label){
+    var val=label.querySelector('input').dataset.val;
+    if(correctArr.includes(val)) label.classList.add('q-opt--correct');
+    else if(checked.includes(val)) label.classList.add('q-opt--wrong');
+    label.querySelector('input').disabled=true; label.style.pointerEvents='none';
+  });
+  card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');
+  ansEl.style.display='block'; btn.disabled=true; scores[q]=isCorrect; updateScore();
+}
+function resetAll() {
+  scores={}; updateScore();
+  document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});
+  document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});
+  document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});
+  document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});
+  document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});
+  document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});
+  document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});
+}
+</script>
+</VizLayout>

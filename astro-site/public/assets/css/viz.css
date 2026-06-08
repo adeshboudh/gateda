@@ -1,0 +1,375 @@
+/* ── Viz page header ────────────────────── */
+.gd-viz-header { margin-bottom: 28px; max-width: var(--gd-col); }
+.gd-viz-header h1 { margin-bottom: 8px; }
+.gd-viz-header p { color: var(--gd-text-1); font-size: 16px; }
+
+/* ── Formula panels ─────────────────────── */
+/* Static: calm borderless inset — reference, not interaction */
+.gd-formula-panel {
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  max-width: var(--gd-col);
+}
+/* Two-column layout variant */
+.gd-formula-panel--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+/* Live panel: 3px periwinkle left-border = "this responds to controls" */
+.gd-formula-panel--live {
+  border-left: 3px solid var(--gd-brand);
+  background: linear-gradient(90deg, var(--gd-peri-bg), transparent 60%), var(--gd-panel-2);
+}
+.gd-formula-label {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--gd-text-2);
+  margin-bottom: 10px;
+}
+.gd-formula-panel--live .gd-formula-label { color: var(--gd-brand); }
+.gd-formula {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--gd-text-0);
+}
+.gd-formula-live {
+  font-family: var(--gd-font-mono);
+  font-size: 14px;
+  color: var(--gd-text-1);
+  line-height: 1.7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 10px;
+}
+.gd-formula-live b,
+.gd-formula-live .live-val { color: var(--gd-brand); font-weight: 500; }
+
+/* ── SVG container ──────────────────────── */
+.gd-chart {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  position: relative;
+  max-width: var(--gd-col);
+}
+.gd-chart__title {
+  font-family: var(--gd-font-head);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gd-text-1);
+  margin-bottom: 14px;
+}
+.gd-chart svg { width: 100%; height: auto; display: block; }
+
+/* D3 axis styles */
+.gd-chart .axis text { fill: var(--gd-text-2); font-family: var(--gd-font-body); font-size: 11px; }
+.gd-chart .axis path,
+.gd-chart .axis line { stroke: var(--gd-line); }
+.gd-chart .grid line { stroke: var(--gd-line); stroke-opacity: .5; }
+.gd-chart .grid path { stroke-width: 0; }
+
+/* D3 element colors */
+.gd-bar { fill: var(--gd-brand); opacity: .75; transition: opacity .15s; }
+.gd-bar:hover { opacity: 1; }
+.gd-bar--highlight { fill: var(--gd-amber); opacity: 1; }
+.gd-curve { fill: none; stroke: var(--gd-brand); stroke-width: 2.5; }
+.gd-area { fill: var(--gd-brand); opacity: .15; }
+.gd-area--shade { fill: var(--gd-amber); opacity: .25; }
+.gd-mean-line { stroke: var(--gd-amber); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.gd-mean-label { fill: var(--gd-amber); font-size: 11px; }
+.gd-annotation { fill: var(--gd-text-2); font-size: 11px; }
+
+/* ── Controls ───────────────────────────── */
+.gd-controls {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: var(--gd-col);
+}
+.gd-controls__title {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--gd-text-2);
+}
+.gd-control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.gd-control__label {
+  font-size: 14px;
+  color: var(--gd-text-1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gd-control__sym {
+  font-family: var(--gd-font-mono);
+  font-size: 13px;
+  color: var(--gd-text-2);
+  min-width: 38px;
+}
+.gd-control__value {
+  font-family: var(--gd-font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gd-brand);
+  min-width: 45px;
+  text-align: right;
+}
+.gd-control--full { grid-template-columns: 1fr; }
+
+/* Slider — proper custom thumb, muted track */
+input[type=range].gd-control__slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 3px;
+  background: var(--gd-line);
+  outline: none;
+  cursor: pointer;
+}
+input[type=range].gd-control__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--gd-brand);
+  cursor: pointer;
+  border: 2px solid var(--gd-bg);
+  box-shadow: 0 0 0 1px var(--gd-brand);
+}
+input[type=range].gd-control__slider::-moz-range-thumb {
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--gd-brand);
+  cursor: pointer;
+  border: 2px solid var(--gd-bg);
+  box-shadow: 0 0 0 1px var(--gd-brand);
+}
+
+/* ── Buttons ────────────────────────────── */
+.gd-btn {
+  padding: 8px 18px;
+  border-radius: var(--gd-r-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background .15s;
+}
+.gd-btn--primary { background: var(--gd-brand); color: var(--gd-bg); }
+.gd-btn--primary:hover { background: var(--gd-brand-hover); }
+.gd-btn--secondary {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line);
+  color: var(--gd-text-1);
+}
+.gd-btn--secondary:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+
+/* Tab switcher */
+.gd-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; max-width: var(--gd-col); }
+.gd-tab {
+  padding: 6px 14px;
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--gd-text-1);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.gd-tab:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+.gd-tab--active { background: var(--gd-peri-bg); border-color: var(--gd-brand); color: var(--gd-brand); }
+
+/* ── Callouts ───────────────────────────── */
+/* Three roles: insight (green), warn (amber), note (slate) */
+.gd-insights {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+  max-width: var(--gd-col);
+}
+.gd-insights__title {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--gd-text-2);
+  margin-bottom: 4px;
+}
+.gd-insight {
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  border-left: 3px solid var(--gd-line);
+  background: var(--gd-panel-2);
+  transition: border-color .3s, background .3s;
+}
+.gd-insight__title {
+  font-family: var(--gd-font-head);
+  font-weight: 600;
+  font-size: 13px;
+  display: block;
+  margin-bottom: 3px;
+  letter-spacing: .01em;
+}
+.gd-insight--active {
+  border-left-color: var(--gd-brand);
+  background: var(--gd-peri-bg);
+  color: var(--gd-text-0);
+}
+/* Insight = green (result / key takeaway) */
+.gd-insight--insight {
+  background: var(--gd-green-bg);
+  border-left-color: var(--gd-green);
+}
+.gd-insight--insight .gd-insight__title { color: var(--gd-green); }
+/* Warn = amber (common mistake) */
+.gd-insight--warn {
+  background: var(--gd-amber-bg);
+  border-left-color: var(--gd-amber);
+}
+.gd-insight--warn .gd-insight__title { color: var(--gd-amber); }
+
+/* ── GATE angle box ─────────────────────── */
+.gd-gate-box {
+  background: var(--gd-peri-bg);
+  border: 1px solid var(--gd-peri-line);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  max-width: var(--gd-col);
+}
+.gd-gate-box__title {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--gd-brand);
+  margin-bottom: 10px;
+}
+.gd-gate-box p { font-size: 15px; color: var(--gd-text-1); margin-bottom: 8px; }
+.gd-gate-box p:last-child { margin-bottom: 0; }
+
+/* ── Tooltip ────────────────────────────── */
+.gd-tooltip {
+  position: absolute;
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line);
+  border-radius: var(--gd-r-sm);
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--gd-text-0);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.gd-tooltip--visible { opacity: 1; }
+
+/* ── Worked examples ────────────────────── */
+.gd-example {
+  border-radius: 10px;
+  border: 1px solid var(--gd-line-soft);
+  background: var(--gd-panel-2);
+  margin-bottom: 14px;
+  overflow: hidden;
+  max-width: var(--gd-col);
+}
+.gd-example__q {
+  padding: 11px 16px;
+  background: var(--gd-bg-3);
+  border-bottom: 1px solid var(--gd-line-soft);
+}
+.gd-example__num {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  color: var(--gd-brand);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  display: block;
+  margin-bottom: 3px;
+}
+.gd-example__q p { font-size: 15px; color: var(--gd-text-0); margin: 0; }
+.gd-example__body {
+  padding: 14px 16px;
+  font-size: 15px;
+  color: var(--gd-text-1);
+  line-height: 1.7;
+}
+.gd-example__body p { margin-bottom: 6px; }
+.gd-example__body p:last-child { margin-bottom: 0; }
+.gd-example__ans {
+  font-family: var(--gd-font-mono);
+  font-size: 14px;
+  color: var(--gd-brand);
+  font-weight: 500;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--gd-line-soft);
+}
+
+/* ── Theory rule cards ───────────────────── */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+  max-width: var(--gd-col);
+}
+.rule-card {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line-soft);
+  border-radius: 10px;
+  padding: 14px 16px;
+  min-width: 0;           /* allow grid item to shrink below content size */
+}
+.rule-card__label {
+  font-family: var(--gd-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--gd-text-2);
+  margin-bottom: 8px;
+}
+.rule-card .gd-formula {
+  font-size: 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gd-line) transparent;
+}
+.rule-card .gd-formula::-webkit-scrollbar { height: 4px; }
+.rule-card .gd-formula::-webkit-scrollbar-track { background: transparent; }
+.rule-card .gd-formula::-webkit-scrollbar-thumb {
+  background: var(--gd-line);
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .rules-grid { grid-template-columns: 1fr; }
+}

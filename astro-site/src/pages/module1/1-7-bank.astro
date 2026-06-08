@@ -1,0 +1,542 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.7 Question Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-7-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  <a href="/module1/1-7-questions.html">1.7 Questions</a><span>›</span>
+  Bank
+</div>
+<a class="gd-pill-link" href="/module1/1-7-questions.html">← Practice Set (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.7 Question Bank — Sampling Distributions &amp; Estimation</h1>
+  <p>Extended practice: 20 questions on CLT, $\chi^2$, $t$, $F$, MLE, and confidence intervals. Use $\Phi(1)=0.8413$, $\Phi(2)=0.9772$ throughout.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">Which construction gives a $t_k$ distribution?</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $Z^2 + \chi^2(k)$ where $Z\sim N(0,1)$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $Z\,/\sqrt&#123;\chi^2(k)/k&#125;$ where $Z\sim N(0,1)$ independent of $\chi^2(k)$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\chi^2(k)\,/\chi^2(k)$</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\sqrt&#123;\chi^2(k)/k&#125;$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B).</span></b>
+        $t_k = Z\,/\sqrt&#123;W/k&#125;$ where $Z\sim N(0,1)$ and $W\sim\chi^2(k)$ are independent.
+        This is why $t$ appears in inference about $\mu$ when $\sigma$ is unknown — $s$ estimates $\sigma$ and introduces the $\chi^2$ in the denominator.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X_i$ are i.i.d. with $\mu=3$, $\sigma^2=9$, $n=36$. Using the CLT, $P(2.5 \lt \bar&#123;X&#125; \lt 3.5)\approx$ ___ (two decimals). Use $\Phi(1)=0.8413$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,0.67,0.69)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 0.68.</span></b>
+        $\mathrm&#123;SE&#125;=\sqrt&#123;9/36&#125;=0.5$. $z_1=(2.5-3)/0.5=-1$; $z_2=(3.5-3)/0.5=1$.
+        $P(-1\lt Z\lt1)=2\Phi(1)-1=2(0.8413)-1=0.6826\approx0.68$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Population has $\sigma=10$. For $n=100$, the width of a 95% CI for $\mu$ (using $z_&#123;0.025&#125;=1.96$) is</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1.96</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 3.92</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 7.84</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 2.00</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (B) 3.92.</span></b>
+        Width $=2\times z_&#123;0.025&#125;\times\sigma/\sqrt&#123;n&#125;=2\times1.96\times10/\sqrt&#123;100&#125;=2\times1.96\times1=3.92$.
+        Trap: (A) 1.96 — half the width (one side only). (C) 7.84 — forgot to divide by $\sqrt&#123;n&#125;$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$\sigma=10$. Minimum $n$ so that a 95% CI (using $z_&#123;0.025&#125;=1.96$) has width $\le4$ is ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,96.9,97.1)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 97.</span></b>
+        $2\times1.96\times10/\sqrt&#123;n&#125;\le4\Rightarrow\sqrt&#123;n&#125;\ge39.2/4=9.8\Rightarrow n\ge96.04$.
+        Round up to $n=97$. Always round <em>up</em> for minimum sample size — rounding down violates the constraint.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Which estimator of $\sigma^2$ is <strong>unbiased</strong>?</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\dfrac&#123;1&#125;&#123;n&#125;\sum_&#123;i=1&#125;^n(X_i-\bar&#123;X&#125;)^2$</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\dfrac&#123;1&#125;&#123;n-1&#125;\sum_&#123;i=1&#125;^n(X_i-\bar&#123;X&#125;)^2$</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\dfrac&#123;1&#125;&#123;n&#125;\sum_&#123;i=1&#125;^n X_i^2$</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\left(\bar&#123;X&#125;\right)^2$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (B) Sample variance $S^2$.</span></b>
+        Dividing by $n-1$ corrects for the one degree of freedom lost estimating $\bar&#123;X&#125;$.
+        $E[S^2]=\sigma^2$. Option (A) divides by $n$ — biased downward by factor $(n-1)/n$.
+        (C) estimates $E[X^2]=\sigma^2+\mu^2$, not $\sigma^2$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X_1,\dots,X_n$ are i.i.d. $\text&#123;Bernoulli&#125;(p)$. The MLE of $p$ is</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $1/\bar&#123;X&#125;$</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\bar&#123;X&#125;$</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $1-\bar&#123;X&#125;$</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $n\bar&#123;X&#125;$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','B')">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ (B) $\bar&#123;X&#125;$.</span></b>
+        Log-likelihood: $\ell(p)=(\sum X_i)\ln p+(n-\sum X_i)\ln(1-p)$.
+        Setting $d\ell/dp=0$ gives $\hat&#123;p&#125;=\frac&#123;\sum X_i&#125;&#123;n&#125;=\bar&#123;X&#125;$ — the sample proportion.
+        Also unbiased: $E[\bar&#123;X&#125;]=p$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X_1,\dots,X_&#123;10&#125;$ are i.i.d. $\text&#123;Exponential&#125;(\lambda)$. The sample mean is $\bar&#123;X&#125;=2$. The MLE of $\lambda$ is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q7-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7,0.49,0.51)">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ 0.50.</span></b>
+        Exponential log-likelihood: $\ell(\lambda)=n\ln\lambda-\lambda\sum X_i$.
+        $d\ell/d\lambda=n/\lambda-\sum X_i=0\Rightarrow\hat&#123;\lambda&#125;=n/\sum X_i=1/\bar&#123;X&#125;=1/2=0.5$.
+        Key fact: MLE of $\lambda$ for Exponential is $1/\bar&#123;X&#125;$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$W\sim\chi^2(2)$. Then $P(W\gt4)=$</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $0.50$</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $e^&#123;-2&#125;\approx0.135$</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $e^&#123;-4&#125;\approx0.018$</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $1/e\approx0.368$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','B')">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (B) $e^&#123;-2&#125;$.</span></b>
+        $\chi^2(2)\sim\text&#123;Exponential&#125;(\text&#123;mean&#125;=2)$. Survival: $P(W\gt t)=e^&#123;-t/2&#125;$.
+        $P(W\gt4)=e^&#123;-4/2&#125;=e^&#123;-2&#125;\approx0.135$.
+        Trap: (C) $e^&#123;-4&#125;$ — used rate=1 instead of mean=2.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Current sample size $n$, giving $\mathrm&#123;SE&#125;=\sigma/\sqrt&#123;n&#125;$. If $n$ is doubled, the new SE is</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\mathrm&#123;SE&#125;/\sqrt&#123;2&#125;$</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\mathrm&#123;SE&#125;/2$</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $\mathrm&#123;SE&#125;\times\sqrt&#123;2&#125;$</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $\mathrm&#123;SE&#125;\times2$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','A')">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ (A) $\mathrm&#123;SE&#125;/\sqrt&#123;2&#125;$.</span></b>
+        New $\mathrm&#123;SE&#125;=\sigma/\sqrt&#123;2n&#125;=(\sigma/\sqrt&#123;n&#125;)/\sqrt&#123;2&#125;=\mathrm&#123;SE&#125;/\sqrt&#123;2&#125;\approx0.707\,\mathrm&#123;SE&#125;$.
+        To halve SE, need $n\times4$ — not $n\times2$. Quadratic cost is the law of statistics.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$X_1,X_2,X_3,X_4$ are i.i.d. $N(2,9)$. Let $W=\sum_&#123;i=1&#125;^4\left(\dfrac&#123;X_i-2&#125;&#123;3&#125;\right)^2$. Then $E[W]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 4.</span></b>
+        Each $(X_i-2)/3\sim N(0,1)$, so each squared term $\sim\chi^2(1)$.
+        Sum of 4 independent $\chi^2(1)$ terms $\sim\chi^2(4)$. $E[\chi^2(k)]=k$, so $E[W]=4$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">For the $t_k$ distribution with $k\gt2$, $\mathrm&#123;Var&#125;(t_k)=$</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $1$</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $\dfrac&#123;k&#125;&#123;k-2&#125;$</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $k$</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $2k$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','B')">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (B) $k/(k-2)$.</span></b>
+        Always $\gt1$ — heavier tails than $N(0,1)$. As $k\to\infty$, $k/(k-2)\to1$, matching the standard normal variance. Trap: (D) $2k$ is the $\chi^2(k)$ variance.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qc12">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X_i\sim\text&#123;Poisson&#125;(4)$, $n=64$. By CLT, $P(\bar&#123;X&#125;\gt4.5)\approx$ ___ (two decimals). Use $\Phi(2)=0.9772$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q12-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(12,0.02,0.03)">Check</button>
+      <div class="q-answer" id="q12-ans">
+        <b><span class="ans-correct">✓ 0.02.</span></b>
+        Poisson(4): $\mu=4$, $\sigma^2=4$. $\mathrm&#123;SE&#125;=\sqrt&#123;4/64&#125;=0.25$.
+        $z=(4.5-4)/0.25=2$. $P(\bar&#123;X&#125;\gt4.5)=1-\Phi(2)=1-0.9772=0.0228\approx0.02$.
+        Note: CLT works for any parent distribution — Poisson variance equals its mean, which is the key fact needed here.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qc13">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Which statement correctly interprets a 95% confidence interval?</div>
+    <div class="q-options" id="q13-opts">
+      <div class="q-opt" data-q="13" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $P(\mu \in \text&#123;CI&#125;) = 0.95$</div>
+      <div class="q-opt" data-q="13" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> If the procedure is repeated many times, 95% of the resulting CIs contain $\mu$</div>
+      <div class="q-opt" data-q="13" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 95% of the data values fall inside the CI</div>
+      <div class="q-opt" data-q="13" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> The CI contains $\mu$ exactly 95% of the time</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(13,'mcq','B')">Check</button>
+      <div class="q-answer" id="q13-ans">
+        <b><span class="ans-correct">✓ (B).</span></b>
+        Frequentist interpretation: $\mu$ is fixed (not random) — any particular CI either contains $\mu$ or does not.
+        The 95% refers to the <em>procedure</em>, not the specific realised interval.
+        (A) is the Bayesian credible interval framing. (C) confuses CI with prediction interval.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qc14">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$n=9$, $\bar&#123;X&#125;=50$, $s=6$, $\mu_0=47$. The one-sample $t$-statistic is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q14-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(14,1.49,1.51)">Check</button>
+      <div class="q-answer" id="q14-ans">
+        <b><span class="ans-correct">✓ 1.50.</span></b>
+        $t=\dfrac&#123;\bar&#123;X&#125;-\mu_0&#125;&#123;s/\sqrt&#123;n&#125;&#125;=\dfrac&#123;50-47&#125;&#123;6/\sqrt&#123;9&#125;&#125;=\dfrac&#123;3&#125;&#123;6/3&#125;=\dfrac&#123;3&#125;&#123;2&#125;=1.5$.
+        This $t$-statistic follows $t_&#123;n-1&#125;=t_8$ under $H_0$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qc15">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$U\sim\chi^2(m)$ and $V\sim\chi^2(n)$ are independent. Then $F=\dfrac&#123;U/m&#125;&#123;V/n&#125;$ follows</div>
+    <div class="q-options" id="q15-opts">
+      <div class="q-opt" data-q="15" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $\chi^2(m+n)$</div>
+      <div class="q-opt" data-q="15" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $F(m,n)$</div>
+      <div class="q-opt" data-q="15" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $t_&#123;m+n&#125;$</div>
+      <div class="q-opt" data-q="15" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $N(0,1)$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(15,'mcq','B')">Check</button>
+      <div class="q-answer" id="q15-ans">
+        <b><span class="ans-correct">✓ (B) $F(m,n)$.</span></b>
+        $F$ distribution with $(m,n)$ degrees of freedom = ratio of two independent chi-squareds, each divided by their df. Appears in ANOVA and regression $F$-tests.
+        Note: $F(1,n)=t_n^2$ — squaring a $t$ statistic gives an $F$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="qc16">
+    <div class="q-header">
+      <span class="q-num">Q16</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$W\sim\chi^2(2)$. Then $P(W\le2)\approx$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q16-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(16,0.62,0.64)">Check</button>
+      <div class="q-answer" id="q16-ans">
+        <b><span class="ans-correct">✓ 0.63.</span></b>
+        $\chi^2(2)\sim\text&#123;Exponential&#125;(\text&#123;mean&#125;=2)$. $P(W\le2)=1-e^&#123;-2/2&#125;=1-e^&#123;-1&#125;\approx1-0.368=0.632$.
+        The same relationship $\chi^2(2)\equiv\text&#123;Exp&#125;(\text&#123;mean&#125;=2)$ used in Q8 — from the other tail.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="qc17">
+    <div class="q-header">
+      <span class="q-num">Q17</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">For $X_1,\dots,X_n$ i.i.d. $N(\mu,\sigma^2)$ with unknown $\mu$, the MLE of $\sigma^2$ is $\hat&#123;\sigma&#125;^2=\frac&#123;1&#125;&#123;n&#125;\sum_&#123;i=1&#125;^n(X_i-\bar&#123;X&#125;)^2$. This estimator is</div>
+    <div class="q-options" id="q17-opts">
+      <div class="q-opt" data-q="17" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Unbiased</div>
+      <div class="q-opt" data-q="17" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Biased downward: $E[\hat&#123;\sigma&#125;^2]=\frac&#123;n-1&#125;&#123;n&#125;\sigma^2$</div>
+      <div class="q-opt" data-q="17" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Biased upward: $E[\hat&#123;\sigma&#125;^2]=\frac&#123;n+1&#125;&#123;n&#125;\sigma^2$</div>
+      <div class="q-opt" data-q="17" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Unbiased only for $n\ge30$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(17,'mcq','B')">Check</button>
+      <div class="q-answer" id="q17-ans">
+        <b><span class="ans-correct">✓ (B) Biased downward.</span></b>
+        $E[\hat&#123;\sigma&#125;^2]=\frac&#123;n-1&#125;&#123;n&#125;\sigma^2\lt\sigma^2$. MLE is biased because $\bar&#123;X&#125;$ is closer to the data than $\mu$ — it minimises the sum of squared deviations.
+        Fix: use $S^2$ with denominator $n-1$ (Q5).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="qc18">
+    <div class="q-header">
+      <span class="q-num">Q18</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">With $n=25$, $\mathrm&#123;SE&#125;(\bar&#123;X&#125;)=8$. If $n$ increases to 100, the new $\mathrm&#123;SE&#125;(\bar&#123;X&#125;)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q18-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(18,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q18-ans">
+        <b><span class="ans-correct">✓ 4.</span></b>
+        $\sigma=\mathrm&#123;SE&#125;\times\sqrt&#123;n&#125;=8\times\sqrt&#123;25&#125;=40$. New $\mathrm&#123;SE&#125;=40/\sqrt&#123;100&#125;=40/10=4$.
+        Alternatively: $\mathrm&#123;SE&#125;$ scales as $\sqrt&#123;n_1/n_2&#125;=\sqrt&#123;25/100&#125;=1/2$, so new $\mathrm&#123;SE&#125;=8/2=4$. Quadratic law: $4\times n$ halves SE.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="qc19">
+    <div class="q-header">
+      <span class="q-num">Q19</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements about the $t_k$ distribution are TRUE? (Select all.)</div>
+    <div class="q-options" id="q19-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="A"> <span class="q-opt-key">A</span> $t_k$ has heavier tails than $N(0,1)$ for any finite $k$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="B"> <span class="q-opt-key">B</span> $t_k \to N(0,1)$ as $k\to\infty$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="C"> <span class="q-opt-key">C</span> $E[t_k]=0$ for $k\ge2$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="D"> <span class="q-opt-key">D</span> $\mathrm&#123;Var&#125;(t_k)=1$</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(19,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q19-ans">
+        <b><span class="ans-correct">✓ (A), (B), (C).</span></b><br>
+        (D) <span class="ans-wrong">False</span>: $\mathrm&#123;Var&#125;(t_k)=k/(k-2)\gt1$ for any finite $k\gt2$ — from Q11.
+        (C): $E[t_k]=0$ for $k\ge1$ (odd symmetry), but mean is undefined for $k=1$ (Cauchy); in practice phrased as $k\ge2$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="qc20">
+    <div class="q-header">
+      <span class="q-num">Q20</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A fair coin is tossed $n=400$ times. Let $\hat&#123;p&#125;$ be the proportion of heads. By CLT, $P(\hat&#123;p&#125;\gt0.55)\approx$ ___ (two decimals). Use $\Phi(2)=0.9772$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q20-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,0.02,0.03)">Check</button>
+      <div class="q-answer" id="q20-ans">
+        <b><span class="ans-correct">✓ 0.02.</span></b>
+        $\hat&#123;p&#125;\sim N\!\left(0.5,\,\frac&#123;0.5\times0.5&#125;&#123;400&#125;\right)=N(0.5,\,1/1600)$. $\mathrm&#123;SD&#125;=1/40=0.025$.
+        $z=(0.55-0.5)/0.025=2$. $P(\hat&#123;p&#125;\gt0.55)=1-\Phi(2)=0.0228\approx0.02$.
+        Key: $\mathrm&#123;Var&#125;(\hat&#123;p&#125;)=p(1-p)/n$, not $p(1-p)\cdot n$.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>17–20 correct:</strong> Sampling distributions mastered — move to <a href="/module1/1-8-questions.html">1.8 Hypothesis Testing</a>.</p>
+  <p><strong>12–16:</strong> Drill Q3/Q4 (CI width formula), Q9 (quadratic scaling), Q14 (t-statistic mechanics). These repeat mechanically in GATE.</p>
+  <p><strong>≤11:</strong> Rebuild from Q1 (t construction), Q5 (n-1 denominator), Q8/Q16 ($\chi^2(2)$=Exp). Three concepts that cascade into everything else.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-7-questions.html" style="margin-top:8px;">← Back to Practice Set</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

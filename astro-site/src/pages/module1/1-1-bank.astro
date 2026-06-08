@@ -1,0 +1,532 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.1 Question Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-1-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  <a href="/module1/1-1-questions.html">1.1 Questions</a><span>›</span>
+  Bank
+</div>
+<a class="gd-pill-link" href="/module1/1-1-questions.html">← Practice Set (11 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.1 Question Bank — Counting &amp; Basic Probability</h1>
+  <p>Extended practice: 20 questions covering permutations, multinomials, pigeonhole, derangements, Pascal's identity, grid paths, surjections, complement counting, and 3-set inclusion-exclusion.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">In how many ways can 4 books be selected and arranged on a shelf from 9 distinct books (order matters)?</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 126</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 3024</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 6561</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 362880</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 3024.</span></b>
+        $P(9,4)=\frac&#123;9!&#125;&#123;5!&#125;=9\times8\times7\times6=3024$. Trap: (A) 126 = $C(9,4)$ — unordered selection, no shelf. (C) 6561 = $9^4$ — with repetition allowed. (D) 362880 = $9!$ — arranging all 9.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many distinct arrangements are there of the letters of the word <strong>MISSISSIPPI</strong>?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,34649.9,34650.1)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 34650.</span></b>
+        MISSISSIPPI: 11 letters — M×1, I×4, S×4, P×2.
+        $\dfrac&#123;11!&#125;&#123;1!\,4!\,4!\,2!&#125;=\dfrac&#123;39916800&#125;&#123;1152&#125;=34650$.
+        <b>Template:</b> $\dfrac&#123;n!&#125;&#123;n_1!\,n_2!\cdots&#125;$ whenever repeated letters exist.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">How many 3-letter strings over &#123;A, B, C, D, E&#125; (repetition allowed) contain at least one 'A'?</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 61</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 64</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 75</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 125</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','A')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (A) 61.</span></b>
+        Complement: total $= 5^3 = 125$; no 'A' $= 4^3 = 64$; at least one 'A' $= 125-64=61$.
+        Trap: (C) 75 = $3\times5^2 - \ldots$ — overcounting via direct inclusion-exclusion on positions. Complement is always faster for "at least one" problems.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many solutions does $x_1+x_2+x_3+x_4=8$ have with each $x_i\ge1$ (positive integers)?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,34.9,35.1)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 35.</span></b>
+        Substitute $y_i=x_i-1\ge0$: $y_1+y_2+y_3+y_4=4$. Stars &amp; bars: $C(4+3,3)=C(7,3)=35$.
+        <b>General rule:</b> $x_i\ge1$ lower bound → substitute $y_i=x_i-1$, reduce RHS by $k$ (number of variables).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If 13 cards are drawn from a standard 52-card deck (4 suits), at least how many cards must be from the same suit?</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 3</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 4</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 5</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 13</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (B) 4.</span></b>
+        Pigeonhole: 4 suits (pigeonholes), 13 cards (pigeons). Worst case: 3 per suit = 12 cards. The 13th forces some suit to have 4. Formula: $\lceil 13/4 \rceil = 4$.
+        Trap: (A) 3 — that's how many each suit has in the worst case, not the guaranteed minimum for one suit.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many permutations of $&#123;1, 2, 3, 4&#125;$ have <strong>no element in its original position</strong> (derangements)?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,8.9,9.1)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 9.</span></b>
+        $D(n)=n!\sum_&#123;k=0&#125;^&#123;n&#125;\frac&#123;(-1)^k&#125;&#123;k!&#125;$. For $n=4$: $D(4)=24(1-1+\tfrac&#123;1&#125;&#123;2&#125;-\tfrac&#123;1&#125;&#123;6&#125;+\tfrac&#123;1&#125;&#123;24&#125;)=24\times\tfrac&#123;3&#125;&#123;8&#125;=9$.
+        Or enumerate: derangements of 4 elements = 9. Useful fact: $D(n)/n!\to 1/e\approx0.368$ as $n\to\infty$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If $C(8,3)+C(8,4)=C(9,k)$, then $k=$</div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 3</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 4</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 5</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 9</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','B')">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (B) 4.</span></b>
+        Pascal's identity: $C(n,r)+C(n,r+1)=C(n+1,r+1)$. Here $C(8,3)+C(8,4)=C(9,4)$, so $k=4$.
+        Verify: $C(8,3)=56$, $C(8,4)=70$, $C(9,4)=126=56+70$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">A fair die is rolled once. The probability that the result is a prime number is</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1/3</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1/2</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 2/3</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1/6</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','B')">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (B) 1/2.</span></b>
+        Primes in $&#123;1,2,3,4,5,6&#125;$: $&#123;2,3,5&#125;$ — exactly 3. $P=3/6=1/2$.
+        Trap: (A) 1/3 — either forgot 2 is prime, or incorrectly included 1. Note: 1 is <em>not</em> prime by definition.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">From 5 men and 4 women, how many committees of 4 can be formed with <strong>at least 2 women</strong>?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,80.9,81.1)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ 81.</span></b>
+        Case 2W+2M: $C(4,2)\times C(5,2)=6\times10=60$.
+        Case 3W+1M: $C(4,3)\times C(5,1)=4\times5=20$.
+        Case 4W+0M: $C(4,4)\times C(5,0)=1\times1=1$.
+        Total $=60+20+1=81$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">In a group: 40 like Maths, 35 like Physics, 30 like Chemistry, 20 like both M&amp;P, 15 like both P&amp;C, 10 like both M&amp;C, and 5 like all three. How many like at least one subject?</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 60</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 65</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 70</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 80</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ (B) 65.</span></b>
+        $|M\cup P\cup C|=40+35+30-20-15-10+5=65$. Three-set inclusion-exclusion: add individuals, subtract pairwise, add triple. Forgetting to add the triple overlap back is the most common error.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">How many paths are there from $(0,0)$ to $(4,3)$ using only right (R) and up (U) moves?</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 24</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 35</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 42</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 56</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','B')">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (B) 35.</span></b>
+        Any path needs exactly 4 R's and 3 U's in some order — total 7 moves. Choose which 3 positions are U: $C(7,3)=35$. General formula: $C(m+n,n)$ for a grid of width $m$, height $n$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qc12">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many <strong>onto</strong> (surjective) functions are there from $A=&#123;1,2,3,4&#125;$ to $B=&#123;1,2,3&#125;$?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q12-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(12,35.9,36.1)">Check</button>
+      <div class="q-answer" id="q12-ans">
+        <b><span class="ans-correct">✓ 36.</span></b>
+        Inclusion-exclusion over excluded outputs:
+        $\sum_&#123;k=0&#125;^&#123;2&#125;(-1)^k C(3,k)(3-k)^4 = 3^4 - 3\cdot2^4 + 3\cdot1^4 = 81-48+3=36$.
+        Total functions $=3^4=81$; subtract those missing at least one output value.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qc13">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">For which value of $r$ is $C(10, r)$ maximum?</div>
+    <div class="q-options" id="q13-opts">
+      <div class="q-opt" data-q="13" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $r=4$</div>
+      <div class="q-opt" data-q="13" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $r=5$</div>
+      <div class="q-opt" data-q="13" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $r=6$</div>
+      <div class="q-opt" data-q="13" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $r=5$ and $r=6$ are tied</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(13,'mcq','B')">Check</button>
+      <div class="q-answer" id="q13-ans">
+        <b><span class="ans-correct">✓ (B) $r=5$.</span></b>
+        $C(n,r)$ is symmetric: $C(10,r)=C(10,10-r)$. For even $n$, unique maximum at $r=n/2=5$. $C(10,5)=252>C(10,4)=C(10,6)=210$.
+        Trap: (D) a tie occurs only for odd $n$ (two middle values are equal).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qc14">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many binary strings of length 8 have exactly 3 ones, with <strong>no two ones adjacent</strong>?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q14-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(14,19.9,20.1)">Check</button>
+      <div class="q-answer" id="q14-ans">
+        <b><span class="ans-correct">✓ 20.</span></b>
+        Place 5 zeros first: creates 6 gaps (_ 0 _ 0 _ 0 _ 0 _ 0 _). Choose 3 of 6 gaps for the ones: $C(6,3)=20$. Non-adjacency is guaranteed since each one sits in a distinct gap between zeros.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qc15">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">A fair coin is tossed 4 times. The probability of getting <strong>at least one head</strong> is</div>
+    <div class="q-options" id="q15-opts">
+      <div class="q-opt" data-q="15" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1/2</div>
+      <div class="q-opt" data-q="15" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 3/4</div>
+      <div class="q-opt" data-q="15" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 15/16</div>
+      <div class="q-opt" data-q="15" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 7/8</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(15,'mcq','C')">Check</button>
+      <div class="q-answer" id="q15-ans">
+        <b><span class="ans-correct">✓ (C) 15/16.</span></b>
+        Complement: $1-P(\text&#123;all tails&#125;)=1-(1/2)^4=1-1/16=15/16$. Trap: (D) 7/8 = $1-(1/2)^3$ — wrong $n$; (B) 3/4 = $1-(1/2)^2$ — two tosses, not four.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="qc16">
+    <div class="q-header">
+      <span class="q-num">Q16</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">How many arrangements of the letters A, B, C, D, E, F have A as the first letter <strong>and</strong> F as the last letter?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q16-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(16,23.9,24.1)">Check</button>
+      <div class="q-answer" id="q16-ans">
+        <b><span class="ans-correct">✓ 24.</span></b>
+        A and F are fixed. The 4 remaining letters (B, C, D, E) fill the 4 middle positions freely: $4!=24$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="qc17">
+    <div class="q-header">
+      <span class="q-num">Q17</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">How many <strong>injective</strong> (one-to-one) functions are there from $&#123;1,2,3&#125;$ to $&#123;1,2,3,4,5&#125;$?</div>
+    <div class="q-options" id="q17-opts">
+      <div class="q-opt" data-q="17" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 125</div>
+      <div class="q-opt" data-q="17" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 60</div>
+      <div class="q-opt" data-q="17" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 10</div>
+      <div class="q-opt" data-q="17" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 120</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(17,'mcq','B')">Check</button>
+      <div class="q-answer" id="q17-ans">
+        <b><span class="ans-correct">✓ (B) 60.</span></b>
+        Injective → distinct outputs. $P(5,3)=5\times4\times3=60$. Trap: (A) 125 = $5^3$ = all functions (including non-injective). (C) 10 = $C(5,3)$ — unordered subsets, not functions. (D) 120 = $5!$ — all permutations of 5 elements, too many.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="qc18">
+    <div class="q-header">
+      <span class="q-num">Q18</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A number is chosen uniformly at random from $&#123;1, 2, \dots, 50&#125;$. The probability it is divisible by 3 <strong>or</strong> 5 is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q18-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(18,0.45,0.47)">Check</button>
+      <div class="q-answer" id="q18-ans">
+        <b><span class="ans-correct">✓ 0.46.</span></b>
+        Divisible by 3: $\lfloor50/3\rfloor=16$. Divisible by 5: $\lfloor50/5\rfloor=10$. Divisible by 15: $\lfloor50/15\rfloor=3$.
+        $|3\cup5|=16+10-3=23$. $P=23/50=0.46$. Inclusion-exclusion prevents double-counting multiples of 15.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="qc19">
+    <div class="q-header">
+      <span class="q-num">Q19</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements about binomial coefficients are <strong>TRUE</strong>? (Select all.)</div>
+    <div class="q-options" id="q19-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="A"> <span class="q-opt-key">A</span> $C(n,0)=1$ for all $n\ge0$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="B"> <span class="q-opt-key">B</span> $C(n,r)=C(n,n-r)$ for $0\le r\le n$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="C"> <span class="q-opt-key">C</span> $C(n,r)+C(n,r+1)=C(n+2,r+1)$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="D"> <span class="q-opt-key">D</span> $C(2n,n)$ is always even for $n\ge1$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(19,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q19-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (A) One way to choose the empty subset. (B) Symmetry: include $r$ ≡ exclude $n-r$. (C) <span class="ans-wrong">False</span> — Pascal's identity gives $C(n,r)+C(n,r+1)=C(n+1,r+1)$, not $C(n+2,r+1)$. (D) $C(2n,n)=2\cdot C(2n-1,n-1)$ — always even for $n\ge1$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="qc20">
+    <div class="q-header">
+      <span class="q-num">Q20</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">How many 4-digit numbers (1000–9999) have <strong>at least one digit equal to 7</strong>?</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q20-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,3167.9,3168.1)">Check</button>
+      <div class="q-answer" id="q20-ans">
+        <b><span class="ans-correct">✓ 3168.</span></b>
+        Complement: total 4-digit numbers $=9000$. No 7s anywhere: first digit from $&#123;1,\dots,9&#125;\setminus&#123;7&#125;=8$ choices; each other digit from $&#123;0,\dots,9&#125;\setminus&#123;7&#125;=9$ choices.
+        No-7 count $=8\times9\times9\times9=5832$. At least one 7 $=9000-5832=3168$.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>17–20 correct:</strong> Counting fundamentals solid — advance to <a href="/module1/1-2-questions.html">1.2 Conditional Probability</a>.</p>
+  <p><strong>12–16:</strong> Drill Q3/Q15/Q20 (complement counting — always try complement first for "at least one"). Revisit Q6 (derangements) and Q12 (surjections).</p>
+  <p><strong>≤11:</strong> Re-read the counting flowchart: ordered/unordered × with-without repetition. Q1 (P vs C), Q2 (multinomial), Q4 (stars &amp; bars with lower bounds) are the high-value templates.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-1-questions.html" style="margin-top:8px;">← Back to Practice Set</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

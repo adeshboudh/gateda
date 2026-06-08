@@ -1,0 +1,38 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+interface Props {
+  title: string;
+  currentPath?: string;
+  hasToc?: boolean;
+}
+const { title, currentPath = '', hasToc = false } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <slot name="head" />
+</head>
+<body>
+<button class="gd-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+
+<div class="gd-shell">
+  <aside class="gd-sidebar">
+    <Sidebar currentPath={currentPath} />
+  </aside>
+
+  <main class="gd-main" id="main-content" style={hasToc ? '' : 'margin-right:0'}>
+    <slot />
+  </main>
+
+  {hasToc && <nav class="gd-toc-rail"><div class="gd-toc-rail__title">On this page</div></nav>}
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+.stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 14px 0; }
+    .stat-card {
+      background: var(--gd-bg-2); border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md); padding: 14px 16px; text-align: center;
+    }
+    .stat-card__label { font-size: 0.7rem; color: var(--gd-text-2); margin-bottom: 4px; }
+    .stat-card__val { font-family: var(--gd-font-mono); font-size: 1.3rem; font-weight: 700; color: var(--gd-brand); }
+    .draggable-hint { font-size: 0.78rem; color: var(--gd-text-2); margin-bottom: 8px; }
+    .beam-svg { overflow: visible; }
+    .var-bar { opacity: 0.5; }

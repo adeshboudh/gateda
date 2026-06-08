@@ -1,0 +1,24 @@
+.r-display {
+      font-family: var(--gd-font-mono);
+      font-size: 2.4rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px;
+      border-radius: var(--gd-r-md);
+      transition: color 0.3s, background 0.3s;
+    }
+    .scatter-dot { cursor: grab; }
+    .scatter-dot:active { cursor: grabbing; }
+    .preset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+    .preset-btn {
+      padding: 8px;
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      color: var(--gd-text-1);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: 0.15s;
+      text-align: center;
+    }
+    .preset-btn:hover { border-color: var(--gd-brand); color: var(--gd-brand); }

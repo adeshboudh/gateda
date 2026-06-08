@@ -1,0 +1,1124 @@
+---
+import VizLayout from "../../layouts/VizLayout.astro";
+const title = "1.2 Conditional Probability & Bayes' Theorem · GATE DA";
+---
+
+<VizLayout
+  {title}
+  currentPath="/module1/viz-1-2-bayes"
+  pageCss="/assets/css/pages/viz-1-2-bayes.css"
+>
+  <div class="gd-breadcrumb">
+    <a href="/index.html">Home</a><span>›</span>
+    <a href="/module1/index.html">Module 1</a><span>›</span>
+    1.2 Conditional Probability &amp; Bayes' Theorem
+  </div>
+  <a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+  <div class="gd-viz-header">
+    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+      <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+      <span class="gd-badge gd-badge--pyq">2024 Q58 · 2025 Q31 · 2026 Q57</span>
+    </div>
+    <h1 id="top">Conditional Probability &amp; Bayes' Theorem</h1>
+    <p>
+      Appears every GATE DA paper — almost always as a 2-mark NAT. Master the
+      playbook: prior × likelihood ÷ total probability. Drag the sliders to see
+      why base rate matters more than sensitivity.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     THEORY 1 — CONDITIONAL PROBABILITY
+     ═══════════════════════════════════════ -->
+  <h2 id="theory">Conditional Probability</h2>
+
+  <p>
+    When event $B$ has occurred, the sample space shrinks to $B$. Conditional
+    probability asks: within $B$, what fraction also satisfies $A$?
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Definition</div>
+    <div class="gd-formula">
+      $$P(A \mid B) = \frac&#123;P(A \cap B)&#125;&#123;P(B)&#125;, \quad P(B) >
+      0$$
+    </div>
+  </div>
+
+  <p style="color:var(--gd-text-1);font-size:15px;margin-bottom:18px;">
+    Rearranging gives the <strong style="color:var(--gd-text-0);"
+      >multiplication rule:</strong
+    > $P(A \cap B) = P(A \mid B) \cdot P(B)$. For a chain of draws without replacement:
+    $P(A_1 \cap A_2 \cap \cdots \cap A_n) = P(A_1) \cdot P(A_2 \mid A_1) \cdot P(A_3
+    \mid A_1, A_2) \cdots$
+  </p>
+
+  <h3 id="independence">Independence</h3>
+
+  <p>
+    $A$ and $B$ are <strong>independent</strong> iff knowing one gives no information
+    about the other. All three conditions are equivalent:
+  </p>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-card__label">Independence — three equivalent tests</div>
+      <div class="gd-formula">$$P(A \cap B) = P(A) \cdot P(B)$$</div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">
+        Equivalently: $P(A \mid B) = P(A)$, or $P(B \mid A) = P(B)$. Any one
+        implies all three.
+      </p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card__label">Mutually exclusive ≠ independent</div>
+      <div class="gd-formula">
+        $$A \cap B = \emptyset \;\Longrightarrow\; \text&#123;dependent&#125;$$
+      </div>
+      <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">
+        If $P(A), P(B) > 0$: ME gives $P(A \cap B) = 0 \ne P(A)P(B)$. They
+        cannot both happen, so they are maximally dependent.
+      </p>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--insight">
+      <span class="gd-insight__title"
+        >Intuition: conditional = new sample space</span
+      >
+      $P(A \mid B)$ = (cell A∩B) ÷ (row total B) in a contingency table. The denominator
+      is the total probability of $B$, not the entire sample space.
+    </div>
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title"
+        >Classic GATE trap — ME implies dependent</span
+      >
+      Students confuse "can't happen together" with "don't influence each other."
+      Mutually exclusive events with positive probability are in fact <em
+        >dependent</em
+      > — knowing $A$ happened tells you $B$ didn't. GATE 2024 Q12 tested this directly.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     VIZ 1 — PROBABILITY SQUARE
+     ═══════════════════════════════════════ -->
+  <h2 id="viz1">Interactive: The Probability Square</h2>
+
+  <div class="gd-formula-panel gd-formula-panel--split">
+    <div>
+      <div class="gd-formula-label">Bayes' Theorem</div>
+      <div class="gd-formula">
+        $$P(H \mid E) = \frac&#123;P(E \mid H)\,P(H)&#125;&#123;P(E \mid
+        H)\,P(H) + P(E \mid \neg H)\,P(\neg H)&#125;$$
+      </div>
+    </div>
+    <div>
+      <div class="gd-formula-label">Current values</div>
+      <div class="gd-formula-live" id="formula-live-1">—</div>
+    </div>
+  </div>
+
+  <div class="gd-chart" style="position:relative;">
+    <div class="gd-chart__title">
+      1×1 square = entire sample space. Blue corner = P(H ∩ E) = posterior
+      numerator. Hover regions for values.
+    </div>
+    <div id="bayes-square"></div>
+    <div class="gd-tooltip" id="sq-tooltip"></div>
+  </div>
+
+  <div class="gd-controls">
+    <div class="gd-controls__title">Parameters</div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">P(H)</span> Prior probability of hypothesis
+        H</label
+      >
+      <span class="gd-control__value" id="ph-val">0.30</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="ph"
+        min="0.01"
+        max="0.99"
+        step="0.01"
+        value="0.30"
+      />
+    </div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">P(E|H)</span> Likelihood — evidence given H
+        true</label
+      >
+      <span class="gd-control__value" id="peh-val">0.90</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="peh"
+        min="0.01"
+        max="0.99"
+        step="0.01"
+        value="0.90"
+      />
+    </div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">P(E|¬H)</span> False alarm rate — evidence
+        given H false</label
+      >
+      <span class="gd-control__value" id="penh-val">0.20</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="penh"
+        min="0.01"
+        max="0.99"
+        step="0.01"
+        value="0.20"
+      />
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--active" id="ins-posterior">
+      Posterior: —
+    </div>
+    <div class="gd-insight" id="ins-pe">P(E): —</div>
+    <div class="gd-insight" id="ins-ratio">Likelihood ratio: —</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     THEORY 2 — LAW OF TOTAL PROBABILITY
+     ═══════════════════════════════════════ -->
+  <h2 id="total-prob">Law of Total Probability</h2>
+
+  <p>
+    If $B_1, \ldots, B_n$ <strong>partition</strong> the sample space (disjoint and
+    exhaustive), then for any event $A$:
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">Law of Total Probability</div>
+    <div class="gd-formula">
+      $$P(A) = \sum_&#123;i=1&#125;^n P(A \mid B_i)\,P(B_i)$$
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--insight">
+      <span class="gd-insight__title">This is the Bayes denominator</span>
+      Every Bayes calculation requires $P(E)$ in the denominator. That is computed
+      by the law of total probability — averaging likelihoods weighted by priors.
+      The probability tree (Viz 3) shows each branch contributing one term.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     THEORY 3 — BAYES' THEOREM
+     ═══════════════════════════════════════ -->
+  <h2 id="bayes">Bayes' Theorem</h2>
+
+  <p>
+    Bayes converts $P(\text&#123;evidence&#125; \mid \text&#123;cause&#125;)$
+    into $P(\text&#123;cause&#125; \mid \text&#123;evidence&#125;)$ — reversing
+    the conditional. This is the key operation in every Bayesian inference
+    problem:
+  </p>
+
+  <div class="gd-formula-panel">
+    <div class="gd-formula-label">General form</div>
+    <div class="gd-formula">
+      $$P(B_k \mid A) = \frac&#123;P(A \mid B_k)\cdot
+      P(B_k)&#125;&#123;\displaystyle\sum_j P(A \mid B_j)\cdot P(B_j)&#125;$$
+    </div>
+  </div>
+
+  <div class="bayes-terms">
+    <div class="bayes-term">
+      <div class="bayes-term__sym">$P(B_k)$</div>
+      <div class="bayes-term__name">Prior</div>
+      <div class="bayes-term__desc">Belief before evidence</div>
+    </div>
+    <div class="bayes-term">
+      <div class="bayes-term__sym">$P(A \mid B_k)$</div>
+      <div class="bayes-term__name">Likelihood</div>
+      <div class="bayes-term__desc">How well $B_k$ explains evidence $A$</div>
+    </div>
+    <div class="bayes-term">
+      <div class="bayes-term__sym">$\sum_j P(A \mid B_j)P(B_j)$</div>
+      <div class="bayes-term__name">Evidence</div>
+      <div class="bayes-term__desc">Total probability of observation</div>
+    </div>
+    <div class="bayes-term bayes-term--posterior">
+      <div class="bayes-term__sym">$P(B_k \mid A)$</div>
+      <div class="bayes-term__name">Posterior</div>
+      <div class="bayes-term__desc">Updated belief after seeing $A$</div>
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--insight">
+      <span class="gd-insight__title"
+        >The Bayes playbook — 5 steps every time</span
+      >
+      1. Name hypotheses $B_i$ (partition) and evidence $A$. &nbsp; 2. Write priors
+      $P(B_i)$. &nbsp; 3. Write likelihoods $P(A \mid B_i)$. &nbsp; 4. Total probability:
+      $P(A) = \sum P(A \mid B_i)P(B_i)$. &nbsp; 5. Bayes: numerator $P(A \mid B_k)P(B_k)$
+      divided by $P(A)$.
+    </div>
+    <div class="gd-insight gd-insight--warn">
+      <span class="gd-insight__title"
+        >Base rate neglect — the examiner's favourite</span
+      >
+      Even a 99%-sensitive test gives a low posterior when prevalence is 0.1%. The
+      prior $P(\text&#123;disease&#125;)$ dominates the denominator. The medical test
+      visualization below makes this concrete.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     VIZ 2 — MEDICAL TEST
+     ═══════════════════════════════════════ -->
+  <h2 id="viz2">Interactive: Medical Test — Base Rate Effect</h2>
+
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    Set prevalence to 0.1% and sensitivity to 99% — watch P(Disease | Test+)
+    collapse. This is the <strong style="color:var(--gd-text-0);"
+      >base rate fallacy</strong
+    > that GATE 2026 Q57 tested.
+  </p>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">
+      Out of 10 000 people — bar shows true positives (blue) vs false positives
+      (amber)
+    </div>
+    <div id="medical-bars"></div>
+  </div>
+
+  <div id="medical-grid">
+    <div class="medical-cell">
+      <div class="medical-cell__label">True Positives (TP)</div>
+      <div class="medical-cell__val" id="med-tp">—</div>
+    </div>
+    <div class="medical-cell">
+      <div class="medical-cell__label">False Positives (FP)</div>
+      <div class="medical-cell__val" id="med-fp">—</div>
+    </div>
+    <div class="medical-cell">
+      <div class="medical-cell__label">Test+ Total</div>
+      <div class="medical-cell__val" id="med-total-pos">—</div>
+    </div>
+    <div class="medical-cell medical-cell--highlight">
+      <div class="medical-cell__label">P(Disease | Test+)</div>
+      <div class="medical-cell__val" id="med-posterior">—</div>
+    </div>
+  </div>
+
+  <div class="gd-controls" style="margin-top:16px;">
+    <div class="gd-controls__title">Test parameters</div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">prev</span> Disease prevalence in population</label
+      >
+      <span class="gd-control__value" id="prev-val">0.1%</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="prevalence"
+        min="0.0001"
+        max="0.5"
+        step="0.0001"
+        value="0.001"
+      />
+    </div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">sens</span> Sensitivity P(Test+ | Disease)</label
+      >
+      <span class="gd-control__value" id="sens-val">0.99</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="sensitivity"
+        min="0.50"
+        max="0.999"
+        step="0.001"
+        value="0.99"
+      />
+    </div>
+    <div class="gd-control">
+      <label class="gd-control__label"
+        ><span class="gd-control__sym">spec</span> Specificity P(Test− | No disease)</label
+      >
+      <span class="gd-control__value" id="spec-val">0.95</span>
+    </div>
+    <div class="gd-control--full">
+      <input
+        class="gd-control__slider"
+        type="range"
+        id="specificity"
+        min="0.50"
+        max="0.999"
+        step="0.001"
+        value="0.95"
+      />
+    </div>
+  </div>
+
+  <div class="gd-insights">
+    <div class="gd-insight gd-insight--warn" id="med-insight">
+      With prevalence 0.1% and sensitivity 99%, only ~2% of positive tests are
+      true positives — the prior dominates.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     VIZ 3 — PROBABILITY TREE
+     ═══════════════════════════════════════ -->
+  <h2 id="viz3">Interactive: Probability Tree</h2>
+
+  <p style="color:var(--gd-text-1);margin-bottom:16px;font-size:15px;">
+    The tree shows how $P(E)$ sums both branches that produce evidence $E$.
+    Branch probabilities update with the Viz 1 sliders.
+  </p>
+
+  <div class="gd-chart">
+    <div class="gd-chart__title">
+      Branch leaf values = P(hypothesis) × P(evidence | hypothesis)
+    </div>
+    <div id="prob-tree"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     WORKED EXAMPLES
+     ═══════════════════════════════════════ -->
+  <h2 id="examples">Worked Examples</h2>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num"
+        >Example 1 · Conditional probability + independence check</span
+      >
+      <p>
+        One card is drawn from a 52-card deck. $A$ = "King", $B$ = "Heart". Find
+        $P(A \mid B)$. Are $A$ and $B$ independent?
+      </p>
+    </div>
+    <div class="gd-example__body">
+      <p>
+        $P(A) = 4/52 = 1/13$, $P(B) = 13/52 = 1/4$, $P(A \cap B) = 1/52$ (King
+        of Hearts).
+      </p>
+      <p>
+        $P(A \mid B) = \dfrac&#123;1/52&#125;&#123;1/4&#125; =
+        \dfrac&#123;4&#125;&#123;52&#125; = \dfrac&#123;1&#125;&#123;13&#125;$
+      </p>
+      <p>
+        Independence check: $P(A) \cdot P(B) = \dfrac&#123;1&#125;&#123;13&#125;
+        \cdot \dfrac&#123;1&#125;&#123;4&#125; =
+        \dfrac&#123;1&#125;&#123;52&#125; = P(A \cap B)$ → <strong
+          >independent</strong
+        >.
+      </p>
+      <div class="gd-example__ans">
+        P(A | B) = 1/13 ≈ 0.077. A and B are independent (being a King and being
+        a Heart don't affect each other).
+      </div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num"
+        >Example 2 · Two-event Bayes — GATE 2024 Q58 · NAT · ★★</span
+      >
+      <p>
+        For events $T$ and $S$: $P(\bar&#123;T&#125;) = 0.6$, $P(S \mid T) =
+        0.3$, $P(S \mid \bar&#123;T&#125;) = 0.6$. Find $P(T \mid S)$.
+      </p>
+    </div>
+    <div class="gd-example__body">
+      <p>
+        <strong style="color:var(--gd-text-0);">Step 1 — Priors:</strong> $P(T) =
+        1 - 0.6 = 0.4$, $P(\bar&#123;T&#125;) = 0.6$.
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);">Step 2 — Likelihoods:</strong> $P(S
+        \mid T) = 0.3$, $P(S \mid \bar&#123;T&#125;) = 0.6$.
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);"
+          >Step 3 — Total probability:</strong
+        > $P(S) = 0.3 \times 0.4 + 0.6 \times 0.6 = 0.12 + 0.36 = 0.48$.
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);">Step 4 — Bayes:</strong> $P(T \mid
+        S) = 0.12 / 0.48 = 0.25$.
+      </p>
+      <div class="gd-example__ans">
+        P(T | S) = 0.25. Note the reversal: given P(S|T), we computed P(T|S).
+      </div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num"
+        >Example 3 · Three-hypothesis Bayes — GATE 2025 Q31 · NAT · ★★</span
+      >
+      <p>
+        Box-1: 2 black, 1 white. Box-2: 1 black, 2 white. Box-3: 3 black, 3
+        white. $P(\text&#123;pick Box-1,2,3&#125;) = 1/2, 1/6, 1/3$. A ball
+        drawn from the chosen box is white. Find $P(\text&#123;Box-2&#125; \mid
+        \text&#123;white&#125;)$.
+      </p>
+    </div>
+    <div class="gd-example__body">
+      <p>
+        <strong style="color:var(--gd-text-0);">Priors:</strong> $P(B_1) = 1/2$, $P(B_2)
+        = 1/6$, $P(B_3) = 1/3$.
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);">Likelihoods:</strong> $P(W \mid B_1)
+        = 1/3$, $P(W \mid B_2) = 2/3$, $P(W \mid B_3) = 1/2$.
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);">Total probability:</strong> $P(W)
+        = \dfrac&#123;1&#125;&#123;3&#125;\cdot\dfrac&#123;1&#125;&#123;2&#125; +
+        \dfrac&#123;2&#125;&#123;3&#125;\cdot\dfrac&#123;1&#125;&#123;6&#125; + \dfrac&#123;1&#125;&#123;2&#125;\cdot\dfrac&#123;1&#125;&#123;3&#125;
+        = \dfrac&#123;3&#125;&#123;18&#125;+\dfrac&#123;2&#125;&#123;18&#125;+\dfrac&#123;3&#125;&#123;18&#125;
+        = \dfrac&#123;8&#125;&#123;18&#125; = \dfrac&#123;4&#125;&#123;9&#125;$
+      </p>
+      <p>
+        <strong style="color:var(--gd-text-0);">Bayes:</strong> $P(B_2 \mid W) = \dfrac&#123;(2/3)(1/6)&#125;&#123;4/9&#125;
+        = \dfrac&#123;1/9&#125;&#123;4/9&#125; = \dfrac&#123;1&#125;&#123;4&#125;$
+      </p>
+      <div class="gd-example__ans">
+        P(Box-2 | white) = 0.25. Same playbook, 3-way partition.
+      </div>
+    </div>
+  </div>
+
+  <div class="gd-example">
+    <div class="gd-example__q">
+      <span class="gd-example__num"
+        >Example 4 · Medical test — GATE 2026 Q57 · NAT · ★★★</span
+      >
+      <p>
+        Disease $D$: sensitivity (true positive rate) = 80%, false positive rate
+        = 10%, prevalence = 30%. A person tests positive. Find $P(D \mid +)$.
+      </p>
+    </div>
+    <div class="gd-example__body">
+      <p>
+        <strong style="color:var(--gd-text-0);"
+          >Natural-frequency method on 1000 people:</strong>
+      </p>
+      <p>
+        Have $D$: 300 → positive: $0.80 \times 300 = \mathbf&#123;240&#125;$
+        (true positives).
+      </p>
+      <p>
+        No $D$: 700 → positive: $0.10 \times 700 = \mathbf&#123;70&#125;$ (false
+        positives).
+      </p>
+      <p>
+        $P(D \mid +) = \dfrac&#123;240&#125;&#123;240 + 70&#125; =
+        \dfrac&#123;240&#125;&#123;310&#125; \approx 0.7742$
+      </p>
+      <p style="color:var(--gd-text-2);font-size:14px;">
+        Insight: despite 80% sensitivity, the 30% prevalence and 10%
+        false-positive rate mean the test isn't overwhelmingly decisive. At 1%
+        prevalence with the same test, $P(D \mid +) \approx 0.08$ — the base
+        rate dominates.
+      </p>
+      <div class="gd-example__ans">
+        P(D | +) = 0.77. Use the Viz 2 sliders to confirm: sens=0.8, spec=0.9,
+        prev=0.3.
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+     GATE ANGLE
+     ═══════════════════════════════════════ -->
+  <div class="gd-gate-box">
+    <div class="gd-gate-box__title">GATE DA Angle</div>
+    <p>
+      <strong>Appeared 3 years running:</strong> 2024 Q58, 2025 Q31, 2026 Q57 — all
+      2-mark NATs. The form is stable: given priors and likelihoods, compute a posterior.
+      The playbook always works.
+    </p>
+    <p>
+      <strong>Reverse-conditional alarm:</strong> if the question gives $P(E \mid
+      \text&#123;cause&#125;)$ and asks for $P(\text&#123;cause&#125; \mid E)$, it's
+      Bayes. Don't answer with the likelihood — that's the #1 mistake.
+    </p>
+    <p>
+      <strong>Base rate neglect:</strong> when disease is rare, a positive test has
+      lower posterior than most people expect. The prior pulls hard on the denominator.
+    </p>
+    <p>
+      <strong>Three-hypothesis Bayes:</strong> identical playbook, just more rows.
+      Compute each numerator $P(A \mid B_i)P(B_i)$ then divide by their sum.
+    </p>
+    <p>
+      <strong>Independence check:</strong> verify $P(A \cap B) = P(A)P(B)$ directly
+      from the table — never infer independence from "mutually exclusive" (that implies
+      the opposite).
+    </p>
+  </div>
+
+  <div class="gd-page-nav">
+    <a class="gd-page-nav__item" href="/module1/viz-1-1-counting.html">
+      <span class="gd-page-nav__dir">← Previous</span>
+      <span class="gd-page-nav__title"
+        >1.1 Counting &amp; Basic Probability</span
+      >
+    </a>
+    <a
+      class="gd-page-nav__item gd-page-nav__item--next"
+      href="/module1/viz-1-3-expectation.html"
+    >
+      <span class="gd-page-nav__dir">Next →</span>
+      <span class="gd-page-nav__title"
+        >1.3 Random Variables &amp; Expectation</span
+      >
+    </a>
+  </div>
+
+  <script is:inline slot="scripts">
+    // ══════════════════════════════════════════
+    // VIZ 1 — BAYES SQUARE
+    // ══════════════════════════════════════════
+    (function () {
+      const W = 480,
+        H = 480;
+      const svg = d3
+        .select("#bayes-square")
+        .append("svg")
+        .attr("viewBox", `0 0 ${W} ${H}`)
+        .style("width", "100%")
+        .style("max-width", "480px")
+        .style("display", "block")
+        .style("margin", "0 auto")
+        .attr("class", "bayes-square");
+
+      const tooltip = document.getElementById("sq-tooltip");
+
+      let ph = 0.3,
+        peh = 0.9,
+        penh = 0.2;
+
+      function posterior() {
+        const num = peh * ph;
+        const denom = peh * ph + penh * (1 - ph);
+        return num / denom;
+      }
+
+      function pE() {
+        return peh * ph + penh * (1 - ph);
+      }
+
+      function draw() {
+        svg.selectAll("*").remove();
+
+        const pad = 50;
+        const iW = W - 2 * pad,
+          iH = H - 2 * pad;
+
+        svg
+          .append("rect")
+          .attr("x", pad)
+          .attr("y", pad)
+          .attr("width", iW)
+          .attr("height", iH)
+          .attr("fill", "#1e2535")
+          .attr("stroke", "#2e3a52");
+
+        const hW = iW * ph;
+        const ehH = iH * peh;
+        svg
+          .append("rect")
+          .attr("x", pad)
+          .attr("y", pad)
+          .attr("width", hW)
+          .attr("height", ehH)
+          .attr("fill", "#7c9eff")
+          .attr("opacity", 0.75)
+          .on("mouseover", (ev) =>
+            showTip(
+              ev,
+              `P(H ∩ E) = ${(ph * peh).toFixed(3)}\nPosterior numerator`,
+            ),
+          )
+          .on("mouseout", hideTip);
+
+        svg
+          .append("rect")
+          .attr("x", pad)
+          .attr("y", pad + ehH)
+          .attr("width", hW)
+          .attr("height", iH - ehH)
+          .attr("fill", "#7c9eff")
+          .attr("opacity", 0.2)
+          .on("mouseover", (ev) =>
+            showTip(ev, `P(H ∩ ¬E) = ${(ph * (1 - peh)).toFixed(3)}`),
+          )
+          .on("mouseout", hideTip);
+
+        const nhW = iW * (1 - ph);
+        const enhH = iH * penh;
+        svg
+          .append("rect")
+          .attr("x", pad + hW)
+          .attr("y", pad)
+          .attr("width", nhW)
+          .attr("height", enhH)
+          .attr("fill", "#f5c46b")
+          .attr("opacity", 0.55)
+          .on("mouseover", (ev) =>
+            showTip(
+              ev,
+              `P(¬H ∩ E) = ${((1 - ph) * penh).toFixed(3)}\nFalse positives`,
+            ),
+          )
+          .on("mouseout", hideTip);
+
+        svg
+          .append("rect")
+          .attr("x", pad + hW)
+          .attr("y", pad + enhH)
+          .attr("width", nhW)
+          .attr("height", iH - enhH)
+          .attr("fill", "#1e2535")
+          .attr("opacity", 1)
+          .attr("stroke", "#2e3a52");
+
+        svg
+          .append("line")
+          .attr("x1", pad + hW)
+          .attr("x2", pad + hW)
+          .attr("y1", pad)
+          .attr("y2", pad + iH)
+          .attr("stroke", "#606880")
+          .attr("stroke-width", 1.5)
+          .attr("stroke-dasharray", "4 3");
+
+        const lc = "#9aa5be",
+          fs = 11;
+        svg
+          .append("text")
+          .attr("x", pad + hW / 2)
+          .attr("y", pad - 10)
+          .attr("text-anchor", "middle")
+          .attr("fill", "#7c9eff")
+          .attr("font-size", fs)
+          .attr("font-weight", "600")
+          .text(`H (${ph.toFixed(2)})`);
+        svg
+          .append("text")
+          .attr("x", pad + hW + nhW / 2)
+          .attr("y", pad - 10)
+          .attr("text-anchor", "middle")
+          .attr("fill", lc)
+          .attr("font-size", fs)
+          .text(`¬H (${(1 - ph).toFixed(2)})`);
+        svg
+          .append("text")
+          .attr("x", pad - 8)
+          .attr("y", pad + ehH / 2)
+          .attr("text-anchor", "end")
+          .attr("dominant-baseline", "middle")
+          .attr("fill", "#7c9eff")
+          .attr("font-size", fs)
+          .attr("font-weight", "600")
+          .text(`E|H`);
+        svg
+          .append("text")
+          .attr("x", pad - 8)
+          .attr("y", pad + ehH + (iH - ehH) / 2)
+          .attr("text-anchor", "end")
+          .attr("dominant-baseline", "middle")
+          .attr("fill", lc)
+          .attr("font-size", fs)
+          .text(`¬E|H`);
+        svg
+          .append("text")
+          .attr("x", pad + hW + nhW / 2)
+          .attr("y", pad + enhH + (iH - enhH) / 2 + 4)
+          .attr("text-anchor", "middle")
+          .attr("fill", lc)
+          .attr("font-size", fs)
+          .text(`¬E|¬H`);
+
+        const post = posterior();
+        const pe = pE();
+
+        svg
+          .append("text")
+          .attr("x", pad + hW / 2)
+          .attr("y", pad + ehH / 2)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .attr("fill", "white")
+          .attr("font-size", 12)
+          .attr("font-weight", "600")
+          .text((ph * peh).toFixed(3));
+
+        svg
+          .append("text")
+          .attr("x", pad + hW + nhW / 2)
+          .attr("y", pad + enhH / 2)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .attr("fill", "white")
+          .attr("font-size", 12)
+          .attr("font-weight", "600")
+          .text(((1 - ph) * penh).toFixed(3));
+
+        document.getElementById("formula-live-1").innerHTML =
+          `P(H|E) = <span class="live-val">${post.toFixed(4)}</span><br>` +
+          `= ${(ph * peh).toFixed(3)} / (${(ph * peh).toFixed(3)} + ${((1 - ph) * penh).toFixed(3)})<br>` +
+          `= ${(ph * peh).toFixed(3)} / ${pe.toFixed(3)}`;
+
+        document.getElementById("ins-posterior").textContent =
+          `Posterior P(H|E) = ${(post * 100).toFixed(1)}%`;
+        document.getElementById("ins-pe").textContent =
+          `P(E) = P(E|H)·P(H) + P(E|¬H)·P(¬H) = ${pe.toFixed(3)}`;
+        document.getElementById("ins-ratio").textContent =
+          `Likelihood ratio = P(E|H)/P(E|¬H) = ${(peh / penh).toFixed(2)}`;
+      }
+
+      function showTip(ev, text) {
+        const rect = document
+          .getElementById("bayes-square")
+          .getBoundingClientRect();
+        tooltip.innerHTML = text.replace(/\n/g, "<br>");
+        tooltip.classList.add("gd-tooltip--visible");
+        tooltip.style.left = ev.clientX - rect.left + 12 + "px";
+        tooltip.style.top = ev.clientY - rect.top - 30 + "px";
+      }
+      function hideTip() {
+        tooltip.classList.remove("gd-tooltip--visible");
+      }
+
+      function bindSliders() {
+        [
+          ["ph", (v) => (ph = v), "ph-val", (v) => v.toFixed(2)],
+          ["peh", (v) => (peh = v), "peh-val", (v) => v.toFixed(2)],
+          ["penh", (v) => (penh = v), "penh-val", (v) => v.toFixed(2)],
+        ].forEach(([id, set, valId, fmt]) => {
+          document.getElementById(id).addEventListener("input", function () {
+            set(+this.value);
+            document.getElementById(valId).textContent = fmt(+this.value);
+            draw();
+            updateTree();
+          });
+        });
+      }
+
+      draw();
+      bindSliders();
+      window._bayesParams = () => ({ ph, peh, penh });
+
+      // ── VIZ 3 — PROBABILITY TREE (uses Viz 1 sliders) ──
+      function updateTree() {
+        const { ph, peh, penh } = window._bayesParams();
+        const tW = 560,
+          tH = 300;
+        const svg = d3.select("#prob-tree");
+        svg.selectAll("*").remove();
+
+        const s = svg
+          .append("svg")
+          .attr("viewBox", `0 0 ${tW} ${tH}`)
+          .style("width", "100%")
+          .style("max-width", `${tW}px`)
+          .style("display", "block")
+          .style("margin", "0 auto");
+
+        const g = s.append("g").attr("transform", "translate(20,20)");
+
+        const root = { x: 60, y: 130 };
+        const nH = { x: 220, y: 60 };
+        const nnH = { x: 220, y: 200 };
+        const nHE = { x: 400, y: 30 };
+        const nHnE = { x: 400, y: 90 };
+        const nnHE = { x: 400, y: 170 };
+        const nnHnE = { x: 400, y: 230 };
+
+        [
+          [root, nH],
+          [root, nnH],
+          [nH, nHE],
+          [nH, nHnE],
+          [nnH, nnHE],
+          [nnH, nnHnE],
+        ].forEach(([a, b]) => {
+          g.append("path")
+            .attr("class", "tree-link")
+            .attr(
+              "d",
+              `M${a.x},${a.y} C${(a.x + b.x) / 2},${a.y} ${(a.x + b.x) / 2},${b.y} ${b.x},${b.y}`,
+            );
+        });
+
+        function node(pos, label, sublabel, color, isE) {
+          const ng = g
+            .append("g")
+            .attr("transform", `translate(${pos.x},${pos.y})`);
+          ng.append("circle")
+            .attr("r", 16)
+            .attr("fill", color)
+            .attr("stroke", isE ? "#7c9eff" : "#2e3a52")
+            .attr("stroke-width", isE ? 2 : 1);
+          ng.append("text")
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "white")
+            .attr("font-size", 9)
+            .attr("font-weight", "600")
+            .text(label);
+          g.append("text")
+            .attr("x", pos.x + (pos.x > 250 ? 24 : -24))
+            .attr("y", pos.y - 4)
+            .attr("text-anchor", pos.x > 250 ? "start" : "end")
+            .attr("fill", "#9aa5be")
+            .attr("font-size", 10)
+            .text(sublabel);
+        }
+
+        const blue = "#7c9eff",
+          amber = "#f5c46b",
+          muted = "#252d40";
+        node(root, "start", "", "#2e3a52", false);
+        node(nH, "H", `p=${ph.toFixed(2)}`, blue, false);
+        node(nnH, "¬H", `p=${(1 - ph).toFixed(2)}`, muted, false);
+        node(nHE, "E", `${(ph * peh).toFixed(3)}`, blue, true);
+        node(nHnE, "¬E", `${(ph * (1 - peh)).toFixed(3)}`, muted, false);
+        node(nnHE, "E", `${((1 - ph) * penh).toFixed(3)}`, amber, true);
+        node(
+          nnHnE,
+          "¬E",
+          `${((1 - ph) * (1 - penh)).toFixed(3)}`,
+          muted,
+          false,
+        );
+
+        function branchLabel(a, b, txt) {
+          g.append("text")
+            .attr("x", (a.x + b.x) / 2 - 6)
+            .attr("y", (a.y + b.y) / 2 - 6)
+            .attr("text-anchor", "end")
+            .attr("fill", "#606880")
+            .attr("font-size", 10)
+            .text(txt);
+        }
+        branchLabel(root, nH, `P(H)=${ph.toFixed(2)}`);
+        branchLabel(root, nnH, `P(¬H)=${(1 - ph).toFixed(2)}`);
+        branchLabel(nH, nHE, `P(E|H)=${peh.toFixed(2)}`);
+        branchLabel(nH, nHnE, `P(¬E|H)=${(1 - peh).toFixed(2)}`);
+        branchLabel(nnH, nnHE, `P(E|¬H)=${penh.toFixed(2)}`);
+        branchLabel(nnH, nnHnE, `P(¬E|¬H)=${(1 - penh).toFixed(2)}`);
+
+        const pe = peh * ph + penh * (1 - ph);
+        const post = (peh * ph) / pe;
+        g.append("text")
+          .attr("x", 530)
+          .attr("y", 100)
+          .attr("text-anchor", "end")
+          .attr("fill", "#7c9eff")
+          .attr("font-size", 11)
+          .attr("font-weight", "600")
+          .text(`P(E) = ${pe.toFixed(3)}`);
+        g.append("text")
+          .attr("x", 530)
+          .attr("y", 118)
+          .attr("text-anchor", "end")
+          .attr("fill", "#9aa5be")
+          .attr("font-size", 10)
+          .text(`P(H|E) = ${post.toFixed(3)}`);
+      }
+
+      window.updateTree = updateTree;
+      updateTree();
+    })();
+
+    // ══════════════════════════════════════════
+    // VIZ 2 — MEDICAL TEST
+    // ══════════════════════════════════════════
+    (function () {
+      const N = 10000;
+      let prevalence = 0.001,
+        sensitivity = 0.99,
+        specificity = 0.95;
+
+      const fmtPct = (v) =>
+        (v * 100).toFixed(v < 0.01 ? 1 : v < 0.1 ? 1 : 0) + "%";
+
+      function updateMedical() {
+        const disease = Math.round(N * prevalence);
+        const noDisease = N - disease;
+        const tp = Math.round(disease * sensitivity);
+        const fp = Math.round(noDisease * (1 - specificity));
+        const totalPos = tp + fp;
+        const post = totalPos > 0 ? tp / totalPos : 0;
+
+        document.getElementById("med-tp").textContent = tp.toLocaleString();
+        document.getElementById("med-fp").textContent = fp.toLocaleString();
+        document.getElementById("med-total-pos").textContent =
+          totalPos.toLocaleString();
+        document.getElementById("med-posterior").textContent = fmtPct(post);
+
+        const container = document.getElementById("medical-bars");
+        const cW = container.clientWidth || 500;
+        const cH = 120;
+        d3.select(container).select("svg").remove();
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("viewBox", `0 0 ${cW} ${cH}`)
+          .style("width", "100%")
+          .style("display", "block");
+
+        const barH = 44,
+          barY = 10;
+        const scale = d3
+          .scaleLinear()
+          .domain([0, N])
+          .range([0, cW - 60]);
+
+        svg
+          .append("rect")
+          .attr("x", 30)
+          .attr("y", barY)
+          .attr("width", scale(N))
+          .attr("height", barH)
+          .attr("fill", "#1e2535")
+          .attr("rx", 4);
+        svg
+          .append("rect")
+          .attr("x", 30)
+          .attr("y", barY)
+          .attr("width", scale(disease))
+          .attr("height", barH)
+          .attr("fill", "#e05c6b")
+          .attr("opacity", 0.4)
+          .attr("rx", 4);
+        svg
+          .append("rect")
+          .attr("x", 30)
+          .attr("y", barY)
+          .attr("width", scale(tp))
+          .attr("height", barH)
+          .attr("fill", "#6ee7a8")
+          .attr("opacity", 0.8)
+          .attr("rx", 4);
+        svg
+          .append("rect")
+          .attr("x", 30 + scale(disease))
+          .attr("y", barY)
+          .attr("width", scale(fp))
+          .attr("height", barH)
+          .attr("fill", "#f5c46b")
+          .attr("opacity", 0.7)
+          .attr("rx", 4);
+
+        [
+          [0, "#6ee7a8", "TP", tp],
+          [scale(disease), "#f5c46b", "FP", fp],
+        ].forEach(([x, c, lbl, v]) => {
+          if (scale(v) > 20) {
+            svg
+              .append("text")
+              .attr("x", 30 + x + scale(v) / 2)
+              .attr("y", barY + barH / 2 + 4)
+              .attr("text-anchor", "middle")
+              .attr("fill", "white")
+              .attr("font-size", 11)
+              .attr("font-weight", "600")
+              .text(lbl);
+          }
+        });
+
+        [
+          ["#6ee7a8", "True Positive"],
+          ["#f5c46b", "False Positive"],
+          ["#e05c6b", "Has disease (all)"],
+        ].forEach(([c, l], i) => {
+          const lx = 30 + i * 160;
+          svg
+            .append("rect")
+            .attr("x", lx)
+            .attr("y", barY + barH + 12)
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("fill", c)
+            .attr("rx", 2);
+          svg
+            .append("text")
+            .attr("x", lx + 14)
+            .attr("y", barY + barH + 20)
+            .attr("fill", "#9aa5be")
+            .attr("font-size", 10)
+            .text(l);
+        });
+
+        const iEl = document.getElementById("med-insight");
+        if (post < 0.1) {
+          iEl.textContent = `⚠ Even with ${fmtPct(sensitivity)} sensitivity, only ${fmtPct(post)} of positive tests are real — because the disease affects only ${fmtPct(prevalence)} of the population. Base rate dominates!`;
+          iEl.className = "gd-insight gd-insight--warn";
+        } else {
+          iEl.textContent = `With prevalence ${fmtPct(prevalence)}, P(Disease|Test+) = ${fmtPct(post)}. As prevalence rises, the posterior improves significantly.`;
+          iEl.className = "gd-insight gd-insight--insight";
+        }
+      }
+
+      [
+        [
+          "prevalence",
+          (v) => {
+            prevalence = v;
+            document.getElementById("prev-val").textContent =
+              (v * 100).toFixed(v < 0.01 ? 2 : 1) + "%";
+          },
+        ],
+        [
+          "sensitivity",
+          (v) => {
+            sensitivity = v;
+            document.getElementById("sens-val").textContent = v.toFixed(2);
+          },
+        ],
+        [
+          "specificity",
+          (v) => {
+            specificity = v;
+            document.getElementById("spec-val").textContent = v.toFixed(2);
+          },
+        ],
+      ].forEach(([id, set]) => {
+        document.getElementById(id).addEventListener("input", function () {
+          set(+this.value);
+          updateMedical();
+        });
+      });
+
+      updateMedical();
+    })();
+  </script>
+</VizLayout>

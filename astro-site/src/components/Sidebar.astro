@@ -1,0 +1,56 @@
+---
+import { SITE_MAP } from '../config/siteMap';
+const { currentPath = '' } = Astro.props as { currentPath: string };
+
+const normalised = currentPath.replace(/\.html$/, '').replace(/\/$/, '');
+---
+
+<div class="gd-sidebar__logo">
+  <a href="/index.html">
+    <div class="gd-sidebar__logo-mark">DA</div>
+    <div>
+      <div class="gd-sidebar__logo-text">GATE DA Notes</div>
+      <div class="gd-sidebar__subtitle">Interactive Study Notes</div>
+    </div>
+  </a>
+</div>
+<nav class="gd-sidebar__nav">
+  {SITE_MAP.filter(g => g.notes.length > 0).map(group => (
+    <div class="gd-nav-group" data-group={group.id}>
+      <div class="gd-nav-group__title">
+        {group.href
+          ? <a href={group.href + '.html'} class="gd-nav-group__label">{group.label}</a>
+          : <span class="gd-nav-group__label">{group.label}</span>
+        }
+      </div>
+      <ul class="gd-nav-group__list">
+        {group.notes.map(note => {
+          const mainHref  = note.href ?? note.viz;
+          const hasNotes  = !!note.href;
+          const vizActive = note.viz ? normalised === note.viz : false;
+          const isActive  = normalised === (note.href ?? note.viz) || vizActive;
+          return (
+            <li>
+              <a class:list={['gd-nav-link', isActive && 'gd-nav-link--active']}
+                 href={mainHref ? mainHref + '.html' : '#'}>{note.label}</a>
+              {hasNotes && note.viz && (
+                <a class:list={['gd-nav-viz-link', vizActive && 'gd-nav-viz-link--active']}
+                   href={note.viz + '.html'}>✦ Visualization</a>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  ))}
+</nav>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.querySelector('.gd-hamburger');
+    var sidebar = document.querySelector('.gd-sidebar');
+    if (btn && sidebar) {
+      btn.addEventListener('click', function() { sidebar.classList.toggle('gd-sidebar--open'); });
+    }
+  });
+</script>

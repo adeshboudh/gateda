@@ -1,0 +1,531 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.4 Question Bank · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-4-bank" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  <a href="/module1/1-4-questions.html">1.4 Questions</a><span>›</span>
+  Bank
+</div>
+<a class="gd-pill-link" href="/module1/1-4-questions.html">← Practice Set (10 Qs)</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">20 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.4 Question Bank — Discrete Distributions</h1>
+  <p>Extended practice: 20 questions on Bernoulli, Binomial, Geometric, Poisson, and Negative Binomial — covering PMF computation, memoryless property, distribution identification, and parameter relationships.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 20</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Binomial&#125;(5,\,0.4)$. Then $P(X=2)=$</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.230</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.346</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.500</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.160</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 0.346.</span></b>
+        $P(X=2)=\binom&#123;5&#125;&#123;2&#125;(0.4)^2(0.6)^3=10\times0.16\times0.216=0.3456\approx0.346$.
+        Trap: (D) 0.160 = $(0.4)^2\times(0.6)^1/\text&#123;something&#125;$ — forgetting the $\binom&#123;n&#125;&#123;k&#125;$ coefficient.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Binomial&#125;(15,\,0.4)$. Then $E[X]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="0.1" placeholder="0.0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,5.9,6.1)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 6.</span></b>
+        $E[X]=np=15\times0.4=6$. Variance would be $np(1-p)=15(0.4)(0.6)=3.6$ — distinguish the two.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Geometric&#125;(p)$, $k=1,2,\ldots$ (number of trials until first success). Then $P(X\gt8\mid X\gt5)=$</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $(1-p)^8$</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $(1-p)^3$</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $(1-p)^5$</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $(1-p)^&#123;13&#125;$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','B')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (B) $(1-p)^3$.</span></b>
+        Memoryless: $P(X\gt m+n\mid X\gt m)=P(X\gt n)=(1-p)^n$. Here $m=5$, $n=3$: $P(X\gt8\mid X\gt5)=P(X\gt3)=(1-p)^3$.
+        Intuition: given we've already failed 5 times, the process "resets" — as if starting fresh.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Geometric&#125;(p=0.25)$, $k=1,2,\ldots$ Then $E[X]=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="0.5" placeholder="0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 4.</span></b>
+        $E[X]=1/p=1/0.25=4$. $\mathrm&#123;Var&#125;(X)=(1-p)/p^2=(0.75)/(0.0625)=12$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Poisson&#125;(1)$. Then $P(X\ge2)=$ (use $e^&#123;-1&#125;\approx0.368$)</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.264</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.368</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.632</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.500</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','A')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (A) 0.264.</span></b>
+        Complement: $P(X\ge2)=1-P(X=0)-P(X=1)=1-e^&#123;-1&#125;-e^&#123;-1&#125;\cdot1=1-2e^&#123;-1&#125;\approx1-0.736=0.264$.
+        Trap: (B) 0.368 = $P(X=0)$; (C) 0.632 = $P(X\ge1)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">The number of customers arriving at a bank per hour best follows a</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Bernoulli distribution</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Geometric distribution</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Binomial distribution</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Poisson distribution</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6,'mcq','D')">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ (D) Poisson.</span></b>
+        Count of rare independent events in a fixed time interval → Poisson. Key identifiers: rate $\lambda$ per unit time, events are rare and independent.
+        Binomial needs a fixed $n$ (number of trials); Geometric counts trials until first success.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Binomial&#125;(10,\,0.1)$. Then $P(X=0)=$ ___ (three decimals). Use $0.9^&#123;10&#125;\approx0.349$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q7-input" step="0.001" placeholder="0.000">
+      <span class="q-nat__label">three decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7,0.344,0.354)">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ 0.349.</span></b>
+        $P(X=0)=\binom&#123;10&#125;&#123;0&#125;(0.1)^0(0.9)^&#123;10&#125;=1\cdot1\cdot0.349=0.349$.
+        All 10 items must be non-defective, each with probability 0.9. Compare: Poisson approx with $\lambda=np=1$ gives $e^&#123;-1&#125;\approx0.368$ — close but not exact.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Poisson&#125;(4)$. Then $E[X^2]=$</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 16</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 4</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 20</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 8</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8,'mcq','C')">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (C) 20.</span></b>
+        Poisson($\lambda$): $E[X]=\mathrm&#123;Var&#125;(X)=\lambda$. So $E[X^2]=\mathrm&#123;Var&#125;(X)+(E[X])^2=4+16=20$.
+        Trap: (A) 16 = $(E[X])^2$ — confuses $E[X^2]$ with $(E[X])^2$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Geometric&#125;(p)$, $k=1,2,\ldots$ Which statements are TRUE? (Select all.)</div>
+    <div class="q-options" id="q9-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="A"> <span class="q-opt-key">A</span> $P(X=k)=(1-p)^&#123;k-1&#125;\cdot p$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="B"> <span class="q-opt-key">B</span> $E[X]=1/p$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="C"> <span class="q-opt-key">C</span> $P(X\ge k)=(1-p)^k$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="D"> <span class="q-opt-key">D</span> $X$ has the memoryless property</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(9,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (C) <span class="ans-wrong">False</span>: $P(X\ge k)=(1-p)^&#123;k-1&#125;$ not $(1-p)^k$ — need $k-1$ failures before trial $k$, not $k$ failures.
+        Quick check: $P(X\ge1)=1=(1-p)^0=1$ ✓ using the correct formula; $(1-p)^1=1-p\ne1$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A fair coin ($p=0.5$) is tossed until exactly <strong>2 Heads</strong> appear. The expected number of tosses is ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="0.5" placeholder="0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,3.9,4.1)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 4.</span></b>
+        Negative Binomial($r=2,p=0.5$): $E[X]=r/p=2/0.5=4$.
+        Equivalently: first Head takes $1/p=2$ tosses on average; independently, second Head takes another $1/p=2$ tosses → total 4 by linearity.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Poisson&#125;(4)$. Then $P(X=1)=$ (use $e^&#123;-4&#125;\approx0.0183$)</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.018</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.073</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.147</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.036</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','B')">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (B) 0.073.</span></b>
+        $P(X=1)=e^&#123;-4&#125;\cdot4^1/1!=4\times0.0183=0.0732\approx0.073$.
+        Trap: (A) 0.018 = $e^&#123;-4&#125;=P(X=0)$ — forgetting to multiply by $\lambda$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-card" id="qc12">
+    <div class="q-header">
+      <span class="q-num">Q12</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Binomial&#125;(10,\,0.5)$. The mode (most probable value) of $X$ is</div>
+    <div class="q-options" id="q12-opts">
+      <div class="q-opt" data-q="12" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 3</div>
+      <div class="q-opt" data-q="12" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 5</div>
+      <div class="q-opt" data-q="12" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 7</div>
+      <div class="q-opt" data-q="12" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(12,'mcq','B')">Check</button>
+      <div class="q-answer" id="q12-ans">
+        <b><span class="ans-correct">✓ (B) 5.</span></b>
+        Mode of Binomial: $\lfloor(n+1)p\rfloor$ when $(n+1)p$ is non-integer. $(n+1)p=11\times0.5=5.5$, so mode $=\lfloor5.5\rfloor=5$.
+        For symmetric $p=0.5$, mean = mode = $np=5$. When $(n+1)p$ is an integer, both $k=(n+1)p$ and $k-1$ are modes.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-card" id="qc13">
+    <div class="q-header">
+      <span class="q-num">Q13</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Geometric&#125;(p=0.5)$, $k=1,2,\ldots$ Then $\mathrm&#123;Var&#125;(X)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q13-input" step="0.5" placeholder="0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(13,1.9,2.1)">Check</button>
+      <div class="q-answer" id="q13-ans">
+        <b><span class="ans-correct">✓ 2.</span></b>
+        $\mathrm&#123;Var&#125;(X)=(1-p)/p^2=(0.5)/(0.25)=2$.
+        Summary for $p=0.5$: $E[X]=2$, $\mathrm&#123;Var&#125;(X)=2$, $P(X=k)=(0.5)^k$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q14 -->
+  <div class="q-card" id="qc14">
+    <div class="q-header">
+      <span class="q-num">Q14</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Bernoulli&#125;(p)$. Then $E[X^2]=$</div>
+    <div class="q-options" id="q14-opts">
+      <div class="q-opt" data-q="14" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $p^2$</div>
+      <div class="q-opt" data-q="14" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $p$</div>
+      <div class="q-opt" data-q="14" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $p(1-p)$</div>
+      <div class="q-opt" data-q="14" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $1-p$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(14,'mcq','B')">Check</button>
+      <div class="q-answer" id="q14-ans">
+        <b><span class="ans-correct">✓ (B) $p$.</span></b>
+        Since $X\in&#123;0,1&#125;$, $X^2=X$ always. So $E[X^2]=E[X]=p$. Verify: $\mathrm&#123;Var&#125;(X)=E[X^2]-(E[X])^2=p-p^2=p(1-p)$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q15 -->
+  <div class="q-card" id="qc15">
+    <div class="q-header">
+      <span class="q-num">Q15</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Poisson&#125;(3)$. Then $P(X=2)=$ ___ (two decimals). Use $e^&#123;-3&#125;\approx0.0498$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q15-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(15,0.22,0.24)">Check</button>
+      <div class="q-answer" id="q15-ans">
+        <b><span class="ans-correct">✓ 0.22.</span></b>
+        $P(X=2)=e^&#123;-3&#125;\cdot3^2/2!=e^&#123;-3&#125;\cdot9/2=0.0498\times4.5\approx0.224$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q16 -->
+  <div class="q-card" id="qc16">
+    <div class="q-header">
+      <span class="q-num">Q16</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">A fair coin is flipped until the first Head. $X$ = number of flips. The correct distribution is</div>
+    <div class="q-options" id="q16-opts">
+      <div class="q-opt" data-q="16" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> Binomial</div>
+      <div class="q-opt" data-q="16" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> Poisson</div>
+      <div class="q-opt" data-q="16" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> Geometric</div>
+      <div class="q-opt" data-q="16" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> Bernoulli</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(16,'mcq','C')">Check</button>
+      <div class="q-answer" id="q16-ans">
+        <b><span class="ans-correct">✓ (C) Geometric.</span></b>
+        Trials until first success → Geometric. Key: $n$ is random (not fixed). Binomial requires fixed $n$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q17 -->
+  <div class="q-card" id="qc17">
+    <div class="q-header">
+      <span class="q-num">Q17</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X_1,X_2,\ldots,X_&#123;50&#125;$ are i.i.d. Bernoulli(0.4). Let $S=\sum_&#123;i=1&#125;^&#123;50&#125;X_i$. Then $\mathrm&#123;Var&#125;(S)=$ ___.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q17-input" step="0.5" placeholder="0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(17,11.9,12.1)">Check</button>
+      <div class="q-answer" id="q17-ans">
+        <b><span class="ans-correct">✓ 12.</span></b>
+        $S\sim\text&#123;Binomial&#125;(50,0.4)$. $\mathrm&#123;Var&#125;(S)=np(1-p)=50(0.4)(0.6)=12$.
+        Also derivable by independence: $\mathrm&#123;Var&#125;(S)=\sum\mathrm&#123;Var&#125;(X_i)=50\times p(1-p)=12$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q18 -->
+  <div class="q-card" id="qc18">
+    <div class="q-header">
+      <span class="q-num">Q18</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Poisson is a good approximation to Binomial when</div>
+    <div class="q-options" id="q18-opts">
+      <div class="q-opt" data-q="18" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $n$ is small, $p$ is large</div>
+      <div class="q-opt" data-q="18" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $n$ is large, $p$ is small</div>
+      <div class="q-opt" data-q="18" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $n=p$</div>
+      <div class="q-opt" data-q="18" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $n$ is large, $p=0.5$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(18,'mcq','B')">Check</button>
+      <div class="q-answer" id="q18-ans">
+        <b><span class="ans-correct">✓ (B) large $n$, small $p$.</span></b>
+        Rule of thumb: $n\ge20$, $p\le0.05$, $\lambda=np\le10$. Use $\lambda=np$ as the Poisson parameter.
+        Intuition: rare events at roughly constant rate → Poisson. (D) large $n$, $p=0.5$ → use Normal via CLT instead.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q19 -->
+  <div class="q-card" id="qc19">
+    <div class="q-header">
+      <span class="q-num">Q19</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements are TRUE? (Select all.)</div>
+    <div class="q-options" id="q19-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="A"> <span class="q-opt-key">A</span> $X\sim\text&#123;Bernoulli&#125;(p)$: $\mathrm&#123;Var&#125;(X)=p(1-p)$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="B"> <span class="q-opt-key">B</span> $X\sim\text&#123;Binomial&#125;(n,p)$: $E[X]=np$, $\mathrm&#123;Var&#125;(X)=np(1-p)$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="C"> <span class="q-opt-key">C</span> $X\sim\text&#123;Geometric&#125;(p)$: $E[X]=p$</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="19" data-val="D"> <span class="q-opt-key">D</span> $X\sim\text&#123;Poisson&#125;(\lambda)$: $\mathrm&#123;Var&#125;(X)=\lambda$</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(19,['A','B','D'])">Check</button>
+      <div class="q-answer" id="q19-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (C) <span class="ans-wrong">False</span>: $E[X]=1/p$, not $p$. Classic trap — $p$ is success probability (small), so waiting longer when $p$ is small makes E[X] large, not small.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q20 -->
+  <div class="q-card" id="qc20">
+    <div class="q-header">
+      <span class="q-num">Q20</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X\sim\text&#123;Binomial&#125;\!\left(6,\,\tfrac&#123;1&#125;&#123;3&#125;\right)$. Then $P(X=2)=$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q20-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(20,0.32,0.34)">Check</button>
+      <div class="q-answer" id="q20-ans">
+        <b><span class="ans-correct">✓ 0.33.</span></b>
+        $P(X=2)=\binom&#123;6&#125;&#123;2&#125;\!\left(\tfrac&#123;1&#125;&#123;3&#125;\right)^2\!\left(\tfrac&#123;2&#125;&#123;3&#125;\right)^4=15\cdot\tfrac&#123;1&#125;&#123;9&#125;\cdot\tfrac&#123;16&#125;&#123;81&#125;=\tfrac&#123;240&#125;&#123;729&#125;\approx0.329$.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>17–20 correct:</strong> Discrete distributions solid — advance to <a href="/module1/1-5-questions.html">1.5 Continuous Distributions</a>.</p>
+  <p><strong>12–16:</strong> Drill Q3 (memoryless), Q9 (survival formula off-by-one), Q19 (Geometric E[X]=1/p). These are the high-frequency traps.</p>
+  <p><strong>≤11:</strong> Memorise the reference table — E and Var for each distribution — then redo Q4, Q8, Q13. Formula application is mandatory before moving on.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-4-questions.html" style="margin-top:8px;">← Back to Practice Set</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

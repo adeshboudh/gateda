@@ -1,0 +1,539 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.3 Random Variables &amp; Expectation — Visualized · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-3-expectation" pageCss="/assets/css/pages/viz-1-3-expectation.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.3 Expectation &amp; Variance
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2024 Q36 · 2025 Q39 · 2025 Q54</span>
+  </div>
+  <h1 id="top">Random Variables, Expectation &amp; Variance</h1>
+  <p>The engine room of probability. Every named distribution in Modules 1.4–1.8 is a specific PMF or PDF plugged into this machinery: normalize → compute E[X] → compute Var(X) → apply linear transform rules.</p>
+</div>
+
+<!-- ═══ THEORY 1: RANDOM VARIABLES ═══ -->
+<h2 id="rvs">Random Variables</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  A random variable $X$ maps each outcome of an experiment to a real number. It is <strong>discrete</strong> if it takes countably many values (PMF), or <strong>continuous</strong> if it takes values on an interval (PDF).
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Discrete — PMF</div>
+    <div class="gd-formula">$$p(x) = P(X = x)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Valid: $p(x) \ge 0$ and $\sum p(x) = 1$</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Continuous — PDF</div>
+    <div class="gd-formula">$$f(x) \ge 0, \quad \int_&#123;-\infty&#125;^\infty f(x)\,dx = 1$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$f(x)$ is a density — it can exceed 1. Only areas are probabilities.</p>
+  </div>
+</div>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">CDF (both discrete and continuous)</div>
+  <div class="gd-formula">$$F(x) = P(X \le x), \qquad P(a < X \le b) = F(b) - F(a)$$</div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">CDF properties (tested verbatim — 2026 Q54)</span>
+    Non-decreasing · $F(-\infty)=0$, $F(+\infty)=1$ · right-continuous · for discrete: jumps of size $p(x)$ at each mass point. Median $m$ solves $F(m)=0.5$.
+  </div>
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">GATE Trap — continuous $P(X = x) = 0$</span>
+    For a continuous RV, the probability of any single point is exactly 0. Never read a PDF value as a probability. CDF is right-continuous, not left-continuous — exam questions test this directly.
+  </div>
+</div>
+
+<!-- ═══ THEORY 2: EXPECTATION ═══ -->
+<h2 id="expectation">Expectation</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  $E[X]$ is the long-run average — the centre of mass of the distribution.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Discrete E[X]</div>
+    <div class="gd-formula">$$E[X] = \sum_x x \cdot p(x)$$</div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Continuous E[X]</div>
+    <div class="gd-formula">$$E[X] = \int_&#123;-\infty&#125;^\infty x \cdot f(x)\,dx$$</div>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">LOTUS — E[g(X)]</div>
+    <div class="gd-formula">$$E[g(X)] = \sum_x g(x)\,p(x)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Weight $g(x)$ by the original distribution. No need to find the distribution of $g(X)$ first.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Linearity (always true)</div>
+    <div class="gd-formula">$$E[aX + b] = aE[X] + b$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$E[X+Y] = E[X]+E[Y]$ even when $X$, $Y$ are dependent.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">Jensen — $E[g(X)] \ne g(E[X])$ in general</span>
+    Key case: $E[X^2] \ne (E[X])^2$. Always use LOTUS to get $E[X^2]$, then $\text&#123;Var&#125;(X) = E[X^2] - (E[X])^2$. Equating them is the #1 variance trap.
+  </div>
+</div>
+
+<!-- ═══ VIZ 1: DRAGGABLE PMF ═══ -->
+<h2 id="viz1">Interactive — E[X] as Centre of Mass</h2>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Definitions</div>
+    <div class="gd-formula">$$E[X] = \sum_i x_i p_i, \qquad \text&#123;Var&#125;(X) = E[X^2] - \mu^2$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current values</div>
+    <div class="gd-formula-live" id="exp-live">—</div>
+  </div>
+</div>
+
+<div class="draggable-hint">Drag any bar up or down to change its probability. Probabilities auto-normalise to sum to 1.</div>
+<div class="gd-chart" style="position:relative;">
+  <div class="gd-chart__title">▲ = E[X] balance point · span bars = ±σ from mean</div>
+  <div id="pmf-chart"></div>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-card__label">E[X] = μ</div>
+    <div class="stat-card__val" id="ex-val">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__label">Var(X) = σ²</div>
+    <div class="stat-card__val" id="var-val">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__label">Std dev σ</div>
+    <div class="stat-card__val" id="sd-val">—</div>
+  </div>
+</div>
+
+<!-- ═══ THEORY 3: VARIANCE ═══ -->
+<h2 id="variance">Variance</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Variance measures expected squared deviation from the mean. Standard deviation $\sigma = \sqrt&#123;\text&#123;Var&#125;(X)&#125;$ puts spread in the same units as $X$.
+</p>
+
+<div class="gd-formula-panel">
+  <div class="gd-formula-label">Variance — two equivalent forms</div>
+  <div class="gd-formula">$$\text&#123;Var&#125;(X) = E[(X - \mu)^2] = E[X^2] - (E[X])^2$$</div>
+</div>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Scaling + shift rule</div>
+    <div class="gd-formula">$$\text&#123;Var&#125;(aX + b) = a^2 \cdot \text&#123;Var&#125;(X)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Shift $b$ does not affect spread. Scale $a$ is squared — sign of $a$ irrelevant.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Sum of independent RVs</div>
+    <div class="gd-formula">$$\text&#123;Var&#125;(X + Y) = \text&#123;Var&#125;(X) + \text&#123;Var&#125;(Y)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Only when $X, Y$ independent. Otherwise add $2\,\text&#123;Cov&#125;(X,Y)$ — covered in Module 1.6.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">$\text&#123;Var&#125;(X) \ge 0$ always — use as sanity check</span>
+    Since $\text&#123;Var&#125;(X) = E[X^2] - (E[X])^2 \ge 0$, we always have $E[X^2] \ge (E[X])^2$. If your computed variance is negative, recheck $E[X^2]$.
+  </div>
+</div>
+
+<!-- ═══ VIZ 2: LINEAR TRANSFORM ═══ -->
+<h2 id="viz2">Interactive — Linear Transform E[aX + b]</h2>
+<p style="color:var(--gd-text-1);margin-bottom:16px;font-size:0.92rem;">
+  Shift (b) moves the whole distribution left/right without changing its spread. Scale (a) stretches or compresses it — variance scales by a², not by a.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Linear transform rules</div>
+    <div class="gd-formula">$$E[aX+b] = a\,E[X]+b \qquad \text&#123;Var&#125;(aX+b) = a^2\,\text&#123;Var&#125;(X)$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">With current a, b</div>
+    <div class="gd-formula-live" id="transform-live">—</div>
+  </div>
+</div>
+
+<div class="gd-chart">
+  <div class="gd-chart__title">Original distribution (blue) vs transformed aX+b (orange)</div>
+  <div id="transform-chart"></div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Transform parameters</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">a</span> Scale factor</label>
+    <span class="gd-control__value" id="a-val">2.0</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="a-slider" min="-3" max="3" step="0.1" value="2"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">b</span> Shift</label>
+    <span class="gd-control__value" id="b-val">3.0</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="b-slider" min="-10" max="10" step="0.5" value="3"></div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live transform</div>
+  <div class="gd-insight gd-insight--active" id="ins-transform">—</div>
+  <div class="gd-insight gd-insight--warn" id="ins-var-warn">—</div>
+</div>
+
+<!-- ═══ THEORY 4: CONDITIONAL EXPECTATION ═══ -->
+<h2 id="cond-exp">Conditional Expectation</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Conditioning restricts attention to a sub-population. The <em>law of total expectation</em> (tower property) lets you recover the unconditional mean by averaging over the conditioning variable.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Tower Property</div>
+    <div class="gd-formula">$$E\big[\,E[X \mid Y]\,\big] = E[X]$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$E[X \mid Y=y]$ is a number; $E[X \mid Y]$ is a random variable (function of $Y$).</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Continuous — conditional density</div>
+    <div class="gd-formula">$$f(y \mid x) = \frac&#123;f(x,y)&#125;&#123;f_X(x)&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Then $E[Y \mid X=x] = \int y\cdot f(y \mid x)\,dy$.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">First-step analysis — template for "expected trials until event"</span>
+    Define states, let $E_i$ = expected steps from state $i$. Condition on the first step to write a linear equation for each $E_i$, then solve the system. Full worked case: Example 4 (GATE 2024 Q36).
+  </div>
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">$E[X \mid Y=y]$ (number) vs $E[X \mid Y]$ (random variable)</span>
+    Plugging in a specific $y$ gives a fixed number. Leaving $Y$ free gives a function of $Y$ — itself a random variable. GATE 2025 Q11 tests this distinction as a standalone MCQ.
+  </div>
+</div>
+
+<!-- ═══ WORKED EXAMPLES ═══ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · Discrete PMF — normalize, mean, variance</span>
+    <p>$X$ has PMF $p(x) = kx$ for $x = 1, 2, 3, 4$ (and 0 otherwise). Find $k$, $E[X]$, and $\text&#123;Var&#125;(X)$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Normalize:</strong> $\sum p(x) = k(1+2+3+4) = 10k = 1 \Rightarrow k = 1/10$.</p>
+    <p><strong>$E[X]$:</strong> $\sum x \cdot (x/10) = (1^2+2^2+3^2+4^2)/10 = 30/10 = 3$.</p>
+    <p><strong>$E[X^2]$ via LOTUS:</strong> $\sum x^2 \cdot (x/10) = (1^3+2^3+3^3+4^3)/10 = 100/10 = 10$.</p>
+    <p><strong>Variance:</strong> $\text&#123;Var&#125;(X) = E[X^2] - (E[X])^2 = 10 - 9 = 1$.</p>
+    <div class="gd-example__ans">k = 1/10 · E[X] = 3 · Var(X) = 1</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · Continuous PDF — normalize, probability, mean, variance</span>
+    <p>$X$ has PDF $f(x) = kx$ for $0 \le x \le 2$ (and 0 otherwise). Find $k$, $P(X \le 1)$, $E[X]$, $\text&#123;Var&#125;(X)$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Normalize:</strong> $\int_0^2 kx\,dx = k[x^2/2]_0^2 = 2k = 1 \Rightarrow k = 1/2$.</p>
+    <p><strong>$P(X \le 1)$:</strong> $\int_0^1 (x/2)\,dx = [x^2/4]_0^1 = 1/4$.</p>
+    <p><strong>$E[X]$:</strong> $\int_0^2 x \cdot (x/2)\,dx = (1/2)(8/3) = 4/3 \approx 1.333$.</p>
+    <p><strong>$E[X^2]$ via LOTUS:</strong> $\int_0^2 x^2 \cdot (x/2)\,dx = (1/2)(16/4) = 2$.</p>
+    <p><strong>Variance:</strong> $\text&#123;Var&#125;(X) = 2 - (4/3)^2 = 2 - 16/9 = 2/9 \approx 0.222$.</p>
+    <div class="gd-example__ans">k = 1/2 · P(X ≤ 1) = 1/4 · E[X] = 4/3 · Var(X) = 2/9</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · GATE 2025 Q39 — reading a probability off a CDF</span>
+    <p>$F_X(x) = 0$ for $x \le -1$;&nbsp; $= \frac&#123;1&#125;&#123;4&#125;(x+1)^2$ for $-1 \le x \le 1$;&nbsp; $= 1$ for $x \ge 1$. Find $P(X^2 \le 0.25)$.<br>
+    (A) 0.625 &nbsp;&nbsp; (B) 0.25 &nbsp;&nbsp; (C) 0.5 &nbsp;&nbsp; (D) 0.5625</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Event transform first:</strong> $X^2 \le 0.25 \iff \lvert X \rvert \le 0.5 \iff -0.5 \le X \le 0.5$.</p>
+    <p><strong>CDF difference:</strong> $P = F(0.5) - F(-0.5)$.</p>
+    <p>$F(0.5) = \frac&#123;1&#125;&#123;4&#125;(1.5)^2 = 0.5625$,&nbsp; $F(-0.5) = \frac&#123;1&#125;&#123;4&#125;(0.5)^2 = 0.0625$.</p>
+    <p>$P = 0.5625 - 0.0625 = 0.5$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);margin-top:6px;">Trap: option (D) 0.5625 = forgetting to subtract $F(-0.5)$. Always use $F(b)-F(a)$ for an interval.</p>
+    <div class="gd-example__ans">Answer: (C) 0.5</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · GATE 2024 Q36 — expected waiting time via first-step analysis</span>
+    <p>A fair die is thrown repeatedly. What is the expected number of throws until <strong>two consecutive even numbers</strong> appear?<br>
+    (A) 2 &nbsp;&nbsp; (B) 4 &nbsp;&nbsp; (C) 6 &nbsp;&nbsp; (D) 8</p>
+  </div>
+  <div class="gd-example__body">
+    <p>$P(\text&#123;even&#125;) = 1/2$. Define states: $S_0$ = no progress, $S_1$ = last throw was even. Let $E_0, E_1$ = expected remaining throws from each state.</p>
+    <p><strong>From $S_0$:</strong> throw costs 1. Even (prob 1/2) → go to $S_1$; odd → stay at $S_0$.
+    $$E_0 = 1 + \tfrac&#123;1&#125;&#123;2&#125;E_1 + \tfrac&#123;1&#125;&#123;2&#125;E_0 \;\Rightarrow\; E_0 = 2 + E_1$$</p>
+    <p><strong>From $S_1$:</strong> second even (prob 1/2) → done (0 more); odd → reset to $S_0$.
+    $$E_1 = 1 + \tfrac&#123;1&#125;&#123;2&#125; \cdot 0 + \tfrac&#123;1&#125;&#123;2&#125;E_0$$</p>
+    <p><strong>Solve:</strong> substitute $E_0 = 2 + E_1$: $E_1 = 1 + \tfrac&#123;1&#125;&#123;2&#125;(2 + E_1) = 2 + \tfrac&#123;1&#125;&#123;2&#125;E_1 \Rightarrow E_1 = 4$, so $E_0 = 6$.</p>
+    <div class="gd-example__ans">Answer: (C) 6</div>
+  </div>
+</div>
+
+<!-- ═══ GATE ANGLE ═══ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>$E[X^2] \ne (E[X])^2$:</strong> always compute $E[X^2]$ via LOTUS, then $\text&#123;Var&#125;(X) = E[X^2] - (E[X])^2$. This subtraction step is the most-missed calculation in the entire module.</p>
+  <p><strong>$\text&#123;Var&#125;(aX+b) = a^2\text&#123;Var&#125;(X)$:</strong> shift $b$ disappears; scale $a$ is squared, sign irrelevant. Answer is immediate — no recomputation needed. Tested almost every year.</p>
+  <p><strong>Event transforms:</strong> for $P(X^2 \le c)$, rewrite as $\lvert X \rvert \le \sqrt&#123;c&#125;$, then $F(\sqrt&#123;c&#125;) - F(-\sqrt&#123;c&#125;)$. Forgetting the lower bound is the exact trap in GATE 2025 Q39.</p>
+  <p><strong>First-step analysis:</strong> define states, write $E_i$ by conditioning on the first step, solve the linear system. Template: Example 4 (GATE 2024 Q36). Pattern repeats across papers.</p>
+  <p><strong>Tower property:</strong> $E\big[E[X \mid Y]\big] = E[X]$. Know the distinction: $E[X \mid Y=y]$ is a number; $E[X \mid Y]$ is a random variable. GATE 2025 Q11 is a standalone MCQ on exactly this point.</p>
+</div>
+
+<!-- ═══ PREV / NEXT ═══ -->
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/viz-1-2-bayes.html">
+    <span class="gd-page-nav__dir">← Previous</span>
+    <span class="gd-page-nav__title">1.2 Bayes' Theorem</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/viz-1-4-distributions.html">
+    <span class="gd-page-nav__dir">Next →</span>
+    <span class="gd-page-nav__title">1.4 Distributions</span>
+  </a>
+</div>
+
+<script is:inline slot="scripts">
+// Shared distribution state
+const OUTCOMES = [1,2,3,4,5,6];
+let rawWeights = [3,5,4,6,5,3];  // unnormalised
+
+function getProbs() {
+  const s = d3.sum(rawWeights);
+  return rawWeights.map(w => w / s);
+}
+function getStats() {
+  const ps = getProbs();
+  const mu  = d3.sum(OUTCOMES, (x,i) => x * ps[i]);
+  const ex2 = d3.sum(OUTCOMES, (x,i) => x*x * ps[i]);
+  const vr  = ex2 - mu*mu;
+  return { mu, vr, sd: Math.sqrt(vr), ps };
+}
+
+// ── VIZ 2 params declared first (used inside VIZ 1's draw → drawTransform call)
+let aParam = 2, bParam = 3;
+
+// ── VIZ 1: DRAGGABLE PMF ─────────────────
+(function() {
+  let g, xScale, yScale, W, H;
+
+  function initChart() {
+    const container = document.getElementById('pmf-chart');
+    const cW = container.clientWidth || 560;
+    const cH = Math.round(cW * 0.52);
+    const M = { top: 20, right: 20, bottom: 50, left: 50 };
+    W = cW - M.left - M.right;
+    H = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+    g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    xScale = d3.scaleBand().domain(OUTCOMES).range([0, W]).padding(0.25);
+    yScale = d3.scaleLinear().range([H, 0]);
+
+    // Static structure — created once
+    g.append('g').attr('class', 'pmf-grid');
+    g.append('g').attr('class', 'pmf-bars');
+    g.append('g').attr('class', 'pmf-labels');
+    g.append('line').attr('class', 'pmf-mean-line');
+    g.append('polygon').attr('class', 'pmf-mean-tri');
+    g.append('text').attr('class', 'pmf-mean-lbl');
+    g.append('line').attr('class', 'pmf-sd-span');
+    g.append('g').attr('class', 'axis pmf-x-axis').attr('transform', `translate(0,${H})`);
+    g.append('g').attr('class', 'axis pmf-y-axis');
+
+    update();
+  }
+
+  function update() {
+    const ps = getProbs();
+    const st = getStats();
+    yScale.domain([0, Math.max(...ps) * 1.3]);
+
+    // Grid
+    g.select('.pmf-grid')
+      .call(d3.axisLeft(yScale).ticks(4).tickSize(-W).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+
+    // Bars — D3 join; drag handler stays on persistent elements
+    g.select('.pmf-bars').selectAll('rect')
+      .data(OUTCOMES)
+      .join('rect')
+      .attr('x', d => xScale(d))
+      .attr('y', (d, i) => yScale(ps[i]))
+      .attr('width', xScale.bandwidth())
+      .attr('height', (d, i) => Math.max(0, H - yScale(ps[i])))
+      .attr('rx', 3).attr('fill', '#7c9eff').attr('opacity', 0.75)
+      .style('cursor', 'ns-resize')
+      .call(d3.drag()
+        .on('drag', function(event, d) {
+          const i = OUTCOMES.indexOf(d);
+          // event.y is in the g coordinate system (already offset by M.top)
+          rawWeights[i] = Math.max(0.1, Math.max(0, H - event.y) / H * 10);
+          update();
+        })
+      );
+
+    // Prob labels
+    g.select('.pmf-labels').selectAll('text')
+      .data(OUTCOMES)
+      .join('text')
+      .attr('x', d => xScale(d) + xScale.bandwidth() / 2)
+      .attr('y', (d, i) => ps[i] > 0.03 ? yScale(ps[i]) - 4 : -999)
+      .attr('text-anchor', 'middle').attr('fill', '#9aa5be').attr('font-size', 10)
+      .text((d, i) => ps[i].toFixed(3));
+
+    // Mean line + triangle + label
+    const muX = (st.mu - OUTCOMES[0]) / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0]) * W;
+    g.select('.pmf-mean-line')
+      .attr('x1', muX).attr('x2', muX).attr('y1', 0).attr('y2', H)
+      .attr('stroke', '#f0a44a').attr('stroke-width', 2).attr('stroke-dasharray', '4 3');
+    g.select('.pmf-mean-tri')
+      .attr('points', `${muX-7},${H+8} ${muX+7},${H+8} ${muX},${H+1}`)
+      .attr('fill', '#f0a44a');
+    g.select('.pmf-mean-lbl')
+      .attr('x', muX).attr('y', H + 22)
+      .attr('text-anchor', 'middle').attr('fill', '#f0a44a')
+      .attr('font-size', 11).attr('font-weight', '600')
+      .text(`μ=${st.mu.toFixed(2)}`);
+
+    // ±σ span bar
+    const spanW = (st.sd / (OUTCOMES[OUTCOMES.length-1] - OUTCOMES[0])) * W;
+    g.select('.pmf-sd-span')
+      .attr('x1', muX - spanW).attr('x2', muX + spanW)
+      .attr('y1', H / 2).attr('y2', H / 2)
+      .attr('stroke', 'rgba(240,164,74,0.4)').attr('stroke-width', 6).attr('stroke-linecap', 'round');
+
+    // Axes
+    g.select('.pmf-x-axis').call(d3.axisBottom(xScale).tickFormat(d => `X=${d}`));
+    g.select('.pmf-y-axis').call(d3.axisLeft(yScale).ticks(4).tickFormat(d3.format('.2f')));
+
+    // Stats panel
+    document.getElementById('ex-val').textContent  = st.mu.toFixed(3);
+    document.getElementById('var-val').textContent = st.vr.toFixed(3);
+    document.getElementById('sd-val').textContent  = st.sd.toFixed(3);
+    document.getElementById('exp-live').innerHTML  =
+      `E[X] = <span class="live-val">${st.mu.toFixed(3)}</span><br>` +
+      `E[X²] = <span class="live-val">${(st.vr + st.mu*st.mu).toFixed(3)}</span><br>` +
+      `Var = E[X²]−μ² = <span class="live-val">${st.vr.toFixed(3)}</span>`;
+    drawTransform();
+  }
+
+  window.redrawPMF = update;
+  initChart();
+  window.addEventListener('resize', () => setTimeout(initChart, 150));
+})();
+
+// ── VIZ 2: LINEAR TRANSFORM ──────────────
+function drawTransform() {
+  const container = document.getElementById('transform-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.45);
+  const M = { top: 20, right: 20, bottom: 46, left: 50 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const ps  = getProbs();
+  const st  = getStats();
+  const a   = aParam, b = bParam;
+
+  // Transformed outcomes
+  const transOut = OUTCOMES.map(xi => a*xi + b);
+  const allX = [...OUTCOMES, ...transOut];
+  const xMin = Math.min(...allX) - 1, xMax = Math.max(...allX) + 1;
+
+  const x = d3.scaleLinear().domain([xMin, xMax]).range([0, W]);
+  const yMax = Math.max(...ps) * 1.3;
+  const y = d3.scaleLinear().domain([0, yMax]).range([H, 0]);
+  const bw = Math.max(4, W / (xMax - xMin) * 0.4);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(4).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  // Original bars (blue)
+  OUTCOMES.forEach((xi,i) => {
+    g.append('rect').attr('x', x(xi) - bw/2).attr('y', y(ps[i]))
+      .attr('width', bw).attr('height', Math.max(0,H-y(ps[i])))
+      .attr('fill','#7c9eff').attr('opacity',0.7).attr('rx',2);
+  });
+
+  // Transformed bars (orange)
+  transOut.forEach((xi,i) => {
+    g.append('rect').attr('x', x(xi) - bw/2).attr('y', y(ps[i]))
+      .attr('width', bw).attr('height', Math.max(0,H-y(ps[i])))
+      .attr('fill','#f0a44a').attr('opacity',0.7).attr('rx',2);
+  });
+
+  // Mean lines
+  const muTrans = a*st.mu + b;
+  [
+    [st.mu, '#7c9eff', `μ=${st.mu.toFixed(2)}`],
+    [muTrans, '#f0a44a', `aμ+b=${muTrans.toFixed(2)}`]
+  ].forEach(([val, col, lbl]) => {
+    if (val >= xMin && val <= xMax) {
+      g.append('line').attr('x1',x(val)).attr('x2',x(val)).attr('y1',0).attr('y2',H)
+        .attr('stroke',col).attr('stroke-width',1.5).attr('stroke-dasharray','4 3');
+      g.append('text').attr('x',x(val)+4).attr('y',14)
+        .attr('fill',col).attr('font-size',10).text(lbl);
+    }
+  });
+
+  // Legend
+  g.append('rect').attr('x',W-90).attr('y',4).attr('width',10).attr('height',10).attr('fill','#7c9eff').attr('rx',2);
+  g.append('text').attr('x',W-77).attr('y',13).attr('fill','#9aa5be').attr('font-size',10).text('Original X');
+  g.append('rect').attr('x',W-90).attr('y',20).attr('width',10).attr('height',10).attr('fill','#f0a44a').attr('rx',2);
+  g.append('text').attr('x',W-77).attr('y',29).attr('fill','#9aa5be').attr('font-size',10).text('aX + b');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('.2f')));
+
+  // Insight
+  const varTrans = a*a*st.vr;
+  document.getElementById('transform-live').innerHTML =
+    `E[aX+b] = ${a.toFixed(1)}×${st.mu.toFixed(2)}+${b.toFixed(1)} = <span class="live-val">${muTrans.toFixed(2)}</span><br>` +
+    `Var(aX+b) = ${a.toFixed(1)}²×${st.vr.toFixed(2)} = <span class="live-val">${varTrans.toFixed(2)}</span>`;
+  document.getElementById('ins-transform').textContent =
+    `Shift b=${b.toFixed(1)} moved mean by ${b.toFixed(1)} but did NOT change variance.`;
+  document.getElementById('ins-var-warn').textContent =
+    `Scale a=${a.toFixed(1)}: Var multiplied by ${(a*a).toFixed(2)} (a²), not ${Math.abs(a).toFixed(1)} (|a|). σ multiplied by |a|=${Math.abs(a).toFixed(1)}.`;
+}
+
+[['a-slider','a-val', v => aParam=v, v=>v.toFixed(1)],
+ ['b-slider','b-val', v => bParam=v, v=>v.toFixed(1)]
+].forEach(([id,vid,set,fmt]) => {
+  document.getElementById(id).addEventListener('input', function() {
+    set(+this.value); document.getElementById(vid).textContent = fmt(+this.value); drawTransform();
+  });
+});
+</script>
+</VizLayout>

@@ -1,0 +1,359 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.2 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-2-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.2 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-2-bayes.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.2 Practice Questions — Conditional Probability &amp; Bayes</h1>
+  <p>GATE-style questions on conditional probability, independence, and Bayes' theorem. Bayes NATs appear every year — attempt each before revealing the answer.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">In a group, 40% play cricket and 25% play both cricket and football. Given that a person plays cricket, the probability they also play football is</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.10</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.625</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.25</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.40</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 0.625.</span></b>
+        $P(F\mid C) = \dfrac&#123;P(F\cap C)&#125;&#123;P(C)&#125; = \dfrac&#123;0.25&#125;&#123;0.40&#125; = 0.625$. Divide joint by the given condition — don't just read off the numbers.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">Two fair dice are rolled. $A$ = "first die is even", $B$ = "sum is 7". What is $P(A \cap B)$, and are $A$ and $B$ independent?</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 1/12, independent</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1/12, dependent</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 1/6, independent</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1/9, dependent</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','A')">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ (A) 1/12, independent.</span></b>
+        $P(A)=18/36=1/2$; $P(B)=6/36=1/6$. $A\cap B$ = first even &amp; sum 7: $&#123;(2,5),(4,3),(6,1)&#125;$ = $3/36=1/12$. Since $P(A)\cdot P(B) = (1/2)(1/6) = 1/12 = P(A\cap B)$: <b>independent</b>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2026 Q34</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X$ follows an exponential distribution and $P(X > 5) = 0.35$. Then $P(X > 10 \mid X > 5) =$ ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q3-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,0.33,0.37)">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ 0.35.</span></b>
+        Memoryless property of the exponential: $P(X>10\mid X>5) = P(X>5) = 0.35$. Since the shift is exactly 5 (same as the condition threshold), we get the same probability back. Verify: $P(X>10) = P(X>5)^2 = 0.1225$; $0.1225/0.35 = 0.35$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Two machines each produce 50% of a factory's items. Machine A has a defect rate of 1%; Machine B has a defect rate of 3%. The probability that a randomly chosen item is defective is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="0.001" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,0.018,0.022)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 0.02.</span></b>
+        $P(D) = P(D\mid A)\,P(A)+P(D\mid B)\,P(B) = 0.5(0.01)+0.5(0.03) = 0.005+0.015 = 0.02$. This is the Bayes denominator — the unconditional defect rate across all machines. Write it explicitly before applying Bayes.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A disease has 2% prevalence ($P(D)=0.02$). A diagnostic test has sensitivity $P(+\mid D)=0.90$ and false-positive rate $P(+\mid \overline&#123;D&#125;)=0.15$. Given a <strong>positive</strong> test result, the probability the person actually has the disease is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q5-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(5,0.09,0.13)">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ ≈ 0.11.</span></b>
+        $P(D\mid+) = \dfrac&#123;P(+\mid D)\,P(D)&#125;&#123;P(+\mid D)\,P(D)+P(+\mid\overline&#123;D&#125;)\,P(\overline&#123;D&#125;)&#125; = \dfrac&#123;0.90\times0.02&#125;&#123;0.90\times0.02+0.15\times0.98&#125; = \dfrac&#123;0.018&#125;&#123;0.165&#125;\approx 0.109$.
+        <br><b>Base-rate fallacy:</b> despite 90% sensitivity, the 2% prevalence means most positives are still false. Low prevalence drowns out a high sensitivity — always write the full denominator.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2025 Q35</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">A Naive Bayes classifier: $P(y_1)=1/3$, $P(y_2)=2/3$, $P(x\mid y_1)=3/4$, $P(x\mid y_2)=1/4$. After observing $x$, the probability of <strong>misclassification</strong> is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,0.38,0.42)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 0.40.</span></b>
+        Unnormalized posteriors: $y_1$: $(3/4)(1/3)=1/4$; $y_2$: $(1/4)(2/3)=1/6$. Total: $1/4+1/6=5/12$. Normalised: $P(y_1\mid x)=3/5=0.6$, $P(y_2\mid x)=0.4$. Classifier picks $y_1$ (larger posterior); misclassification probability $= P(y_2\mid x) = 0.40$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2024 Q24</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">
+      Consider the factorisation $P(U,V,W,X,Y) = P(U)\,P(V)\,P(W\mid U,V)\,P(X\mid W)\,P(Y\mid W)$. Which statement is <strong>FALSE</strong>?
+    </div>
+    <div class="q-options" id="q7-opts">
+      <div class="q-opt" data-q="7" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $Y$ is conditionally independent of $V$ given $W$.</div>
+      <div class="q-opt" data-q="7" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $X$ is conditionally independent of $U$ given $W$.</div>
+      <div class="q-opt" data-q="7" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> $U$ and $V$ are conditionally independent given $W$.</div>
+      <div class="q-opt" data-q="7" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $Y$ and $X$ are conditionally independent given $W$.</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(7,'mcq','C')">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (C) is FALSE.</span></b>
+        Read the graph: $U\to W,\ V\to W,\ W\to X,\ W\to Y$. (A) $Y$ depends only on $W$, so $Y \perp V \mid W$ — true. (B) $X$ depends only on $W$, so $X \perp U \mid W$ — true. (D) Given $W$, $X$ and $Y$ are d-separated — true. (C) $U$ and $V$ are co-parents of the <em>collider</em> $W$; conditioning on $W$ creates <b>explaining away</b> dependence — so $U \perp V \mid W$ is <span class="ans-wrong">FALSE</span>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2026 Q64</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Let $A$ be a $5\times5$ matrix where each element is independently Bernoulli(0.5). The probability that the sum of row 2 equals 3 <strong>and</strong> the sum of column 3 equals 3 is ___ (two decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q8-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,0.09,0.11)">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ ≈ 0.10.</span></b>
+        Let $a = A(2,3)$ (shared element). Condition on $a$: remaining 4 row-2 entries and 4 col-3 entries are disjoint &amp; independent.
+        <br>$a=1$ (prob 0.5): need 2 more in row and 2 in col → $(C(4,2)/2^4)^2 = (6/16)^2 = 9/64$.
+        <br>$a=0$ (prob 0.5): need 3 in row and 3 in col → $(C(4,3)/2^4)^2 = (4/16)^2 = 1/16$.
+        <br>Total: $0.5(9/64)+0.5(1/16) = 9/128 + 8/128 = 13/128 \approx 0.102 \approx 0.10$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which of the following statements are <strong>TRUE</strong>? (Select all that apply.)</div>
+    <div class="q-options" id="q9-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="A"> <span class="q-opt-key">A</span> If $A$ and $B$ are independent, then $P(A\mid B) = P(A)$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="B"> <span class="q-opt-key">B</span> Two mutually exclusive events with positive probability are independent.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="C"> <span class="q-opt-key">C</span> $P(A\mid B)\cdot P(B) = P(A \cap B)$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="9" data-val="D"> <span class="q-opt-key">D</span> If $A \subseteq B$, then $P(A\mid B) = P(A)/P(B)$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(9,['A','C','D'])">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ (A), (C), (D).</span></b><br>
+        (A) True — definition of independence. (B) <span class="ans-wrong">False</span> — mutually exclusive with positive probability gives $P(A\cap B)=0 \ne P(A)P(B)>0$, hence dependent. (C) True — multiplication rule (definition rearranged). (D) True — $A \subseteq B \Rightarrow A\cap B = A$, so $P(A\mid B) = P(A)/P(B)$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">For each exam question a student either knows the answer (probability 0.6) and gets it right, or guesses uniformly from 4 choices. Given the student answered <strong>correctly</strong>, the probability they <em>knew</em> the answer is</div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.60</div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 6/7</div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 2/3</div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 3/4</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10,'mcq','B')">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ (B) 6/7.</span></b>
+        $P(\text&#123;knew&#125;\mid\text&#123;correct&#125;) = \dfrac&#123;1\times0.6&#125;&#123;1\times0.6+\tfrac&#123;1&#125;&#123;4&#125;\times0.4&#125; = \dfrac&#123;0.6&#125;&#123;0.7&#125; = \dfrac&#123;6&#125;&#123;7&#125; \approx 0.857$.
+        <br>Trap: (A) 0.60 is the <em>prior</em> $P(\text&#123;knew&#125;)$ — confusing prior with posterior is the most common Bayes error. Observing a correct answer is evidence that updates the probability upward.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>9–10 correct:</strong> Bayes is a reliable earner — advance to <a href="/module1/1-3-questions.html">1.3 Expectation &amp; Variance</a>.</p>
+  <p><strong>6–8:</strong> Redo Q4–Q6 using the natural-frequency method (no-fraction Bayes). Q7 (explaining away) is the hardest conceptually.</p>
+  <p><strong>&le;5:</strong> Re-read the Bayes playbook in theory; this topic is 2–4 marks every year — over-invest.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-2-bank.html" style="margin-top:8px;">More practice: 1.2 Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+<script is:inline slot="scripts">
+var scores = {};
+function updateScore() {
+  var n = Object.values(scores).filter(Boolean).length;
+  document.getElementById('score-num').textContent = n;
+}
+function selectOpt(el) {
+  var q = el.dataset.q;
+  var card = document.getElementById('qc' + q);
+  if (card.classList.contains('q-card--correct') || card.classList.contains('q-card--wrong')) return;
+  document.querySelectorAll('[data-q="' + q + '"].q-opt:not(.q-opt--msq)').forEach(function(o) { o.classList.remove('q-opt--selected'); });
+  el.classList.add('q-opt--selected');
+}
+function check(q, type, correct) {
+  var card = document.getElementById('qc' + q);
+  var selected = document.querySelector('[data-q="' + q + '"].q-opt--selected');
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var btn = card.querySelector('.q-check-btn');
+  if (!selected) return;
+  var val = selected.dataset.val;
+  var isCorrect = val === correct;
+  document.querySelectorAll('[data-q="' + q + '"].q-opt:not(.q-opt--msq)').forEach(function(o) {
+    o.classList.remove('q-opt--selected');
+    if (o.dataset.val === correct) o.classList.add('q-opt--correct');
+    else if (o.dataset.val === val && !isCorrect) o.classList.add('q-opt--wrong');
+    o.style.pointerEvents = 'none';
+  });
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  ansEl.style.display = 'block'; btn.disabled = true;
+  scores[q] = isCorrect; updateScore();
+}
+function checkNat(q, min, max) {
+  var input = document.getElementById('q' + q + '-input');
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var card = document.getElementById('qc' + q);
+  var btn = card.querySelector('.q-check-btn');
+  var val = parseFloat(input.value);
+  var isCorrect = !isNaN(val) && val >= min && val <= max;
+  input.classList.add(isCorrect ? 'q-nat__input--correct' : 'q-nat__input--wrong');
+  input.disabled = true; ansEl.style.display = 'block'; btn.disabled = true;
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  scores[q] = isCorrect; updateScore();
+}
+function checkMsq(q, correctArr) {
+  var card = document.getElementById('qc' + q);
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var btn = card.querySelector('.q-check-btn');
+  var checked = Array.from(document.querySelectorAll('[data-q="' + q + '"]:checked')).map(function(c) { return c.dataset.val; });
+  var isCorrect = correctArr.length === checked.length && correctArr.every(function(v) { return checked.includes(v); });
+  card.querySelectorAll('.q-opt--msq').forEach(function(label) {
+    var val = label.querySelector('input').dataset.val;
+    var isChecked = checked.includes(val);
+    var isRight = correctArr.includes(val);
+    if (isRight) label.classList.add('q-opt--correct');
+    else if (isChecked) label.classList.add('q-opt--wrong');
+    label.querySelector('input').disabled = true;
+    label.style.pointerEvents = 'none';
+  });
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  ansEl.style.display = 'block'; btn.disabled = true;
+  scores[q] = isCorrect; updateScore();
+}
+function resetAll() {
+  scores = {}; updateScore();
+  document.querySelectorAll('.q-card').forEach(function(c) { c.classList.remove('q-card--correct','q-card--wrong'); });
+  document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o) { o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong'); o.style.pointerEvents = ''; });
+  document.querySelectorAll('.q-nat__input').forEach(function(i) { i.value=''; i.disabled=false; i.classList.remove('q-nat__input--correct','q-nat__input--wrong'); });
+  document.querySelectorAll('.q-opt--msq input').forEach(function(c) { c.checked=false; c.disabled=false; });
+  document.querySelectorAll('.q-opt--msq').forEach(function(l) { l.classList.remove('q-opt--correct','q-opt--wrong'); l.style.pointerEvents=''; });
+  document.querySelectorAll('.q-answer').forEach(function(a) { a.style.display='none'; });
+  document.querySelectorAll('.q-check-btn').forEach(function(b) { b.disabled=false; });
+}
+</script>
+</VizLayout>

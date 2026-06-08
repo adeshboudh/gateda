@@ -1,0 +1,55 @@
+:root {
+  /* ── Backgrounds ───────────────────────── */
+  --gd-bg:       #0f1117;   /* page */
+  --gd-bg-0:     #0f1117;   /* alias */
+  --gd-panel:    #161a23;   /* sidebar, surface */
+  --gd-bg-1:     #161a23;   /* alias */
+  --gd-panel-2:  #1a1f2b;   /* inset panels */
+  --gd-bg-2:     #1a1f2b;   /* alias */
+  --gd-bg-3:     #10131b;   /* deeper inset */
+
+  /* ── Borders ───────────────────────────── */
+  --gd-line:       #232a38;  /* strong borders */
+  --gd-border:     #232a38;  /* alias */
+  --gd-line-soft:  #1d2330;  /* subtle dividers */
+
+  /* ── Text ──────────────────────────────── */
+  --gd-text-0:  #e6e9f0;   /* headings, primary */
+  --gd-text-1:  #98a1b3;   /* body secondary */
+  --gd-text-2:  #6b7384;   /* muted, labels */
+
+  /* ── Brand — periwinkle = interactive ONLY */
+  --gd-brand:      #7c9eff;
+  --gd-brand-hover:#9bb4ff;
+  --gd-peri-bg:    rgba(124,158,255,.10);
+  --gd-peri-line:  rgba(124,158,255,.45);
+
+  /* ── Semantic accents ───────────────────── */
+  --gd-green:      #6ee7a8;   /* insight / result */
+  --gd-green-bg:   rgba(110,231,168,.09);
+  --gd-success:    #6ee7a8;   /* alias */
+  --gd-amber:      #f5c46b;   /* warning / common mistake */
+  --gd-amber-bg:   rgba(245,196,107,.09);
+  --gd-warn:       #f5c46b;   /* alias */
+  --gd-error:      #e05c6b;
+
+  /* ── Difficulty stars ───────────────────── */
+  --gd-star-1: #6fa3ef;
+  --gd-star-2: #f5c46b;
+  --gd-star-3: #e05c6b;
+
+  /* ── Radius ────────────────────────────── */
+  --gd-r-sm: 4px;
+  --gd-r-md: 8px;
+  --gd-r-lg: 12px;
+
+  /* ── Fonts ─────────────────────────────── */
+  --gd-font-body: "Inter", system-ui, sans-serif;
+  --gd-font-head: "Lexend", "Inter", system-ui, sans-serif;
+  --gd-font-mono: "JetBrains Mono", monospace;
+
+  /* ── Layout ────────────────────────────── */
+  --gd-sidebar-w: 248px;
+  --gd-toc-w:     200px;
+  --gd-col:       760px;
+}

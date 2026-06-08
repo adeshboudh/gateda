@@ -1,0 +1,294 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.6 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-6-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.6 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-6-correlation.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">10 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.6 Practice Questions — Covariance &amp; Correlation</h1>
+  <p>Joint distributions, $\mathrm&#123;Cov&#125;(X,Y)$, and Pearson $\rho$. The key trap: $\mathrm&#123;Cov&#125;=0 \nRightarrow$ independent.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 10</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If $X$ and $Y$ are independent, then $E[XY]$ equals</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> $E[X]+E[Y]$</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> $E[X]\cdot E[Y]$</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> $E[X]/E[Y]$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) $E[X]\cdot E[Y]$.</span></b>
+        Independence gives $E[XY] = E[X]E[Y]$.  This directly implies $\mathrm&#123;Cov&#125;(X,Y) = E[XY]-E[X]E[Y] = 0$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If $\mathrm&#123;Cov&#125;(X,Y) = 2$, then $\mathrm&#123;Cov&#125;(3X,\; 2Y) =$</div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 2</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 6</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 12</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 24</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2,'mcq','C')">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ (C) 12.</span></b>
+        Linearity: $\mathrm&#123;Cov&#125;(aX,bY)=ab\cdot\mathrm&#123;Cov&#125;(X,Y)=3\times2\times2=12$. More generally, $\mathrm&#123;Cov&#125;(aX+c,\,bY+d)=ab\cdot\mathrm&#123;Cov&#125;(X,Y)$ — additive constants vanish because they shift both means equally and cancel in $E[(X-\mu_X)(Y-\mu_Y)]$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">
+      For the joint PMF below, $\mathrm&#123;Cov&#125;(X,Y) =$ ___ (two decimals).
+      <br><br>
+      <table style="border-collapse:collapse;font-size:14px;margin:4px 0;">
+        <tr><th style="border:1px solid var(--gd-line);padding:5px 12px;"></th><th style="border:1px solid var(--gd-line);padding:5px 12px;">$Y=1$</th><th style="border:1px solid var(--gd-line);padding:5px 12px;">$Y=2$</th></tr>
+        <tr><th style="border:1px solid var(--gd-line);padding:5px 12px;">$X=1$</th><td style="border:1px solid var(--gd-line);padding:5px 12px;text-align:center;">0.2</td><td style="border:1px solid var(--gd-line);padding:5px 12px;text-align:center;">0.3</td></tr>
+        <tr><th style="border:1px solid var(--gd-line);padding:5px 12px;">$X=2$</th><td style="border:1px solid var(--gd-line);padding:5px 12px;text-align:center;">0.1</td><td style="border:1px solid var(--gd-line);padding:5px 12px;text-align:center;">0.4</td></tr>
+      </table>
+    </div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q3-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(3,0.03,0.07)">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ 0.05.</span></b>
+        Compute in order: (1) marginals — $E[X]=(1)(0.5)+(2)(0.5)=1.5$; $E[Y]=(1)(0.3)+(2)(0.7)=1.7$. (2) cross-term — $E[XY]=1(1)(0.2)+1(2)(0.3)+2(1)(0.1)+2(2)(0.4)=0.2+0.6+0.2+1.6=2.6$. (3) subtract — $\mathrm&#123;Cov&#125;=E[XY]-E[X]E[Y]=2.6-(1.5)(1.7)=0.05$. Always follow this 3-step order.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">If $\mathrm&#123;Var&#125;(X)=4$, $\mathrm&#123;Var&#125;(Y)=9$, and $\mathrm&#123;Cov&#125;(X,Y)=2$, then $\mathrm&#123;Var&#125;(X+Y) =$</div>
+    <div class="q-options" id="q4-opts">
+      <div class="q-opt" data-q="4" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 13</div>
+      <div class="q-opt" data-q="4" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 17</div>
+      <div class="q-opt" data-q="4" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 21</div>
+      <div class="q-opt" data-q="4" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 9</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(4,'mcq','B')">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ (B) 17.</span></b>
+        $\mathrm&#123;Var&#125;(X+Y) = \mathrm&#123;Var&#125;(X)+\mathrm&#123;Var&#125;(Y)+2\mathrm&#123;Cov&#125;(X,Y) = 4+9+2(2) = 17$. Trap (A) 13 forgets the $+2\mathrm&#123;Cov&#125;$ term.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2024 Q65</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Two fair coins are tossed independently. $X=1$ if both are heads (else 0); $Y=1$ if at least one is a head (else 0). $\mathrm&#123;Cov&#125;(X,Y) =$ ___ (three decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q5-input" step="0.001" placeholder="0.000">
+      <span class="q-nat__label">three decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(5,0.058,0.068)">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ 0.063.</span></b>
+        $X\sim\text&#123;Bernoulli&#125;(1/4)$, $Y\sim\text&#123;Bernoulli&#125;(3/4)$; $X=1 \Rightarrow Y=1$ so $E[XY]=1/4$. $\mathrm&#123;Cov&#125;=1/4-(1/4)(3/4)=1/4-3/16=1/16=0.0625\approx 0.063$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2026 Q63</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X \sim \text&#123;Uniform&#125;(-1,1)$; given $X=x$, $Y \sim \text&#123;Uniform&#125;(x^2-0.1,\,x^2+0.1)$. Then $\mathrm&#123;correlation&#125;(X,Y) =$ ___ (integer).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer (0, 1, or −1)</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,-0.5,0.5)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 0.</span></b>
+        $E[Y\mid X=x] = x^2$. By tower property: $E[XY] = E[X\cdot E[Y\mid X]] = E[X\cdot X^2] = E[X^3] = 0$ (odd function on symmetric interval). $E[X]=0$, so $\mathrm&#123;Cov&#125;=0$ and $\rho=0$. <em>Despite $Y$ depending on $X$: uncorrelated ≠ independent.</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements are TRUE? (Select all that apply.)</div>
+    <div class="q-options" id="q7-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="A"> <span class="q-opt-key">A</span> If $X,Y$ are independent, then $\mathrm&#123;Cov&#125;(X,Y)=0$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="B"> <span class="q-opt-key">B</span> If $\mathrm&#123;Cov&#125;(X,Y)=0$, then $X,Y$ are independent.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="C"> <span class="q-opt-key">C</span> $-1 \le \rho(X,Y) \le 1$ always.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="7" data-val="D"> <span class="q-opt-key">D</span> $\mathrm&#123;Cov&#125;(X,X) = \mathrm&#123;Var&#125;(X)$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(7,['A','C','D'])">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ (A), (C), (D).</span></b><br>
+        (B) is <span class="ans-wrong">False</span> — $\mathrm&#123;Cov&#125;=0$ does not imply independence (Q6 is a counterexample: $Y=X^2$ on $[-1,1]$ gives $\mathrm&#123;Cov&#125;=0$ yet $Y$ is determined by $X$).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X$ and $Y$ have $\rho(X,Y)=0.6$, $\sigma_X=5$, $\sigma_Y=4$. Then $\mathrm&#123;Cov&#125;(X,Y) =$ ___ .</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q8-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(8,11.9,12.1)">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ 12.</span></b>
+        Rearrange $\rho=\mathrm&#123;Cov&#125;/(\sigma_X\sigma_Y)$: $\mathrm&#123;Cov&#125;=\rho\cdot\sigma_X\sigma_Y=0.6\times5\times4=12$. GATE tests this in both directions — forward ($\mathrm&#123;Cov&#125;\to\rho$) and reverse ($\rho\to\mathrm&#123;Cov&#125;$). Recognise which form you're given.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">For $f(x,y) = 4xy$ on $0 \le x \le 1,\ 0 \le y \le 1$ (else 0), the variables $X$ and $Y$ are</div>
+    <div class="q-options" id="q9-opts">
+      <div class="q-opt" data-q="9" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> independent, with $\mathrm&#123;Cov&#125;=0$</div>
+      <div class="q-opt" data-q="9" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> dependent, with $\mathrm&#123;Cov&#125;=0$</div>
+      <div class="q-opt" data-q="9" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> independent, with $\mathrm&#123;Cov&#125;>0$</div>
+      <div class="q-opt" data-q="9" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> dependent, with $\mathrm&#123;Cov&#125;&lt;0$</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(9,'mcq','A')">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ (A) independent, $\mathrm&#123;Cov&#125;=0$.</span></b>
+        $f_X(x) = \int_0^1 4xy\,dy = 2x$; $f_Y(y) = 2y$. $f_X f_Y = 4xy = f(x,y)$ everywhere on the unit square → <b>independent</b>. Independence then implies $\mathrm&#123;Cov&#125;=0$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">If $\mathrm&#123;Var&#125;(X)=4$, $\mathrm&#123;Var&#125;(Y)=5$, and $\mathrm&#123;Cov&#125;(X,Y)=1$, then $\mathrm&#123;Var&#125;(2X-3Y) =$ ___ .</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="1" placeholder="0">
+      <span class="q-nat__label">integer</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,48,50)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 49.</span></b>
+        General formula: $\mathrm&#123;Var&#125;(aX+bY)=a^2\mathrm&#123;Var&#125;(X)+b^2\mathrm&#123;Var&#125;(Y)+2ab\,\mathrm&#123;Cov&#125;(X,Y)$. With $a=2$, $b=-3$: $2ab=-12$. So $4(4)+9(5)+(-12)(1)=16+45-12=49$. Trap: missing the sign on $b=-3$ when computing $2ab$.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>9–10 correct:</strong> joint distributions mastered — advance to <a href="/module1/1-7-questions.html">1.7 Sampling &amp; Estimation</a>.</p>
+  <p><strong>6–8:</strong> Drill the table method (Q3), the Var-of-sum formula (Q4, Q10), and the uncorrelated≠independent idea (Q6, Q7).</p>
+  <p><strong>&le;5:</strong> Re-read theory on covariance definition and independence test; these formulas are used in every later module.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-6-bank.html" style="margin-top:8px;">Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>

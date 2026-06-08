@@ -1,0 +1,48 @@
+.prob-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0;
+  max-width: var(--gd-col);
+}
+.prob-cell {
+  background: var(--gd-bg-3);
+  border: 1px solid var(--gd-line);
+  border-radius: var(--gd-r-md);
+  padding: 10px 12px;
+  text-align: center;
+}
+.prob-cell__label { font-size: 12px; color: var(--gd-text-2); margin-bottom: 3px; }
+.prob-cell__val { font-family: var(--gd-font-mono); font-size: 1rem; font-weight: 700; }
+
+.combo-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 12px 0;
+  max-width: var(--gd-col);
+}
+.combo-card {
+  background: var(--gd-panel-2);
+  border: 1px solid var(--gd-line);
+  border-radius: var(--gd-r-lg);
+  padding: 18px 20px;
+  text-align: center;
+}
+.combo-card__label { font-size: 12px; color: var(--gd-text-2); margin-bottom: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.combo-card__val { font-family: var(--gd-font-mono); font-size: 2rem; font-weight: 700; color: var(--gd-brand); }
+.combo-card__formula { font-size: 13px; color: var(--gd-text-2); margin-top: 6px; }
+
+.item-grid { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.item-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600;
+  transition: .2s;
+}
+
+@media (max-width: 600px) {
+  .prob-strip { grid-template-columns: repeat(2, 1fr); }
+  .combo-display { grid-template-columns: 1fr; }
+}

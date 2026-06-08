@@ -1,0 +1,481 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.7 Sampling Distributions &amp; Estimation — Visualized · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-7-estimation" pageCss="/assets/css/pages/viz-1-7-estimation.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.7 Sampling Distributions &amp; Estimation
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2025 Q36 · 2025 Q40 · 2026 Q53</span>
+  </div>
+  <h1 id="top">Sampling Distributions, CLT &amp; Confidence Intervals</h1>
+  <p>The CLT turns any distribution's sample mean into a normal. The CI simulation makes the "95% confidence" meaning concrete — it describes the procedure, not any one interval.</p>
+</div>
+
+<!-- ═══ THEORY 1: SAMPLE MEAN & SE ═══ -->
+<h2 id="sample-mean">Theory — Sampling Distribution of the Mean</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  The sample mean $\bar&#123;X&#125;$ is a random variable. Its distribution — the <strong>sampling distribution</strong> — has mean $\mu$ and spread that shrinks with sample size.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Mean and variance of $\bar&#123;X&#125;$</div>
+    <div class="gd-formula">$$E[\bar&#123;X&#125;] = \mu, \qquad \text&#123;Var&#125;(\bar&#123;X&#125;) = \frac&#123;\sigma^2&#125;&#123;n&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Valid for any i.i.d. sample with finite $\mu$ and $\sigma^2$. No normality assumption required.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Standard Error (SE) — SD of the mean</div>
+    <div class="gd-formula">$$\text&#123;SE&#125; = \frac&#123;\sigma&#125;&#123;\sqrt&#123;n&#125;&#125; \qquad \text&#123;(shrinks as } 1/\sqrt&#123;n&#125;\text&#123;)}$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Halving SE requires $4\times$ the data. Doubling $n$ reduces SE by $\sqrt&#123;2&#125;$, not 2.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Sum $S_n = \sum X_i$ — scale up</div>
+    <div class="gd-formula">$$E[S_n] = n\mu, \qquad \text&#123;Var&#125;(S_n) = n\sigma^2$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">The sum and mean are linked: $\bar&#123;X&#125; = S_n/n$. Variance scales linearly with $n$ for the sum.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Key trap — SE vs Var</div>
+    <div class="gd-formula">$$\text&#123;Var&#125;(\bar&#123;X&#125;) = \frac&#123;\sigma^2&#125;&#123;n&#125; \ne \sigma^2, \qquad \text&#123;SE&#125; = \frac&#123;\sigma&#125;&#123;\sqrt&#123;n&#125;&#125; \ne \sigma$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Standardize $\bar&#123;X&#125;$ with SE, not $\sigma$: $z = (\bar&#123;X&#125; - \mu)/(\sigma/\sqrt&#123;n&#125;)$.</p>
+  </div>
+</div>
+
+<!-- ═══ THEORY 2: CLT ═══ -->
+<h2 id="clt">Theory — Central Limit Theorem</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  For large $n$, the sample mean is approximately normal — <strong>regardless of the parent distribution</strong>. This is the most powerful and quotable result in Module 1.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">CLT — standardized form</div>
+    <div class="gd-formula">$$\frac&#123;\bar&#123;X&#125; - \mu&#125;&#123;\sigma/\sqrt&#123;n&#125;&#125; \xrightarrow&#123;d&#125; N(0,1) \quad\Leftrightarrow\quad \bar&#123;X&#125; \approx N\!\left(\mu,\, \frac&#123;\sigma^2&#125;&#123;n&#125;\right)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Works for any parent with finite variance. For the sum: $S_n \approx N(n\mu,\, n\sigma^2)$.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Normal approximations from CLT</div>
+    <div class="gd-formula">$$\text&#123;Bin&#125;(n,p) \approx N(np,\, np(1-p)) \quad \text&#123;Poi&#125;(\lambda) \approx N(\lambda, \lambda)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">For Binomial: large $n$, not too extreme $p$. For Poisson: $\lambda$ large. Standardize with mean and SD from the table. (2025 Q40)</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--insight">
+    <span class="gd-insight__title">CLT workflow — three steps every time</span>
+    (1) Find $\mu$ and $\sigma^2$ for the parent (or $np$, $np(1-p)$ for Binomial).
+    (2) For $\bar&#123;X&#125;$: SE $= \sigma/\sqrt&#123;n&#125;$; for $S_n$: SD $= \sigma\sqrt&#123;n&#125;$.
+    (3) Standardize: $z = (\text&#123;value&#125; - \text&#123;mean&#125;)/\text&#123;SD&#125;$, then look up $\Phi$.
+  </div>
+</div>
+
+<!-- ═══ THEORY 3: CHI-SQUARED & T ═══ -->
+<h2 id="chisq-t">Theory — Chi-Squared &amp; t Distributions</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  These two distributions arise naturally from normal samples. Chi-squared powers variance inference; the t-distribution handles inference when $\sigma$ is unknown.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Chi-squared $\chi^2(k)$ — definition</div>
+    <div class="gd-formula">$$\chi^2(k) = Z_1^2 + Z_2^2 + \cdots + Z_k^2, \qquad E=k,\quad \text&#123;Var&#125;=2k$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Sum of $k$ independent squared standard normals. Support $[0,\infty)$, right-skewed. (2025 Q36: $k=1 \Rightarrow \text&#123;Var&#125;=2$.)</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Sample variance link — $n-1$ degrees of freedom</div>
+    <div class="gd-formula">$$\frac&#123;(n-1)S^2&#125;&#123;\sigma^2&#125; = \frac&#123;\sum(X_i-\bar&#123;X&#125;)^2&#125;&#123;\sigma^2&#125; \sim \chi^2(n-1)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Trap: $n-1$ not $n$ — one df lost estimating $\bar&#123;X&#125;$. (2026 Q53 B)</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Student's $t_k$ — heavier tails than normal</div>
+    <div class="gd-formula">$$t_k = \frac&#123;Z&#125;&#123;\sqrt&#123;\chi^2_k/k&#125;&#125;, \quad t_k \to N(0,1) \text&#123; as &#125; k \to \infty$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Symmetric about 0. $t_1 = $ Cauchy (no mean/variance — extreme heavy tails). (2026 Q28)</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">$\chi^2(2) = \text&#123;Exponential&#125;(\text&#123;mean &#125;2)$ identity</div>
+    <div class="gd-formula">$$Z_1^2 + Z_2^2 \sim \chi^2(2) = \text&#123;Exp&#125;\!\left(\text&#123;mean }=2\right)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Sum of 2 squared standard normals = Exponential with mean 2. Handy identity that appears in 2026 Q53 C.</p>
+  </div>
+</div>
+
+<!-- Reference table -->
+<div class="rule-card" style="margin-top:16px;">
+  <div class="rule-card__label">Quick Reference — Mean &amp; Variance</div>
+  <div style="display:grid;grid-template-columns:1.4fr 1.6fr 0.8fr 0.8fr;gap:4px 8px;margin-top:10px;font-size:13px;">
+    <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);padding-bottom:4px;border-bottom:1px solid var(--gd-line-soft);">Object</div>
+    <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);padding-bottom:4px;border-bottom:1px solid var(--gd-line-soft);">Definition</div>
+    <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);padding-bottom:4px;border-bottom:1px solid var(--gd-line-soft);text-align:center;">Mean</div>
+    <div style="font-family:var(--gd-font-mono);font-size:11px;color:var(--gd-text-2);padding-bottom:4px;border-bottom:1px solid var(--gd-line-soft);text-align:center;">Variance</div>
+    <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">$\bar&#123;X&#125;$</div>
+    <div style="color:var(--gd-text-1);">$(1/n)\sum X_i$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$\mu$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$\sigma^2/n$</div>
+    <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">$S_n$</div>
+    <div style="color:var(--gd-text-1);">$\sum X_i$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$n\mu$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$n\sigma^2$</div>
+    <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">$\chi^2(k)$</div>
+    <div style="color:var(--gd-text-1);">$\sum_&#123;i=1&#125;^k Z_i^2$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$k$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$2k$</div>
+    <div style="color:var(--gd-brand);font-family:var(--gd-font-mono);font-size:12px;">$t_k$</div>
+    <div style="color:var(--gd-text-1);">$Z/\sqrt&#123;\chi^2_k/k&#125;$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$0\ (k>1)$</div>
+    <div style="text-align:center;color:var(--gd-text-1);">$k/(k-2)$</div>
+  </div>
+  <p style="font-size:13px;color:var(--gd-text-2);margin:8px 0 0;">$t_k$ mean requires $k>1$; variance requires $k>2$. $t_1$ = Cauchy has neither.</p>
+</div>
+
+<!-- ═══ VIZ 1: CI COVERAGE SIMULATION ═══ -->
+<h2 id="viz1">Interactive 1 — CI Coverage Simulation</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  True $\mu=5$ (orange line). Each button draw yields one CI from a fresh sample of size $n$. Green bars contain $\mu$; red bars miss it. Watch the coverage converge to the stated confidence level.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Confidence interval formula</div>
+    <div class="gd-formula">$$\bar&#123;x&#125; \pm z_&#123;\alpha/2&#125;\,\dfrac&#123;\sigma&#125;&#123;\sqrt&#123;n&#125;&#125;$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Live width</div>
+    <div class="gd-formula-live" id="ci-live">—</div>
+  </div>
+</div>
+
+<div class="ci-btn-row">
+  <button class="ci-btn ci-btn--primary" id="btn-sample1">Draw 1 sample</button>
+  <button class="ci-btn" id="btn-sample20">Draw 20 more</button>
+  <button class="ci-btn" id="btn-sample100">Draw 100 more</button>
+  <button class="ci-btn ci-btn--danger" id="btn-reset">Reset</button>
+</div>
+
+<div class="gd-chart" style="position:relative;">
+  <div class="gd-chart__title">Green bars contain μ · Red bars miss μ · Orange line = true μ = 5</div>
+  <div id="ci-chart"></div>
+</div>
+
+<div class="ci-stats">
+  <div class="ci-stat"><div class="ci-stat__label">Samples</div><div class="ci-stat__val" id="ci-total">0</div></div>
+  <div class="ci-stat"><div class="ci-stat__label">Cover μ</div><div class="ci-stat__val" id="ci-cover" style="color:var(--gd-success)">0</div></div>
+  <div class="ci-stat"><div class="ci-stat__label">Miss μ</div><div class="ci-stat__val" id="ci-miss" style="color:var(--gd-error)">0</div></div>
+  <div class="ci-stat"><div class="ci-stat__label">Coverage %</div><div class="ci-stat__val" id="ci-pct">—</div></div>
+</div>
+
+<div class="gd-controls">
+  <div class="gd-controls__title">Parameters</div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">n</span> Sample size</label>
+    <span class="gd-control__value" id="n-val">30</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="n-slider" min="5" max="100" step="5" value="30"></div>
+  <div class="gd-control">
+    <label class="gd-control__label"><span class="gd-control__sym">α</span> Significance level → z<sub>α/2</sub></label>
+    <span class="gd-control__value" id="alpha-val">0.05 (z=1.96)</span>
+  </div>
+  <div class="gd-control--full"><input class="gd-control__slider" type="range" id="alpha-slider" min="1" max="4" step="1" value="2"></div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live insights</div>
+  <div class="gd-insight gd-insight--active" id="ci-ins1">Draw samples to see CI coverage.</div>
+  <div class="gd-insight gd-insight--warn" id="ci-ins2">
+    ⚠ Key misconception: a single CI does NOT have 95% probability of containing μ — it either does or doesn't. The 95% describes the method, not any one interval.
+  </div>
+</div>
+
+<!-- ═══ VIZ 2: WIDTH vs N ═══ -->
+<h2 id="viz2">Interactive 2 — CI Width vs Sample Size</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Width $\propto 1/\sqrt&#123;n&#125;$ — halving the width requires $4\times$ the data. The blue dot follows the slider above.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Width formula</div>
+    <div class="gd-formula">$$\text&#123;Width&#125; = 2\,z_&#123;\alpha/2&#125;\,\dfrac&#123;\sigma&#125;&#123;\sqrt&#123;n&#125;&#125;$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current values</div>
+    <div class="gd-formula-live" id="width-live">—</div>
+  </div>
+</div>
+
+<div class="gd-chart">
+  <div class="gd-chart__title">Width vs n curve · blue dot = current n from slider above</div>
+  <div id="width-chart"></div>
+</div>
+
+<!-- ═══ WORKED EXAMPLES ═══ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · CLT for a sample mean</span>
+    <p>Population has $\mu=50$, $\sigma=10$. Random sample of size $n=100$. Find $P(\bar&#123;X&#125; > 52)$. Use $\Phi(2)=0.9772$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Sampling distribution:</strong> $E[\bar&#123;X&#125;]=50$, $\text&#123;SE&#125;=\sigma/\sqrt&#123;n&#125;=10/\sqrt&#123;100&#125;=1$. So $\bar&#123;X&#125; \approx N(50,\,1^2)$.</p>
+    <p><strong>Standardize:</strong> $z=(52-50)/1=2$.</p>
+    <p><strong>Probability:</strong> $P(\bar&#123;X&#125;>52)=1-\Phi(2)=1-0.9772=0.0228$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Steps: identify $\mu$, $\sigma$, $n$ → compute SE $= \sigma/\sqrt&#123;n&#125;$ → standardize with SE (not $\sigma$) → look up $\Phi$.</p>
+    <div class="gd-example__ans">P(X̄ > 52) ≈ 0.0228</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · GATE 2025 Q40 — CLT to approximate Binomial (MCQ)</span>
+    <p>$Y = \sum_&#123;i=1&#125;^&#123;300&#125; X_i$ with $X_i \sim \text&#123;i.i.d. Bernoulli&#125;(0.25)$. Using CLT, $P(60 \le Y \le 90) \approx$ ($\varphi$ = standard normal CDF):<br>
+    (A) $\varphi(2)-\varphi(-2)$ &nbsp; (B) $\varphi(1)-\varphi(-1)$ &nbsp; (C) $\varphi(3)-\varphi(-3)$ &nbsp; (D) $\varphi(90)-\varphi(60)$</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Identify:</strong> $Y \sim \text&#123;Binomial&#125;(300, 0.25)$, so mean $= np = 75$, variance $= np(1-p) = 56.25$, SD $= 7.5$.</p>
+    <p><strong>CLT:</strong> $Y \approx N(75, 7.5^2)$.</p>
+    <p><strong>Standardize endpoints:</strong> $(60-75)/7.5 = -2$; $(90-75)/7.5 = +2$.</p>
+    <p><strong>Probability:</strong> $P(60 \le Y \le 90) \approx \varphi(2)-\varphi(-2)$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Trap: (D) looks direct but $\varphi(90)-\varphi(60)$ uses the raw values as z-scores — completely wrong. Always standardize first.</p>
+    <div class="gd-example__ans">Answer: (A) φ(2) − φ(−2)</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · GATE 2025 Q36 — Variance of a chi-squared(1) variable (MCQ)</span>
+    <p>$Z = (X-\mu)/\sigma$ where $X \sim N(\mu,\sigma^2)$. Let $Y = Z^2$. The variance of $Y$ is:<br>
+    (A) 1 &nbsp; (B) 2 &nbsp; (C) 3 &nbsp; (D) 4</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Recognize:</strong> $Z \sim N(0,1)$, so $Y = Z^2 \sim \chi^2(1)$ (squared standard normal with $k=1$).</p>
+    <p><strong>Formula:</strong> $\text&#123;Var&#125;(\chi^2(k)) = 2k$, so $\text&#123;Var&#125;(Y) = 2(1) = 2$.</p>
+    <p><strong>Direct check:</strong> $E[Z^2]=1$, $E[Z^4]=3$ (4th moment of $N(0,1)$), so $\text&#123;Var&#125;(Z^2) = E[Z^4]-(E[Z^2])^2 = 3-1=2$. ✓</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">This is the easiest route on the exam: recognize $Z^2 \sim \chi^2(1)$, then $\text&#123;Var&#125; = 2k = 2$. One line.</p>
+    <div class="gd-example__ans">Answer: (B) 2</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · GATE 2026 Q53 — Sums of squared normals &amp; sample variance (MSQ · Hard)</span>
+    <p>$X_1,\dots,X_n$ i.i.d. $N(0,1)$; $\bar&#123;X&#125;=(1/n)\sum X_i$. Which are correct?<br>
+    (A) $\sum X_i^2 \sim \chi^2(n)$ &nbsp; (B) $\sum(X_i-\bar&#123;X&#125;)^2 \sim \chi^2(n-1)$ &nbsp; (C) $X_1^2+X_n^2 \sim \text&#123;Exponential&#125;(\text&#123;mean &#125;2)$ &nbsp; (D) $(\sqrt&#123;n&#125;\cdot\bar&#123;X&#125;)^2 \sim \chi^2(2)$</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>(A) TRUE.</strong> $\sum_&#123;i=1&#125;^n X_i^2$ is a sum of $n$ squared standard normals → $\chi^2(n)$ by definition.</p>
+    <p><strong>(B) TRUE.</strong> Sample variance form: one degree of freedom is consumed estimating $\bar&#123;X&#125;$, giving $\chi^2(n-1)$. (The $n$-vs-$(n-1)$ GATE trap.)</p>
+    <p><strong>(C) TRUE.</strong> $X_1^2+X_n^2 \sim \chi^2(2)$ (two squared standard normals). And $\chi^2(2) = \text&#123;Exponential&#125;(\text&#123;mean &#125;2)$ — the special identity.</p>
+    <p><strong>(D) FALSE.</strong> $\sqrt&#123;n&#125;\cdot\bar&#123;X&#125; \sim N(0,1)$, so its square $\sim \chi^2(1)$, not $\chi^2(2)$. Trap: $n$ in the expression ≠ df.</p>
+    <div class="gd-example__ans">Answer: (A), (B), (C)</div>
+  </div>
+</div>
+
+<!-- ═══ GATE ANGLE ═══ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>SE = σ/√n, Var(X̄) = σ²/n.</strong> The most-tested formulas. Standardize $\bar&#123;X&#125;$ with SE (not $\sigma$): $z = (\bar&#123;X&#125; - \mu)/(\sigma/\sqrt&#123;n&#125;)$. Setting SE = $\sigma$ or Var($\bar&#123;X&#125;$) = $\sigma^2$ is the top mistake.</p>
+  <p><strong>CLT works for ANY parent</strong> with finite variance — it does NOT require a normal parent. (2025 Q40 applied it to Bernoulli sums.) Steps: mean and variance from parent formula, standardize, look up $\Phi$.</p>
+  <p><strong>χ²(k): mean $= k$, Var $= 2k$.</strong> A squared standard normal is $\chi^2(1)$ with Var $= 2$. (2025 Q36 was just $k=1$.) Don't swap mean and variance.</p>
+  <p><strong>Sample variance → χ²(n−1), not χ²(n).</strong> The $-1$ comes from estimating $\bar&#123;X&#125;$. (2026 Q53 B was designed around this trap.)</p>
+  <p><strong>χ²(2) = Exponential(mean 2).</strong> Sum of two squared standard normals is exponential. This identity appears directly in 2026 Q53 C — recognise it immediately.</p>
+  <p><strong>To halve CI width, quadruple n</strong> (from $n$ to $4n$). Width $= 2z\sigma/\sqrt&#123;n&#125;$, so $n \to 4n$ → width $\to$ width/2.</p>
+</div>
+
+<!-- ═══ PREV / NEXT ═══ -->
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/viz-1-6-correlation.html">
+    <span class="gd-page-nav__dir">← Previous</span>
+    <span class="gd-page-nav__title">1.6 Covariance &amp; Correlation</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/viz-1-8-hypothesis.html">
+    <span class="gd-page-nav__dir">Next →</span>
+    <span class="gd-page-nav__title">1.8 Hypothesis Testing</span>
+  </a>
+</div>
+
+<script is:inline slot="scripts">
+// Params
+const TRUE_MU = 5, SIGMA = 2;
+const ALPHA_LEVELS = [
+  { alpha: 0.10, z: 1.645, label: '0.10 (z=1.645)' },
+  { alpha: 0.05, z: 1.960, label: '0.05 (z=1.96)' },
+  { alpha: 0.01, z: 2.576, label: '0.01 (z=2.576)' },
+  { alpha: 0.001, z: 3.291, label: '0.001 (z=3.29)' }
+];
+
+let nSample = 30, alphaIdx = 1;
+let cis = [];  // { lo, hi, xbar, covers }
+const MAX_VIS = 80;
+
+function getZ() { return ALPHA_LEVELS[alphaIdx].z; }
+
+function randn() {
+  let u = 0, v = 0;
+  while (!u) u = Math.random();
+  while (!v) v = Math.random();
+  return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+}
+
+function drawSample(count) {
+  for (let i = 0; i < count; i++) {
+    // sample mean of nSample draws from N(TRUE_MU, SIGMA²)
+    let sum = 0; for (let j = 0; j < nSample; j++) sum += TRUE_MU + SIGMA * randn();
+    const xbar = sum / nSample;
+    const margin = getZ() * SIGMA / Math.sqrt(nSample);
+    cis.push({ lo: xbar-margin, hi: xbar+margin, xbar, covers: xbar-margin <= TRUE_MU && xbar+margin >= TRUE_MU });
+  }
+  renderCI();
+  updateWidthChart();
+}
+
+function renderCI() {
+  const container = document.getElementById('ci-chart');
+  const cW = container.clientWidth || 560;
+  const visible = cis.slice(-MAX_VIS);
+  const rowH = Math.max(8, Math.min(16, (cW*0.65) / Math.max(visible.length,1)));
+  const cH = Math.max(120, visible.length * rowH + 50);
+  const M = { top: 20, right: 20, bottom: 36, left: 50 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox', `0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+  const xMin = TRUE_MU - 3*SIGMA, xMax = TRUE_MU + 3*SIGMA;
+  const x = d3.scaleLinear().domain([xMin, xMax]).range([0, W]);
+  const y = d3.scaleLinear().domain([0, Math.max(visible.length,1)]).range([0, H]);
+
+  // Grid
+  g.append('g').attr('class','grid')
+    .call(d3.axisBottom(x).ticks(6).tickSize(H).tickFormat(''))
+    .call(gr => gr.select('.domain').remove())
+    .attr('transform','translate(0,0)');
+
+  // True mu line
+  g.append('line').attr('x1',x(TRUE_MU)).attr('x2',x(TRUE_MU)).attr('y1',0).attr('y2',H)
+    .attr('stroke','#f0a44a').attr('stroke-width',2);
+  g.append('text').attr('x',x(TRUE_MU)+4).attr('y',10).attr('fill','#f0a44a').attr('font-size',10).text(`μ=${TRUE_MU}`);
+
+  // CI bars
+  visible.forEach((ci, i) => {
+    const yPos = y(i) + rowH*0.5;
+    const col = ci.covers ? '#4caf82' : '#e05c6b';
+    g.append('line').attr('x1',x(Math.max(xMin,ci.lo))).attr('x2',x(Math.min(xMax,ci.hi)))
+      .attr('y1',yPos).attr('y2',yPos)
+      .attr('stroke',col).attr('stroke-width', Math.max(2, rowH-2)).attr('stroke-linecap','round').attr('opacity',0.75);
+    // xbar dot
+    if (ci.xbar >= xMin && ci.xbar <= xMax)
+      g.append('circle').attr('cx',x(ci.xbar)).attr('cy',yPos).attr('r',Math.max(2,rowH*0.3))
+        .attr('fill',col).attr('opacity',0.9);
+  });
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(6));
+
+  // Stats
+  const total = cis.length, cover = cis.filter(c=>c.covers).length, miss = total-cover;
+  document.getElementById('ci-total').textContent = total;
+  document.getElementById('ci-cover').textContent = cover;
+  document.getElementById('ci-miss').textContent = miss;
+  document.getElementById('ci-pct').textContent = total ? (cover/total*100).toFixed(1)+'%' : '—';
+
+  if (total > 5) {
+    const pct = (cover/total*100).toFixed(1);
+    const expected = (1-ALPHA_LEVELS[alphaIdx].alpha)*100;
+    document.getElementById('ci-ins1').textContent =
+      `${pct}% coverage after ${total} samples. Expected ≈${expected}% at this α. ` +
+      (Math.abs(+pct - expected) < 3 ? 'Converging well.' : 'Keep drawing — will converge.');
+  }
+
+  const margin = getZ() * SIGMA / Math.sqrt(nSample);
+  document.getElementById('ci-live').innerHTML =
+    `Width = 2×${getZ()}×${SIGMA}/√${nSample}<br>= <span class="live-val">${(2*margin).toFixed(3)}</span>`;
+}
+
+function updateWidthChart() {
+  const container = document.getElementById('width-chart');
+  const cW = container.clientWidth || 560;
+  const cH = Math.round(cW * 0.42);
+  const M = { top: 20, right: 20, bottom: 44, left: 60 };
+  const W = cW - M.left - M.right;
+  const H = cH - M.top  - M.bottom;
+
+  d3.select(container).select('svg').remove();
+  const svg = d3.select(container).append('svg')
+    .attr('viewBox',`0 0 ${cW} ${cH}`).style('width','100%').style('height','auto');
+  const g = svg.append('g').attr('transform',`translate(${M.left},${M.top})`);
+
+  const ns = d3.range(5, 201, 5);
+  const z = getZ();
+  const widths = ns.map(n => ({ n, w: 2*z*SIGMA/Math.sqrt(n) }));
+
+  const x = d3.scaleLinear().domain([5,200]).range([0,W]);
+  const y = d3.scaleLinear().domain([0, widths[0].w * 1.1]).range([H,0]);
+
+  g.append('g').attr('class','grid')
+    .call(d3.axisLeft(y).ticks(5).tickSize(-W).tickFormat(''))
+    .call(gr => gr.select('.domain').remove());
+
+  const line = d3.line().x(d=>x(d.n)).y(d=>y(d.w)).curve(d3.curveCatmullRom);
+  g.append('path').datum(widths).attr('d',line)
+    .attr('fill','none').attr('stroke','#7c9eff').attr('stroke-width',2);
+
+  // Current n dot
+  const curW = 2*z*SIGMA/Math.sqrt(nSample);
+  g.append('circle').attr('cx',x(nSample)).attr('cy',y(curW)).attr('r',6)
+    .attr('fill','#7c9eff').attr('stroke','#fff').attr('stroke-width',1.5);
+  g.append('text').attr('x',x(nSample)+8).attr('y',y(curW))
+    .attr('fill','#7c9eff').attr('font-size',10).attr('dominant-baseline','middle')
+    .text(`n=${nSample}, w=${curW.toFixed(2)}`);
+
+  // 4n doubling arrow annotation
+  const n1 = 20, n2 = 80, w1 = 2*z*SIGMA/Math.sqrt(n1), w2 = 2*z*SIGMA/Math.sqrt(n2);
+  [[n1,w1],[n2,w2]].forEach(([n,w]) => {
+    g.append('circle').attr('cx',x(n)).attr('cy',y(w)).attr('r',4)
+      .attr('fill','none').attr('stroke','#f0a44a').attr('stroke-width',1.5);
+  });
+  g.append('line').attr('x1',x(n1)).attr('x2',x(n2)).attr('y1',y(w1+0.02)).attr('y2',y(w1+0.02))
+    .attr('stroke','rgba(240,164,74,0.4)').attr('stroke-width',1).attr('stroke-dasharray','3 2');
+  g.append('text').attr('x',(x(n1)+x(n2))/2).attr('y',y(w1+0.05))
+    .attr('text-anchor','middle').attr('fill','#f0a44a').attr('font-size',9)
+    .text('4×n → ½ width');
+
+  g.append('g').attr('class','axis').attr('transform',`translate(0,${H})`).call(d3.axisBottom(x).ticks(8));
+  g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.2f')));
+  g.append('text').attr('x',W/2).attr('y',H+36).attr('text-anchor','middle').attr('fill','var(--gd-text-2)').attr('font-size',11).text('Sample size n');
+  g.append('text').attr('transform',`rotate(-90)`).attr('x',-H/2).attr('y',-46).attr('text-anchor','middle').attr('fill','var(--gd-text-2)').attr('font-size',11).text('CI width');
+
+  document.getElementById('width-live').innerHTML =
+    `Width at n=${nSample}: <span class="live-val">${curW.toFixed(3)}</span><br>` +
+    `n×4=${nSample*4} → width: <span class="live-val">${(curW/2).toFixed(3)}</span> (half)`;
+}
+
+// Button handlers
+document.getElementById('btn-sample1').addEventListener('click', () => drawSample(1));
+document.getElementById('btn-sample20').addEventListener('click', () => drawSample(20));
+document.getElementById('btn-sample100').addEventListener('click', () => drawSample(100));
+document.getElementById('btn-reset').addEventListener('click', () => { cis = []; renderCI(); updateWidthChart(); });
+
+document.getElementById('n-slider').addEventListener('input', function() {
+  nSample = +this.value; document.getElementById('n-val').textContent = nSample;
+  cis = []; renderCI(); updateWidthChart();
+});
+document.getElementById('alpha-slider').addEventListener('input', function() {
+  alphaIdx = +this.value - 1;
+  document.getElementById('alpha-val').textContent = ALPHA_LEVELS[alphaIdx].label;
+  cis = []; renderCI(); updateWidthChart();
+});
+
+renderCI();
+updateWidthChart();
+window.addEventListener('resize', () => setTimeout(() => { renderCI(); updateWidthChart(); }, 150));
+</script>
+</VizLayout>

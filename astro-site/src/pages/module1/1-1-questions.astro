@@ -1,0 +1,444 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.1 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-1-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.1 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-1-counting.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">11 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.1 Practice Questions</h1>
+  <p>GATE-style questions on counting and basic probability. Attempt each question before revealing the answer. NAT and MSQ have no negative marking; single-correct MCQ deducts ⅓ mark.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 11</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">In how many ways can a committee of 3 be selected from 10 people?</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 720</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 120</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 30</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1000</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1, 'mcq', 'B')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (B) 120.</span></b> Committee = unordered selection → $C(10,3) = \frac&#123;10!&#125;&#123;3!\cdot7!&#125; = 120$.<br>
+        Trap: (A) 720 = $P(10,3)$, the ordered count — use that only if the seats on the committee are distinguishable (chair, vice-chair, secretary).
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2024 DA Q12</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">
+      Three fair coins are tossed independently. $T$ = event of two or more heads; $S$ = event of two or more tails. What is $P(T \cap S)$?
+    </div>
+    <div class="q-options" id="q2-opts">
+      <div class="q-opt" data-q="2" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0</div>
+      <div class="q-opt" data-q="2" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.5</div>
+      <div class="q-opt" data-q="2" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.25</div>
+      <div class="q-opt" data-q="2" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(2, 'mcq', 'A')">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ (A) 0.</span></b> With only 3 coins, "≥2 heads" requires ≥2 coins showing heads and "≥2 tails" requires ≥2 showing tails — that would need ≥4 coins total. Impossible with 3. So $T \cap S = \emptyset$ and $P(T \cap S) = 0$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">
+      In a class of 100 students, 60 like tea, 50 like coffee, and 30 like both. How many students like at least one of the two?
+    </div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 80</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 110</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 90</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 140</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3, 'mcq', 'A')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (A) 80.</span></b> Inclusion–exclusion: $|T \cup C| = 60 + 50 - 30 = 80$.<br>
+        Trap: (B) 110 = 60 + 50, forgetting to subtract the overlap. (C) 90 mistakenly subtracts the full 60 instead of the overlap.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 NAT -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">How many distinct arrangements are there of the letters of the word <strong>BANANA</strong>?</div>
+    <div class="q-nat">
+      <input class="q-nat__input" type="number" id="q4-input" placeholder="Enter answer">
+      <span class="q-nat__label">arrangements</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4, 60)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ Answer: 60.</span></b> BANANA = 6 letters: A×3, N×2, B×1.<br>
+        Arrangements with repeated letters = $\frac&#123;6!&#125;&#123;3! \cdot 2! \cdot 1!&#125; = \frac&#123;720&#125;&#123;12&#125; = 60$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">In how many ways can 6 distinct people be seated around a circular table (rotations considered identical)?</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 720</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 120</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 5040</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 6</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5, 'mcq', 'B')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (B) 120.</span></b> Circular arrangements of $n$ distinct people = $(n-1)! = 5! = 120$. Fix one person to remove rotational equivalence, arrange the remaining 5.<br>
+        Trap: (A) 720 = $6!$, the linear count.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">How many arrangements of the letters of <strong>EXAM</strong> have the two vowels (E, A) adjacent?</div>
+    <div class="q-options" id="q6-opts">
+      <div class="q-opt" data-q="6" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 48</div>
+      <div class="q-opt" data-q="6" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 24</div>
+      <div class="q-opt" data-q="6" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 12</div>
+      <div class="q-opt" data-q="6" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 6</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(6, 'mcq', 'C')">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ (C) 12.</span></b> Glue E and A into one block: units are &#123;(EA), X, M&#125; → $3! = 6$ arrangements. Inside the block, E and A can swap → $2! = 2$ ways. Total = $6 \times 2 = 12$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 NAT -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">How many non-negative integer solutions does $x_1 + x_2 + x_3 = 10$ have?</div>
+    <div class="q-nat">
+      <input class="q-nat__input" type="number" id="q7-input" placeholder="Enter answer">
+      <span class="q-nat__label">solutions</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7, 66)">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ Answer: 66.</span></b> Stars and bars: distributing 10 among 3 variables = $C(10 + 3 - 1,\; 3 - 1) = C(12, 2) = 66$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">A box has 4 red and 6 blue balls. Two balls are drawn at random without replacement. What is the probability that both are red?</div>
+    <div class="q-options" id="q8-opts">
+      <div class="q-opt" data-q="8" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 2/15</div>
+      <div class="q-opt" data-q="8" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1/5</div>
+      <div class="q-opt" data-q="8" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 4/25</div>
+      <div class="q-opt" data-q="8" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 3/20</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(8, 'mcq', 'A')">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (A) 2/15.</span></b> $P = \frac&#123;C(4,2)&#125;&#123;C(10,2)&#125; = \frac&#123;6&#125;&#123;45&#125; = \frac&#123;2&#125;&#123;15&#125;$. Equivalently: $(4/10) \times (3/9) = 12/90 = 2/15$.<br>
+        Trap: (C) 4/25 = $(4/10)^2$ — that formula applies only <em>with</em> replacement.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 NAT -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2026 DA Q33</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">
+      The number of bijections $f$ from $S = \&#123;1, 2, 3, 4\&#125;$ to itself such that $f(f(n)) = n$ for all $n \in S$ is ______.
+    </div>
+    <div class="q-nat">
+      <input class="q-nat__input" type="number" id="q9-input" placeholder="Enter answer">
+      <span class="q-nat__label">bijections</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9, 10)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ Answer: 10.</span></b> $f(f(n)) = n$ means $f$ is an <em>involution</em> — every element is either a fixed point or part of a 2-cycle.<br>
+        Count by structure on 4 elements: 0 two-cycles (all fixed) = 1; 1 two-cycle = $C(4,2) = 6$; 2 two-cycles (perfect matching) = 3. Total = $1 + 6 + 3 = 10$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 complex -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-ref">2026 DA Q19</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">
+      Let $M$ be a randomly chosen <strong>non-empty</strong> subset of $S = \&#123;1, 2, \dots, 2026\&#125;$. The probability that the product of all elements of $M$ is even is:
+    </div>
+    <div class="q-options" id="q10-opts">
+      <div class="q-opt" data-q="10" data-val="A" onclick="selectOpt(this)">
+        <span class="q-opt-key">A</span>
+        <span data-katex="\dfrac{2^{1013}(2^{1013} - 1)}{2^{2026}}"></span>
+      </div>
+      <div class="q-opt" data-q="10" data-val="B" onclick="selectOpt(this)">
+        <span class="q-opt-key">B</span>
+        <span data-katex="\dfrac{2^{1013}}{2^{2026}}"></span>
+      </div>
+      <div class="q-opt" data-q="10" data-val="C" onclick="selectOpt(this)">
+        <span class="q-opt-key">C</span>
+        <span data-katex="\dfrac{2^{1013}(2^{1013} - 1)}{2^{2026} - 1}"></span>
+      </div>
+      <div class="q-opt" data-q="10" data-val="D" onclick="selectOpt(this)">
+        <span class="q-opt-key">D</span>
+        <span data-katex="\dfrac{1}{2^{2026} - 1}"></span>
+      </div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(10, 'mcq', 'C')">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ (C).</span></b> $S$ has 1013 odd and 1013 even numbers. Total non-empty subsets = $2^&#123;2026&#125; - 1$ (the <em>denominator</em> — this eliminates (A) and (B) immediately).<br>
+        Product is odd only if $M$ contains no even number → odd-only non-empty subsets = $2^&#123;1013&#125; - 1$.<br>
+        Even-product subsets = $(2^&#123;2026&#125; - 1) - (2^&#123;1013&#125; - 1) = 2^&#123;1013&#125;(2^&#123;1013&#125; - 1)$.<br>
+        Probability = $\dfrac&#123;2^&#123;1013&#125;(2^&#123;1013&#125; - 1)&#125;&#123;2^&#123;2026&#125; - 1&#125;$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 MSQ -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which of the following statements are <strong>TRUE</strong>? (Select all that apply.)</div>
+    <div class="q-options" id="q11-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="A"> <span class="q-opt-key">A</span> An $n$-element set has $2^n$ subsets.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="B"> <span class="q-opt-key">B</span> $C(n,r) = C(n, n-r)$ for $0 \le r \le n$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="C"> <span class="q-opt-key">C</span> The number of bijections from an $n$-element set to itself is $n^n$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="11" data-val="D"> <span class="q-opt-key">D</span> If $A$ and $B$ are mutually exclusive, then $P(A \cup B) = P(A) + P(B)$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(11, ['A','B','D'])">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (A), (B), (D).</span></b><br>
+        (A) True — each element independently in or out → $2^n$.<br>
+        (B) True — symmetry: choosing $r$ to include = choosing $n-r$ to exclude.<br>
+        (C) <span class="ans-wrong">False</span> — bijections = $n!$ (permutations). $n^n$ counts <em>all functions</em>, including non-injective ones.<br>
+        (D) True — direct consequence of Kolmogorov axiom 3 (countable additivity for disjoint events).
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>9–11 correct:</strong> counting &amp; basic probability is solid — move to 1.2 Conditional Probability.</p>
+  <p><strong>6–8:</strong> revisit the permutation/combination decision rule; redo Q4–Q9.</p>
+  <p><strong>≤5:</strong> re-read the theory page, focusing on the counting flowchart and inclusion-exclusion, then retry.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-1-bank.html" style="margin-top:8px;">More practice: 1.1 Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+  <script is:inline slot="scripts">
+// Render data-katex spans after KaTeX loads
+function renderKatexSpans() {
+  if (!window.katex) return;
+  document.querySelectorAll('[data-katex]').forEach(function(el) {
+    katex.render(el.dataset.katex, el, { throwOnError: false, displayMode: false });
+  });
+}
+window.__gdKatexReady = renderKatexSpans;
+if (window.katex) renderKatexSpans();
+
+// State: track which questions are answered correctly
+var scores = {};
+
+function updateScore() {
+  var n = Object.values(scores).filter(Boolean).length;
+  document.getElementById('score-num').textContent = n;
+}
+
+// MCQ single-correct
+function selectOpt(el) {
+  var q = el.dataset.q;
+  var card = document.getElementById('qc' + q);
+  if (card.classList.contains('q-card--correct') || card.classList.contains('q-card--wrong')) return;
+  document.querySelectorAll('[data-q="' + q + '"]').forEach(function(o) { o.classList.remove('q-opt--selected'); });
+  el.classList.add('q-opt--selected');
+}
+
+function check(q, type, correct) {
+  var card = document.getElementById('qc' + q);
+  var selected = document.querySelector('[data-q="' + q + '"].q-opt--selected');
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var btn = card.querySelector('.q-check-btn');
+
+  if (!selected) return;
+  var val = selected.dataset.val;
+  var isCorrect = val === correct;
+
+  // Mark all options
+  document.querySelectorAll('[data-q="' + q + '"]').forEach(function(o) {
+    o.classList.remove('q-opt--selected');
+    if (o.dataset.val === correct) o.classList.add('q-opt--correct');
+    else if (o.dataset.val === val && !isCorrect) o.classList.add('q-opt--wrong');
+    o.style.pointerEvents = 'none';
+  });
+
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  ansEl.style.display = 'block';
+  btn.disabled = true;
+  scores[q] = isCorrect;
+  updateScore();
+}
+
+function checkNat(q, correct) {
+  var input = document.getElementById('q' + q + '-input');
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var card = document.getElementById('qc' + q);
+  var btn = card.querySelector('.q-check-btn');
+  var val = parseFloat(input.value);
+  var isCorrect = val === correct;
+
+  input.classList.add(isCorrect ? 'q-nat__input--correct' : 'q-nat__input--wrong');
+  input.disabled = true;
+  ansEl.style.display = 'block';
+  btn.disabled = true;
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  scores[q] = isCorrect;
+  updateScore();
+}
+
+function checkMsq(q, correctArr) {
+  var card = document.getElementById('qc' + q);
+  var ansEl = document.getElementById('q' + q + '-ans');
+  var btn = card.querySelector('.q-check-btn');
+  var checked = Array.from(document.querySelectorAll('[data-q="' + q + '"]:checked')).map(function(c) { return c.dataset.val; });
+  var isCorrect = correctArr.length === checked.length && correctArr.every(function(v) { return checked.includes(v); });
+
+  card.querySelectorAll('.q-opt--msq').forEach(function(label) {
+    var val = label.querySelector('input').dataset.val;
+    var isChecked = checked.includes(val);
+    var isRight = correctArr.includes(val);
+    if (isRight) label.classList.add('q-opt--correct');
+    else if (isChecked) label.classList.add('q-opt--wrong');
+    label.querySelector('input').disabled = true;
+    label.style.pointerEvents = 'none';
+  });
+
+  card.classList.add(isCorrect ? 'q-card--correct' : 'q-card--wrong');
+  ansEl.style.display = 'block';
+  btn.disabled = true;
+  scores[q] = isCorrect;
+  updateScore();
+}
+
+function resetAll() {
+  scores = {};
+  updateScore();
+  // Reset MCQ cards
+  document.querySelectorAll('.q-card').forEach(function(card) {
+    card.classList.remove('q-card--correct', 'q-card--wrong');
+  });
+  document.querySelectorAll('.q-opt').forEach(function(o) {
+    o.classList.remove('q-opt--selected', 'q-opt--correct', 'q-opt--wrong');
+    o.style.pointerEvents = '';
+  });
+  document.querySelectorAll('.q-nat__input').forEach(function(i) {
+    i.value = ''; i.disabled = false;
+    i.classList.remove('q-nat__input--correct', 'q-nat__input--wrong');
+  });
+  document.querySelectorAll('.q-opt--msq input').forEach(function(c) {
+    c.checked = false; c.disabled = false;
+  });
+  document.querySelectorAll('.q-answer').forEach(function(a) { a.style.display = 'none'; });
+  document.querySelectorAll('.q-check-btn').forEach(function(b) { b.disabled = false; });
+}
+  </script>
+</VizLayout>

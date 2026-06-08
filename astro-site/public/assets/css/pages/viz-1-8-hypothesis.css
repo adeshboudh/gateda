@@ -1,0 +1,21 @@
+.error-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; margin: 14px 0; }
+    .error-card {
+      background: var(--gd-bg-2); border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md); padding: 13px 15px; text-align: center;
+    }
+    .error-card__label { font-size: 0.68rem; color: var(--gd-text-2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .error-card__val { font-family: var(--gd-font-mono); font-size: 1.2rem; font-weight: 700; }
+    .error-card--alpha .error-card__val { color: #e05c6b; }
+    .error-card--beta .error-card__val { color: #f0a44a; }
+    .error-card--power .error-card__val { color: #4caf82; }
+    .error-card--z .error-card__val { color: #7c9eff; }
+    .pvalue-display {
+      font-family: var(--gd-font-mono); font-size: 2rem; font-weight: 700;
+      text-align: center; padding: 14px; border-radius: var(--gd-r-lg);
+      margin: 12px 0; transition: 0.2s; background: var(--gd-bg-2);
+      border: 1px solid var(--gd-border);
+    }
+    .decision-tag {
+      display: inline-block; padding: 3px 12px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700; margin-left: 12px;
+    }

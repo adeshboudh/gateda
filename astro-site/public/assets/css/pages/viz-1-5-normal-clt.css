@@ -1,0 +1,33 @@
+.prob-display {
+      background: var(--gd-bg-3);
+      border: 1px solid var(--gd-border);
+      border-radius: var(--gd-r-md);
+      padding: 14px 18px;
+      font-family: var(--gd-font-mono);
+      font-size: 1.1rem;
+      color: var(--gd-brand);
+      font-weight: 600;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .clt-src-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .clt-src-tab {
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid var(--gd-border);
+      color: var(--gd-text-1);
+      cursor: pointer;
+      background: var(--gd-bg-3);
+      transition: 0.15s;
+    }
+    .clt-src-tab--active { background: rgba(76,175,130,0.15); border-color: var(--gd-success); color: var(--gd-success); }
+    .clt-sample-count {
+      font-family: var(--gd-font-mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gd-brand);
+      text-align: center;
+      margin: 6px 0;
+    }
+    .clt-sample-label { font-size: 0.8rem; color: var(--gd-text-2); text-align: center; margin-bottom: 12px; }

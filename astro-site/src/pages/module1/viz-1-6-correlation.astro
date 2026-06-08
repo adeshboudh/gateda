@@ -1,0 +1,459 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.6 Covariance &amp; Correlation — Visualized · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/viz-1-6-correlation" pageCss="/assets/css/pages/viz-1-6-correlation.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.6 Covariance &amp; Correlation
+</div>
+<a class="gd-pill-link" href="/module1/index.html">← Module 1 Overview</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">2024 Q65 · 2026 Q63</span>
+  </div>
+  <h1 id="top">Covariance &amp; Pearson Correlation</h1>
+  <p>How two random variables move together. Drag points in the interactive scatter plot to see covariance and $r$ update live. The key GATE trap — uncorrelated ≠ independent — is built into the nonlinear preset.</p>
+</div>
+
+<!-- ═══ THEORY 1: JOINT DISTRIBUTIONS ═══ -->
+<h2 id="joint">Theory — Joint Distributions &amp; Independence</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  When two variables are measured together, their <strong>joint</strong> distribution encodes every combination. Marginals collapse the joint to one variable; independence means the joint factorizes completely.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Joint PMF / PDF</div>
+    <div class="gd-formula">$$p(x,y) = P(X\!=\!x,\, Y\!=\!y), \quad \sum_x\sum_y p(x,y) = 1$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Continuous: $f(x,y)\ge0$, $\iint f(x,y)\,dx\,dy=1$. Probabilities are volumes under the surface.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Marginals — collapse one variable</div>
+    <div class="gd-formula">$$p_X(x) = \sum_y p(x,y) \qquad f_X(x) = \int f(x,y)\,dy$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">In a PMF table: row totals → $p_X$, column totals → $p_Y$. Always compute marginals first.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Independence — factorization test</div>
+    <div class="gd-formula">$$p(x,y) = p_X(x)\cdot p_Y(y) \quad \text&#123;for ALL &#125;(x,y)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">One cell failure → dependent. Also: support must be a <em>rectangle</em> — triangular support ($0 &lt; y &lt; x$) forces dependence even if the formula looks separable.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Consequence of independence</div>
+    <div class="gd-formula">$$X,Y \text&#123; independent &#125;\Rightarrow E[XY] = E[X]\cdot E[Y]$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">And generally $E[g(X)h(Y)]=E[g(X)]\cdot E[h(Y)]$ for any functions $g, h$.</p>
+  </div>
+</div>
+
+<!-- ═══ THEORY 2: COVARIANCE ═══ -->
+<h2 id="covariance">Theory — Covariance</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Covariance measures how much $X$ and $Y$ deviate from their means <em>together</em>. It has units (unlike $r$) and can be any real number.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Definition — computational form</div>
+    <div class="gd-formula">$$\text&#123;Cov&#125;(X,Y) = E[XY] - E[X]E[Y]$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Equivalent to $E[(X-\mu_X)(Y-\mu_Y)]$. Use the computational form in calculations — it's faster.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Variance of a linear combination</div>
+    <div class="gd-formula">$$\text&#123;Var&#125;(aX+bY) = a^2\text&#123;Var&#125;(X) + b^2\text&#123;Var&#125;(Y) + 2ab\,\text&#123;Cov&#125;(X,Y)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">GATE trap: forgetting the $2ab\,\text&#123;Cov&#125;$ term when $X, Y$ are not independent.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Bilinearity — constants factor out</div>
+    <div class="gd-formula">$$\text&#123;Cov&#125;(aX+b,\; cY+d) = ac\cdot\text&#123;Cov&#125;(X,Y)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Additive constants $b, d$ disappear entirely. Only the multiplicative scalars $a, c$ matter.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Special values</div>
+    <div class="gd-formula">$$\text&#123;Cov&#125;(X,X) = \text&#123;Var&#125;(X) \qquad \text&#123;Cov&#125;(X,Y)=\text&#123;Cov&#125;(Y,X)$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Diagonal of the covariance matrix = variances. Off-diagonal entries are symmetric.</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">$E[XY]$ shortcut for Bernoulli variables</span>
+    For Bernoulli $X$ and $Y$: $E[XY] = P(X=1 \text&#123; and &#125; Y=1)$ — a joint probability, no double sum needed. Extends to any $X, Y$ that are independent: $E[XY] = E[X]E[Y]$, so $\text&#123;Cov&#125; = 0$.
+  </div>
+</div>
+
+<!-- ═══ THEORY 3: CORRELATION & TRAP ═══ -->
+<h2 id="correlation">Theory — Correlation &amp; the Key Trap</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Correlation is covariance rescaled to $[-1,1]$ — it removes units and makes linear association comparable across problems. But it only detects <em>linear</em> relationships.
+</p>
+
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-card__label">Pearson correlation — scale-free</div>
+    <div class="gd-formula">$$\rho = \frac&#123;\text&#123;Cov&#125;(X,Y)&#125;&#123;\sigma_X\,\sigma_Y&#125;, \qquad -1 \le \rho \le 1$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Dimensionless. Scale $X$ or $Y$ by any positive constant — $\rho$ is unchanged (unlike Cov).</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Boundary values</div>
+    <div class="gd-formula">$$\lvert\rho\rvert = 1 \iff Y = aX+b \text&#123; (perfect line)&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$\rho=+1$: positive slope $a>0$. $\rho=-1$: negative slope $a&lt;0$. A curve can have $|\rho|&lt;1$ even if deterministic.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Independent ⇒ Uncorrelated (one way only)</div>
+    <div class="gd-formula">$$X,Y \text&#123; independent &#125;\Rightarrow \text&#123;Cov&#125;=0 \Rightarrow \rho=0$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">Contrapositive: $\rho\ne0$ → definitely dependent. But $\rho=0$ says nothing about independence.</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-card__label">Uncorrelated ≠ Independent (the GATE trap)</div>
+    <div class="gd-formula">$$\rho = 0 \;\nRightarrow\; \text&#123;independent&#125;$$</div>
+    <p style="font-size:14px;color:var(--gd-text-2);margin:8px 0 0;">$Y=X^2$, $X\sim\text&#123;Uniform&#125;(-1,1)$: $\rho=0$ yet $Y$ is fully determined by $X$. (2026 Q63)</p>
+  </div>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insight gd-insight--warn">
+    <span class="gd-insight__title">The headline 2026 Q63 trap — nonlinear dependence hides from $\rho$</span>
+    $\rho=0$ means no <em>linear</em> association. A symmetric nonlinear relationship — $Y=X^2$ on $[-1,1]$ — produces $\text&#123;Cov&#125;=0$ via $E[X^3]=0$ (odd function) even though $Y$ is fully determined by $X$. Load the "Nonlinear" preset below to see $r\approx0$ despite a clear parabolic pattern.
+  </div>
+</div>
+
+<!-- ═══ VIZ: INTERACTIVE SCATTER PLOT ═══ -->
+<h2 id="viz">Interactive — Drag Points, See Live Covariance &amp; r</h2>
+<p style="font-size:15px;color:var(--gd-text-1);margin-bottom:16px;line-height:1.6;">
+  Drag any point to reposition it, double-click the chart to add a point, right-click a point to remove it. Load presets to jump to key scenarios.
+</p>
+
+<div class="gd-formula-panel gd-formula-panel--split">
+  <div>
+    <div class="gd-formula-label">Pearson r</div>
+    <div class="gd-formula">$$r = \frac&#123;\text&#123;Cov&#125;(X,Y)&#125;&#123;\sigma_X \sigma_Y&#125; = \frac&#123;\sum(x_i - \bar&#123;x&#125;)(y_i - \bar&#123;y&#125;)&#125;&#123;\sqrt&#123;\sum(x_i-\bar&#123;x&#125;)^2\,\sum(y_i-\bar&#123;y&#125;)^2&#125;&#125;$$</div>
+  </div>
+  <div>
+    <div class="gd-formula-label">Current values</div>
+    <div class="gd-formula-live" id="corr-live">—</div>
+  </div>
+</div>
+
+<div class="r-display" id="r-display">r = —</div>
+
+<!-- Presets -->
+<div style="margin:16px 0 8px;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gd-text-2);">Quick scenarios</div>
+<div class="preset-grid">
+  <button class="preset-btn" data-preset="strong-pos">Strong positive<br>r ≈ 0.95</button>
+  <button class="preset-btn" data-preset="weak-pos">Weak positive<br>r ≈ 0.4</button>
+  <button class="preset-btn" data-preset="none">No correlation<br>r ≈ 0</button>
+  <button class="preset-btn" data-preset="weak-neg">Weak negative<br>r ≈ −0.4</button>
+  <button class="preset-btn" data-preset="strong-neg">Strong negative<br>r ≈ −0.95</button>
+  <button class="preset-btn" data-preset="nonlinear">Nonlinear<br>r ≈ 0 but related</button>
+</div>
+
+<div class="gd-chart" style="position:relative;">
+  <div class="gd-chart__title">Drag points · Double-click to add · Right-click to remove</div>
+  <div id="scatter-chart"></div>
+</div>
+
+<div style="display:flex;gap:8px;margin-bottom:16px;">
+  <button class="gd-btn gd-btn--secondary" id="add-point-btn">+ Add random point</button>
+  <button class="gd-btn gd-btn--secondary" id="clear-btn">Clear all</button>
+</div>
+
+<div class="gd-insights">
+  <div class="gd-insights__title">Live statistics</div>
+  <div class="gd-insight gd-insight--active" id="ins-r">r = —</div>
+  <div class="gd-insight" id="ins-cov">Cov(X,Y) = —</div>
+  <div class="gd-insight" id="ins-sx">σX = —, σY = —</div>
+  <div class="gd-insight gd-insight--warn" id="ins-warn" style="display:none;"></div>
+</div>
+
+<!-- ═══ WORKED EXAMPLES ═══ -->
+<h2 id="examples">Worked Examples</h2>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 1 · Discrete joint table — marginals, Cov, ρ, independence</span>
+    <p>Joint PMF of $(X,Y)$: $p(0,0)=0.1$, $p(0,1)=0.2$, $p(1,0)=0.3$, $p(1,1)=0.4$. Find the marginals, test independence, compute $\text&#123;Cov&#125;(X,Y)$ and $\rho$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Marginals (row/column totals):</strong> $p_X(0)=0.3,\; p_X(1)=0.7$; &nbsp; $p_Y(0)=0.4,\; p_Y(1)=0.6$.</p>
+    <p><strong>Independence?</strong> $p(0,0)=0.1$ vs $p_X(0)\cdot p_Y(0)=0.12$. Not equal → <strong>dependent</strong>.</p>
+    <p><strong>Means:</strong> $E[X]=0.7$, $E[Y]=0.6$.</p>
+    <p><strong>$E[XY]$:</strong> only the $X=1,Y=1$ cell contributes: $E[XY]=(1)(1)(0.4)=0.4$.</p>
+    <p><strong>Covariance:</strong> $\text&#123;Cov&#125;=0.4-(0.7)(0.6)=0.4-0.42=-0.02$.</p>
+    <p><strong>Variances:</strong> $\text&#123;Var&#125;(X)=0.7\times0.3=0.21$; &nbsp; $\text&#123;Var&#125;(Y)=0.6\times0.4=0.24$.</p>
+    <p><strong>Correlation:</strong> $\rho = \dfrac&#123;-0.02&#125;&#123;\sqrt&#123;0.21\times0.24&#125;&#125; = \dfrac&#123;-0.02&#125;&#123;0.2245&#125; \approx -0.089$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Pattern: marginals → $E[X],E[Y]$ → $E[XY]$ (sum all $xy\cdot p(x,y)$ cells) → Cov → ρ. This is the five-step drill for every PMF table.</p>
+    <div class="gd-example__ans">Cov = −0.02 · ρ ≈ −0.089 · Dependent</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 2 · GATE 2024 Q65 — Covariance of two Bernoulli events (NAT)</span>
+    <p>Two fair coins are tossed independently. $X=1$ if both are heads (else 0); $Y=1$ if at least one is a head (else 0). Find $\text&#123;Cov&#125;(X,Y)$ to three decimals.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Identify distributions:</strong> $P(\text&#123;both heads&#125;)=\tfrac&#123;1&#125;&#123;4&#125;\Rightarrow E[X]=\tfrac&#123;1&#125;&#123;4&#125;$; &nbsp; $P(\text&#123;at least one head&#125;)=\tfrac&#123;3&#125;&#123;4&#125;\Rightarrow E[Y]=\tfrac&#123;3&#125;&#123;4&#125;$.</p>
+    <p><strong>$E[XY]$:</strong> $XY=1$ only when $X=1$, which forces $Y=1$. So $E[XY]=P(\text&#123;both heads&#125;)=\tfrac&#123;1&#125;&#123;4&#125;$.</p>
+    <p><strong>Covariance:</strong> $\text&#123;Cov&#125; = E[XY]-E[X]E[Y] = \tfrac&#123;1&#125;&#123;4&#125;-\tfrac&#123;1&#125;&#123;4&#125;\cdot\tfrac&#123;3&#125;&#123;4&#125; = \tfrac&#123;4&#125;&#123;16&#125;-\tfrac&#123;3&#125;&#123;16&#125; = \tfrac&#123;1&#125;&#123;16&#125; = 0.0625$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Shortcut: for Bernoullis, $E[XY]=P(X=1\text&#123; and &#125;Y=1)$. Positive Cov: both variables tend to be 1 together (both heads scenario). No joint table or integral needed.</p>
+    <div class="gd-example__ans">Cov(X,Y) = 1/16 = 0.063</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 3 · GATE 2026 Q63 — Uncorrelated but dependent (NAT · Hard)</span>
+    <p>$X\sim\text&#123;Uniform&#125;(-1,1)$. Given $X=x$, the conditional distribution is $Y\mid X=x \sim\text&#123;Uniform&#125;(x^2-0.1,\, x^2+0.1)$. Find $\text&#123;correlation&#125;(X,Y)$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Tower property — no double integral:</strong></p>
+    <p>$E[Y\mid X=x] = x^2$ (midpoint of the conditional uniform). So $E[XY] = E[X\cdot E[Y\mid X]] = E[X\cdot X^2] = E[X^3]$.</p>
+    <p>$E[X^3]=0$ because $X^3$ is an odd function on the symmetric interval $[-1,1]$.</p>
+    <p>$E[X]=0$ (symmetric). So $\text&#123;Cov&#125;(X,Y) = E[XY]-E[X]E[Y] = 0 - 0 = 0$, giving $\rho=0$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">$Y$ is fully governed by $X$ through $X^2$ — clearly dependent — yet $\rho=0$. Correlation sees only linear association; the dependence here is nonlinear (even function on a symmetric interval). This is the 2026 Q63 trap.</p>
+    <div class="gd-example__ans">ρ = 0 (uncorrelated, NOT independent)</div>
+  </div>
+</div>
+
+<div class="gd-example">
+  <div class="gd-example__q">
+    <span class="gd-example__num">Example 4 · Continuous joint PDF — marginal, independence, covariance</span>
+    <p>$f(x,y) = x+y$ for $0\le x\le1,\; 0\le y\le1$ (else 0). Find $f_X(x)$, test independence, compute $\text&#123;Cov&#125;(X,Y)$.</p>
+  </div>
+  <div class="gd-example__body">
+    <p><strong>Marginal:</strong> $f_X(x)=\int_0^1(x+y)\,dy = x+\tfrac&#123;1&#125;&#123;2&#125;$ &nbsp;(by symmetry $f_Y(y)=y+\tfrac&#123;1&#125;&#123;2&#125;$).</p>
+    <p><strong>Independence?</strong> $f_X\cdot f_Y=\bigl(x+\tfrac&#123;1&#125;&#123;2&#125;\bigr)\bigl(y+\tfrac&#123;1&#125;&#123;2&#125;\bigr)= xy+\tfrac&#123;x&#125;&#123;2&#125;+\tfrac&#123;y&#125;&#123;2&#125;+\tfrac&#123;1&#125;&#123;4&#125;\ne x+y$ → <strong>Dependent</strong>.</p>
+    <p><strong>Means:</strong> $E[X]=\int_0^1 x\bigl(x+\tfrac&#123;1&#125;&#123;2&#125;\bigr)\,dx=\tfrac&#123;7&#125;&#123;12&#125;$ (and $E[Y]=\tfrac&#123;7&#125;&#123;12&#125;$).</p>
+    <p><strong>$E[XY]$:</strong> $\iint xy(x+y)\,dx\,dy = \tfrac&#123;1&#125;&#123;6&#125;+\tfrac&#123;1&#125;&#123;6&#125;=\tfrac&#123;1&#125;&#123;3&#125;$.</p>
+    <p><strong>Covariance:</strong> $\text&#123;Cov&#125;=\tfrac&#123;1&#125;&#123;3&#125;-\bigl(\tfrac&#123;7&#125;&#123;12&#125;\bigr)^2=\tfrac&#123;48&#125;&#123;144&#125;-\tfrac&#123;49&#125;&#123;144&#125;=-\tfrac&#123;1&#125;&#123;144&#125;\approx-0.0069$.</p>
+    <p style="font-size:13px;color:var(--gd-text-2);">Method: integrate for marginal → factorization test → double integral for $E[XY]$ → covariance formula. The tiny negative Cov reflects a subtle anti-correlation in this PDF.</p>
+    <div class="gd-example__ans">f_X(x) = x + 1/2 · Dependent · Cov = −1/144 ≈ −0.0069</div>
+  </div>
+</div>
+
+<!-- ═══ GATE ANGLE ═══ -->
+<div class="gd-gate-box">
+  <div class="gd-gate-box__title">GATE DA Angle</div>
+  <p><strong>The headline trap:</strong> $\text&#123;Cov&#125;(X,Y)=0$ does NOT imply independence. Correlation only captures <em>linear</em> association. A symmetric nonlinear dependence — $Y=X^2$ on $[-1,1]$ — gives $\rho=0$ even though $Y$ is fully determined by $X$. 2026 Q63 is built entirely on this.</p>
+  <p><strong>Computational formula:</strong> $\text&#123;Cov&#125;=E[XY]-E[X]E[Y]$. For Bernoulli variables, $E[XY]=P(X=1\text&#123; and &#125;Y=1)$ — no table needed. (2024 Q65)</p>
+  <p><strong>Var of a sum — always include Cov:</strong> $\text&#123;Var&#125;(X+Y)=\text&#123;Var&#125;(X)+\text&#123;Var&#125;(Y)+2\,\text&#123;Cov&#125;(X,Y)$. Set Cov=0 only when independence is given. MCQ trap: answer (A) often omits the covariance term entirely.</p>
+  <p><strong>Tower property shortcut:</strong> If $E[Y\mid X]$ is known, use $E[XY]=E[X\cdot E[Y\mid X]]$ instead of a double integral. Saved 2026 Q63 in two lines versus computing $\iint xy\,f(x,y)\,dx\,dy$.</p>
+  <p><strong>Independence requires rectangular support.</strong> If the support is triangular ($0&lt;y&lt;x$), the variables are dependent even if the formula looks separable — the range of $y$ depends on $x$.</p>
+  <p><strong>Five-step PMF drill:</strong> (1) row/column totals → marginals; (2) $E[X],E[Y]$ from marginals; (3) $E[XY]=\sum\sum xy\cdot p(x,y)$; (4) $\text&#123;Cov&#125;=E[XY]-E[X]E[Y]$; (5) $\rho=\text&#123;Cov&#125;/(\sigma_X\sigma_Y)$.</p>
+</div>
+
+<!-- ═══ PREV / NEXT ═══ -->
+<div class="gd-page-nav">
+  <a class="gd-page-nav__item" href="/module1/viz-1-5-normal-clt.html">
+    <span class="gd-page-nav__dir">← Previous</span>
+    <span class="gd-page-nav__title">1.5 Normal &amp; CLT</span>
+  </a>
+  <a class="gd-page-nav__item gd-page-nav__item--next" href="/module1/viz-1-7-estimation.html">
+    <span class="gd-page-nav__dir">Next →</span>
+    <span class="gd-page-nav__title">1.7 Estimation</span>
+  </a>
+</div>
+
+<script is:inline slot="scripts">
+(function() {
+  // ── Data ────────────────────────────────
+  const PRESETS = {
+    'strong-pos': () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*1.5, y: i*0.9 + (Math.random()-0.5)*1.5})),
+    'weak-pos':   () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*3, y: i*0.5 + (Math.random()-0.5)*8})),
+    'none':       () => Array.from({length:20}, ()   => ({x: Math.random()*20, y: Math.random()*20})),
+    'weak-neg':   () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*3, y: 20 - i*0.5 + (Math.random()-0.5)*8})),
+    'strong-neg': () => Array.from({length:20}, (_,i) => ({x: i + (Math.random()-0.5)*1.5, y: 20 - i*0.9 + (Math.random()-0.5)*1.5})),
+    'nonlinear':  () => Array.from({length:30}, (_,i) => { const xv = (i/30)*20-10; return {x: xv, y: xv*xv/5 + (Math.random()-0.5)*3}; })
+  };
+
+  let points = PRESETS['strong-pos']();
+
+  // ── Statistics — consistent population formulas so r is exact ──
+  function stats(pts) {
+    if (pts.length < 2) return null;
+    const n  = pts.length;
+    const mx = d3.mean(pts, d => d.x);
+    const my = d3.mean(pts, d => d.y);
+    const cov = d3.mean(pts, d => (d.x - mx) * (d.y - my));                     // ÷n
+    const sx  = Math.sqrt(d3.mean(pts, d => (d.x - mx) ** 2));                  // ÷n
+    const sy  = Math.sqrt(d3.mean(pts, d => (d.y - my) ** 2));                  // ÷n
+    const r   = (sx > 0 && sy > 0) ? cov / (sx * sy) : 0;
+    return { mx, my, cov, sx, sy, r, n };
+  }
+
+  function rColor(r) {
+    if (r > 0.7)  return '#4caf82';
+    if (r > 0.3)  return '#7c9eff';
+    if (r < -0.7) return '#e05c6b';
+    if (r < -0.3) return '#f0a44a';
+    return '#606880';
+  }
+
+  // ── Scales (module-level so drag handler always has current values) ──
+  let width, height, x, y, g, M;
+
+  // ── Drag — defined once; does NOT call redraw() so dots are never destroyed mid-drag ──
+  const pointDrag = d3.drag()
+    .subject(function(event, d) { return { x: x(d.x), y: y(d.y) }; })
+    .on('start', function() {
+      d3.select(this).raise().attr('stroke-width', 2.5).attr('stroke', 'white');
+    })
+    .on('drag', function(event, d) {
+      d.x = x.invert(event.x);
+      d.y = y.invert(event.y);
+      d3.select(this).attr('cx', x(d.x)).attr('cy', y(d.y));
+      const st = stats(points);
+      updateOverlays(st);
+      updateStatsDisplay(st);
+    })
+    .on('end', function() {
+      d3.select(this).attr('stroke-width', 1).attr('stroke', 'rgba(255,255,255,0.15)');
+      // sync all dot colors to new r
+      const st = stats(points);
+      if (st) g.select('.dots-g').selectAll('.scatter-dot').attr('fill', rColor(st.r));
+    });
+
+  // ── Overlays (regression line + mean crosshairs) — updated independently of dots ──
+  function updateOverlays(st) {
+    const mg = g.select('.mean-g');
+    mg.selectAll('*').remove();
+    if (st) {
+      mg.append('line')
+        .attr('x1', x(st.mx)).attr('x2', x(st.mx)).attr('y1', 0).attr('y2', height)
+        .attr('stroke', '#606880').attr('stroke-width', 1).attr('stroke-dasharray', '3 3');
+      mg.append('line')
+        .attr('x1', 0).attr('x2', width).attr('y1', y(st.my)).attr('y2', y(st.my))
+        .attr('stroke', '#606880').attr('stroke-width', 1).attr('stroke-dasharray', '3 3');
+    }
+
+    const rg = g.select('.reg-g');
+    rg.selectAll('*').remove();
+    if (st && st.sx > 0) {
+      const slope = st.r * st.sy / st.sx;
+      const int   = st.my - slope * st.mx;
+      const xd    = x.domain();
+      rg.append('line')
+        .attr('x1', x(xd[0])).attr('x2', x(xd[1]))
+        .attr('y1', y(slope*xd[0]+int)).attr('y2', y(slope*xd[1]+int))
+        .attr('stroke', rColor(st.r)).attr('stroke-width', 2).attr('opacity', 0.8);
+    }
+  }
+
+  function updateStatsDisplay(st) {
+    if (!st) return;
+    const col = rColor(st.r);
+    const rDisp = document.getElementById('r-display');
+    rDisp.textContent = `r = ${st.r.toFixed(3)}`;
+    rDisp.style.color = col;
+    rDisp.style.background = col + '18';
+    document.getElementById('ins-r').textContent =
+      `r = ${st.r.toFixed(4)} — ${Math.abs(st.r) > 0.7 ? 'strong' : Math.abs(st.r) > 0.3 ? 'moderate' : 'weak'} ` +
+      `${st.r > 0 ? 'positive' : st.r < 0 ? 'negative' : 'no'} linear relationship`;
+    document.getElementById('ins-cov').textContent = `Cov(X,Y) = ${st.cov.toFixed(3)}`;
+    document.getElementById('ins-sx').textContent  = `σX = ${st.sx.toFixed(3)},  σY = ${st.sy.toFixed(3)},  n = ${st.n}`;
+    document.getElementById('corr-live').innerHTML =
+      `r = <span class="live-val">${st.r.toFixed(3)}</span><br>Cov = <span class="live-val">${st.cov.toFixed(3)}</span>`;
+    const warn = document.getElementById('ins-warn');
+    if (Math.abs(st.r) < 0.1 && points.length >= 20) {
+      warn.style.display = 'block';
+      warn.textContent = '⚠ r ≈ 0 does NOT mean X and Y are independent! (See nonlinear preset.)';
+    } else {
+      warn.style.display = 'none';
+    }
+  }
+
+  // ── Redraw — D3 join keeps existing dot elements alive (no mid-drag destruction) ──
+  function redraw() {
+    const st = stats(points);
+    updateOverlays(st);
+
+    g.select('.dots-g').selectAll('.scatter-dot')
+      .data(points, (d, i) => i)
+      .join('circle')
+        .attr('class', 'scatter-dot')
+        .attr('cx', d => x(d.x)).attr('cy', d => y(d.y))
+        .attr('r', 6)
+        .attr('fill', st ? rColor(st.r) : '#7c9eff')
+        .attr('opacity', 0.75)
+        .attr('stroke', 'rgba(255,255,255,0.15)').attr('stroke-width', 1)
+        .style('cursor', 'grab')
+        .on('contextmenu', function(event, d) {
+          event.preventDefault();
+          points = points.filter(p => p !== d);
+          redraw();
+        })
+        .call(pointDrag);
+
+    updateStatsDisplay(st);
+  }
+
+  // ── Setup — called once + on resize ──
+  function setup() {
+    const container = document.getElementById('scatter-chart');
+    const cW = container.clientWidth || 600;
+    const cH = Math.round(cW * 0.6);
+    M = { top: 20, right: 20, bottom: 40, left: 52 };
+    width  = cW - M.left - M.right;
+    height = cH - M.top  - M.bottom;
+
+    d3.select(container).select('svg').remove();
+    const svg = d3.select(container).append('svg')
+      .attr('viewBox', `0 0 ${cW} ${cH}`)
+      .style('width','100%').style('display','block').style('cursor','crosshair');
+    g = svg.append('g').attr('transform', `translate(${M.left},${M.top})`);
+
+    x = d3.scaleLinear().domain([-1, 22]).range([0, width]);
+    y = d3.scaleLinear().domain([-1, 22]).range([height, 0]);
+
+    // Static: grid + axes
+    g.append('g').attr('class','grid')
+      .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+    g.append('g').attr('class','grid').attr('transform',`translate(0,${height})`)
+      .call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(''))
+      .call(gr => gr.select('.domain').remove());
+    g.append('g').attr('class','axis').attr('transform',`translate(0,${height})`).call(d3.axisBottom(x).ticks(6));
+    g.append('g').attr('class','axis').call(d3.axisLeft(y).ticks(6));
+
+    // Ordered layers: mean → regression → dots (dots on top)
+    g.append('g').attr('class', 'mean-g');
+    g.append('g').attr('class', 'reg-g');
+    g.append('g').attr('class', 'dots-g');
+
+    svg.on('dblclick', function(event) {
+      const [mx, my] = d3.pointer(event, g.node());
+      points.push({ x: x.invert(mx), y: y.invert(my) });
+      redraw();
+    });
+
+    redraw();
+  }
+
+  // ── Controls ──
+  document.querySelector('.preset-grid').addEventListener('click', e => {
+    const btn = e.target.closest('.preset-btn');
+    if (!btn || !PRESETS[btn.dataset.preset]) return;
+    points = PRESETS[btn.dataset.preset]();
+    redraw();
+  });
+  document.getElementById('add-point-btn').addEventListener('click', () => {
+    points.push({ x: Math.random() * 20, y: Math.random() * 20 });
+    redraw();
+  });
+  document.getElementById('clear-btn').addEventListener('click', () => {
+    points = [];
+    redraw();
+    document.getElementById('r-display').textContent = 'r = —';
+    document.getElementById('r-display').style.color = '';
+    document.getElementById('r-display').style.background = '';
+  });
+
+  setup();
+  window.addEventListener('resize', () => setTimeout(setup, 150));
+})();
+</script>
+</VizLayout>

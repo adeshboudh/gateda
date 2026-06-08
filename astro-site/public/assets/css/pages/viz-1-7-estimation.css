@@ -1,0 +1,13 @@
+.ci-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin: 14px 0; }
+    .ci-stat { background: var(--gd-bg-2); border: 1px solid var(--gd-border); border-radius: var(--gd-r-md); padding: 12px 14px; text-align: center; }
+    .ci-stat__label { font-size: 0.68rem; color: var(--gd-text-2); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .ci-stat__val { font-family: var(--gd-font-mono); font-size: 1.15rem; font-weight: 700; color: var(--gd-brand); }
+    .ci-btn-row { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; }
+    .ci-btn {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--gd-border);
+      background: var(--gd-bg-3); color: var(--gd-text-1); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: 0.15s;
+    }
+    .ci-btn:hover { border-color: var(--gd-brand); color: var(--gd-brand); }
+    .ci-btn--primary { background: rgba(124,158,255,0.12); border-color: rgba(124,158,255,0.4); color: var(--gd-brand); }
+    .ci-btn--danger { border-color: rgba(224,92,107,0.4); color: var(--gd-error); }

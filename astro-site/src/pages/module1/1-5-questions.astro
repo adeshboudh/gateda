@@ -1,0 +1,309 @@
+---
+import VizLayout from '../../layouts/VizLayout.astro';
+const title = "1.5 Practice Questions · GATE DA";
+---
+<VizLayout {title} currentPath="/module1/1-5-questions" pageCss="/assets/css/pages/1-1-questions.css">
+
+<div class="gd-breadcrumb">
+  <a href="/index.html">Home</a><span>›</span>
+  <a href="/module1/index.html">Module 1</a><span>›</span>
+  1.5 Questions
+</div>
+<a class="gd-pill-link" href="/module1/viz-1-5-normal-clt.html">← Theory &amp; Visualizations</a>
+
+<div class="gd-viz-header">
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+    <span class="gd-badge gd-badge--subject">Module 1 · P&amp;S</span>
+    <span class="gd-badge gd-badge--pyq">11 questions · MCQ / NAT / MSQ</span>
+  </div>
+  <h1 id="top">1.5 Practice Questions — Continuous Distributions</h1>
+  <p>Uniform, Exponential, and Normal. Use $\Phi(1)=0.8413$, $\Phi(1.5)=0.9332$, $\Phi(2)=0.9772$; $e^&#123;-1&#125;\approx0.368$ throughout.</p>
+</div>
+
+<div class="q-score-bar">
+  <div>
+    <div class="q-score-bar__count"><span id="score-num">0</span> / 11</div>
+    <div class="q-score-bar__label">correct answers revealed</div>
+  </div>
+  <button class="q-score-bar__reset" onclick="resetAll()">Reset all</button>
+</div>
+
+<div class="q-list">
+
+  <!-- Q1 -->
+  <div class="q-card" id="qc1">
+    <div class="q-header">
+      <span class="q-num">Q1</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark</span>
+    </div>
+    <div class="q-body">If $X \sim \text&#123;Uniform&#125;(0, 10)$, then $\mathrm&#123;Var&#125;(X) =$</div>
+    <div class="q-options" id="q1-opts">
+      <div class="q-opt" data-q="1" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 5</div>
+      <div class="q-opt" data-q="1" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 100</div>
+      <div class="q-opt" data-q="1" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 8.33</div>
+      <div class="q-opt" data-q="1" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 25</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(1,'mcq','C')">Check</button>
+      <div class="q-answer" id="q1-ans">
+        <b><span class="ans-correct">✓ (C) 8.33.</span></b>
+        $\mathrm&#123;Var&#125; = \dfrac&#123;(b-a)^2&#125;&#123;12&#125; = 100/12 \approx 8.33$. (A) 5 is the mean; (D) 25 uses $(b-a)^2/4$ which is wrong.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qc2">
+    <div class="q-header">
+      <span class="q-num">Q2</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★</span>
+      <span class="q-marks">1 mark · no negative</span>
+    </div>
+    <div class="q-body">If $X \sim \text&#123;Uniform&#125;(2, 8)$, then $P(X > 5) =$ ___ .</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q2-input" step="0.1" placeholder="0.0">
+      <span class="q-nat__label">exact value</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(2,0.48,0.52)">Check</button>
+      <div class="q-answer" id="q2-ans">
+        <b><span class="ans-correct">✓ 0.5.</span></b>
+        $P(X>5) = (8-5)/(8-2) = 3/6 = 0.5$. For uniform, probability = length / total length.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qc3">
+    <div class="q-header">
+      <span class="q-num">Q3</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2025 Q19</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">A continuous $X$ has CDF $F(x) = \dfrac&#123;x-t&#125;&#123;4-t&#125;$ for $t \le x \le 4$ (0 below, 1 above). If the median of $X$ is 3, then $t =$</div>
+    <div class="q-options" id="q3-opts">
+      <div class="q-opt" data-q="3" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 2</div>
+      <div class="q-opt" data-q="3" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 1</div>
+      <div class="q-opt" data-q="3" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> −1</div>
+      <div class="q-opt" data-q="3" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(3,'mcq','A')">Check</button>
+      <div class="q-answer" id="q3-ans">
+        <b><span class="ans-correct">✓ (A) 2.</span></b>
+        $F$ is a Uniform($t$, 4) CDF. Median = $(t+4)/2 = 3 \Rightarrow t = 2$. Verify: $F(3) = (3-2)/(4-2) = 0.5$ ✓.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qc4">
+    <div class="q-header">
+      <span class="q-num">Q4</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">If $X \sim \text&#123;Exponential&#125;$ with $\lambda = 0.5$, then $P(X &lt; 2) =$ ___ (two decimals). Use $e^&#123;-1&#125;\approx0.368$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q4-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(4,0.61,0.65)">Check</button>
+      <div class="q-answer" id="q4-ans">
+        <b><span class="ans-correct">✓ 0.63.</span></b>
+        Exponential CDF: $P(X&lt;t)=1-e^&#123;-\lambda t&#125;$. Plug in $\lambda=0.5$, $t=2$: $P(X&lt;2)=1-e^&#123;-(0.5)(2)&#125;=1-e^&#123;-1&#125;\approx1-0.368=0.63$. Write the CDF formula first — don't substitute before setting it up.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qc5">
+    <div class="q-header">
+      <span class="q-num">Q5</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">$X$ is exponential with $P(X > 3) = 0.5$. Then $P(X > 5 \mid X > 2) =$</div>
+    <div class="q-options" id="q5-opts">
+      <div class="q-opt" data-q="5" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.25</div>
+      <div class="q-opt" data-q="5" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.5</div>
+      <div class="q-opt" data-q="5" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.75</div>
+      <div class="q-opt" data-q="5" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 1.0</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(5,'mcq','B')">Check</button>
+      <div class="q-answer" id="q5-ans">
+        <b><span class="ans-correct">✓ (B) 0.5.</span></b>
+        Memorylessness: $P(X>5 \mid X>2) = P(X>3) = 0.5$ (shift by 2; remaining threshold is $5-2=3$). The exponential "forgets" how long it has already waited.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qc6">
+    <div class="q-header">
+      <span class="q-num">Q6</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">If $X \sim \text&#123;Normal&#125;(\mu=50, \sigma^2=25)$, then $P(X > 60) =$ ___ (two decimals). Use $\Phi(2)=0.9772$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q6-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(6,0.01,0.03)">Check</button>
+      <div class="q-answer" id="q6-ans">
+        <b><span class="ans-correct">✓ 0.02.</span></b>
+        $\sigma = \sqrt&#123;25&#125; = 5$; $z = (60-50)/5 = 2$; $P(X>60) = 1 - \Phi(2) = 1 - 0.9772 = 0.0228 \approx 0.02$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qc7">
+    <div class="q-header">
+      <span class="q-num">Q7</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-ref">2024 Q56</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X \sim \text&#123;Uniform&#125;[1,3]$ and $Y \sim \text&#123;Uniform&#125;[2,4]$ are independent. Then $P(X \ge Y) =$ ___ (three decimals).</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q7-input" step="0.001" placeholder="0.000">
+      <span class="q-nat__label">three decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(7,0.120,0.130)">Check</button>
+      <div class="q-answer" id="q7-ans">
+        <b><span class="ans-correct">✓ 0.125.</span></b>
+        Joint density $= 1/4$ on $[1,3]\times[2,4]$. Region $x \ge y$ with $y \ge 2$: $x \in [2,3]$, $y \in [2,x]$. Area $= \int_2^3 (x-2)\,dx = [(x-2)^2/2]_2^3 = 1/2$. $P = (1/4)(1/2) = 1/8 = 0.125$.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="qc8">
+    <div class="q-header">
+      <span class="q-num">Q8</span>
+      <span class="q-type q-type--msq">MSQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">Which statements are TRUE for $X \sim \text&#123;Normal&#125;(\mu, \sigma^2)$? (Select all that apply.)</div>
+    <div class="q-options" id="q8-opts">
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="A"> <span class="q-opt-key">A</span> $(X-\mu)/\sigma \sim \text&#123;Normal&#125;(0,1)$.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="B"> <span class="q-opt-key">B</span> The sum of two independent normals is normal.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="C"> <span class="q-opt-key">C</span> For a normal, mean = median = mode.</label>
+      <label class="q-opt q-opt--msq"><input type="checkbox" data-q="8" data-val="D"> <span class="q-opt-key">D</span> $\Phi(-z) = \Phi(z)$.</label>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkMsq(8,['A','B','C'])">Check</button>
+      <div class="q-answer" id="q8-ans">
+        <b><span class="ans-correct">✓ (A), (B), (C).</span></b><br>
+        (D) is <span class="ans-wrong">False</span>: by symmetry, $\Phi(-z)=1-\Phi(z)$, not $\Phi(z)$. Example: $P(Z&lt;-2)=1-\Phi(2)=0.0228$, not $0.9772$. (A) standardisation, (B) closure under addition, (C) symmetry ↔ mean=median=mode — all standard.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-card" id="qc9">
+    <div class="q-header">
+      <span class="q-num">Q9</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X \sim \text&#123;Exponential&#125;$ with mean 4. The <strong>median</strong> of $X$ is ___ (two decimals). Use $\ln 2 \approx 0.693$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q9-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(9,2.74,2.80)">Check</button>
+      <div class="q-answer" id="q9-ans">
+        <b><span class="ans-correct">✓ 2.77.</span></b>
+        $\lambda=1/4$. Set $P(X\le m)=0.5$: $1-e^&#123;-m/4&#125;=0.5 \Rightarrow e^&#123;-m/4&#125;=0.5 \Rightarrow m=4\ln2\approx2.77$.
+        <br>General formula: median of $\text&#123;Exp&#125;(\lambda) = \ln2/\lambda$. Note median $&lt;$ mean ($4\ln2\approx2.77 &lt; 4$) — Exponential is right-skewed, so the mean is pulled above the median by the long tail.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-card" id="qc10">
+    <div class="q-header">
+      <span class="q-num">Q10</span>
+      <span class="q-type q-type--nat">NAT</span>
+      <span class="q-diff">★★★</span>
+      <span class="q-marks">2 marks · no negative</span>
+    </div>
+    <div class="q-body">$X \sim \text&#123;Normal&#125;(0, 9)$ and $Y \sim \text&#123;Normal&#125;(0, 16)$ are independent. Then $P(X+Y > 5) =$ ___ (two decimals). Use $\Phi(1)=0.8413$.</div>
+    <div class="q-nat">
+      <input type="number" class="q-nat__input" id="q10-input" step="0.01" placeholder="0.00">
+      <span class="q-nat__label">two decimal places</span>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="checkNat(10,0.14,0.18)">Check</button>
+      <div class="q-answer" id="q10-ans">
+        <b><span class="ans-correct">✓ 0.16.</span></b>
+        Independent normals add: $X+Y \sim \text&#123;Normal&#125;(0, 9+16) = \text&#123;Normal&#125;(0, 25)$, SD $= 5$. $z = (5-0)/5 = 1$; $P(X+Y>5) = 1-\Phi(1) = 0.1587 \approx 0.16$. <em>Note: variances add (not SDs).</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-card" id="qc11">
+    <div class="q-header">
+      <span class="q-num">Q11</span>
+      <span class="q-type">MCQ</span>
+      <span class="q-diff">★★</span>
+      <span class="q-marks">2 marks</span>
+    </div>
+    <div class="q-body">For $Z \sim N(0,1)$, $P(-1 \le Z \le 1)$ is closest to</div>
+    <div class="q-options" id="q11-opts">
+      <div class="q-opt" data-q="11" data-val="A" onclick="selectOpt(this)"><span class="q-opt-key">A</span> 0.95</div>
+      <div class="q-opt" data-q="11" data-val="B" onclick="selectOpt(this)"><span class="q-opt-key">B</span> 0.68</div>
+      <div class="q-opt" data-q="11" data-val="C" onclick="selectOpt(this)"><span class="q-opt-key">C</span> 0.50</div>
+      <div class="q-opt" data-q="11" data-val="D" onclick="selectOpt(this)"><span class="q-opt-key">D</span> 0.34</div>
+    </div>
+    <div class="q-footer">
+      <button class="q-check-btn" onclick="check(11,'mcq','B')">Check</button>
+      <div class="q-answer" id="q11-ans">
+        <b><span class="ans-correct">✓ (B) 0.68.</span></b>
+        $P(-1\le Z\le 1) = 2\Phi(1)-1 = 2(0.8413)-1 = 0.6826$ — the famous 68% rule. (A) 0.95 is the $\pm2\sigma$ range.
+      </div>
+    </div>
+  </div>
+
+</div><!-- end q-list -->
+
+<div class="gd-gate-box" style="margin-top:24px;">
+  <div class="gd-gate-box__title">Score interpretation</div>
+  <p><strong>9–11 correct:</strong> continuous distributions solid — advance to <a href="/module1/1-6-questions.html">1.6 Covariance &amp; Correlation</a>.</p>
+  <p><strong>6–8:</strong> Drill standardisation (Q6, Q10) and memorylessness (Q5); re-memorise $\Phi$ key values.</p>
+  <p><strong>&le;5:</strong> Re-read theory on normal and exponential — these form the backbone of modules 1.7–1.8.</p>
+</div>
+
+<a class="gd-pill-link" href="/module1/1-5-bank.html" style="margin-top:8px;">Question Bank (20 Qs) →</a>
+<a class="gd-pill-link" href="/module1/index.html" style="margin-top:8px;">Module 1 Overview →</a>
+
+<script is:inline slot="scripts">
+var scores={};
+function updateScore(){document.getElementById('score-num').textContent=Object.values(scores).filter(Boolean).length;}
+function selectOpt(el){var q=el.dataset.q;var card=document.getElementById('qc'+q);if(card.classList.contains('q-card--correct')||card.classList.contains('q-card--wrong'))return;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');});el.classList.add('q-opt--selected');}
+function check(q,type,correct){var card=document.getElementById('qc'+q);var selected=document.querySelector('[data-q="'+q+'"].q-opt--selected');var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');if(!selected)return;var val=selected.dataset.val;var isCorrect=val===correct;document.querySelectorAll('[data-q="'+q+'"].q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected');if(o.dataset.val===correct)o.classList.add('q-opt--correct');else if(o.dataset.val===val&&!isCorrect)o.classList.add('q-opt--wrong');o.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function checkNat(q,min,max){var input=document.getElementById('q'+q+'-input');var ansEl=document.getElementById('q'+q+'-ans');var card=document.getElementById('qc'+q);var btn=card.querySelector('.q-check-btn');var val=parseFloat(input.value);var isCorrect=!isNaN(val)&&val>=min&&val<=max;input.classList.add(isCorrect?'q-nat__input--correct':'q-nat__input--wrong');input.disabled=true;ansEl.style.display='block';btn.disabled=true;card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');scores[q]=isCorrect;updateScore();}
+function checkMsq(q,correctArr){var card=document.getElementById('qc'+q);var ansEl=document.getElementById('q'+q+'-ans');var btn=card.querySelector('.q-check-btn');var checked=Array.from(document.querySelectorAll('[data-q="'+q+'"]:checked')).map(function(c){return c.dataset.val;});var isCorrect=correctArr.length===checked.length&&correctArr.every(function(v){return checked.includes(v);});card.querySelectorAll('.q-opt--msq').forEach(function(label){var val=label.querySelector('input').dataset.val;if(correctArr.includes(val))label.classList.add('q-opt--correct');else if(checked.includes(val))label.classList.add('q-opt--wrong');label.querySelector('input').disabled=true;label.style.pointerEvents='none';});card.classList.add(isCorrect?'q-card--correct':'q-card--wrong');ansEl.style.display='block';btn.disabled=true;scores[q]=isCorrect;updateScore();}
+function resetAll(){scores={};updateScore();document.querySelectorAll('.q-card').forEach(function(c){c.classList.remove('q-card--correct','q-card--wrong');});document.querySelectorAll('.q-opt:not(.q-opt--msq)').forEach(function(o){o.classList.remove('q-opt--selected','q-opt--correct','q-opt--wrong');o.style.pointerEvents='';});document.querySelectorAll('.q-nat__input').forEach(function(i){i.value='';i.disabled=false;i.classList.remove('q-nat__input--correct','q-nat__input--wrong');});document.querySelectorAll('.q-opt--msq input').forEach(function(c){c.checked=false;c.disabled=false;});document.querySelectorAll('.q-opt--msq').forEach(function(l){l.classList.remove('q-opt--correct','q-opt--wrong');l.style.pointerEvents='';});document.querySelectorAll('.q-answer').forEach(function(a){a.style.display='none';});document.querySelectorAll('.q-check-btn').forEach(function(b){b.disabled=false;});}
+</script>
+</VizLayout>
